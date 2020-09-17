@@ -30,10 +30,10 @@ class Map {
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		];
 	}
-	hasWallAt(pixelX, pixelY) {
+	isSpaceAt(pixelX, pixelY) {
 		const gridX = Math.floor(pixelX / TILE_SIZE);
 		const gridY = Math.floor(pixelY / TILE_SIZE);
-		return this.grid[gridY][gridX] === 1 ? true : false;
+		return this.grid[gridY][gridX] === 0 ? true : false;
 	}
 	render() {
 		for (let y = 0; y < MAP_NUM_ROWS; y++) {
@@ -66,20 +66,18 @@ class	Player {
 
 		const moveStep = this.walkDirection * this.moveSpeed;
 
-		let newPlayerX = this.x + Math.cos(this.rotationAngle) * moveStep;
-		let newPlayerY = this.y + Math.sin(this.rotationAngle) * moveStep;
+		let newPlayerX = this.x;
+		let newPlayerY = this.y;
+		const moveX = Math.cos(this.rotationAngle) * moveStep;
+		const moveY = Math.sin(this.rotationAngle) * moveStep;
 
-		if (grid.hasWallAt(newPlayerX, this.y)) {
-			newPlayerX = this.x;
+		if (grid.isSpaceAt(this.x + moveX, this.y)) {
+			newPlayerX += moveX;
 		}
-		if (grid.hasWallAt(this.x, newPlayerY)) {
-			newPlayerY = this.y;
+		if (grid.isSpaceAt(this.x, this.y + moveY)) {
+			newPlayerY += moveY;
 		}
 		[this.x, this.y] = [newPlayerX, newPlayerY];
-		// if (grid.isSpaceAt(newPlayerX, newPlayerY)) {
-		// 	this.x = newPlayerX;
-		// 	this.y = newPlayerY;
-		// }
 	}
 	render() {
 		noStroke();
