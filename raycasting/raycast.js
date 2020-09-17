@@ -5,6 +5,11 @@ const MAP_NUM_COLS = 15;
 const WINDOW_WIDTH = MAP_NUM_COLS * TILE_SIZE;
 const WINDOW_HEIGHT = MAP_NUM_ROWS * TILE_SIZE;
 
+const FOV_ANGLE = 60 * (Math.PI / 180)
+
+const WALL_STRIP_WIDTH = 1;
+const NUM_RAYS = WINDOW_WIDTH / WALL_STRIP_WIDTH;
+
 const EDGE_COLOR = "#15d";
 const INNER_COLOR = "#d51";
 
@@ -31,6 +36,8 @@ class Map {
 		];
 	}
 	isSpaceAt(pixelX, pixelY) {
+		if (pixelX < 0 || pixelX > WINDOW_WIDTH || pixelY < 0 || pixelY > WINDOW_HEIGHT)
+			return false;
 		const gridX = Math.floor(pixelX / TILE_SIZE);
 		const gridY = Math.floor(pixelY / TILE_SIZE);
 		return this.grid[gridY][gridX] === 0 ? true : false;
@@ -64,12 +71,13 @@ class	Player {
 	update() {
 		this.rotationAngle += this.turnDirection * this.rotationSpeed;
 
-		const moveStep = this.walkDirection * this.moveSpeed;
+		const	moveStep = this.walkDirection * this.moveSpeed;
 
-		let newPlayerX = this.x;
-		let newPlayerY = this.y;
-		const moveX = Math.cos(this.rotationAngle) * moveStep;
-		const moveY = Math.sin(this.rotationAngle) * moveStep;
+		const	moveX = Math.cos(this.rotationAngle) * moveStep;
+		const	moveY = Math.sin(this.rotationAngle) * moveStep;
+
+		let		newPlayerX = this.x;
+		let		newPlayerY = this.y;
 
 		if (grid.isSpaceAt(this.x + moveX, this.y)) {
 			newPlayerX += moveX;
@@ -93,8 +101,24 @@ class	Player {
 	}
 }
 
-const grid = new Map();
-const player = new Player();
+class Ray {
+	constructor(rayAngle) {
+		this.rayAngle = rayAngle;
+	}
+	render() {
+		stroke("black");
+		line(
+			player.x,
+			player.y,
+			player.x + Math.cos(this.rayAngle) * 30,
+			player.y + Math.sin(this.rayAngle) * 30
+		);
+	}
+}
+
+const	grid = new Map();
+const	player = new Player();
+let		rays = [];
 
 function keyPressed() {
 	switch (keyCode) {
@@ -126,13 +150,34 @@ function keyReleased() {
 	}
 }
 
+function castAllRays() {
+	let columnId = 0;
+
+	// start first ray subtracting half of the FOV
+	let rayAngle = player.rotationAngle - (FOV_ANGLE / 2);
+
+	rays = [];
+
+	// loop all columns casting the rays
+	for (let i = 0; i < NUM_RAYS; i++) {
+		const ray = new Ray(rayAngle);
+		// ray.cast();...
+		rays.push(ray);
+
+		rayAngle += FOV_ANGLE / NUM_RAYS;
+
+		columnId++;
+	}
+
+}
+
 function setup() {
 	createCanvas(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 function update() {
 	player.update();
-	// console.log(player.turnDirection);
+	castAllRays();
 }
 
 function draw() {
