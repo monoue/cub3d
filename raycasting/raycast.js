@@ -5,14 +5,15 @@ const MAP_NUM_COLS = 15;
 const WINDOW_WIDTH = MAP_NUM_COLS * TILE_SIZE;
 const WINDOW_HEIGHT = MAP_NUM_ROWS * TILE_SIZE;
 
-const FOV_ANGLE = 60 * (Math.PI / 180)
+const FOV_ANGLE = 60 * (PI / 180)
 
-const WALL_STRIP_WIDTH = 1;
+const WALL_STRIP_WIDTH = 30;
 const NUM_RAYS = WINDOW_WIDTH / WALL_STRIP_WIDTH;
 
 const EDGE_COLOR = "#15d";
 const INNER_COLOR = "#d51";
 
+const PI = Math.PI
 const NEUTRAL = 0;
 const LEFT = -1;
 const RIGHT = 1;
@@ -63,9 +64,9 @@ class	Player {
 		this.radius = 3;
 		this.turnDirection = NEUTRAL;
 		this.walkDirection = NEUTRAL;
-		this.rotationAngle = Math.PI / 2;
+		this.rotationAngle = PI / 2;
 		this.moveSpeed = 2.0;
-		this.rotationSpeed = 2 * (Math.PI / 180);
+		this.rotationSpeed = 2 * (PI / 180);
 
 	}
 	update() {
@@ -91,7 +92,7 @@ class	Player {
 		noStroke();
 		fill("yellow");
 		circle(this.x, this.y, this.radius);
-		stroke("yellow");
+		stroke("rgba(55, 255, 255)");
 		line(
 			this.x,
 			this.y,
@@ -103,10 +104,45 @@ class	Player {
 
 class Ray {
 	constructor(rayAngle) {
-		this.rayAngle = rayAngle;
+		this.rayAngle = normalizeAngle(rayAngle);
+		this.wallHitX = 0;
+		this.wallHitY = 0;
+		this.distance = 0;
+
+		this.isRayFacingDown = this.rayAngle > 0 && this.rayAngle < PI;
+		this.isRayFacingUP = !this.isRayFacingDown;
+
+		this.isRayFacingRight = this.rayAngle < PI / 2 || this.rayAngle > PI * (3 / 2);
+		this.isRayFacingLeft = !this.isRayFacingRight;
+
+	}
+	cast(columnId) {
+		let xintercept, yintercept;
+		let xstep, ystep;
+
+		///////////////////////////////////////////
+		// HORIZONTAL RAY-GRID INTERSECTION CODE //
+		///////////////////////////////////////////
+
+		// Find the y-coordinate of the closest horizontal grid intersection
+		yintercept = Math.floor(player.y / TILE_SIZE) * TILE_SIZE;
+		if (this.isRayFacingDown)
+			yintercept += TILE_SIZE;
+		// yintercept += this.isRayFacingDown ? TILE_SIZE : 0;
+
+		// Find the x-coordinate of the closest horizontal grid intersection
+		xintercept = player.x + (yintercept - player.y) / Math.tan(this.rayAngle);
+		// xintercept = player.x + Math.floor((yintercept - player.y) / Math.tan(this.rayAngle));
+
+		// Calculate the increment xstep and y step
+		ystep = TILE_SIZE;
+		if (this.isRayFacingUP)
+			ystep *= -1;
+
+		xstep = TILE_SIZE / Math.tan(this.rayAngle);
 	}
 	render() {
-		stroke("black");
+		stroke("rgba(55, 255, 255, 0.3)");
 		line(
 			player.x,
 			player.y,
@@ -159,9 +195,10 @@ function castAllRays() {
 	rays = [];
 
 	// loop all columns casting the rays
-	for (let i = 0; i < NUM_RAYS; i++) {
+	// for (let i = 0; i < NUM_RAYS; i++) {
+	for (let i = 0; i < 1; i++) {
 		const ray = new Ray(rayAngle);
-		// ray.cast();...
+		ray.cast(columnId);
 		rays.push(ray);
 
 		rayAngle += FOV_ANGLE / NUM_RAYS;
@@ -169,6 +206,17 @@ function castAllRays() {
 		columnId++;
 	}
 
+}
+
+function normalizeAngle(angle) {
+	let normalAngle;
+
+	normalAngle = angle;
+	while (normalAngle < 0)
+		normalAngle += 2 * PI;
+	if (normalAngle > 2 * PI)
+		normalAngle %= (2 * PI);
+	return (normalAngle);
 }
 
 function setup() {
@@ -184,5 +232,8 @@ function draw() {
 	update();
 
 	grid.render();
+	for (ray of rays) {
+		ray.render();
+	}
 	player.render();
 }
