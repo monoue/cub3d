@@ -124,15 +124,24 @@ class Ray {
 
 	}
 	cast(columnId) {
-		let xintercept, yintercept;
-		let xstep, ystep;
+		// let xintercept, yintercept;
+		// let xstep, ystep;
 
-		///////////////////////////////////////////
-		// HORIZONTAL RAY-GRID INTERSECTION CODE //
-		///////////////////////////////////////////
-		let foundHorzWallHit = false;
-		let	horzWallHitX = 0;
-		let	horzWallHitY = 0;
+		// ///////////////////////////////////////////
+		// // HORIZONTAL RAY-GRID INTERSECTION CODE //
+		// ///////////////////////////////////////////
+		// let foundHorzWallHit = false;
+		// let	horzWallHitX = 0;
+		// let	horzWallHitY = 0;
+        var xintercept, yintercept;
+        var xstep, ystep;
+
+        ///////////////////////////////////////////
+        // HORIZONTAL RAY-GRID INTERSECTION CODE
+        ///////////////////////////////////////////
+        var foundHorzWallHit = false;
+        var horzWallHitX = 0;
+        var horzWallHitY = 0;
 
 		// Find the y-coordinate of the closest horizontal grid intersection
 		yintercept = Math.floor(player.y / TILE_SIZE) * TILE_SIZE;
@@ -157,8 +166,7 @@ class Ray {
 
 		// increment xstep and ystep until we find a wall
 		while (!isOutOfWindow(nextHorzTouchX, nextHorzTouchY)) {
-			// if (grid.hasWallAt(nextHorzTouchX, nextHorzTouchY - this.isRayFacingUp ? 1 : 0)) {
-			if (grid.hasWallAt(nextHorzTouchX, nextHorzTouchY - (this.isRayFacingUp) ? 1 : 0)) {
+			if (grid.hasWallAt(nextHorzTouchX, nextHorzTouchY - (this.isRayFacingUp ? 1 : 0))) {
 				foundHorzWallHit = true;
 				horzWallHitX = nextHorzTouchX;
 				horzWallHitY = nextHorzTouchY;
@@ -199,7 +207,7 @@ class Ray {
 		// increment xstep and ystep until we find a wall
 		while (!isOutOfWindow(nextVertTouchX, nextVertTouchY)) {
 			// if (grid.hasWallAt(nextVertTouchX - this.isRayFacingLeft ? 1 : 0, nextVertTouchY)) {
-			if (grid.hasWallAt(nextVertTouchX - (this.isRayFacingLeft) ? 1 : 0, nextVertTouchY)) {
+			if (grid.hasWallAt(nextVertTouchX - (this.isRayFacingLeft ? 1 : 0), nextVertTouchY)) {
 				foundVertWallHit = true;
 				vertWallHitX = nextVertTouchX;
 				vertWallHitY = nextVertTouchY;
