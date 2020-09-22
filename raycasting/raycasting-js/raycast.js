@@ -25,14 +25,14 @@ class Map {
 	constructor() {
 		this.grid = [
 			[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-            [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
-            [1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1],
+            [1, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 4, 0, 1],
+            [1, 2, 2, 2, 0, 0, 0, 0, 0, 0, 4, 0, 4, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 4, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1],
+            [1, 2, 2, 2, 2, 2, 0, 0, 0, 3, 3, 3, 3, 0, 1],
             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		];
@@ -51,6 +51,24 @@ class Map {
 		const gridY = Math.floor(pixelY / TILE_SIZE);
 		return this.grid[gridY][gridX] === 1 ? true : false;
 	}
+	getColorOfGridNum(gridNum) {
+		switch (gridNum) {
+			case 1:
+				return ("blue");
+			case 2:
+				return ("red");
+			case 3:
+				return ("yellow");
+			case 4:
+				return ("green");
+		}
+	}
+	getWallColorAt(pixelX, pixelY) {
+		const gridX = Math.floor(pixelX / TILE_SIZE);
+		const gridY = Math.floor(pixelY / TILE_SIZE);
+		return this.getColorOfGridNum(this.grid[gridY][gridX]);
+	}
+
 	render() {
 		for (let y = 0; y < MAP_NUM_ROWS; y++) {
 			for (let x = 0; x < MAP_NUM_COLS; x++) {
@@ -125,6 +143,7 @@ class Ray {
 		this.wallHitX = 0;
 		this.wallHitY = 0;
 		this.distance = 0;
+		this.gridColor = "white";
 		this.wasHitVertical = false;
 
 		this.isRayFacingDown = this.rayAngle > 0 && this.rayAngle < Math.PI;
@@ -135,24 +154,20 @@ class Ray {
 
 	}
 	cast() {
-		// let xintercept, yintercept;
-		// let xstep, ystep;
+		let xintercept, yintercept;
+		let xstep, ystep;
 
 		// ///////////////////////////////////////////
 		// // HORIZONTAL RAY-GRID INTERSECTION CODE //
 		// ///////////////////////////////////////////
-		// let foundHorzWallHit = false;
-		// let	horzWallHitX = 0;
-		// let	horzWallHitY = 0;
-        var xintercept, yintercept;
-        var xstep, ystep;
+		let foundHorzWallHit = false;
+		let	horzWallHitX = 0;
+		let	horzWallHitY = 0;
+		let horzGridColor = "white";
 
         ///////////////////////////////////////////
         // HORIZONTAL RAY-GRID INTERSECTION CODE
         ///////////////////////////////////////////
-        var foundHorzWallHit = false;
-        var horzWallHitX = 0;
-        var horzWallHitY = 0;
 
 		// Find the y-coordinate of the closest horizontal grid intersection
 		yintercept = Math.floor(player.y / TILE_SIZE) * TILE_SIZE;
@@ -181,6 +196,7 @@ class Ray {
 				foundHorzWallHit = true;
 				horzWallHitX = nextHorzTouchX;
 				horzWallHitY = nextHorzTouchY;
+				horzGridColor = grid.getWallColorAt(horzWallHitX, horzWallHitY);
 				break;
 			}
 			nextHorzTouchX += xstep;
@@ -193,6 +209,7 @@ class Ray {
 		let foundVertWallHit = false;
 		let	vertWallHitX = 0;
 		let	vertWallHitY = 0;
+		let vertGridColor = "white";
 
 		// Find the x-coordinate of the closest vertical grid intersection
 		xintercept = Math.floor(player.x / TILE_SIZE) * TILE_SIZE;
@@ -222,6 +239,7 @@ class Ray {
 				foundVertWallHit = true;
 				vertWallHitX = nextVertTouchX;
 				vertWallHitY = nextVertTouchY;
+				horzGridColor = grid.getWallColorAt(horzWallHitX, horzWallHitY);
 				break;
 			}
 			nextVertTouchX += xstep;
@@ -234,9 +252,12 @@ class Ray {
 		const vertHitDistance = (foundVertWallHit)
 			? distanceBetweenPoints(player.x, player.y, vertWallHitX, vertWallHitY)
 			: Number.MAX_VALUE;
-		[this.wallHitX, this.wallHitY, this.distance, this.wasHitVertical] = horzHitDistance < vertHitDistance
-			? [horzWallHitX, horzWallHitY, horzHitDistance, false]
-			: [vertWallHitX, vertWallHitY, vertHitDistance, true];
+		[this.wallHitX, this.wallHitY, this.distance, this.wasHitVertical, this.gridColor] = horzHitDistance < vertHitDistance
+			? [horzWallHitX, horzWallHitY, horzHitDistance, false, horzGridColor]
+			: [vertWallHitX, vertWallHitY, vertHitDistance, true, vertGridColor];
+		// [this.wallHitX, this.wallHitY, this.distance, this.wasHitVertical] = horzHitDistance < vertHitDistance
+		// 	? [horzWallHitX, horzWallHitY, horzHitDistance, false]
+		// 	: [vertWallHitX, vertWallHitY, vertHitDistance, true];
 
 
 	}
@@ -318,9 +339,11 @@ function render3DProjectedWalls() {
 		const wallStripHeight = (TILE_SIZE / correctWallDistance) * distanceProjectionPlane;
 		const alpha = 170.0 / correctWallDistance;
 
-		const color = ray.wasHitVertical ? 255 : 180;
+		// const color = ray.wasHitVertical ? 255 : 180;
+		const color = ray.gridColor;
 
-		fill("rgba(" + color + ", " + color + ", " + color + ", " + alpha + ")");
+		// fill("rgba(" + color + ", " + color + ", " + color + ", " + alpha + ")");
+		fill(color);
 		noStroke();
 		rect(
 			i * WALL_STRIP_WIDTH,
