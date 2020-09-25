@@ -279,7 +279,7 @@ void	castRay(float originalRayAngle, int stripId)
 			foundHorzWallHit = true;
 			horzWallHitX = nextHorzTouchX;
 			horzWallHitY = nextHorzTouchY;
-			horzWallContent = map[(int)floor(horzWallHitY)][(int)floor(horzWallHitX)];
+			horzWallContent = map[(int)floor(yToCheck)][(int)floor(xToCheck)];
 			break;
 		}
 		nextHorzTouchX += xstep;
@@ -329,7 +329,7 @@ void	castRay(float originalRayAngle, int stripId)
 			foundVertWallHit = true;
 			vertWallHitX = nextVertTouchX;
 			vertWallHitY = nextVertTouchY;
-			vertWallContent = map[(int)floor(vertWallHitY)][(int)floor(vertWallHitX)];
+			vertWallContent = map[(int)floor(xToCheck)][(int)floor(yToCheck)];
 			break;
 		}
 		nextVertTouchX += xstep;
@@ -446,7 +446,7 @@ void	render()
 	// TODO:
 	// Render game objects here.
 	renderMap();
-	// renderRays();
+	renderRays();
 	renderPlayer();
 	SDL_RenderPresent(renderer);
 }
