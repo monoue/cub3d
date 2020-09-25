@@ -16,18 +16,6 @@ const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
-// typedef struct	s_player {
-// 	float	x;
-// 	float	y;
-// 	float	width;
-// 	float	height;
-// 	int		turnDirection;
-// 	int		walkDirection;
-// 	float	rotationAngle;
-// 	float	walkSpeed;
-// 	float	turnSpeed;
-// }				t_player;
-
 struct	Player {
 	float	x;
 	float	y;
@@ -56,7 +44,7 @@ struct	Ray {
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 int	isGameRunning = false;
-int	ticksLastFrame = 0;
+int	ticksLastFrame;
 
 bool	initializeWindow()
 {
@@ -99,10 +87,6 @@ void	setup()
 	player.rotationAngle = PI / 2;
 	player.walkSpeed = 100;
 	player.turnSpeed = 45 * (PI / 180);
-	int		walkDirection;
-	float	rotationAngle;
-	float	walkSpeed;
-	float	turnSpeed;
 }
 
 void	processInput()
@@ -196,7 +180,7 @@ void	renderPlayer()
 		player.x * MINIMAP_SCALE_FACTOR,
 		player.y * MINIMAP_SCALE_FACTOR,
 		player.width * MINIMAP_SCALE_FACTOR,
-		player.height  * MINIMAP_SCALE_FACTOR
+		player.height * MINIMAP_SCALE_FACTOR
 	};
 	SDL_RenderFillRect(renderer, &playerRect);
 	SDL_RenderDrawLine(
@@ -227,7 +211,7 @@ void	castRay(float originalRayAngle, int stripId)
 
 	bool	isRayFacingDown = (rayAngle > 0 && rayAngle < PI);
 	bool	isRayFacingUp = !isRayFacingDown;
-	bool	isRayFacingRight = ((rayAngle < PI / 2.0) || (rayAngle > PI * (3 / 2)));
+	bool	isRayFacingRight = ((rayAngle < 0.5 * PI) || (rayAngle > 1.5 * PI));
 	bool	isRayFacingLeft = !isRayFacingRight;
 
 	// TODO: All that crazy logic for horz, vert, ...
@@ -279,7 +263,7 @@ void	castRay(float originalRayAngle, int stripId)
 			foundHorzWallHit = true;
 			horzWallHitX = nextHorzTouchX;
 			horzWallHitY = nextHorzTouchY;
-			horzWallContent = map[(int)floor(yToCheck)][(int)floor(xToCheck)];
+			horzWallContent = map[(int)floor(yToCheck / TILE_SIZE)][(int)floor(xToCheck / TILE_SIZE)];
 			break;
 		}
 		nextHorzTouchX += xstep;
@@ -329,7 +313,7 @@ void	castRay(float originalRayAngle, int stripId)
 			foundVertWallHit = true;
 			vertWallHitX = nextVertTouchX;
 			vertWallHitY = nextVertTouchY;
-			vertWallContent = map[(int)floor(xToCheck)][(int)floor(yToCheck)];
+			vertWallContent = map[(int)floor(xToCheck / TILE_SIZE)][(int)floor(yToCheck / TILE_SIZE)];
 			break;
 		}
 		nextVertTouchX += xstep;
