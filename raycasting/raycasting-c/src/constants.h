@@ -2,6 +2,7 @@
 # define CONSTANTS_H
 
 # include <SDL2/SDL.h>
+# include <math.h>
 # include "./ft_printf/ft_printf.h"
 # include "./ft_printf/libft/libft.h"
 
