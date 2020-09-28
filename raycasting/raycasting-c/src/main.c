@@ -98,10 +98,16 @@ void	setup()
 	colorBufferTexture = SDL_CreateTexture(
 		renderer,
 		SDL_PIXELFORMAT_ARGB8888,
+		SDL_TEXTUREACCESS_STREAMING,
 		WINDOW_WIDTH,
 		WINDOW_HEIGHT
 	);
 }
+
+// ここまだ未解決
+SDL_UpdateTexture(colorBufferTexture, NULL, colorBuffer, (int) ((Uint32) WINDOW_WIDTH * sizeof(Uint32)));
+
+SDL_RenderCopy(renderer, colorBufferTexture, NULL, NULL);
 
 void	processInput()
 {

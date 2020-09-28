@@ -1,9 +1,11 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
-# include <SDL2/SDL.h>
+# include </Users/monoue/homebrew/Cellar/sdl2/2.0.12_1/include/SDL2/SDL.h>
 # include <math.h>
 # include <limits.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include "./ft_printf/ft_printf.h"
 # include "./ft_printf/libft/libft.h"
 
