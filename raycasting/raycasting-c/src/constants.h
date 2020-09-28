@@ -3,6 +3,7 @@
 
 # include <SDL2/SDL.h>
 # include <math.h>
+# include <limits.h>
 # include "./ft_printf/ft_printf.h"
 # include "./ft_printf/libft/libft.h"
 

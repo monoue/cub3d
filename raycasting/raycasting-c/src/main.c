@@ -196,10 +196,9 @@ float	normalizeAngle(float originalAngle)
 {
 	float	normalAngle;
 
-	normalAngle = originalAngle;
-	while (normalAngle < 0)
+	normalAngle = remainder(originalAngle, TWO_PI);
+	if (normalAngle < 0)
 		normalAngle += TWO_PI;
-	normalAngle = remainder(normalAngle, TWO_PI);
 	return (normalAngle);
 }
 
@@ -284,7 +283,6 @@ void	castRay(float originalRayAngle, int stripId)
 	xintercept = floor(player.x / TILE_SIZE) * TILE_SIZE;
 	if (isRayFacingRight)
 		xintercept += TILE_SIZE;
-
 	// Find the y-coordinate of the closest vertical grid intersection
 	yintercept = player.y + (xintercept - player.x) * tan(rayAngle);
 
@@ -299,7 +297,7 @@ void	castRay(float originalRayAngle, int stripId)
 	float	nextVertTouchY = yintercept;
 
 	// increment xstep and ystep until we find a wall
-	while (!isOutOfWindow(nextHorzTouchX, nextHorzTouchY))
+	while (!isOutOfWindow(nextVertTouchX, nextVertTouchY))
 	{
 		float	xToCheck;
 		float	yToCheck;
@@ -310,10 +308,10 @@ void	castRay(float originalRayAngle, int stripId)
 			xToCheck--;
 		if (mapHasWallAt(xToCheck, yToCheck))
 		{
-			foundVertWallHit = true;
 			vertWallHitX = nextVertTouchX;
 			vertWallHitY = nextVertTouchY;
-			vertWallContent = map[(int)floor(xToCheck / TILE_SIZE)][(int)floor(yToCheck / TILE_SIZE)];
+			vertWallContent = map[(int)floor(yToCheck / TILE_SIZE)][(int)floor(xToCheck / TILE_SIZE)];
+			foundVertWallHit = true;
 			break;
 		}
 		nextVertTouchX += xstep;
@@ -321,31 +319,31 @@ void	castRay(float originalRayAngle, int stripId)
 	}
 	const float	horzHitDistance = (foundHorzWallHit)
 		? distanceBetweenPoints(player.x, player.y, horzWallHitX, horzWallHitY)
-		: MAXFLOAT;
+		: FLT_MAX;
 	const float	vertHitDistance = (foundVertWallHit)
 		? distanceBetweenPoints(player.x, player.y, vertWallHitX, vertWallHitY)
-		: MAXFLOAT;
+		: FLT_MAX;
 	if (vertHitDistance < horzHitDistance)
 	{
+		rays[stripId].distance = vertHitDistance;
 		rays[stripId].wallHitX = vertWallHitX;
 		rays[stripId].wallHitY = vertWallHitY;
-		rays[stripId].distance = vertHitDistance;
-		rays[stripId].wasHitVertical = true;
 		rays[stripId].wallHitContent = vertWallContent;
+		rays[stripId].wasHitVertical = true;
 	}
 	else
 	{
+		rays[stripId].distance = horzHitDistance;
 		rays[stripId].wallHitX = horzWallHitX;
 		rays[stripId].wallHitY = horzWallHitY;
-		rays[stripId].distance = horzHitDistance;
-		rays[stripId].wasHitVertical = false;
 		rays[stripId].wallHitContent = horzWallContent;
+		rays[stripId].wasHitVertical = false;
 	}
 	rays[stripId].rayAngle = rayAngle;
 	rays[stripId].isRayFacingDown = isRayFacingDown;
 	rays[stripId].isRayFacingUp = isRayFacingUp;
-	rays[stripId].isRayFacingRight = isRayFacingRight;
 	rays[stripId].isRayFacingLeft = isRayFacingLeft;
+	rays[stripId].isRayFacingRight = isRayFacingRight;
 }
 
 void	castAllRays()
