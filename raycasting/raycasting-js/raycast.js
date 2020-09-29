@@ -337,7 +337,7 @@ function render3DProjectedWalls() {
 
 		// projected wall height
 		const wallStripHeight = (TILE_SIZE / correctWallDistance) * distanceProjectionPlane;
-		const alpha = 170.0 / correctWallDistance;
+		// const alpha = 170.0 / correctWallDistance;
 
 		// const color = ray.wasHitVertical ? 255 : 180;
 		const color = ray.gridColor;

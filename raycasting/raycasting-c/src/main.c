@@ -41,14 +41,16 @@ struct	Ray {
 	int		wallHitContent;
 }		rays[NUM_RAYS];
 
-SDL_Window* window = NULL;
-SDL_Renderer* renderer = NULL;
-int	isGameRunning = false;
-int	ticksLastFrame;
+SDL_Window		*window = NULL;
+SDL_Renderer	*renderer = NULL;
+int				isGameRunning = false;
+int				ticksLastFrame;
 
-Uint32*	colorBuffer = NULL;
+Uint32			*colorBuffer = NULL;
 
-SDL_Texture* colorBufferTexture;
+SDL_Texture		*colorBufferTexture;
+
+Uint32			*wallTexture = NULL;
 
 bool	initializeWindow()
 {
@@ -75,6 +77,8 @@ bool	initializeWindow()
 
 void	destroyWindow()
 {
+	free(colorBuffer);
+	SDL_DestroyTexture(colorBufferTexture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -92,7 +96,7 @@ void	setup()
 	player.walkSpeed = 100;
 	player.turnSpeed = 45 * (PI / 180);
 
-	colorBuffer = malloc(sizeof(Uint32) * WINDOW_WIDTH * WINDOW_HEIGHT);
+	colorBuffer = malloc(sizeof(Uint32) * (Uint32)WINDOW_WIDTH * (Uint32)WINDOW_HEIGHT);
 
 	//	create an SDL Texture to display the colorbuffer
 	colorBufferTexture = SDL_CreateTexture(
@@ -102,59 +106,15 @@ void	setup()
 		WINDOW_WIDTH,
 		WINDOW_HEIGHT
 	);
+
+	wallTexture = malloc(TEXTURE_WIDTH * TEXTURE_HEIGHT);
 }
 
-// ここまだ未解決
-SDL_UpdateTexture(colorBufferTexture, NULL, colorBuffer, (int) ((Uint32) WINDOW_WIDTH * sizeof(Uint32)));
-
-SDL_RenderCopy(renderer, colorBufferTexture, NULL, NULL);
-
-void	processInput()
-{
-	SDL_Event event;
-
-	SDL_PollEvent(&event);
-	switch (event.type)
-	{
-		case SDL_QUIT:
-			isGameRunning = false;
-			break ;
-		case SDL_KEYDOWN:
-			if (event.key.keysym.sym == SDLK_ESCAPE)
-				isGameRunning = false;
-			if (event.key.keysym.sym == SDLK_UP)
-				player.walkDirection = FRONT;
-			if (event.key.keysym.sym == SDLK_DOWN)
-				player.walkDirection = BACK;
-			if (event.key.keysym.sym == SDLK_LEFT)
-				player.turnDirection = LEFT;
-			if (event.key.keysym.sym == SDLK_RIGHT)
-				player.turnDirection = RIGHT;
-			break ;
-		case SDL_KEYUP:
-			if (event.key.keysym.sym == SDLK_UP)
-				player.walkDirection = NEUTRAL;
-			if (event.key.keysym.sym == SDLK_DOWN)
-				player.walkDirection = NEUTRAL;
-			if (event.key.keysym.sym == SDLK_LEFT)
-				player.turnDirection = NEUTRAL;
-			if (event.key.keysym.sym == SDLK_RIGHT)
-				player.turnDirection = NEUTRAL;
-			break ;
-	}
-}
 bool	isOutOfWindow(const float x, const float y)
 {
 	return (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT);
 }
 
-float	distanceBetweenPoints(float x1, float y1, float x2, float y2)
-{
-	const float	x_diff = x2 - x1;
-	const float	y_diff = y2 - y1;
-
-	return (sqrt(pow(x_diff, 2) + pow(y_diff, 2)));
-}
 
 bool	isSpaceAt(const float pixelX, const float pixelY) {
 	if (isOutOfWindow(pixelX, pixelY))
@@ -220,6 +180,14 @@ float	normalizeAngle(float originalAngle)
 	if (normalAngle < 0)
 		normalAngle += TWO_PI;
 	return (normalAngle);
+}
+
+float	distanceBetweenPoints(float x1, float y1, float x2, float y2)
+{
+	const float	x_diff = x2 - x1;
+	const float	y_diff = y2 - y1;
+
+	return (sqrt(pow(x_diff, 2) + pow(y_diff, 2)));
 }
 
 void	castRay(float originalRayAngle, int stripId)
@@ -419,6 +387,41 @@ void	renderRays()
 	}
 }
 
+void	processInput()
+{
+	SDL_Event event;
+
+	SDL_PollEvent(&event);
+	switch (event.type)
+	{
+		case SDL_QUIT:
+			isGameRunning = false;
+			break ;
+		case SDL_KEYDOWN:
+			if (event.key.keysym.sym == SDLK_ESCAPE)
+				isGameRunning = false;
+			if (event.key.keysym.sym == SDLK_UP)
+				player.walkDirection = FRONT;
+			if (event.key.keysym.sym == SDLK_DOWN)
+				player.walkDirection = BACK;
+			if (event.key.keysym.sym == SDLK_LEFT)
+				player.turnDirection = LEFT;
+			if (event.key.keysym.sym == SDLK_RIGHT)
+				player.turnDirection = RIGHT;
+			break ;
+		case SDL_KEYUP:
+			if (event.key.keysym.sym == SDLK_UP)
+				player.walkDirection = NEUTRAL;
+			if (event.key.keysym.sym == SDLK_DOWN)
+				player.walkDirection = NEUTRAL;
+			if (event.key.keysym.sym == SDLK_LEFT)
+				player.turnDirection = NEUTRAL;
+			if (event.key.keysym.sym == SDLK_RIGHT)
+				player.turnDirection = NEUTRAL;
+			break ;
+	}
+}
+
 void	update()
 {
 	// Compute how long we have until the reach the target frame time in milliseconds
@@ -441,6 +444,55 @@ void	update()
 	castAllRays();
 }
 
+void	generate3DProjection()
+{
+	int		ray_i;
+	int		wallStripHeight;
+	float	distanceProjPlane;
+	float	projectedWallHeight;
+	int		wallTopPixel;
+	int		wallBottomPixel;
+	int		y;
+	float	correctDistance;
+
+	ray_i = 0;
+	while (ray_i < NUM_RAYS)
+	// movie 52 7:04 から
+	{
+		correctDistance = rays[ray_i].distance * cos(rays[ray_i].rayAngle - player.rotationAngle);
+		distanceProjPlane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
+		// 三角形の相似で縮小。TILE_SIZE は、実際の壁の高さ。
+		projectedWallHeight = (TILE_SIZE / correctDistance) * distanceProjPlane;
+		wallStripHeight = (int)projectedWallHeight;
+		wallTopPixel = (WINDOW_HEIGHT / 2) - (wallStripHeight / 2);
+		if (wallTopPixel < 0)
+			wallTopPixel = 0;
+		wallBottomPixel = (WINDOW_HEIGHT / 2) + (wallStripHeight / 2);
+		if (wallTopPixel > WINDOW_HEIGHT)
+			wallTopPixel = WINDOW_HEIGHT;
+		y = 0;
+		while (y < wallTopPixel)
+		{
+			colorBuffer[(WINDOW_WIDTH * y) + ray_i] = 0xFF333333;
+			y++;
+		}
+		// y = wallTopPixel;
+		while (y < wallBottomPixel)
+		{
+			colorBuffer[(WINDOW_WIDTH * y) + ray_i] = rays[ray_i].wasHitVertical ? 0xFFFFFFFF : 0xFFCCCCCC;
+			y++;
+		}
+		while (y < WINDOW_HEIGHT)
+		{
+			colorBuffer[(WINDOW_WIDTH * y) + ray_i] = 0xFF000000;
+			y++;
+		}
+
+		ray_i++;
+	}
+
+}
+
 void	clearColorBuffer(Uint32 color)
 {
 	int	y;
@@ -452,11 +504,26 @@ void	clearColorBuffer(Uint32 color)
 		x = 0;
 		while (x < WINDOW_WIDTH)
 		{
-			colorBuffer[WINDOW_WIDTH * y + x] = color;
+			// colorBuffer[WINDOW_WIDTH * y + x] = (y > WINDOW_HEIGHT / 2) ? 0xFF000088 : 0xFF008800;
+			colorBuffer[WINDOW_WIDTH * y + x] = 0xFF000088;
 			x++;
 		}
 		y++;
 	}
+}
+
+void	renderColorBuffer()
+{
+	// second parameter -> the rectangle I want to update. This time, entire -> null
+	SDL_UpdateTexture
+	(
+		colorBufferTexture,
+		NULL,
+		colorBuffer,
+		(int)((Uint32)WINDOW_WIDTH * sizeof(Uint32))
+	);
+	//	from NULL to NULL -> the entire texture
+	SDL_RenderCopy(renderer, colorBufferTexture, NULL, NULL);
 }
 
 void	render()
@@ -464,7 +531,10 @@ void	render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
 
+	generate3DProjection();
+
 	//	clear the color buffer
+	renderColorBuffer();
 	clearColorBuffer(0xFF000000);
 
 	//	display the minimap

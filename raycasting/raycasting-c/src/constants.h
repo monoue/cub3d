@@ -1,11 +1,9 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
-# include </Users/monoue/homebrew/Cellar/sdl2/2.0.12_1/include/SDL2/SDL.h>
+# include <SDL2/SDL.h>
 # include <math.h>
 # include <limits.h>
-# include <unistd.h>
-# include <stdlib.h>
 # include "./ft_printf/ft_printf.h"
 # include "./ft_printf/libft/libft.h"
 
@@ -25,7 +23,10 @@
 # define MAP_NUM_ROWS 13
 # define MAP_NUM_COLS 20
 
-# define MINIMAP_SCALE_FACTOR 1.0
+# define TEXTURE_WIDTH 64
+# define TEXTURE_HEIGHT 64
+
+# define MINIMAP_SCALE_FACTOR 0.2
 
 # define EDGE_COLOR 255
 # define INNER_COLOR 0
