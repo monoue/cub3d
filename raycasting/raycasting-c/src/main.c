@@ -1,4 +1,5 @@
 #include "constants.h"
+#include "textures.h"
 
 const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1},
@@ -15,20 +16,6 @@ const int map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 5, 5}
 };
-
-typedef enum	e_textures
-{
-	REDBRICK,
-	PURPLESTONE,
-	MOSSYSTONE,
-	GRAYSTONE,
-	COLORSTONE,
-	BLUESTONE,
-	WOOD,
-	EAGLE,
-
-	NUM_TEXTURES
-}				t_textures;
 
 struct	Player {
 	float	x;
@@ -91,6 +78,7 @@ bool	initializeWindow()
 
 void	destroyWindow()
 {
+	freeWallTextures();
 	free(colorBuffer);
 	SDL_DestroyTexture(colorBufferTexture);
 	SDL_DestroyRenderer(renderer);
@@ -117,20 +105,13 @@ void	setup()
 	//	create an SDL Texture to display the colorbuffer
 	colorBufferTexture = SDL_CreateTexture(
 		renderer,
-		SDL_PIXELFORMAT_ARGB8888,
+		SDL_PIXELFORMAT_RGBA32,
 		SDL_TEXTUREACCESS_STREAMING,
 		WINDOW_WIDTH,
 		WINDOW_HEIGHT
 	);
-
-	textures[REDBRICK] = (uint32_t*)REDBRICK_TEXTURE;
-	textures[PURPLESTONE] = (uint32_t*)PURPLESTONE_TEXTURE;
-	textures[MOSSYSTONE] = (uint32_t*)MOSSYSTONE_TEXTURE;
-	textures[GRAYSTONE] = (uint32_t*)GRAYSTONE_TEXTURE;
-	textures[COLORSTONE] = (uint32_t*)COLORSTONE_TEXTURE;
-	textures[BLUESTONE] = (uint32_t*)BLUESTONE_TEXTURE;
-	textures[WOOD] = (uint32_t*)WOOD_TEXTURE;
-	textures[EAGLE] = (uint32_t*)EAGLE_TEXTURE;
+	// Asks uPNG library to decode all PNG files and loads the wallTextures array
+	loadWallTextures();
 }
 
 bool	isOutOfWindow(const float x, const float y)
@@ -481,6 +462,8 @@ void	generate3DProjection()
 	int		textureOffsetY;
 	uint32_t	texelColor;
 	int		distanceFromTop;
+	int		texture_width;
+	int		texture_height;
 
 	ray_i = 0;
 	while (ray_i < NUM_RAYS)
@@ -512,14 +495,17 @@ void	generate3DProjection()
 		int	texNum;
 
 		texNum =  rays[ray_i].wallHitContent - 1;
+		texture_width = wallTextures[texNum].width;
+		texture_height = wallTextures[texNum].height;
 
 		while (y < wallBottomPixel)
 		{
 			distanceFromTop = y + (wallStripHeight / 2) - (WINDOW_HEIGHT / 2);
-			textureOffsetY = distanceFromTop * ((float)TEXTURE_HEIGHT / wallStripHeight);
+			textureOffsetY = distanceFromTop * ((float)texture_height / wallStripHeight);
 
 			// set the color of the wall based on the color from the texture
-			texelColor = textures[texNum][(TEXTURE_WIDTH * textureOffsetY) + textureOffsetX];
+			texelColor = wallTextures[texNum].texture_buffer[(texture_width * textureOffsetY) + textureOffsetX];
+			// texelColor = textures[texNum][(texture_width * textureOffsetY) + textureOffsetX];
 			colorBuffer[(WINDOW_WIDTH * y) + ray_i] = texelColor;
 			y++;
 		}
