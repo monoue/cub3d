@@ -1,9 +1,8 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
-// #include <SDL2/SDL.h>
-# include <SDL2/SDL.h>
-// # include </Users/monoue/homebrew/include/SDL2/SDL.h>
+// # include <SDL2/SDL.h>
+# include </Users/monoue/homebrew/include/SDL2/SDL.h>
 # include <math.h>
 # include <limits.h>
 # include <stdint.h>
@@ -35,8 +34,10 @@
 # define EDGE_COLOR 255
 # define INNER_COLOR 0
 
-# define WINDOW_WIDTH (MAP_NUM_COLS * TILE_SIZE)
-# define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
+# define WINDOW_WIDTH 512
+# define WINDOW_HEIGHT 288
+
+# define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
 
 # define FOV_ANGLE (60 * (PI / 180))
 

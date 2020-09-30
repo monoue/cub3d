@@ -35,23 +35,17 @@ struct	Ray {
 	float	wallHitY;
 	float	distance;
 	bool	wasHitVertical;
-	bool	isRayFacingUp;
-	bool	isRayFacingDown;
-	bool	isRayFacingLeft;
-	bool	isRayFacingRight;
 	int		wallHitContent;
 }		rays[NUM_RAYS];
 
 SDL_Window		*window = NULL;
 SDL_Renderer	*renderer = NULL;
-int				isGameRunning = false;
+bool			isGameRunning = false;
 int				ticksLastFrame;
 
 uint32_t			*colorBuffer = NULL;
 
 SDL_Texture		*colorBufferTexture;
-
-uint32_t			*textures[NUM_TEXTURES];
 
 bool	initializeWindow()
 {
@@ -60,7 +54,14 @@ bool	initializeWindow()
 		ft_putstr_fd("Error initializing SDL.\n", STDERR_FILENO);
 		return (false);
 	}
-	window = SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_BORDERLESS);
+
+	SDL_DisplayMode display_mode;
+	SDL_GetCurrentDisplayMode(0, &display_mode);
+	int	fullScreenWidth = display_mode.w;
+	int	fullScreenHeight = display_mode.h;
+
+
+	window = SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, fullScreenWidth, fullScreenHeight, SDL_WINDOW_BORDERLESS);
 	if (window == NULL)
 	{
 		ft_putstr_fd("Error creating SDL window.\n", STDERR_FILENO);
@@ -116,7 +117,7 @@ void	setup()
 
 bool	isOutOfWindow(const float x, const float y)
 {
-	return (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT);
+	return (x < 0 || x >= MAP_NUM_COLS * TILE_SIZE || y < 0 || y >= MAP_NUM_ROWS * TILE_SIZE);
 }
 
 
@@ -332,26 +333,20 @@ void	castRay(float originalRayAngle, int stripId)
 		rays[stripId].wasHitVertical = false;
 	}
 	rays[stripId].rayAngle = rayAngle;
-	rays[stripId].isRayFacingDown = isRayFacingDown;
-	rays[stripId].isRayFacingUp = isRayFacingUp;
-	rays[stripId].isRayFacingLeft = isRayFacingLeft;
-	rays[stripId].isRayFacingRight = isRayFacingRight;
 }
 
 void	castAllRays()
 {
-	// start the first ray subtracting the half of our FOV
-	float	rayAngle = player.rotationAngle - (FOV_ANGLE / 2);
-
-	int		stripId;
-
-	stripId = 0;
-	while (stripId < NUM_RAYS)
+	float		rayAngle;
+	int			col;
+	col = 0;
+	while (col < NUM_RAYS)
 	{
-		castRay(rayAngle, stripId);
-
-		rayAngle += (FOV_ANGLE / NUM_RAYS);
-		stripId++;
+		// rotationAngle は、向いている真っ正面。
+		// col = 0 の時は開始の角度になるようマイナスになり、半分でど真ん中、そして段々とプラスの端っこへ
+		rayAngle = player.rotationAngle + atan((col - (NUM_RAYS / 2)) / DIST_PROJ_PLANE);
+		castRay(rayAngle, col);
+		col++;
 	}
 }
 
@@ -452,7 +447,6 @@ void	generate3DProjection()
 {
 	int		ray_i;
 	int		wallStripHeight;
-	float	distanceProjPlane;
 	float	projectedWallHeight;
 	int		wallTopPixel;
 	int		wallBottomPixel;
@@ -470,9 +464,8 @@ void	generate3DProjection()
 	// movie 52 7:04 から
 	{
 		correctDistance = rays[ray_i].distance * cos(rays[ray_i].rayAngle - player.rotationAngle);
-		distanceProjPlane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
 		// 三角形の相似で縮小。TILE_SIZE は、実際の壁の高さ。
-		projectedWallHeight = (TILE_SIZE / correctDistance) * distanceProjPlane;
+		projectedWallHeight = (TILE_SIZE / correctDistance) * DIST_PROJ_PLANE;
 		wallStripHeight = (int)projectedWallHeight;
 		wallTopPixel = (WINDOW_HEIGHT / 2) - (wallStripHeight / 2);
 		if (wallTopPixel < 0)
@@ -522,20 +515,13 @@ void	generate3DProjection()
 
 void	clearColorBuffer(uint32_t color)
 {
-	int	y;
-	int	x;
+	int	index;
 
-	y = 0;
-	while (y < WINDOW_HEIGHT)
+	index = 0;
+	while (index < WINDOW_WIDTH * WINDOW_HEIGHT)
 	{
-		x = 0;
-		while (x < WINDOW_WIDTH)
-		{
-			// colorBuffer[WINDOW_WIDTH * y + x] = (y > WINDOW_HEIGHT / 2) ? 0xFF000088 : 0xFF008800;
-			colorBuffer[WINDOW_WIDTH * y + x] = 0xFF000088;
-			x++;
-		}
-		y++;
+		colorBuffer[index] = 0xFF000088;
+		index++;
 	}
 }
 
