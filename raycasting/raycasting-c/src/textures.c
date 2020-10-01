@@ -1,4 +1,4 @@
-#include "textures.h"
+#include "texture.h"
 
 static const char *textureFileNames[NUM_TEXTURES] =
 {
@@ -13,13 +13,13 @@ static const char *textureFileNames[NUM_TEXTURES] =
 	"./images/pikuma.png",
 };
 
-void	loadWallTextures()
+void	loadWallTextures(void)
 {
 	int	index;
 
 	index = 0;
 	while (index < NUM_TEXTURES)
-		{
+	{
 		upng_t	*upng;
 
 		upng = upng_new_from_file(textureFileNames[index]);

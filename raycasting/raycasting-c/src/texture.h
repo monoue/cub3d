@@ -6,10 +6,10 @@
 # include "upng.h"
 
 typedef struct	texture_s {
-	upng_t		*upngTexture;
 	int			width;
 	int			height;
 	uint32_t	*texture_buffer;
+	upng_t		*upngTexture;
 }				texture_t;
 
 typedef enum	e_textures

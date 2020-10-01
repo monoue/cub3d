@@ -1,23 +1,10 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
-# include <SDL2/SDL.h>
-// # include </Users/monoue/homebrew/include/SDL2/SDL.h>
 # include <math.h>
-# include <limits.h>
-# include <stdint.h>
-# include "textures.h"
+
 # include "./ft_printf/ft_printf.h"
 # include "./ft_printf/libft/libft.h"
-
-# define SUCCESS 0
-# define SDL_ERROR 1
-# define DEFAULT_GRAPHIC_DRIVER -1
-# define LEFT -1
-# define RIGHT 1
-# define FRONT 1
-# define BACK -1
-# define NEUTRAL 0
 
 # define PI 3.14159265
 # define TWO_PI 6.28318530
@@ -26,8 +13,8 @@
 
 # define MINIMAP_SCALE_FACTOR 0.2
 
-# define WINDOW_WIDTH 384
-# define WINDOW_HEIGHT 216
+# define WINDOW_WIDTH 1280
+# define WINDOW_HEIGHT 800
 
 # define FOV_ANGLE (60 * (PI / 180))
 
@@ -38,5 +25,13 @@
 # define FPS 30
 // 次のフレームに達するまでに要する時間。フレーム間の時間。
 # define FRAME_TIME_LENGTH (1000 / FPS)
+# define SUCCESS 0
+# define SDL_ERROR 1
+# define DEFAULT_GRAPHIC_DRIVER -1
+# define LEFT -1
+# define RIGHT 1
+# define FRONT 1
+# define BACK -1
+# define NEUTRAL 0
 
 #endif

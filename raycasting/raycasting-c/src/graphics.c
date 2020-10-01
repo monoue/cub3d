@@ -9,6 +9,7 @@ static SDL_Texture	*colorBufferTexture;
 
 bool	initializeWindow(void)
 {
+	// if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	if (SDL_Init(SDL_INIT_EVERYTHING) == SDL_ERROR)
 	{
 		ft_putstr_fd("Error initializing SDL.\n", STDERR_FILENO);
@@ -21,7 +22,15 @@ bool	initializeWindow(void)
 	int	fullScreenHeight = display_mode.h;
 
 
-	window = SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, fullScreenWidth, fullScreenHeight, SDL_WINDOW_BORDERLESS);
+	window = SDL_CreateWindow
+	(
+		NULL,
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		fullScreenWidth,
+		fullScreenHeight,
+		SDL_WINDOW_BORDERLESS
+	);
 	if (window == NULL)
 	{
 		ft_putstr_fd("Error creating SDL window.\n", STDERR_FILENO);
@@ -63,7 +72,7 @@ void	clearColorBuffer(uint32_t color)
 	index = 0;
 	while (index < WINDOW_WIDTH * WINDOW_HEIGHT)
 	{
-		colorBuffer[index] = 0xFF000088;
+		colorBuffer[index] = color;
 		index++;
 	}
 }
@@ -76,7 +85,7 @@ void	renderColorBuffer(void)
 		colorBufferTexture,
 		NULL,
 		colorBuffer,
-		(int)((uint32_t)WINDOW_WIDTH * sizeof(uint32_t))
+		(int)(WINDOW_WIDTH * sizeof(uint32_t))
 	);
 	//	from NULL to NULL -> the entire texture
 	SDL_RenderCopy(renderer, colorBufferTexture, NULL, NULL);

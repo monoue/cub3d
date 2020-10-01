@@ -13,7 +13,7 @@ struct	Player {
 	float	y;
 	float	width;
 	float	height;
-int		turnDirection;
+	int		turnDirection;
 	int		walkDirection;
 	float	rotationAngle;
 	float	walkSpeed;
@@ -70,14 +70,6 @@ void	movePlayer(float deltaTime)
 	player.x = newPlayerX;
 	player.y = newPlayerY;
 
-	// これが本家
-	// float newPlayerX = player.x + cos(player.rotationAngle) * moveStep;
-    // float newPlayerY = player.y + sin(player.rotationAngle) * moveStep;
-
-    // if (!mapHasWallAt(newPlayerX, newPlayerY)) {
-    //     player.x = newPlayerX;
-    //     player.y = newPlayerY;
-    // }
 }
 
 void	renderPlayer()
@@ -164,7 +156,7 @@ void	castRay(float originalRayAngle, int stripId)
 
 	// increment xstep and ystep until we find a wall
 	// while (!isOutOfWindow(nextHorzTouchX, nextHorzTouchY))
-	while (!isOutOfWindow(nextHorzTouchX, nextHorzTouchY))
+	while (isInsideMap(nextHorzTouchX, nextHorzTouchY))
 	{
 		float	xToCheck;
 		float	yToCheck;
@@ -172,13 +164,14 @@ void	castRay(float originalRayAngle, int stripId)
 		xToCheck = nextHorzTouchX;
 		yToCheck = nextHorzTouchY;
 		if (isRayFacingUp)
-			yToCheck--;
+			yToCheck = yToCheck - 1;
+			// yToCheck--;
 		if (mapHasWallAt(xToCheck, yToCheck))
 		{
-			foundHorzWallHit = true;
 			horzWallHitX = nextHorzTouchX;
 			horzWallHitY = nextHorzTouchY;
 			horzWallContent = getMapAt((int)floor(yToCheck / TILE_SIZE), (int)floor(xToCheck / TILE_SIZE));
+			foundHorzWallHit = true;
 			break;
 		}
 		nextHorzTouchX += xstep;
@@ -213,7 +206,8 @@ void	castRay(float originalRayAngle, int stripId)
 	float	nextVertTouchY = yintercept;
 
 	// increment xstep and ystep until we find a wall
-	while (!isOutOfWindow(nextVertTouchX, nextVertTouchY))
+	// while (!isOutOfWindow(nextVertTouchX, nextVertTouchY))
+    while (isInsideMap(nextVertTouchX, nextVertTouchY))
 	{
 		float	xToCheck;
 		float	yToCheck;
@@ -221,7 +215,8 @@ void	castRay(float originalRayAngle, int stripId)
 		xToCheck = nextVertTouchX;
 		yToCheck = nextVertTouchY;
 		if (isRayFacingLeft)
-			xToCheck--;
+			xToCheck = xToCheck - 1;
+			// xToCheck--;
 		if (mapHasWallAt(xToCheck, yToCheck))
 		{
 			vertWallHitX = nextVertTouchX;
@@ -233,10 +228,12 @@ void	castRay(float originalRayAngle, int stripId)
 		nextVertTouchX += xstep;
 		nextVertTouchY += ystep;
 	}
-	const float	horzHitDistance = (foundHorzWallHit)
+	// const float	horzHitDistance = (foundHorzWallHit)
+	float	horzHitDistance = (foundHorzWallHit)
 		? distanceBetweenPoints(player.x, player.y, horzWallHitX, horzWallHitY)
 		: FLT_MAX;
-	const float	vertHitDistance = (foundVertWallHit)
+	// const float	vertHitDistance = (foundVertWallHit)
+	float	vertHitDistance = (foundVertWallHit)
 		? distanceBetweenPoints(player.x, player.y, vertWallHitX, vertWallHitY)
 		: FLT_MAX;
 	if (vertHitDistance < horzHitDistance)
@@ -258,10 +255,11 @@ void	castRay(float originalRayAngle, int stripId)
 	rays[stripId].rayAngle = rayAngle;
 }
 
-void	castAllRays()
+void	castAllRays(void)
 {
 	float		rayAngle;
 	int			col;
+
 	col = 0;
 	while (col < NUM_RAYS)
 	{
@@ -274,7 +272,7 @@ void	castAllRays()
 }
 
 
-void	renderRays()
+void	renderRays(void)
 {
 	// SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 	// int	index;
@@ -306,6 +304,7 @@ void	processInput()
 		case SDL_KEYDOWN:
 			if (event.key.keysym.sym == SDLK_ESCAPE)
 				isGameRunning = false;
+
 			if (event.key.keysym.sym == SDLK_UP)
 				player.walkDirection = FRONT;
 			if (event.key.keysym.sym == SDLK_DOWN)
@@ -316,6 +315,7 @@ void	processInput()
 				player.turnDirection = RIGHT;
 			break ;
 		case SDL_KEYUP:
+
 			if (event.key.keysym.sym == SDLK_UP)
 				player.walkDirection = NEUTRAL;
 			if (event.key.keysym.sym == SDLK_DOWN)
@@ -328,7 +328,7 @@ void	processInput()
 	}
 }
 
-void	update()
+void	update(void)
 {
 	// Compute how long we have until the reach the target frame time in milliseconds
 	int	timeToWait = FRAME_TIME_LENGTH - (SDL_GetTicks() - ticksLastFrame);
@@ -368,7 +368,6 @@ void	renderWallProjection(void)
 
 	ray_i = 0;
 	while (ray_i < NUM_RAYS)
-	// movie 52 7:04 から
 	{
 		correctDistance = rays[ray_i].distance * cos(rays[ray_i].rayAngle - player.rotationAngle);
 		// 三角形の相似で縮小。TILE_SIZE は、実際の壁の高さ。
@@ -378,13 +377,12 @@ void	renderWallProjection(void)
 		if (wallTopPixel < 0)
 			wallTopPixel = 0;
 		wallBottomPixel = (WINDOW_HEIGHT / 2) + (wallStripHeight / 2);
-		if (wallTopPixel > WINDOW_HEIGHT)
-			wallTopPixel = WINDOW_HEIGHT;
+		if (wallBottomPixel > WINDOW_HEIGHT)
+			wallBottomPixel = WINDOW_HEIGHT;
 		y = 0;
 		while (y < wallTopPixel)
 		{
 			drawPixel(ray_i, y, 0xFF444444);
-			// colorBuffer[(WINDOW_WIDTH * y) + ray_i] = 0xFF333333;
 			y++;
 		}
 
@@ -413,7 +411,7 @@ void	renderWallProjection(void)
 		}
 		while (y < WINDOW_HEIGHT)
 		{
-			drawPixel(ray_i, y, 0xFF000000);
+			drawPixel(ray_i, y, 0xFF888888);
 			y++;
 		}
 
@@ -446,7 +444,7 @@ void	releaseResources(void)
 	destroyWindow();
 }
 
-int		main()
+int		main(int argc, char **argv)
 {
 	isGameRunning = initializeWindow();
 	setup();

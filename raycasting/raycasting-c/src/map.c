@@ -22,16 +22,6 @@ bool	isOutOfWindow(const float x, const float y)
 	return (x < 0 || x >= MAP_NUM_COLS * TILE_SIZE || y < 0 || y >= MAP_NUM_ROWS * TILE_SIZE);
 }
 
-
-bool	isSpaceAt(const float pixelX, const float pixelY)
-{
-	if (isOutOfWindow(pixelX, pixelY))
-		return (false);
-	const int gridX = floor(pixelX / TILE_SIZE);
-	const int gridY = floor(pixelY / TILE_SIZE);
-	return map[gridY][gridX] == 0 ? true : false;
-}
-
 bool	mapHasWallAt(const float pixelX, const float pixelY)
 {
 	if (isOutOfWindow(pixelX, pixelY))
@@ -41,12 +31,17 @@ bool	mapHasWallAt(const float pixelX, const float pixelY)
 	return map[gridY][gridX] != 0 ? true : false;
 }
 
+bool isInsideMap(float x, float y) {
+    return (x >= 0 && x <= MAP_NUM_COLS * TILE_SIZE && y >= 0 && y <= MAP_NUM_ROWS * TILE_SIZE);
+}
+
+
 int	getMapAt(int y, int x)
 {
 	return (map[y][x]);
 }
 
-void	renderMap()
+void	renderMap(void)
 {
 	int	y;
 	int	x;
@@ -59,7 +54,7 @@ void	renderMap()
 		{
 			const int tileX = x * TILE_SIZE;
 			const int tileY = y * TILE_SIZE;
-			const int tileColor = map[y][x] == 0 ? INNER_COLOR : EDGE_COLOR;
+			uint32_t tileColor = map[y][x] == 0 ? 0xFFFFFFFF : 0x00000000;
 
 			drawRect(
 				tileX * MINIMAP_SCALE_FACTOR,
@@ -72,4 +67,13 @@ void	renderMap()
 		}
 		y++;
 	}
+}
+
+bool	isSpaceAt(const float pixelX, const float pixelY)
+{
+	if (isOutOfWindow(pixelX, pixelY))
+		return (false);
+	const int gridX = floor(pixelX / TILE_SIZE);
+	const int gridY = floor(pixelY / TILE_SIZE);
+	return map[gridY][gridX] == 0 ? true : false;
 }
