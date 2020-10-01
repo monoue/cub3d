@@ -19,7 +19,7 @@ void	loadWallTextures()
 
 	index = 0;
 	while (index < NUM_TEXTURES)
-	{
+		{
 		upng_t	*upng;
 
 		upng = upng_new_from_file(textureFileNames[index]);
