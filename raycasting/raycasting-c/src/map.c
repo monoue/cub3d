@@ -54,7 +54,7 @@ void	renderMap(void)
 		{
 			const int tileX = x * TILE_SIZE;
 			const int tileY = y * TILE_SIZE;
-			uint32_t tileColor = map[y][x] == 0 ? 0xFFFFFFFF : 0x00000000;
+			uint32_t tileColor = map[y][x] == 0 ? 0x00000000 : 0xFFFFFFFF;
 
 			drawRect(
 				tileX * MINIMAP_SCALE_FACTOR,
