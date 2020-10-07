@@ -185,6 +185,21 @@ void	castAllRays(void)
 
 void	renderRays(void)
 {
+	int	index;
+
+	index = 0;
+	while (index < NUM_RAYS)
+	{
+		drawLine
+		(
+			player.x * MINIMAP_SCALE_FACTOR,
+			player.y * MINIMAP_SCALE_FACTOR,
+			rays[index].wallHitX * MINIMAP_SCALE_FACTOR,
+			rays[index].wallHitY * MINIMAP_SCALE_FACTOR,
+			0xFF0000FF
+		);
+		index++;
+	}
 	// SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 	// int	index;
 
