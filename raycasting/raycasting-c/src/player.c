@@ -11,8 +11,6 @@ t_player	player =
 	.rotationAngle = PI / 2,
 	.walkSpeed = 100,
 	.turnSpeed = 45 * (PI / 180)
-
-
 };
 
 void	movePlayer(float deltaTime)
@@ -20,8 +18,6 @@ void	movePlayer(float deltaTime)
 	player.rotationAngle += player.turnDirection * player.turnSpeed * deltaTime;
 
 	const float	moveStep = player.walkDirection * player.walkSpeed * deltaTime;
-
-	// 僕オリジナルの機能（これでバグっているのかも）
 	const float	moveX = cos(player.rotationAngle) * moveStep;
 	const float	moveY = sin(player.rotationAngle) * moveStep;
 

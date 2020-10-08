@@ -1,5 +1,18 @@
 #include "wall.h"
 
+void	changeColorIntensity(t_color *color, float factor)
+{
+	t_color	a;
+	t_color	r;
+	t_color	g;
+	t_color	b;
+
+	a = (*color & 0xFF000000);
+	r = (*color & 0x00FF0000) * factor;
+	g = (*color & 0x0000FF00) * factor;
+	b = (*color & 0x000000FF) * factor;
+	*color = a | (r & 0x00FF0000) | (g & 0x0000FF00) | (b & 0x000000FF);
+}
 
 void	renderWallProjection(void)
 {
@@ -55,6 +68,9 @@ void	renderWallProjection(void)
 
 			// set the color of the wall based on the color from the texture
 			texelColor = wallTextures[texNum].texture_buffer[(texture_width * textureOffsetY) + textureOffsetX];
+
+			if (rays[ray_i].wasHitVertical)
+				changeColorIntensity(&texelColor, 0.7);
 			// texelColor = textures[texNum][(texture_width * textureOffsetY) + textureOffsetX];
 			drawPixel(ray_i, y, texelColor);
 			// colorBuffer[(WINDOW_WIDTH * y) + ray_i] = texelColor;

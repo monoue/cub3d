@@ -1,15 +1,12 @@
 #include "ray.h"
 
-ray_t	rays[NUM_RAYS];
+t_ray	rays[NUM_RAYS];
 
-float	normalizeAngle(float originalAngle)
+void	normalizeAngle(float *angle)
 {
-	float	normalAngle;
-
-	normalAngle = remainder(originalAngle, TWO_PI);
-	if (normalAngle < 0)
-		normalAngle += TWO_PI;
-	return (normalAngle);
+	*angle = remainder(*angle, TWO_PI);
+	if (*angle < 0)
+		*angle += TWO_PI;
 }
 
 float	distanceBetweenPoints(float x1, float y1, float x2, float y2)
@@ -20,25 +17,18 @@ float	distanceBetweenPoints(float x1, float y1, float x2, float y2)
 	return (sqrt(pow(x_diff, 2) + pow(y_diff, 2)));
 }
 
-void	castRay(float originalRayAngle, int stripId)
+void	castRay(float rayAngle, int stripId)
 {
-	float	rayAngle;
-
-	rayAngle = normalizeAngle(originalRayAngle);
+	normalizeAngle(&rayAngle);
 
 	bool	isRayFacingDown = (rayAngle > 0 && rayAngle < PI);
 	bool	isRayFacingUp = !isRayFacingDown;
 	bool	isRayFacingRight = ((rayAngle < 0.5 * PI) || (rayAngle > 1.5 * PI));
 	bool	isRayFacingLeft = !isRayFacingRight;
-
-	// TODO: All that crazy logic for horz, vert, ...
-	// ...
 	float	xintercept;
 	float	yintercept;
-
 	float	xstep;
 	float	ystep;
-
 	// ///////////////////////////////////////////
 	// // HORIZONTAL RAY-GRID INTERSECTION CODE //
 	// ///////////////////////////////////////////
@@ -46,7 +36,6 @@ void	castRay(float originalRayAngle, int stripId)
 	float	horzWallHitX = 0;
 	float	horzWallHitY = 0;
 	int		horzWallContent = 0;
-
 	// Find the y-coordinate of the closest horizontal grid intersection
 	yintercept = floor(player.y / TILE_SIZE) * TILE_SIZE;
 	if (isRayFacingDown)
@@ -61,12 +50,9 @@ void	castRay(float originalRayAngle, int stripId)
 	xstep = TILE_SIZE / tan(rayAngle);
 	if ((isRayFacingLeft && xstep > 0) || (isRayFacingRight && xstep < 0))
 		xstep *= -1;
-
 	float	nextHorzTouchX = xintercept;
 	float	nextHorzTouchY = yintercept;
-
 	// increment xstep and ystep until we find a wall
-	// while (!isOutOfWindow(nextHorzTouchX, nextHorzTouchY))
 	while (isInsideMap(nextHorzTouchX, nextHorzTouchY))
 	{
 		float	xToCheck;
@@ -75,8 +61,7 @@ void	castRay(float originalRayAngle, int stripId)
 		xToCheck = nextHorzTouchX;
 		yToCheck = nextHorzTouchY;
 		if (isRayFacingUp)
-			yToCheck = yToCheck - 1;
-			// yToCheck--;
+			yToCheck--;
 		if (mapHasWallAt(xToCheck, yToCheck))
 		{
 			horzWallHitX = nextHorzTouchX;
@@ -87,10 +72,7 @@ void	castRay(float originalRayAngle, int stripId)
 		}
 		nextHorzTouchX += xstep;
 		nextHorzTouchY += ystep;
-
-		// Calculate both horizontal and vertical hit distances and choose the smallest one
 	}
-
 	// ///////////////////////////////////////////
 	// // VERTICAL RAY-GRID INTERSECTION CODE //
 	// ///////////////////////////////////////////
@@ -105,7 +87,6 @@ void	castRay(float originalRayAngle, int stripId)
 		xintercept += TILE_SIZE;
 	// Find the y-coordinate of the closest vertical grid intersection
 	yintercept = player.y + (xintercept - player.x) * tan(rayAngle);
-
 	// Calculate the increment xstep and y step
 	xstep = isRayFacingRight ? TILE_SIZE : -(TILE_SIZE);
 
@@ -117,7 +98,6 @@ void	castRay(float originalRayAngle, int stripId)
 	float	nextVertTouchY = yintercept;
 
 	// increment xstep and ystep until we find a wall
-	// while (!isOutOfWindow(nextVertTouchX, nextVertTouchY))
     while (isInsideMap(nextVertTouchX, nextVertTouchY))
 	{
 		float	xToCheck;
@@ -126,8 +106,7 @@ void	castRay(float originalRayAngle, int stripId)
 		xToCheck = nextVertTouchX;
 		yToCheck = nextVertTouchY;
 		if (isRayFacingLeft)
-			xToCheck = xToCheck - 1;
-			// xToCheck--;
+			xToCheck--;
 		if (mapHasWallAt(xToCheck, yToCheck))
 		{
 			vertWallHitX = nextVertTouchX;
@@ -200,19 +179,4 @@ void	renderRays(void)
 		);
 		index++;
 	}
-	// SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-	// int	index;
-
-	// index = 0;
-	// while (index < NUM_RAYS)
-	// {
-	// 	SDL_RenderDrawLine(
-	// 		renderer,
-	// 		MINIMAP_SCALE_FACTOR * player.x,
-	// 		MINIMAP_SCALE_FACTOR * player.y,
-	// 		MINIMAP_SCALE_FACTOR * rays[index].wallHitX,
-	// 		MINIMAP_SCALE_FACTOR * rays[index].wallHitY
-	// 	);
-	// 	index++;
-	// }
 }

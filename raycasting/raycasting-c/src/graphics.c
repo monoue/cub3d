@@ -5,23 +5,17 @@ static SDL_Renderer	*renderer = NULL;
 static uint32_t		*colorBuffer = NULL;
 static SDL_Texture	*colorBufferTexture;
 
-
-
 bool	initializeWindow(void)
 {
-	// if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	if (SDL_Init(SDL_INIT_EVERYTHING) == SDL_ERROR)
 	{
 		ft_putstr_fd("Error initializing SDL.\n", STDERR_FILENO);
 		return (false);
 	}
-
 	SDL_DisplayMode display_mode;
 	SDL_GetCurrentDisplayMode(0, &display_mode);
 	int	fullScreenWidth = display_mode.w;
 	int	fullScreenHeight = display_mode.h;
-
-
 	window = SDL_CreateWindow
 	(
 		NULL,
@@ -44,7 +38,6 @@ bool	initializeWindow(void)
 	}
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	colorBuffer = malloc(sizeof(uint32_t) * (uint32_t)WINDOW_WIDTH * (uint32_t)WINDOW_HEIGHT);
-
 	//	create an SDL Texture to display the colorbuffer
 	colorBufferTexture = SDL_CreateTexture(
 		renderer,
@@ -117,25 +110,22 @@ void	drawRect(int x, int y, int width, int height, t_color color)
 
 void	drawLine(int x0, int y0, int x1, int y1, t_color color)
 {
-	int	deltaX;
-	int	deltaY;
-	int	longerSideLength;
+	int		deltaX;
+	int		deltaY;
+	int		longerSideLength;
+	int		index;
 	float	xIncrement;
 	float	yIncrement;
 	float	currentX;
 	float	currentY;
 
-
 	deltaX = (x1 - x0);
 	deltaY = (y1 - y0);
 	longerSideLength = (abs(deltaX)) >= abs(deltaY) ? abs(deltaX) : abs(deltaY);
-
 	xIncrement = deltaX / (float)longerSideLength;
 	yIncrement = deltaY / (float)longerSideLength;
 	currentX = x0;
 	currentY = y0;
-	int	index;
-
 	index = 0;
 	while (index < longerSideLength)
 	{

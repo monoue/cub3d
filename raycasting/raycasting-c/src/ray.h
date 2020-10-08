@@ -7,18 +7,18 @@
 # include "graphics.h"
 # include "player.h"
 
-typedef struct	ray_s {
+typedef struct	s_ray {
 	float	rayAngle;
 	float	wallHitX;
 	float	wallHitY;
 	float	distance;
 	bool	wasHitVertical;
 	int		wallHitContent;
-}				ray_t;
+}				t_ray;
 
-extern ray_t	rays[NUM_RAYS];
+extern t_ray	rays[NUM_RAYS];
 
-float	normalizeAngle(float originalAngle);
+void	normalizeAngle(float *angle);
 
 float	distanceBetweenPoints(float x1, float y1, float x2, float y2);
 void	castRay(float originalRayAngle, int stripId);

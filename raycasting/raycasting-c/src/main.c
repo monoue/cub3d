@@ -18,50 +18,44 @@ void	setup(void)
 	loadWallTextures();
 }
 
-
 void	processInput()
 {
 	SDL_Event event;
 	SDL_PollEvent(&event);
-	switch (event.type)
-	{
-		case SDL_QUIT:
+	if (event.type == SDL_QUIT)
 			isGameRunning = false;
-			break ;
-		case SDL_KEYDOWN:
-			if (event.key.keysym.sym == SDLK_ESCAPE)
-				isGameRunning = false;
-
-			if (event.key.keysym.sym == SDLK_UP)
-				player.walkDirection = FRONT;
-			if (event.key.keysym.sym == SDLK_DOWN)
-				player.walkDirection = BACK;
-			if (event.key.keysym.sym == SDLK_LEFT)
-				player.turnDirection = LEFT;
-			if (event.key.keysym.sym == SDLK_RIGHT)
-				player.turnDirection = RIGHT;
-			break ;
-		case SDL_KEYUP:
-
-			if (event.key.keysym.sym == SDLK_UP)
-				player.walkDirection = NEUTRAL;
-			if (event.key.keysym.sym == SDLK_DOWN)
-				player.walkDirection = NEUTRAL;
-			if (event.key.keysym.sym == SDLK_LEFT)
-				player.turnDirection = NEUTRAL;
-			if (event.key.keysym.sym == SDLK_RIGHT)
-				player.turnDirection = NEUTRAL;
-			break ;
+	else if (event.type == SDL_KEYDOWN)
+	{
+		if (event.key.keysym.sym == SDLK_ESCAPE)
+			isGameRunning = false;
+		if (event.key.keysym.sym == SDLK_UP)
+			player.walkDirection = FRONT;
+		if (event.key.keysym.sym == SDLK_DOWN)
+			player.walkDirection = BACK;
+		if (event.key.keysym.sym == SDLK_LEFT)
+			player.turnDirection = LEFT;
+		if (event.key.keysym.sym == SDLK_RIGHT)
+			player.turnDirection = RIGHT;
+	}
+	else if (event.type == SDL_KEYUP)
+	{
+		if (event.key.keysym.sym == SDLK_UP)
+			player.walkDirection = NEUTRAL;
+		if (event.key.keysym.sym == SDLK_DOWN)
+			player.walkDirection = NEUTRAL;
+		if (event.key.keysym.sym == SDLK_LEFT)
+			player.turnDirection = NEUTRAL;
+		if (event.key.keysym.sym == SDLK_RIGHT)
+			player.turnDirection = NEUTRAL;
 	}
 }
 
 void	update(void)
 {
-	int	timeToWait;
+	int		timeToWait;
 	float	deltaTime;
 	// Compute how long we have until the reach the target frame time in milliseconds
 	timeToWait = FRAME_TIME_LENGTH - (SDL_GetTicks() - ticksLastFrame);
-
 	// Only delay execution if we are running too fast
 	if (timeToWait > 0 && timeToWait <= FRAME_TIME_LENGTH)
 		SDL_Delay(timeToWait);
@@ -72,31 +66,20 @@ void	update(void)
 	// つまり、Δtime が経過するごとに、50 * Δtime 分移動している。
 	// これが積み重なると、１秒経過するごとに 50 * １ 移動することになる。
 	// なので、１秒ごとの移動距離を表している、ということになる。
-
 	deltaTime = (SDL_GetTicks() - ticksLastFrame) / 1000.0f;
 	ticksLastFrame = SDL_GetTicks();
-
 	movePlayer(deltaTime);
 	castAllRays();
 }
 
-
 void	render()
 {
 	clearColorBuffer(0xFF000000);
-
 	renderWallProjection();
-
-	// generate3DProjection();
-
-	//	clear the color buffer
-
-	//	display the minimap
 	renderMap();
 	renderRays();
 	renderPlayer();
 	renderColorBuffer();
-
 }
 
 void	releaseResources(void)
