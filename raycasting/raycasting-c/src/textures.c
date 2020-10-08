@@ -31,7 +31,7 @@ void	loadWallTextures(void)
 			wallTextures[index].upngTexture = upng;
 			wallTextures[index].width = upng_get_width(upng);
 			wallTextures[index].height = upng_get_height(upng);
-			wallTextures[index].texture_buffer = (uint32_t*)upng_get_buffer(upng);
+			wallTextures[index].texture_buffer = (t_color*)upng_get_buffer(upng);
 
 		}
 		index++;

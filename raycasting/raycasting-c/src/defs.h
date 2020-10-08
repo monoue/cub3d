@@ -2,6 +2,7 @@
 # define CONSTANTS_H
 
 # include <math.h>
+# include <stdint.h>
 
 # include "./ft_printf/ft_printf.h"
 # include "./ft_printf/libft/libft.h"
@@ -21,6 +22,8 @@
 # define NUM_RAYS WINDOW_WIDTH
 
 # define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
+
+typedef uint32_t t_color;
 
 # define FPS 30
 // 次のフレームに達するまでに要する時間。フレーム間の時間。
