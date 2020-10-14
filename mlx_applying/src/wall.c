@@ -1,6 +1,6 @@
 #include "wall.h"
 
-void	changeColorIntensity(t_color *color, float factor)
+void	change_color_intensity(t_color *color, float factor)
 {
 	t_color	a;
 	t_color	r;
@@ -14,71 +14,71 @@ void	changeColorIntensity(t_color *color, float factor)
 	*color = a | (r & 0x00FF0000) | (g & 0x0000FF00) | (b & 0x000000FF);
 }
 
-void	renderWallProjection(void)
+void	render_wall_projection(void)
 {
 	int		ray_i;
-	int		wallStripHeight;
-	float	projectedWallHeight;
-	int		wallTopPixel;
-	int		wallBottomPixel;
+	int		wall_strip_height;
+	float	projected_wall_height;
+	int		wall_top_pixel;
+	int		wall_bottom_pixel;
 	int		y;
-	float	correctDistance;
-	int		textureOffsetX;
-	int		textureOffsetY;
-	uint32_t	texelColor;
-	int		distanceFromTop;
+	float	correct_distance;
+	int		texture_offset_x;
+	int		texture_offset_y;
+	uint32_t	texel_color;
+	int		distance_from_top;
 	int		texture_width;
 	int		texture_height;
 
 	ray_i = 0;
 	while (ray_i < NUM_RAYS)
 	{
-		correctDistance = rays[ray_i].distance * cos(rays[ray_i].rayAngle - g_player.rotation_angle);
+		correct_distance = rays[ray_i].distance * cos(rays[ray_i].ray_angle - g_player.rotation_angle);
 		// 三角形の相似で縮小。TILE_SIZE は、実際の壁の高さ。
-		projectedWallHeight = (TILE_SIZE / correctDistance) * DIST_PROJ_PLANE;
-		wallStripHeight = (int)projectedWallHeight;
-		wallTopPixel = (WINDOW_HEIGHT / 2) - (wallStripHeight / 2);
-		if (wallTopPixel < 0)
-			wallTopPixel = 0;
-		wallBottomPixel = (WINDOW_HEIGHT / 2) + (wallStripHeight / 2);
-		if (wallBottomPixel > WINDOW_HEIGHT)
-			wallBottomPixel = WINDOW_HEIGHT;
+		projected_wall_height = (TILE_SIZE / correct_distance) * DIST_PROJ_PLANE;
+		wall_strip_height = (int)projected_wall_height;
+		wall_top_pixel = (WINDOW_HEIGHT / 2) - (wall_strip_height / 2);
+		if (wall_top_pixel < 0)
+			wall_top_pixel = 0;
+		wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
+		if (wall_bottom_pixel > WINDOW_HEIGHT)
+			wall_bottom_pixel = WINDOW_HEIGHT;
 		y = 0;
-		while (y < wallTopPixel)
+		while (y < wall_top_pixel)
 		{
-			drawPixel(ray_i, y, 0xFF444444);
+			draw_pixel(ray_i, y, 0xFF444444);
 			y++;
 		}
 
-		if (rays[ray_i].wasHitVertical)
-			textureOffsetX = (int)rays[ray_i].wallHitY % TILE_SIZE;
+		if (rays[ray_i].was_hit_vertical)
+			texture_offset_x = (int)rays[ray_i].wall_hit_y % TILE_SIZE;
 		else
-			textureOffsetX = (int)rays[ray_i].wallHitX % TILE_SIZE;
+			texture_offset_x = (int)rays[ray_i].wall_hit_x % TILE_SIZE;
 
 		int	texNum;
 
-		texNum =  rays[ray_i].wallHitContent - 1;
-		texture_width = wallTextures[texNum].width;
-		texture_height = wallTextures[texNum].height;
+		texNum =  rays[ray_i].wall_hit_content - 1;
+		texture_width = wall_textures[texNum].width;
+		texture_height = wall_textures[texNum].height;
 
-		while (y < wallBottomPixel)
+		while (y < wall_bottom_pixel)
 		{
-			distanceFromTop = y + (wallStripHeight / 2) - (WINDOW_HEIGHT / 2);
-			textureOffsetY = distanceFromTop * ((float)texture_height / wallStripHeight);
+			distance_from_top = y + (wall_strip_height / 2) - (WINDOW_HEIGHT / 2);
+			texture_offset_y = distance_from_top * ((float)texture_height / wall_strip_height);
 
 			// set the color of the wall based on the color from the texture
-			texelColor = wallTextures[texNum].texture_buffer[(texture_width * textureOffsetY) + textureOffsetX];
+			texel_color = wall_textures[texNum].texture_buffer[(texture_width * texture_offset_y) + texture_offset_x];
 
-			if (rays[ray_i].wasHitVertical)
-				changeColorIntensity(&texelColor, 0.7);
-			// texelColor = textures[texNum][(texture_width * textureOffsetY) + textureOffsetX];
-			drawPixel(ray_i, y, texelColor);
-			// colorBuffer[(WINDOW_WIDTH * y) + ray_i] = texelColor;
+			if (rays[ray_i].was_hit_vertical)
+				change_color_intensity(&texel_color, 0.7);
+			// texel_color = textures[texNum][(texture_width * texture_offset_y) + texture_offset_x];
+			draw_pixel(ray_i, y, texel_color);
+			// colorBuffer[(WINDOW_WIDTH * y) + ray_i] = texel_color;
 			y++;
 		}
 		while (y < WINDOW_HEIGHT)
 		{
-			drawPixel(ray_i, y, 0xFF888888);
+			draw_pixel(ray_i, y, 0xFF888888);
 			y++;
 		}
 

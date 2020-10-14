@@ -4,7 +4,7 @@ int		put_err_msg(char *msg)
 {
 	ft_putstr("Error\n");
 	ft_putstr(msg);
-	return (0);
+	return (1);
 }
 
 void	map_open_error(char *s, int fd)
@@ -516,11 +516,10 @@ void	read_map_open(t_data *img, char *filename)
 	init_map(img);
 	if ((img->fd = open(filename, O_RDONLY)) == ERROR)
 		map_open_error("could not open file", img->fd);
-	rc = 0; // rv???
+	rc = 0;
 	while (get_next_line(img->fd, &line) > 0)
 	{
 		rc = get_map_info(img, line);
-		// ここまで
 		if (rc == ERROR)
 			img->err_flag = true;
 		SAFE_FREE(line);

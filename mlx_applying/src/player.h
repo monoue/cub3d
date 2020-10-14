@@ -20,5 +20,5 @@ typedef struct	s_player {
 extern t_player	g_player;
 
 void	move_player(float deltaTime);
-void	renderPlayer();
+void	render_player();
 #endif

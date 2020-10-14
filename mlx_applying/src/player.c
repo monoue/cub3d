@@ -7,35 +7,35 @@ t_player	player =
 	.y = WINDOW_HEIGHT / 2,
 	.width = 1,
 	.height = 1,
-	.turnDirection = 0,
-	.walkDirection = 0,
-	.rotationAngle = PI / 2,
-	.walkSpeed = 100,
-	.turnSpeed = 45 * (PI / 180)
+	.turn_direction = 0,
+	.walk_direction = 0,
+	.rotation_angle = PI / 2,
+	.walk_speed = 100,
+	.turn_speed = 45 * (PI / 180)
 };
 
-void	move_player(float deltaTime)
+void	move_player(float delta_time)
 {
-	player.rotation_angle += player.turn_direction * player.turn_speed * deltaTime;
+	player.rotation_angle += player.turn_direction * player.turn_speed * delta_time;
 
-	const float	moveStep = player.walk_direction * player.walk_speed * deltaTime;
-	const float	moveX = cos(player.rotation_angle) * moveStep;
-	const float	moveY = sin(player.rotation_angle) * moveStep;
+	const float	move_step = player.walk_direction * player.walk_speed * delta_time;
+	const float	move_x = cos(player.rotation_angle) * move_step;
+	const float	move_y = sin(player.rotation_angle) * move_step;
 
-	float	newPlayerX = player.x;
-	float	newPlayerY = player.y;
+	float	new_player_x = player.x;
+	float	new_player_y = player.y;
 
-	if (isSpaceAt(player.x + moveX, player.y))
-		newPlayerX += moveX;
-	if (isSpaceAt(player.x, player.y + moveY))
-		newPlayerY += moveY;
+	if (is_space_at(player.x + move_x, player.y))
+		new_player_x += move_x;
+	if (is_space_at(player.x, player.y + move_y))
+		new_player_y += move_y;
 
-	player.x = newPlayerX;
-	player.y = newPlayerY;
+	player.x = new_player_x;
+	player.y = new_player_y;
 
 }
 
-void	renderPlayer()
+void	render_player()
 {
 	draw_rect(
 		player.x * MINIMAP_SCALE_FACTOR,

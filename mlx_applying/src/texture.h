@@ -9,7 +9,7 @@ typedef struct	texture_s {
 	int			width;
 	int			height;
 	uint32_t	*texture_buffer;
-	upng_t		*upngTexture;
+	upng_t		*upng_texture;
 }				texture_t;
 
 typedef enum	e_textures
@@ -27,9 +27,9 @@ typedef enum	e_textures
 	NUM_TEXTURES
 }				t_textures;
 
-texture_t	wallTextures[NUM_TEXTURES];
+texture_t	wall_textures[NUM_TEXTURES];
 
-void	loadWallTextures();
-void	freeWallTextures();
+void	load_wall_textures();
+void	free_wall_textures();
 
 #endif

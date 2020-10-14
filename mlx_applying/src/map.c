@@ -17,31 +17,31 @@ static const int map[MAP_NUM_ROWS][MAP_NUM_COLS] =
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 5, 5}
 };
 
-bool	isOutOfWindow(const float x, const float y)
+bool	is_out_of_window(const float x, const float y)
 {
 	return (x < 0 || x >= MAP_NUM_COLS * TILE_SIZE || y < 0 || y >= MAP_NUM_ROWS * TILE_SIZE);
 }
 
-bool	mapHasWallAt(const float pixelX, const float pixelY)
+bool	map_has_wall_at(const float pixel_x, const float pixel_y)
 {
-	if (isOutOfWindow(pixelX, pixelY))
+	if (is_out_of_window(pixel_x, pixel_y))
 		return (true);
-	const int gridX = floor(pixelX / TILE_SIZE);
-	const int gridY = floor(pixelY / TILE_SIZE);
-	return map[gridY][gridX] != 0 ? true : false;
+	const int grid_x = floor(pixel_x / TILE_SIZE);
+	const int grid_y = floor(pixel_y / TILE_SIZE);
+	return map[grid_y][grid_x] != 0 ? true : false;
 }
 
-bool isInsideMap(float x, float y) {
+bool is_inside_map(float x, float y) {
     return (x >= 0 && x <= MAP_NUM_COLS * TILE_SIZE && y >= 0 && y <= MAP_NUM_ROWS * TILE_SIZE);
 }
 
 
-int	getMapAt(int y, int x)
+int	get_map_at(int y, int x)
 {
 	return (map[y][x]);
 }
 
-void	renderMap(void)
+void	render_map(void)
 {
 	int	y;
 	int	x;
@@ -52,16 +52,16 @@ void	renderMap(void)
 		x = 0;
 		while (x < MAP_NUM_COLS)
 		{
-			const int tileX = x * TILE_SIZE;
-			const int tileY = y * TILE_SIZE;
-			uint32_t tileColor = map[y][x] == 0 ? 0x00000000 : 0xFFFFFFFF;
+			const int tile_x = x * TILE_SIZE;
+			const int tile_y = y * TILE_SIZE;
+			uint32_t tile_color = map[y][x] == 0 ? 0x00000000 : 0xFFFFFFFF;
 
 			draw_rect(
-				tileX * MINIMAP_SCALE_FACTOR,
-				tileY * MINIMAP_SCALE_FACTOR,
+				tile_x * MINIMAP_SCALE_FACTOR,
+				tile_y * MINIMAP_SCALE_FACTOR,
 				TILE_SIZE * MINIMAP_SCALE_FACTOR,
 				TILE_SIZE * MINIMAP_SCALE_FACTOR,
-				tileColor
+				tile_color
 			);
 			x++;
 		}
@@ -69,11 +69,11 @@ void	renderMap(void)
 	}
 }
 
-bool	isSpaceAt(const float pixelX, const float pixelY)
+bool	is_space_at(const float pixel_x, const float pixel_y)
 {
-	if (isOutOfWindow(pixelX, pixelY))
+	if (is_out_of_window(pixel_x, pixel_y))
 		return (false);
-	const int gridX = floor(pixelX / TILE_SIZE);
-	const int gridY = floor(pixelY / TILE_SIZE);
-	return map[gridY][gridX] == 0 ? true : false;
+	const int grid_x = floor(pixel_x / TILE_SIZE);
+	const int grid_y = floor(pixel_y / TILE_SIZE);
+	return map[grid_y][grid_x] == 0 ? true : false;
 }

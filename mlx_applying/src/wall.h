@@ -8,6 +8,6 @@
 # include "graphics.h"
 # include "texture.h"
 
-void	renderWallProjection(void);
+void	render_wall_projection(void);
 
 #endif

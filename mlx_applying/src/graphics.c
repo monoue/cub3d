@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 10:39:11 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/13 10:52:21 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/14 08:10:16 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,24 @@ void	render_color_buffer(void)
 	SDL_RenderPresent(g_renderer);
 }
 
+void	my_mlx_pixel_put(t_data *img, int x, int y, int color)
+{
+	char *dst;
+
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
 void	draw_pixel(int x, int y, t_color color)
 {
 	g_color_buffer[(WINDOW_WIDTH * y) + x] = color;
+
+
+
+	char *dst;
+
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
 void	draw_rect(int x, int y, int width, int height, t_color color)
