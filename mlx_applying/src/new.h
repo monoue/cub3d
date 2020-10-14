@@ -48,13 +48,13 @@ typedef struct		s_sprite
 
 typedef struct		s_map
 {
-	int				screen_w;
-	int				screen_h;
-	char			*n_texture;
-	char			*s_texture;
-	char			*w_texture;
-	char			*e_texture;
-	char			*sprite_texture;
+	int				window_width;
+	int				window_height;
+	char			*n_tex_path;
+	char			*s_tex_path;
+	char			*w_tex_path;
+	char			*e_tex_path;
+	char			*sprite_tex_path;
 	int				ceiling_color;
 	int				floor_color;
 	int				elements_num;
@@ -63,7 +63,7 @@ typedef struct		s_map
 typedef struct		s_data
 {
 	void			*mlx;
-	void			*mlx_win;
+	void			*win;
 	void			*img;
 	char			*addr;
 	int				bits_per_pixel;
@@ -87,13 +87,13 @@ typedef struct		s_data
 
 void	init_map(t_data *img)
 {
-	img->map.screen_w = 0;
-	img->map.screen_h = 0;
-	img->map.n_texture = NULL;
-	img->map.e_texture = NULL;
-	img->map.w_texture = NULL;
-	img->map.s_texture = NULL;
-	img->map.sprite_texture = NULL;
+	img->map.window_width = 0;
+	img->map.window_height = 0;
+	img->map.n_tex_path = NULL;
+	img->map.e_tex_path = NULL;
+	img->map.w_tex_path = NULL;
+	img->map.s_tex_path = NULL;
+	img->map.sprite_tex_path = NULL;
 	img->map.ceiling_color = 0;
 	img->map.floor_color = 0;
 	img->map.elements_num = 0; // 何を管理？？？
@@ -101,10 +101,10 @@ void	init_map(t_data *img)
 }
 
 int		put_err_msg(char *msg);
-void	map_open_error(char *s, int fd);
-int		get_window(t_data *img, char *r_line);
+void	exit_failure_closing_fd(char *s, int fd);
+int		get_resolution(t_data *img, char *r_line);
 int		case_n(t_data *img, char *line);
 int		get_texture_n(t_data *img, char *line);
-int		get_map_info(t_data *img, char *line);
+int		get_cubfile_info(t_data *img, char *line);
 void	read_map_open(t_data *img, char *filename);
 void	init_game(char *filename);
