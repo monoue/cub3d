@@ -93,14 +93,14 @@ void	release_resources(void)
 int		main(int argc, char **argv)
 {
 	if (argc < 2)
-		return (put_err_msg("You need argument(s).\n"));
+		return (exit_failure_with_err_msg("You need argument(s).\n"));
 	if (ft_strlen(argv[1] < 5) || ft_strncmp(&argv[1][ft_strlen(argv[1] - 4)], ".cub", 4) != 0)
 	// if (!ft_strnstr(argv[1], ".cub", ft_strlen(argv[1])))
-		return (put_err_msg(".cub file must be specified.\n"));
+		return (exit_failure_with_err_msg(".cub file must be specified.\n"));
 	if (argc > 2)
 	{
 		if (ft_strncmp(argv[2], "--save", ft_strlen(argv[2])) != 0)
-			return (put_err_msg("Invalid option. Option: --save\n"));
+			return (exit_failure_with_err_msg("Invalid option. Option: --save\n"));
 		save_picture(argv[1]);
 	}
 	else

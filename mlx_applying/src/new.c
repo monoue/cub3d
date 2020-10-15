@@ -1,6 +1,6 @@
 #include "new.h"
 
-int		put_err_msg(char *msg)
+int		exit_failure_with_err_msg(char *msg)
 {
 	ft_putstr("Error\n");
 	ft_putstr(msg);
@@ -9,7 +9,7 @@ int		put_err_msg(char *msg)
 
 void	exit_failure_closing_fd(char *s, int fd)
 {
-	put_err_msg(s);
+	exit_failure_with_err_msg(s);
 	close(fd);
 	exit(EXIT_FAILURE);
 }
@@ -428,20 +428,20 @@ void	map_elements_check(t_data *data)
 	|| data->map.n_tex_path == NULL)
 	{
 		free_map(data);
-		put_err_msg("elements\n");
+		exit_failure_with_err_msg("elements\n");
 		exit(0);
 	}
 	if (data->map.s_tex_path == NULL || data->map.w_tex_path == NULL)
 	{
 		free_map(data);
-		put_err_msg("elements\n");
+		exit_failure_with_err_msg("elements\n");
 		exit(0);
 	}
 	if (data->map.e_tex_path == NULL || data->map.sprite_tex_path == NULL\
 	|| data->map.elements_num != 8)
 	{
 		free_map(data);
-		put_err_msg("elements\n");
+		exit_failure_with_err_msg("elements\n");
 		exit(0);
 	}
 }
@@ -503,7 +503,7 @@ void	check(t_data *data)
 	index = 0;
 	if (data->err_flag == true)
 	{
-		put_err_msg("invalid map\n");
+		exit_failure_with_err_msg("invalid map\n");
 		exit(0);
 	}
 }
@@ -530,7 +530,7 @@ void	read_map_open(t_data *data, char *filename)
 	if (data->err_flag == true)
 	{
 		free_map(data);
-		put_err_msg("map");
+		exit_failure_with_err_msg("map");
 		exit(0);
 	}
 	get_sprite_pos(data);
@@ -646,7 +646,7 @@ void	init_game(char *filename)
 	if (data.w_map[(int)data.player.p_y][(int)data.player.p_x + 1] == '1' || data.w_map[(int)data.player.p_y][(int)data.player.p_x + 1] == '1' || data.w_map[(int)data.player.p_y][(int)data.player.p_x + 1] == '1' || data.w_map[(int)data.player.p_y - 1][(int)data.player.p_x] == '1')
 	{
 		free_map(&data);
-		put_err_msg("player position\n");
+		exit_failure_with_err_msg("player position\n");
 		exit(0);
 	}
 	init_elements(&data);

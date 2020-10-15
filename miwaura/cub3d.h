@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 12:54:26 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 16:52:49 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/15 10:36:55 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ void				moves(t_data *img);
 void				ray_cast(t_data *img, int x);
 void				sprites(t_data *img, int x);
 int					render_next_frame(void *p);
-int					put_err_msg(char *s);
+int					exit_failure_with_err_msg(char *s);
 void				exit_failure_closing_fd(char *s, int fd);
 int					get_resolution(t_data *img, char *line);
 void				sprite_calculation(t_data *img, int x);

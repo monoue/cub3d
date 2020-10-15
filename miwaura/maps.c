@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 15:04:36 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 16:52:49 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/15 10:36:55 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ void	map_elements_check(t_data *img)
 	|| img->map.n_tex_path == NULL)
 	{
 		free_reads(img);
-		put_err_msg("elements\n");
+		exit_failure_with_err_msg("elements\n");
 		exit(0);
 	}
 	if (img->map.s_tex_path == NULL || img->map.w_tex_path == NULL)
 	{
 		free_reads(img);
-		put_err_msg("elements\n");
+		exit_failure_with_err_msg("elements\n");
 		exit(0);
 	}
 	if (img->map.e_tex_path == NULL || img->map.sprite_tex_path == NULL\
 	|| img->map.elements_num != 8)
 	{
 		free_reads(img);
-		put_err_msg("elements\n");
+		exit_failure_with_err_msg("elements\n");
 		exit(0);
 	}
 }
@@ -58,7 +58,7 @@ void	read_map_open(t_data *img, char *file)
 	if (img->flag == 1)
 	{
 		free_reads(img);
-		put_err_msg("map");
+		exit_failure_with_err_msg("map");
 		exit(0);
 	}
 	get_inf_sprite_pos(img);

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 15:17:32 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 14:04:16 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/15 10:36:55 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	init_game(char *file)
 	img.w_map[(int)img.player.p_y - 1][(int)img.player.p_x] == '1')
 	{
 		free_reads(&img);
-		put_err_msg("player position\n");
+		exit_failure_with_err_msg("player position\n");
 		exit(0);
 	}
 	init_elements(&img);
@@ -77,11 +77,11 @@ void	init_game(char *file)
 int		main(int argc, char **argv)
 {
 	if (argc < 2 || 3 < argc)
-		return (put_err_msg("Invalid arguments.\n"));
+		return (exit_failure_with_err_msg("Invalid arguments.\n"));
 	if (!ft_strnstr(argv[1], ".cub", ft_strlen(argv[1])))
-		return (put_err_msg(".cub file must be specified.\n"));
+		return (exit_failure_with_err_msg(".cub file must be specified.\n"));
 	if (argc == 3 && ft_strncmp(argv[2], "--save", ft_strlen(argv[2])) != 0)
-		return (put_err_msg("Invalid option. Options: --save\n"));
+		return (exit_failure_with_err_msg("Invalid option. Options: --save\n"));
 	if (argc == 2)
 		init_game(argv[1]);
 	else

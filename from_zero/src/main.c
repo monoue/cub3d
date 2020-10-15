@@ -1,18 +1,20 @@
+#include <mlx.h>
 #include "main.h"
 #include "ft_printf/ft_printf.h"
 #include "ft_printf/libft/libft.h"
 #include "get_next_line/get_next_line.h"
 
-int		put_err_msg(char *err_msg)
+int		exit_failure_with_err_msg(char *err_msg)
 {
 	ft_putstr_fd("Error\n", STDERR_FILENO);
 	ft_putstr_fd(err_msg, STDERR_FILENO);
+
+	exit(EXIT_FAILURE);
+	// 後で、全て void 型に変更
 	return (1);
 }
 
 #include <string.h>
-
-
 
 void	map_init(t_data *data)
 {
@@ -26,77 +28,93 @@ void	map_init(t_data *data)
 	data->map.floor_color = NOT_SET;
 	data->map.elements_num = NOT_SET;
 	data->map.ceiling_color = NOT_SET;
-
-	// こいつはあるかも
 	data->err_flag = false;
 }
 
 void	exit_failure_closing_fd(char *err_msg, int fd)
 {
-	put_err_msg(err_msg);
+	exit_failure_with_err_msg(err_msg);
 	close(fd);
 	exit(EXIT_FAILURE);
 }
 
-int		get_resolution(t_data *data, char *resolution_line)
+bool	is_valid_identifier(const char *first_word, const char *identifier)
+{
+	const size_t	fst_wrd_len = ft_strlen(first_word);
+	const size_t	id_len = ft_strlen(identifier);
+
+	return (ft_strncmp(first_word, identifier, MAX(fst_wrd_len, id_len)) == 0);
+}
+
+// bool	is_valid_identifier(const char *cubfile_line, const char *identifier, const int info_num)
+// {
+// 	const char		*array = ft_split(cubfile_line, ' ');
+// 	const char		first_word = array[0];
+// 	const size_t	fst_wrd_len = ft_strlen(first_word);
+// 	const size_t	id_len = ft_strlen(identifier);
+// 	int				word_count;
+
+// 	word_count = 0;
+// 	while (array[word_count] != NULL)
+// 		word_count++;
+// 	if (word_count - 1 != info_num)
+// 		return (false);
+// 	return (ft_strncmp(first_word, identifier, MAX(fst_wrd_len, id_len)) == 0);
+// }
+
+int		get_resolution(t_data *data, char **infos, size_t expected_infos_num)
 {
 	size_t			index;
-	const size_t	line_len = ft_strlen(resolution_line);
+	const size_t	
 
-	mlx_get_screen_size(data->mlx, &data->map.window_width, &data->map.window_height);
-	data->map.elements_num++;
+	if (!(data->map.window_width == NOT_SET && data->map.window_height == NOT_SET))
+		exit_failure_with_err_msg(".cub file has several \"R\" lines.");
+
+	// & がなきゃ変更されないのかな？？
 	index = 0;
-	while (index < line_len && resolution_line[index] == ' ')
+	while (infos[index] != NULL) // != 0、かな？？
+		index++;
+	if (index != expected_infos_num)
+		exit_failure_with_err_msg("\"R\" line's informations' number is wrong.");
+	index = 0;
+	mlx_get_screen_size(data->mlx, &data->map.window_width, &data->map.window_height);
+	index = 0;
+	while (index < line_len && infos[index] == ' ')
 		index++;
 	if (index < line_len)
-		data->map.window_width = MIN(data->map.window_width, ft_atoi(&resolution_line[index]));
-	while (index < line_len && ft_isdigit(resolution_line[index]))
+		data->map.window_width = MIN(data->map.window_width, ft_atoi(&infos[index]));
+	while (index < line_len && ft_isdigit(infos[index]))
 		index++;
-	while (index < line_len && resolution_line[index] == ' ')
+	while (index < line_len && infos[index] == ' ')
 		index++;
 	if (index < line_len)
-		data->map.window_height = MIN(data->map.window_height, ft_atoi(&resolution_line[index]));
-	while (index < line_len && ft_isdigit(resolution_line[index]))
+		data->map.window_height = MIN(data->map.window_height, ft_atoi(&infos[index]));
+	while (index < line_len && ft_isdigit(infos[index]))
 		index++;
 	if (index != line_len)
 		return (ERROR);
 	return (SUCCESS);
 }
 
-bool	is_valid_cubfile_line(const char *cubfile_line, const char *identifier, const int info_num)
-{
-	const char		*array = ft_split(cubfile_line, ' ');
-	const char		first_word = array[0];
-	const size_t	fst_wrd_len = ft_strlen(first_word);
-	const size_t	id_len = ft_strlen(identifier);
-	int				word_count;
-
-	word_count = 0;
-	while (array[word_count] != NULL)
-		word_count++;
-	if (word_count - 1 != info_num)
-		return (false);
-	return (ft_strncmp(first_word, identifier, MAX(fst_wrd_len, id_len)) == 0);
-}
-
 int		get_cubfile_info(t_data *data, char *cubfile_line)
 {
-	if (is_valid_cubfile_line(cubfile_line, "R", 2))
+	const char **element_items = ft_split(cubfile_line, ' ');
+	if (is_valid_identifier(element_items[0], "R", 2))
 	// ここまで
-		return (get_resolution(data, &cubfile_line[1])); // こういう風にできるかな？？
-	else if (is_valid_cubfile_line(cubfile_line, "NO", 1))
+		return (get_resolution(data, &element_items[1])); // こういう風にできるかな？？
+	else if (is_valid_identifier(cubfile_line, "NO", 1))
 		return (get_texture_n(data, cubfile_line));
-	else if (is_valid_cubfile_line(cubfile_line, "SO", 1))
+	else if (is_valid_identifier(cubfile_line, "SO", 1))
 		return (get_texture_s(data, cubfile_line));
-	else if (is_valid_cubfile_line(cubfile_line, "WE", 1))
+	else if (is_valid_identifier(cubfile_line, "WE", 1))
 		return (get_texture_w(data, cubfile_line));
-	else if (is_valid_cubfile_line(cubfile_line, "EA", 1))
+	else if (is_valid_identifier(cubfile_line, "EA", 1))
 		return (get_texture_e(data, cubfile_line));
-	else if (is_valid_cubfile_line(cubfile_line, "S", 1))
+	else if (is_valid_identifier(cubfile_line, "S", 1))
 		return (get_sprite(data, cubfile_line));
-	else if (is_valid_cubfile_line(cubfile_line, "F", 1))
+	else if (is_valid_identifier(cubfile_line, "F", 1))
 		return (get_colors(data, cubfile_line, 'F'));
-	else if (is_valid_cubfile_line(cubfile_line, "C", 1))
+	else if (is_valid_identifier(cubfile_line, "C", 1))
 		return (get_colors(data, cubfile_line, 'C'));
 	else if (mapline(cubfile_line) == 0)
 		return (get_map(data, cubfile_line));
@@ -123,7 +141,7 @@ void	read_map_open(t_data *data, char *filename)
 	if (data->err_flag == true)
 	{
 		free_reads(data);
-		put_err_msg("map");
+		exit_failure_with_err_msg("map");
 		exit(0);
 	}
 	get_inf_sprite_pos(data);
@@ -158,13 +176,13 @@ int	main(int argc, char **argv)
 	const char	*option = "--save";
 
 	if (argc < 2)
-		return (put_err_msg("At least one argument needed.\n"));
+		return (exit_failure_with_err_msg("No arguments."));
 	if (ft_strlen(argv[1]) < 5 || ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], extension, 4) != 0)
-		return (put_err_msg(".cub file must be specified.\n"));
+		return (exit_failure_with_err_msg("File's extension is not \".cub\".\n"));
 	if (argc > 2)
 	{
 		if (ft_strlen(argv[2]) != ft_strlen(option) || ft_strncmp(argv[2], option, ft_strlen(option)) != 0)
-			return (put_err_msg("Invalid option. Option: --save\n"));
+			return (exit_failure_with_err_msg("Option is not \"--save\".\n"));
 		// TODO: save_picture(argv[1]);
 	}
 	else

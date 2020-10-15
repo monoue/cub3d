@@ -100,7 +100,7 @@ void	init_map(t_data *img)
 	img->err_flag = false;
 }
 
-int		put_err_msg(char *msg);
+int		exit_failure_with_err_msg(char *msg);
 void	exit_failure_closing_fd(char *s, int fd);
 int		get_resolution(t_data *img, char *r_line);
 int		case_n(t_data *img, char *line);
