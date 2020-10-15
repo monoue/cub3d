@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 15:06:13 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/15 10:36:55 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/14 14:04:16 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	check(t_data *img)
 	i = 0;
 	if (img->flag == 1)
 	{
-		exit_failure_with_err_msg("invalid map\n");
+		put_err_msg("invalid map\n");
 		exit(0);
 	}
 }

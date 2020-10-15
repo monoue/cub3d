@@ -56,22 +56,21 @@ BONUS += ft_lstclear.c
 BONUS += ft_lstiter.c
 BONUS += ft_lstmap.c
 
-ADDED += ft_min.c
-ADDED += ft_max.c
 ADDED += ft_ctoi.c
 ADDED += ft_itoc.c
 ADDED += ft_isspace.c
 ADDED += ft_strnlen.c
 ADDED += ft_strstr.c
 ADDED += ft_putchar.c
+ADDED += ft_putstr.c
 ADDED += ft_putnbr.c
 ADDED += ft_intlen.c
 ADDED += ft_strjoin_free_both.c
 
-all: $(NAME)
-
 $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
+
+all: $(NAME)
 
 clean:
 	rm -f $(OBJS) $(BOBJS)

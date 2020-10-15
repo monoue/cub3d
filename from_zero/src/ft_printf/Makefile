@@ -15,6 +15,8 @@ SRCS += toa_malloc.c
 SRCS += apply_margin.c
 SRCS += fill_with_zero.c
 
+SRCS += ../get_next_line/get_next_line.c
+
 $(NAME): $(OBJS)
 	$(MAKE) -C ./libft
 	cp libft/libft.a $(NAME)

@@ -1,4 +1,4 @@
-#include <mlx.h>
+#include "../minilibx/mlx_beta/mlx.h"
 #include "main.h"
 #include "ft_printf/ft_printf.h"
 #include "ft_printf/libft/libft.h"
@@ -61,63 +61,66 @@ bool	is_valid_identifier(const char *first_word, const char *identifier)
 // 		return (false);
 // 	return (ft_strncmp(first_word, identifier, MAX(fst_wrd_len, id_len)) == 0);
 // }
+size_t	get_digits_num(const char *str)
+{
+	size_t	digits_num;
 
+	digits_num = 0;
+	while (ft_isdigit(str[digits_num]))
+		digits_num++;
+	return (digits_num);
+}
+
+// data の中の map から先だけ渡せるならそうしたい
 int		get_resolution(t_data *data, char **infos, size_t expected_infos_num)
 {
 	size_t			index;
-	const size_t	
+	const size_t	info1_len = ft_strlen(infos[0]);
+	size_t			info2_len;
 
 	if (!(data->map.window_width == NOT_SET && data->map.window_height == NOT_SET))
 		exit_failure_with_err_msg(".cub file has several \"R\" lines.");
-
 	// & がなきゃ変更されないのかな？？
 	index = 0;
 	while (infos[index] != NULL) // != 0、かな？？
 		index++;
 	if (index != expected_infos_num)
-		exit_failure_with_err_msg("\"R\" line's informations' number is wrong.");
-	index = 0;
+		exit_failure_with_err_msg(".cub file: \"R\" line's informations' number is wrong.");
+	info2_len = ft_strlen(infos[1]);
+	if (!(info1_len == get_digits_num(infos[0]) || info2_len == get_digits_num(infos[1])))
+		exit_failure_with_err_msg(".cub file: \"R\" line's information is invalid.");
 	mlx_get_screen_size(data->mlx, &data->map.window_width, &data->map.window_height);
-	index = 0;
-	while (index < line_len && infos[index] == ' ')
-		index++;
-	if (index < line_len)
-		data->map.window_width = MIN(data->map.window_width, ft_atoi(&infos[index]));
-	while (index < line_len && ft_isdigit(infos[index]))
-		index++;
-	while (index < line_len && infos[index] == ' ')
-		index++;
-	if (index < line_len)
-		data->map.window_height = MIN(data->map.window_height, ft_atoi(&infos[index]));
-	while (index < line_len && ft_isdigit(infos[index]))
-		index++;
-	if (index != line_len)
-		return (ERROR);
+	data->map.window_width = MIN(data->map.window_width, ft_atoi(infos[0]));
+	data->map.window_height = MIN(data->map.window_height, ft_atoi(infos[1]));
+	// これも、void で済むかも
 	return (SUCCESS);
 }
 
 int		get_cubfile_info(t_data *data, char *cubfile_line)
 {
-	const char **element_items = ft_split(cubfile_line, ' ');
-	if (is_valid_identifier(element_items[0], "R", 2))
-	// ここまで
-		return (get_resolution(data, &element_items[1])); // こういう風にできるかな？？
-	else if (is_valid_identifier(cubfile_line, "NO", 1))
-		return (get_texture_n(data, cubfile_line));
-	else if (is_valid_identifier(cubfile_line, "SO", 1))
-		return (get_texture_s(data, cubfile_line));
-	else if (is_valid_identifier(cubfile_line, "WE", 1))
-		return (get_texture_w(data, cubfile_line));
-	else if (is_valid_identifier(cubfile_line, "EA", 1))
-		return (get_texture_e(data, cubfile_line));
-	else if (is_valid_identifier(cubfile_line, "S", 1))
-		return (get_sprite(data, cubfile_line));
-	else if (is_valid_identifier(cubfile_line, "F", 1))
-		return (get_colors(data, cubfile_line, 'F'));
-	else if (is_valid_identifier(cubfile_line, "C", 1))
-		return (get_colors(data, cubfile_line, 'C'));
-	else if (mapline(cubfile_line) == 0)
-		return (get_map(data, cubfile_line));
+	// const char **element_items = ft_split(cubfile_line, ' ');
+	char **element_items;
+
+	element_items = ft_split(cubfile_line, ' ');
+	ft_printf("%s\n", element_items[0]);
+	if (is_valid_identifier(element_items[0], "R"))
+		return (get_resolution(data, &element_items[1], 2)); // こういう風にできるかな？？
+	// else if (is_valid_identifier(element_items[0], "NO", 2))
+	// 	return (get_texture_n(data, cubfile_line));
+	// else if (is_valid_identifier(cubfile_line, "SO", 1))
+	// 	return (get_texture_s(data, cubfile_line));
+	// else if (is_valid_identifier(cubfile_line, "WE", 1))
+	// 	return (get_texture_w(data, cubfile_line));
+	// else if (is_valid_identifier(cubfile_line, "EA", 1))
+	// 	return (get_texture_e(data, cubfile_line));
+	// else if (is_valid_identifier(cubfile_line, "S", 1))
+	// 	return (get_sprite(data, cubfile_line));
+	// else if (is_valid_identifier(cubfile_line, "F", 1))
+	// 	return (get_colors(data, cubfile_line, 'F'));
+	// else if (is_valid_identifier(cubfile_line, "C", 1))
+	// 	return (get_colors(data, cubfile_line, 'C'));
+	// else if (mapline(cubfile_line) == 0)
+	// 	return (get_map(data, cubfile_line));
 	return (ERROR);
 }
 
@@ -131,24 +134,28 @@ void	read_map_open(t_data *data, char *filename)
 	while (get_next_line(data->fd, &line) > 0)
 	{
 		if (get_cubfile_info(data, line) == ERROR)
+		{
 			// なぜここで終わらせちゃわないのか？ free とか？
-			data->err_flag = true;
+			// data->err_flag = true;
+			// これはテスト用
+			return ;
+		}
 		SAFE_FREE(line);
 	}
 	SAFE_FREE(line);
-	map_elements_check(data);
-	data->sprite = malloc(sizeof(t_sprite) * data->sprite_num);
-	if (data->err_flag == true)
-	{
-		free_reads(data);
-		exit_failure_with_err_msg("map");
-		exit(0);
-	}
-	get_inf_sprite_pos(data);
-	check(data);
+	// map_elements_check(data);
+	// data->sprite = malloc(sizeof(t_sprite) * data->sprite_num);
+	// if (data->err_flag == true)
+	// {
+	// 	free_reads(data);
+	// 	exit_failure_with_err_msg("map");
+	// 	exit(0);
+	// }
+	// get_inf_sprite_pos(data);
+	// check(data);
 }
 
-void	init_game(char *filename)
+void	init_everything(char *filename)
 {
 	t_data	data;
 
@@ -186,5 +193,5 @@ int	main(int argc, char **argv)
 		// TODO: save_picture(argv[1]);
 	}
 	else
-		init_everthing(argv[1]);
+		init_everything(argv[1]);
 }
