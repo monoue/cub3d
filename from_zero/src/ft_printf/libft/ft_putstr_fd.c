@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 16:14:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/07/02 11:37:02 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/20 09:52:08 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	if (s)
-		write(fd, s, ft_strlen(s));
+	if (s == NULL)
+		return ;
+	write(fd, s, ft_strlen(s));
 }

@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ctoa.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 13:50:34 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/20 09:12:52 by monoue           ###   ########.fr       */
+/*   Created: 2020/10/20 07:20:40 by monoue            #+#    #+#             */
+/*   Updated: 2020/10/20 07:20:43 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+char	*ctoa(char c)
 {
-	size_t	srclen;
-	size_t	dststr_len;
-	size_t	index;
+	char	*c_as_str;
 
-	if (dst == NULL || src == NULL)
-		return (0);
-	srclen = ft_strlen(src);
-	if (dstsize == 0)
-		return (srclen);
-	dststr_len = MIN(dstsize - 1, srclen);
-	index = 0;
-	while (index < dststr_len)
-	{
-		dst[index] = src[index];
-		index++;
-	}
-	dst[index] = '\0';
-	return (srclen);
+	c_as_str = ft_strdup("0");
+	if (c_as_str == NULL)
+		return (NULL);
+	c_as_str[0] = c;
+	return (c_as_str);
 }

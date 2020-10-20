@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:22:57 by monoue            #+#    #+#             */
-/*   Updated: 2020/07/02 11:38:31 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/15 16:01:48 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	const char	*s1;
+	const char	*str = s;
+	size_t		index;
 
-	s1 = s;
-	while (n-- > 0)
+	index = 0;
+	while (index < n)
 	{
-		if (*s1 == (char)c)
-			return ((void *)s1);
-		s1++;
+		if (str[index] == (char)c)
+			return ((void *)&str[index]);
+		index++;
 	}
 	return (NULL);
 }

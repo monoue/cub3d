@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:24:38 by monoue            #+#    #+#             */
-/*   Updated: 2020/07/03 16:08:39 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/15 13:44:00 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_putchar_fd(char c, int fd)
 {
-	write(fd, &c, 1);
+	write(fd, &c, STDOUT_FILENO);
 }

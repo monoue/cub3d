@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ctoi.c                                          :+:      :+:    :+:   */
+/*   ft_strdup_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/29 13:23:32 by monoue            #+#    #+#             */
-/*   Updated: 2020/07/02 11:18:40 by monoue           ###   ########.fr       */
+/*   Created: 2020/06/23 15:32:49 by monoue            #+#    #+#             */
+/*   Updated: 2020/10/15 15:09:39 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_ctoi(char c)
+char	*ft_strdup_free(char *original_s)
 {
-	if (ft_isdigit(c))
-		return ((int)c - '0');
-	return (-1);
+	const char	*duplicated_s = ft_strdup(original_s);
+
+	SAFE_FREE(original_s);
+	return ((char *)duplicated_s);
 }

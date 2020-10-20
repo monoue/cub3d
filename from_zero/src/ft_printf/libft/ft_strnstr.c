@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 17:11:03 by monoue            #+#    #+#             */
-/*   Updated: 2020/07/22 16:51:30 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/20 09:17:37 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,22 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t	i;
-	size_t	j;
-	size_t	nlen;
+	size_t			index;
+	const size_t	n_len = ft_strlen(needle);
+	const size_t	range_to_check = MIN(len, ft_strlen(haystack));
 
-	nlen = ft_strlen(needle);
-	if (*needle == '\0')
-		return ((char *)haystack);
-	if (len == 0 || len < ft_strlen(needle))
+	if (haystack == NULL || needle == NULL)
 		return (NULL);
-	i = 0;
-	while (i <= len - nlen && haystack[i] != '\0')
+	if (needle[0] == '\0')
+		return ((char *)haystack);
+	if (n_len > range_to_check)
+		return (NULL);
+	index = 0;
+	while (index + n_len <= range_to_check)
 	{
-		j = 0;
-		while (haystack[i + j] == needle[j] && needle[j] != '\0')
-			j++;
-		if (needle[j] == '\0')
-			return ((char *)haystack + i);
-		i++;
+		if (ft_strncmp(&haystack[index], needle, n_len) == 0)
+			return ((char *)&haystack[index]);
+		index++;
 	}
 	return (NULL);
 }

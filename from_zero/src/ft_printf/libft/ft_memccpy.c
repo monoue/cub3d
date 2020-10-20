@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 11:27:09 by monoue            #+#    #+#             */
-/*   Updated: 2020/07/03 10:43:00 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/20 08:52:24 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,20 @@
 
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	unsigned char	*d;
-	const char		*s;
-	size_t			i;
+	unsigned char		*d;
+	const unsigned char	*s = src;
+	size_t				index;
 
 	if (dst == src)
 		return (dst);
 	d = dst;
-	s = src;
-	i = 0;
-	while (i < n)
+	index = 0;
+	while (index < n)
 	{
-		d[i] = s[i];
-		if (s[i] == (char)c)
-			return (dst + i + 1);
-		i++;
+		d[index] = s[index];
+		if (s[index] == (unsigned char)c)
+			return (&dst[index + 1]);
+		index++;
 	}
 	return (NULL);
 }

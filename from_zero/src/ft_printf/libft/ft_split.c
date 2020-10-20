@@ -6,85 +6,82 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 17:04:52 by monoue            #+#    #+#             */
-/*   Updated: 2020/08/17 08:21:52 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/15 15:33:58 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_count_words(char *str, char c)
+static size_t	count_words(char *str, char c)
 {
-	int	count;
+	size_t	index;
+	size_t	words_num;
 
-	count = 0;
-	while (*str != '\0' && *str == c)
-		str++;
-	while (*str != '\0')
+	index = 0;
+	while (str[index] != '\0' && str[index] == c)
+		index++;
+	words_num = 0;
+	while (str[index] != '\0')
 	{
-		while (*str != '\0' && *str != c)
-			str++;
-		count++;
-		while (*str != '\0' && *str == c)
-			str++;
+		while (str[index] != '\0' && str[index] != c)
+			index++;
+		words_num++;
+		while (str[index] != '\0' && str[index] == c)
+			index++;
 	}
-	return (count);
+	return (words_num);
 }
 
-static size_t	set_start(size_t end, char const *s, char c)
+static char		**return_null_freeing_all(char **arr, int i)
 {
-	size_t	start;
+	int	index;
 
-	start = end;
-	while (start < ft_strlen(s) && s[start] == c && s[start] != '\0')
-		start++;
-	return (start);
+	index = i;
+	while (index >= 0)
+	{
+		SAFE_FREE(arr[index]);
+		index--;
+	}
+	SAFE_FREE(arr);
+	return (NULL);
 }
 
-static size_t	set_end(size_t start, char const *s, char c)
+static char		*cut_out_one_word(const char *str, char sep_c, size_t *index)
 {
-	size_t	end;
+	size_t			start;
+	const size_t	s_len = ft_strlen(str);
 
-	end = start + 1;
-	while (s[end] != '\0' && s[end] != c)
-		end++;
-	return (end);
-}
-
-static void		free_all(char **arr, size_t i)
-{
-	int	j;
-
-	j = (int)i;
-	while (j >= 0)
-		free(arr[j--]);
-	free(arr);
+	while (*index < s_len && str[*index] == sep_c)
+		(*index)++;
+	start = *index;
+	while (*index < s_len && str[*index] != sep_c)
+		(*index)++;
+	return (ft_substr(str, start, *index - start));
 }
 
 char			**ft_split(char const *str, char sep_c)
 {
-	char	**arr;
-	size_t	count;
-	size_t	start;
-	size_t	end;
-	size_t	i;
+	char	**words;
+	size_t	words_num;
+	size_t	index;
+	int		w_i;
 
 	if (str == NULL)
 		return (NULL);
-	count = ft_count_words((char *)str, sep_c);
-	if (!(arr = ft_calloc((count + 1), sizeof(*arr))))
+	words_num = count_words((char *)str, sep_c);
+	words = ft_calloc((words_num + 1), sizeof(*words));
+	if (words == NULL)
 		return (NULL);
 	if (sep_c == '\0')
-		return (arr);
-	i = 0;
-	start = set_start(0, str, sep_c);
-	while (count-- > 0 && (end = set_end(start, str, sep_c)))
+		return (words);
+	w_i = 0;
+	index = 0;
+	while (w_i < (int)words_num)
 	{
-		if (!(arr[i++] = ft_substr(str, start, end - start)))
-		{
-			free_all(arr, i - 1);
-			return (NULL);
-		}
-		start = set_start(end, str, sep_c);
+		words[w_i] = cut_out_one_word(str, sep_c, &index);
+		if (words[w_i] == NULL)
+			return (return_null_freeing_all(words, w_i - 1));
+		w_i++;
 	}
-	return (arr);
+	return (words);
 }

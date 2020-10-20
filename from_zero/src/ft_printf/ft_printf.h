@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 11:56:31 by monoue            #+#    #+#             */
-/*   Updated: 2020/09/21 15:57:10 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/20 12:44:56 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdarg.h>
 # include <limits.h>
 # include <stdbool.h>
-# include "libft/libft.h"
+# include "./libft/libft.h"
 
 # define MIN(x, y)		x <= y ? x : y
 # define CTOI(c)		c - '0'

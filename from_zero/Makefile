@@ -1,5 +1,5 @@
 build:
-	gcc -g -fsanitize=address ./src/*.c ./libftprintf.a ./libmlx.dylib -o cub3D;
+	gcc -g -fsanitize=address ./src/main.c ./libftprintf.a ./libmlx.dylib -o cub3D;
 
 run:
 	./cub3D;

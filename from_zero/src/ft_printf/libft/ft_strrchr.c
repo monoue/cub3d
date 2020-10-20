@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 13:50:34 by monoue            #+#    #+#             */
-/*   Updated: 2020/08/20 11:18:24 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/20 09:07:07 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,18 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int				len;
-	unsigned char	uc;
+	const unsigned char	uc = c;
+	const int			s_len = (int)ft_strlen(s);
+	int					index;
 
-	uc = (unsigned char)c;
-	len = ft_strlen(s);
-
-	// while (len > 0 && s[len] != uc)
-	// {
-	// 	len--;
-	// }
-	// if (s[len] == uc)
-	// 	return ((char *)(s - len));
-	// return (NULL);
-
-	s += len;
-	while (len-- > 0 && *s != uc)
-		s--;
-	if (*s == uc)
-		return ((char *)s);
+	if (s == NULL)
+		return (NULL);
+	index = s_len;
+	while (index >= 0)
+	{
+		if (s[index] == uc)
+			return ((char *)&s[index]);
+		index--;
+	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 13:49:50 by monoue            #+#    #+#             */
-/*   Updated: 2020/07/07 13:17:59 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/20 07:50:15 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,14 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned char *p1;
-	unsigned char *p2;
+	const unsigned char	*p1 = s1;
+	const unsigned char	*p2 = s2;
+	size_t				index;
 
-	p1 = (unsigned char *)s1;
-	p2 = (unsigned char *)s2;
-	while (n > 0 && *p1 == *p2)
-	{
-		p1++;
-		p2++;
-		n--;
-	}
-	if (n == 0)
+	index = 0;
+	while (index < n && p1[index] == p2[index])
+		index++;
+	if (index == n)
 		return (0);
-	return ((int)(*p1 - *p2));
+	return ((int)(p1[index] - p2[index]));
 }

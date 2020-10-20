@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 13:50:34 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/20 09:12:52 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/14 15:42:30 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+int		ft_strcmp(const char *s1, const char *s2)
 {
-	size_t	srclen;
-	size_t	dststr_len;
-	size_t	index;
+	size_t			index;
+	const size_t	s1_len = ft_strlen(s1);
+	const size_t	s2_len = ft_strlen(s2);
+	const size_t	min_str_len = MIN(s1_len, s2_len);
 
-	if (dst == NULL || src == NULL)
-		return (0);
-	srclen = ft_strlen(src);
-	if (dstsize == 0)
-		return (srclen);
-	dststr_len = MIN(dstsize - 1, srclen);
 	index = 0;
-	while (index < dststr_len)
+	while (index < min_str_len)
 	{
-		dst[index] = src[index];
+		if (s1[index] != s2[index])
+			return ((int)((unsigned char)s1[index] - (unsigned char)s2[index]));
 		index++;
 	}
-	dst[index] = '\0';
-	return (srclen);
+	if (s1_len > s2_len)
+		return (1);
+	if (s1_len < s2_len)
+		return (-1);
+	return (0);
 }

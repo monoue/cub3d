@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 13:40:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/07/02 11:36:28 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/15 14:39:43 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 size_t	ft_strnlen(const char *s, size_t maxlen)
 {
-	return (ft_min(ft_strlen(s), maxlen));
+	return (MIN(ft_strlen(s), maxlen));
 }

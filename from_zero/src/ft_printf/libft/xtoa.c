@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoc.c                                          :+:      :+:    :+:   */
+/*   xtoa.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/29 13:23:32 by monoue            #+#    #+#             */
-/*   Updated: 2020/07/02 11:24:18 by monoue           ###   ########.fr       */
+/*   Created: 2020/10/20 07:22:04 by monoue            #+#    #+#             */
+/*   Updated: 2020/10/20 07:23:56 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	ft_itoc(int n)
+char	*xtoa(unsigned num)
 {
-	if (n >= 0 && n <= 9)
-		return ((char)n + '0');
-	return ('\0');
+	if (num >= 16)
+		return (ft_strjoin_free_both(xtoa(num / 16), xtoa(num % 16)));
+	return (ctoa("0123456789abcdef"[num]));
 }

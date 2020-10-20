@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 14:47:27 by monoue            #+#    #+#             */
-/*   Updated: 2020/07/02 11:33:52 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/20 08:57:50 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char	*d;
-	const char		*s;
+	unsigned char		*d;
+	const unsigned char	*s = src;
+	int					index;
 
 	if (src >= dst)
-		ft_memcpy(dst, src, len);
-	else
+		return (ft_memcpy(dst, src, len));
+	d = dst;
+	index = (int)len - 1;
+	while (index >= 0)
 	{
-		d = dst + (len - 1);
-		s = src + (len - 1);
-		while (len-- > 0)
-			*d-- = *s--;
+		d[index] = s[index];
+		index--;
 	}
 	return (dst);
 }

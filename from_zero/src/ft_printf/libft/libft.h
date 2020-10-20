@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 11:56:31 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/15 13:40:26 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/20 09:26:17 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@
 # include <stdarg.h>
 # include <stdbool.h>
 
+# define INT_MIN_STR "-2147483648"
 # define MIN(x, y)		x <= y ? x : y
 # define CTOI(c)		c - '0'
+# define ITOC(c)		c + '0'
 # define ERROR			-1
 # define NOT_SET		-1
 # define SAFE_FREE(ptr)	{free(ptr);ptr = NULL;}
@@ -63,9 +65,7 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *str, char sep_c);
-char				*ft_itoa(int n);
-char				ft_itoc(int n);
-int					ft_ctoi(char c);
+char				*ft_itoa(int num);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
@@ -87,5 +87,9 @@ void				ft_putstr(char *s);
 void				ft_putnbr(int n);
 size_t				ft_intlen(int n);
 char				*ft_strjoin_free_both(char *s1, char *s2);
+int					ft_strcmp(const char *s1, const char *s2);
+char				*ft_strdup_free(char *original_s);
+char				*ctoa(char c);
+char				*xtoa(unsigned num);
 
 #endif

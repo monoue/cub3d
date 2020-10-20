@@ -46,21 +46,6 @@ bool	is_valid_identifier(const char *first_word, const char *identifier)
 	return (ft_strncmp(first_word, identifier, MAX(fst_wrd_len, id_len)) == 0);
 }
 
-// bool	is_valid_identifier(const char *cubfile_line, const char *identifier, const int info_num)
-// {
-// 	const char		*array = ft_split(cubfile_line, ' ');
-// 	const char		first_word = array[0];
-// 	const size_t	fst_wrd_len = ft_strlen(first_word);
-// 	const size_t	id_len = ft_strlen(identifier);
-// 	int				word_count;
-
-// 	word_count = 0;
-// 	while (array[word_count] != NULL)
-// 		word_count++;
-// 	if (word_count - 1 != info_num)
-// 		return (false);
-// 	return (ft_strncmp(first_word, identifier, MAX(fst_wrd_len, id_len)) == 0);
-// }
 size_t	get_digits_num(const char *str)
 {
 	size_t	digits_num;
@@ -71,42 +56,39 @@ size_t	get_digits_num(const char *str)
 	return (digits_num);
 }
 
-// data の中の map から先だけ渡せるならそうしたい
-int		get_resolution(t_data *data, char **infos, size_t expected_infos_num)
+int		get_resolution(t_map *map, void *mlx, const char **infos, size_t expected_infos_num)
 {
 	size_t			index;
 	const size_t	info1_len = ft_strlen(infos[0]);
 	size_t			info2_len;
 
-	if (!(data->map.window_width == NOT_SET && data->map.window_height == NOT_SET))
+	if (!(map->window_width == NOT_SET && map->window_height == NOT_SET))
 		exit_failure_with_err_msg(".cub file has several \"R\" lines.");
-	// & がなきゃ変更されないのかな？？
 	index = 0;
-	while (infos[index] != NULL) // != 0、かな？？
+	while (infos[index] != NULL)
 		index++;
 	if (index != expected_infos_num)
 		exit_failure_with_err_msg(".cub file: \"R\" line's informations' number is wrong.");
 	info2_len = ft_strlen(infos[1]);
 	if (!(info1_len == get_digits_num(infos[0]) || info2_len == get_digits_num(infos[1])))
 		exit_failure_with_err_msg(".cub file: \"R\" line's information is invalid.");
-	mlx_get_screen_size(data->mlx, &data->map.window_width, &data->map.window_height);
-	data->map.window_width = MIN(data->map.window_width, ft_atoi(infos[0]));
-	data->map.window_height = MIN(data->map.window_height, ft_atoi(infos[1]));
+	mlx_get_screen_size(mlx, &map->window_width, &map->window_height);
+	map->window_width = MIN(map->window_width, ft_atoi(infos[0]));
+	map->window_height = MIN(map->window_height, ft_atoi(infos[1]));
 	// これも、void で済むかも
+	ft_printf("%d\n", map->window_width);
+	ft_printf("%d\n", map->window_height);
 	return (SUCCESS);
 }
 
 int		get_cubfile_info(t_data *data, char *cubfile_line)
 {
-	// const char **element_items = ft_split(cubfile_line, ' ');
-	char **element_items;
+	const char **element_items = (const char **)ft_split(cubfile_line, ' ');
 
-	element_items = ft_split(cubfile_line, ' ');
-	ft_printf("%s\n", element_items[0]);
 	if (is_valid_identifier(element_items[0], "R"))
-		return (get_resolution(data, &element_items[1], 2)); // こういう風にできるかな？？
-	// else if (is_valid_identifier(element_items[0], "NO", 2))
-	// 	return (get_texture_n(data, cubfile_line));
+		return (get_resolution(&data->map, data->mlx, &element_items[1], 2));
+	if (is_valid_identifier(element_items[0], "NO"))
+		return (get_texture_n(data, cubfile_line));
 	// else if (is_valid_identifier(cubfile_line, "SO", 1))
 	// 	return (get_texture_s(data, cubfile_line));
 	// else if (is_valid_identifier(cubfile_line, "WE", 1))
