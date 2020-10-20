@@ -1,7 +1,25 @@
 #include <stdbool.h>
 
-#define SUCCESS 0
-#define MAX(x, y) x >= y ? x : y
+#define SUCCESS			0
+#define MAX(x, y)		x >= y ? x : y
+#define IMG_DIR			"images"
+#define BLUESTONE_XPM	"./"IMG_DIR"/bluestone.xpm"
+#define BARREL_XPM		"./"IMG_DIR"/barrel.xpm"
+#define COLORSTONE_XPM	"./"IMG_DIR"/colorstone.xpm"
+#define GRAYSTONE_XPM	"./"IMG_DIR"/greystone.xpm"
+#define REDBRICK_XPM	"./"IMG_DIR"/redbrick.xpm"
+
+typedef enum	e_textures
+{
+	BLUESTONE,
+	BARREL,
+	COLORSTONE,
+	GRAYSTONE,
+	REDBRICK,
+
+	TEXTURES_NUM
+}				t_textures;
+
 typedef struct		s_map
 {
 	int				window_width;
@@ -13,7 +31,7 @@ typedef struct		s_map
 	char			*sprite_tex_path;
 	int				floor_color;
 	int				ceiling_color;
-	int				elements_num;
+	// int				elements_num;
 }					t_map;
 
 typedef struct		s_data
@@ -32,3 +50,12 @@ typedef struct		s_data
 	bool			err_flag;
 	t_map			map;
 }					t_data;
+
+const char *texture_file_names[TEXTURES_NUM] =
+{
+	BLUESTONE_XPM,
+	BARREL_XPM,
+	COLORSTONE_XPM,
+	GRAYSTONE_XPM,
+	REDBRICK_XPM
+};

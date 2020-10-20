@@ -43,7 +43,7 @@ bool	is_valid_identifier(const char *first_word, const char *identifier)
 	const size_t	fst_wrd_len = ft_strlen(first_word);
 	const size_t	id_len = ft_strlen(identifier);
 
-	return (ft_strncmp(first_word, identifier, MAX(fst_wrd_len, id_len)) == 0);
+	return (ft_strcmp(first_word, identifier) == 0);
 }
 
 size_t	get_digits_num(const char *str)
@@ -75,10 +75,58 @@ int		get_resolution(t_map *map, void *mlx, const char **infos, size_t expected_i
 	mlx_get_screen_size(mlx, &map->window_width, &map->window_height);
 	map->window_width = MIN(map->window_width, ft_atoi(infos[0]));
 	map->window_height = MIN(map->window_height, ft_atoi(infos[1]));
-	// これも、void で済むかも
-	ft_printf("%d\n", map->window_width);
-	ft_printf("%d\n", map->window_height);
 	return (SUCCESS);
+}
+
+void	n_texture_set(t_data *img, char *ptr, char *path)
+{
+	ptr = img->map.n_tex_path;
+	img->map.n_tex_path = ft_strdup(path);
+	free(ptr);
+}
+
+int		case_n(t_data *img, char *line, int i, char *ptr)
+{
+	if (ft_strncmp(line + i, "./images/redbrick.xpm", 23) == 0)
+	{
+		n_texture_set(img, ptr, "./images/redbrick.xpm");
+		return (1);
+	}
+	if (ft_strncmp(line + i, "./images/greystone.xpm", 24) == 0)
+	{
+		n_texture_set(img, ptr, "./images/greystone.xpm");
+		return (1);
+	}
+	return (0);
+}
+
+int		get_texture_n(t_data *img, char *line)
+{
+	int		i;
+	char	*ptr;
+
+	i = 3;
+	ptr = NULL;
+	while (line[i] == ' ')
+		i++;
+	if (case_n(img, line, i, ptr) == 1)
+		return (1);
+	if (ft_strncmp(line + i, "./images/bluestone.xpm", 24) == 0)
+	{
+		n_texture_set(img, ptr, "./images/bluestone.xpm");
+		return (1);
+	}
+	if (ft_strncmp(line + i, "./images/colorstone.xpm", 25) == 0)
+	{
+		n_texture_set(img, ptr, "./images/colorstone.xpm");
+		return (1);
+	}
+	return (0);
+}
+
+int		set_image(char **n_tex_path, const char **infos)
+{
+
 }
 
 int		get_cubfile_info(t_data *data, char *cubfile_line)
@@ -88,7 +136,7 @@ int		get_cubfile_info(t_data *data, char *cubfile_line)
 	if (is_valid_identifier(element_items[0], "R"))
 		return (get_resolution(&data->map, data->mlx, &element_items[1], 2));
 	if (is_valid_identifier(element_items[0], "NO"))
-		return (get_texture_n(data, cubfile_line));
+		return (set_image(&data->map.n_tex_path, &element_items[1]));
 	// else if (is_valid_identifier(cubfile_line, "SO", 1))
 	// 	return (get_texture_s(data, cubfile_line));
 	// else if (is_valid_identifier(cubfile_line, "WE", 1))
