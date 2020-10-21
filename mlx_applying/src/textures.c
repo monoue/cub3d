@@ -1,6 +1,6 @@
 #include "texture.h"
 
-static const char *texture_file_names[NUM_TEXTURES] =
+static const char *g_texture_file_names[NUM_TEXTURES] =
 {
 	"./images/redbrick.png",
 	"./images/purplestone.png",
@@ -22,7 +22,7 @@ void	load_wall_textures(void)
 	{
 		upng_t	*upng;
 
-		upng = upng_new_from_file(texture_file_names[index]);
+		upng = upng_new_from_file(g_texture_file_names[index]);
 		if (upng == NULL)
 			continue ;
 		upng_decode(upng);

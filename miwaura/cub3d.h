@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 12:54:26 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/21 09:50:22 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/21 13:47:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ void				cal_hit(t_data *img);
 void				read_map_open(t_data *img, char *file);
 void				map_init(t_data *img);
 int					get_cubfile_info(t_data *img, char *line);
-int					get_colors(t_data *img, char *line, char c);
+int					set_color(t_data *img, char *line, char c);
 int					get_sprite(t_data *img, char *line);
 int					get_texture_n(t_data *img, char *line);
 int					get_texture_s(t_data *img, char *line);
@@ -233,7 +233,7 @@ void				moves(t_data *img);
 int					line_check(char *line);
 char				*ft_strjoin_with_n(char *map, char *line);
 int					get_map(t_data *img, char *line);
-int					get_colors(t_data *img, char *line, char c);
+int					set_color(t_data *img, char *line, char c);
 int					get_colors_num(char *line, int i, int *sum);
 void				set_py(t_data *img);
 void				check(t_data *img);

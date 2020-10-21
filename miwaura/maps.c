@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 15:04:36 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/21 09:50:22 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/21 13:47:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ int		get_cubfile_info(t_data *img, char *line)
 	else if (ft_strncmp(line, "S ", 2) == 0)
 		return (get_sprite(img, line));
 	else if (ft_strncmp(line, "F ", 2) == 0)
-		return (get_colors(img, line, 'F'));
+		return (set_color(img, line, 'F'));
 	else if (ft_strncmp(line, "C ", 2) == 0)
-		return (get_colors(img, line, 'C'));
+		return (set_color(img, line, 'C'));
 	else if (mapline(line) == 0)
 		return (get_map(img, line));
 	return (1);

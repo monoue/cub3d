@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 15:01:05 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 14:37:39 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/21 13:47:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		line_check(char *line)
 	return (0);
 }
 
-int		get_colors(t_data *img, char *line, char c)
+int		set_color(t_data *img, char *line, char c)
 {
 	int i;
 	int sum[3];

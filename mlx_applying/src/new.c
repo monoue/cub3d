@@ -241,7 +241,7 @@ int		get_colors_num(char *line, int *colors)
 	return (1);
 }
 
-int		get_colors(t_data *data, char *line, char c)
+int		set_color(t_data *data, char *line, char c)
 {
 	int	c_i;
 	int l_i;
@@ -396,9 +396,9 @@ int		get_cubfile_info(t_data *data, char *line)
 	if (ft_strncmp(line, "S ", 2) == 0)
 		return (get_sprite(data, &line[1]));
 	if (ft_strncmp(line, "F ", 2) == 0)
-		return (get_colors(data, &line[1], 'F'));
+		return (set_color(data, &line[1], 'F'));
 	if (ft_strncmp(line, "C ", 2) == 0)
-		return (get_colors(data, &line[1], 'C'));
+		return (set_color(data, &line[1], 'C'));
 	if (is_mapline(line) == true)
 		return (get_map(data, line));
 	return (1);

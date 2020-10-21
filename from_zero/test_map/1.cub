@@ -1,10 +1,10 @@
 R 5000 5000
 
-NO ./textures/greystone.xpm
-SO ./textures/colorstone.xpm
-EA ./textures/colorstone.xpm
-WE ./textures/bluestone.xpm
-S ./textures/barrel.xpm
+NO ./images/greystone.xpm
+SO ./images/colorstone.xpm
+EA ./images/colorstone.xpm
+WE ./images/bluestone.xpm
+S ./images/barrel.xpm
 
 
 F 220,200,0

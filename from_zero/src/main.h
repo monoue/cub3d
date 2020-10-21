@@ -6,7 +6,7 @@
 #define BLUESTONE_XPM	IMGDIR"/bluestone.xpm"
 #define BARREL_XPM		IMGDIR"/barrel.xpm"
 #define COLORSTONE_XPM	IMGDIR"/colorstone.xpm"
-#define GRAYSTONE_XPM	IMGDIR"/greystone.xpm"
+#define GREYSTONE_XPM	IMGDIR"/greystone.xpm"
 #define REDBRICK_XPM	IMGDIR"/redbrick.xpm"
 
 typedef enum	e_textures
@@ -14,7 +14,7 @@ typedef enum	e_textures
 	BLUESTONE,
 	BARREL,
 	COLORSTONE,
-	GRAYSTONE,
+	GREYSTONE,
 	REDBRICK,
 
 	TEXTURES_NUM
@@ -25,9 +25,26 @@ typedef enum	e_error_types
 	SINGLE,
 	ID_OVERLAPPING,
 	WRONG_INFO_NUM,
+	INVALID_INFO,
+	INVALID_PATH,
+	// FD
 
 	ERROR_TYPES_NUM
 }				t_error_types;
+
+// typedef enum	e_ids
+// {
+// 	RESOLUTION,
+// 	NORTH_TEXTURE,
+// 	EAST_TEXTURE,
+// 	WEST_TEXTURE,
+// 	SOUTH_TEXTURE,
+// 	SPRITE_TEXTURE,
+// 	FLOOR_COLOR,
+// 	CEILING_COLOR,
+
+// 	ID_NUM
+// }				t_ids;
 
 typedef struct		s_map
 {
@@ -59,12 +76,3 @@ typedef struct		s_data
 	bool			err_flag;
 	// t_map			map;
 }					t_data;
-
-const char *texture_file_names[TEXTURES_NUM] =
-{
-	BLUESTONE_XPM,
-	BARREL_XPM,
-	COLORSTONE_XPM,
-	GRAYSTONE_XPM,
-	REDBRICK_XPM
-};
