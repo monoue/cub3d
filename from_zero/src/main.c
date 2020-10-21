@@ -3,15 +3,16 @@
 #include "ft_printf/ft_printf.h"
 #include "ft_printf/libft/libft.h"
 #include "get_next_line/get_next_line.h"
+
 // こんな感じ？
-const char *g_texture_file_names[TEXTURES_NUM] =
-{
-	BLUESTONE_XPM,
-	BARREL_XPM,
-	COLORSTONE_XPM,
-	GREYSTONE_XPM,
-	REDBRICK_XPM
-};
+// const char *g_texture_file_names[TEXTURES_NUM] =
+// {
+// 	BLUESTONE_XPM,
+// 	BARREL_XPM,
+// 	COLORSTONE_XPM,
+// 	GREYSTONE_XPM,
+// 	REDBRICK_XPM
+// };
 // const char *g_ids[ID_NUM] =
 // {
 // 	"R",
@@ -74,6 +75,8 @@ int		exit_failure_with_error_message(t_error_types message_type, char *error_con
 // 	data->map.ceiling_color = NOT_SET;
 // 	data->err_flag = false;
 // }
+
+// t_map g_map;
 
 t_map g_map =
 {
@@ -157,8 +160,8 @@ int		set_texture(char **texture_path, const char **infos, char *id)
 	// printf("%s\n", infos[0]);
 	while (texture_i < TEXTURES_NUM)
 	{
-		if (ft_strcmp(g_texture_file_names[texture_i], infos[0]) == 0)
-		{
+		// if (ft_strcmp(g_texture_file_names[texture_i], infos[0]) == 0)
+		// {
 			if (ft_strcmp(id, "NO") == 0)
 				g_map.north_texture_path = ft_strdup(infos[0]);
 			else if (ft_strcmp(id, "EA") == 0)
@@ -168,7 +171,7 @@ int		set_texture(char **texture_path, const char **infos, char *id)
 			else if (ft_strcmp(id, "SO") == 0)
 				g_map.south_texture_path = ft_strdup(infos[0]);
 			break ;
-		}
+		// }
 		texture_i++;
 	}
 	if (texture_i == TEXTURES_NUM)

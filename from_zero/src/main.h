@@ -60,6 +60,8 @@ typedef struct		s_map
 	// int				elements_num;
 }					t_map;
 
+extern t_map	g_map;
+
 typedef struct		s_data
 {
 	void			*mlx;
