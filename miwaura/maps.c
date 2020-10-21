@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 15:04:36 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 16:52:49 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/21 09:50:22 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void	map_elements_check(t_data *img)
 {
 	if (img->map.window_width == 0 || img->map.window_height == 0\
-	|| img->map.n_tex_path == NULL)
+	|| img->map.north_texture_path == NULL)
 	{
 		free_reads(img);
 		put_err_msg("elements\n");
 		exit(0);
 	}
-	if (img->map.s_tex_path == NULL || img->map.w_tex_path == NULL)
+	if (img->map.south_texture_path == NULL || img->map.west_texture_path == NULL)
 	{
 		free_reads(img);
 		put_err_msg("elements\n");
 		exit(0);
 	}
-	if (img->map.e_tex_path == NULL || img->map.sprite_tex_path == NULL\
+	if (img->map.east_texture_path == NULL || img->map.sprite_texture_path == NULL\
 	|| img->map.elements_num != 8)
 	{
 		free_reads(img);
@@ -69,11 +69,11 @@ void	map_init(t_data *img)
 {
 	img->map.window_width = 0;
 	img->map.window_height = 0;
-	img->map.n_tex_path = NULL;
-	img->map.s_tex_path = NULL;
-	img->map.w_tex_path = NULL;
-	img->map.e_tex_path = NULL;
-	img->map.sprite_tex_path = NULL;
+	img->map.north_texture_path = NULL;
+	img->map.south_texture_path = NULL;
+	img->map.west_texture_path = NULL;
+	img->map.east_texture_path = NULL;
+	img->map.sprite_texture_path = NULL;
 	img->map.floor_color = 0;
 	img->map.elements_num = 0;
 	img->map.ceiling_color = 0;

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 16:09:24 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 13:41:20 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/21 09:50:22 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int		tex_etc(t_data *img)
 {
 	if (!(img->tex[WALL_W].img_ptr = mlx_xpm_file_to_image(img->mlx,\
-	img->map.w_tex_path, &img->tex[WALL_W].w, &img->tex[WALL_W].h)))
+	img->map.west_texture_path, &img->tex[WALL_W].w, &img->tex[WALL_W].h)))
 		return (0);
 	img->tex[WALL_W].addr = mlx_get_data_addr(img->tex[WALL_W].img_ptr,\
 	&img->tex[WALL_W].b_per_pix, &img->tex[WALL_W].line_length,\
 	&img->tex[0].endian);
 	if (!(img->tex[8].img_ptr = mlx_xpm_file_to_image(img->mlx,\
-	img->map.sprite_tex_path, &img->tex[8].w, &img->tex[8].h)))
+	img->map.sprite_texture_path, &img->tex[8].w, &img->tex[8].h)))
 		return (0);
 	img->tex[8].addr = mlx_get_data_addr(img->tex[8].img_ptr,\
 	&img->tex[8].b_per_pix, &img->tex[8].line_length,\
@@ -34,19 +34,19 @@ int		set_textures(t_data *img)
 	int x;
 
 	if (!(img->tex[WALL_N].img_ptr = mlx_xpm_file_to_image(img->mlx,\
-	img->map.n_tex_path, &img->tex[WALL_N].w, &img->tex[WALL_N].h)))
+	img->map.north_texture_path, &img->tex[WALL_N].w, &img->tex[WALL_N].h)))
 		return (0);
 	img->tex[WALL_N].addr = mlx_get_data_addr(img->tex[WALL_N].img_ptr,\
 	&img->tex[WALL_N].b_per_pix, &img->tex[WALL_N].line_length,\
 	&img->tex[0].endian);
 	if (!(img->tex[WALL_S].img_ptr = mlx_xpm_file_to_image(img->mlx,\
-	img->map.s_tex_path, &img->tex[WALL_S].w, &img->tex[WALL_S].h)))
+	img->map.south_texture_path, &img->tex[WALL_S].w, &img->tex[WALL_S].h)))
 		return (0);
 	img->tex[WALL_S].addr = mlx_get_data_addr(img->tex[WALL_S].img_ptr,\
 	&img->tex[WALL_S].b_per_pix, &img->tex[WALL_S].line_length,\
 	&img->tex[0].endian);
 	if (!(img->tex[WALL_E].img_ptr = mlx_xpm_file_to_image(img->mlx,\
-	img->map.e_tex_path, &img->tex[WALL_E].w, &img->tex[WALL_E].h)))
+	img->map.east_texture_path, &img->tex[WALL_E].w, &img->tex[WALL_E].h)))
 		return (0);
 	img->tex[WALL_E].addr = mlx_get_data_addr(img->tex[WALL_E].img_ptr,\
 	&img->tex[WALL_E].b_per_pix, &img->tex[WALL_E].line_length,\

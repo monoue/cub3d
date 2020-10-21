@@ -1,6 +1,6 @@
 #include "new.h"
 
-int		exit_failure_with_err_msg(char *msg)
+int		exit_failure_with_error_message(char *msg)
 {
 	ft_putstr("Error\n");
 	ft_putstr(msg);
@@ -9,7 +9,7 @@ int		exit_failure_with_err_msg(char *msg)
 
 void	exit_failure_closing_fd(char *s, int fd)
 {
-	exit_failure_with_err_msg(s);
+	exit_failure_with_error_message(s);
 	close(fd);
 	exit(EXIT_FAILURE);
 }
@@ -45,22 +45,22 @@ int		case_n(t_data *data, char *line)
 {
 	if (ft_strncmp(line, "./textures/redbrick.xpm", 23) == 0)
 	{
-		data->map.n_tex_path = ft_strdup("./textures/redbrick.xpm");
+		data->map.north_texture_path = ft_strdup("./textures/redbrick.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/greystone.xpm", 24) == 0)
 	{
-		data->map.n_tex_path = ft_strdup("./textures/greystone.xpm");
+		data->map.north_texture_path = ft_strdup("./textures/greystone.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/bluestone.xpm", 24) == 0)
 	{
-		data->map.n_tex_path = ft_strdup("./textures/bluestone.xpm");
+		data->map.north_texture_path = ft_strdup("./textures/bluestone.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/colorstone.xpm", 25) == 0)
 	{
-		data->map.n_tex_path = ft_strdup("./textures/colorstone.xpm");
+		data->map.north_texture_path = ft_strdup("./textures/colorstone.xpm");
 		return (1);
 	}
 	return (0);
@@ -85,22 +85,22 @@ int		case_e(t_data *data, char *line)
 {
 	if (ft_strncmp(line, "./textures/redbrick.xpm", 23) == 0)
 	{
-		data->map.e_tex_path = ft_strdup("./textures/redbrick.xpm");
+		data->map.east_texture_path = ft_strdup("./textures/redbrick.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/greystone.xpm", 24) == 0)
 	{
-		data->map.e_tex_path = ft_strdup("./textures/greystone.xpm");
+		data->map.east_texture_path = ft_strdup("./textures/greystone.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/bluestone.xpm", 24) == 0)
 	{
-		data->map.e_tex_path = ft_strdup("./textures/bluestone.xpm");
+		data->map.east_texture_path = ft_strdup("./textures/bluestone.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/colorstone.xpm", 25) == 0)
 	{
-		data->map.e_tex_path = ft_strdup("./textures/colorstone.xpm");
+		data->map.east_texture_path = ft_strdup("./textures/colorstone.xpm");
 		return (1);
 	}
 	return (0);
@@ -126,22 +126,22 @@ int		case_w(t_data *data, char *line)
 {
 	if (ft_strncmp(line, "./textures/redbrick.xpm", 23) == 0)
 	{
-		data->map.w_tex_path = ft_strdup("./textures/redbrick.xpm");
+		data->map.west_texture_path = ft_strdup("./textures/redbrick.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/greystone.xpm", 24) == 0)
 	{
-		data->map.w_tex_path = ft_strdup("./textures/greystone.xpm");
+		data->map.west_texture_path = ft_strdup("./textures/greystone.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/bluestone.xpm", 24) == 0)
 	{
-		data->map.w_tex_path = ft_strdup("./textures/bluestone.xpm");
+		data->map.west_texture_path = ft_strdup("./textures/bluestone.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/colorstone.xpm", 25) == 0)
 	{
-		data->map.w_tex_path = ft_strdup("./textures/colorstone.xpm");
+		data->map.west_texture_path = ft_strdup("./textures/colorstone.xpm");
 		return (1);
 	}
 	return (0);
@@ -168,22 +168,22 @@ int		case_s(t_data *data, char *line)
 {
 	if (ft_strncmp(line, "./textures/redbrick.xpm", 23) == 0)
 	{
-		data->map.s_tex_path = ft_strdup("./textures/redbrick.xpm");
+		data->map.south_texture_path = ft_strdup("./textures/redbrick.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/greystone.xpm", 24) == 0)
 	{
-		data->map.s_tex_path = ft_strdup("./textures/greystone.xpm");
+		data->map.south_texture_path = ft_strdup("./textures/greystone.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/bluestone.xpm", 24) == 0)
 	{
-		data->map.s_tex_path = ft_strdup("./textures/bluestone.xpm");
+		data->map.south_texture_path = ft_strdup("./textures/bluestone.xpm");
 		return (1);
 	}
 	if (ft_strncmp(line, "./textures/colorstone.xpm", 25) == 0)
 	{
-		data->map.s_tex_path = ft_strdup("./textures/colorstone.xpm");
+		data->map.south_texture_path = ft_strdup("./textures/colorstone.xpm");
 		return (1);
 	}
 	return (0);
@@ -215,7 +215,7 @@ int		get_sprite(t_data *data, char *s_line)
 		index++;
 	if (ft_strncmp(s_line + index, "./textures/barrel.xpm", ft_strlen("./textures/barrel.xpm")) == 0)
 	{
-		data->map.sprite_tex_path = ft_strdup("./textures/barrel.xpm");
+		data->map.sprite_texture_path = ft_strdup("./textures/barrel.xpm");
 		return (1);
 	}
 	return (0);
@@ -425,23 +425,23 @@ void	free_map(t_data *data)
 void	map_elements_check(t_data *data)
 {
 	if (data->map.window_width == 0 || data->map.window_height == 0\
-	|| data->map.n_tex_path == NULL)
+	|| data->map.north_texture_path == NULL)
 	{
 		free_map(data);
-		exit_failure_with_err_msg("elements\n");
+		exit_failure_with_error_message("elements\n");
 		exit(0);
 	}
-	if (data->map.s_tex_path == NULL || data->map.w_tex_path == NULL)
+	if (data->map.south_texture_path == NULL || data->map.west_texture_path == NULL)
 	{
 		free_map(data);
-		exit_failure_with_err_msg("elements\n");
+		exit_failure_with_error_message("elements\n");
 		exit(0);
 	}
-	if (data->map.e_tex_path == NULL || data->map.sprite_tex_path == NULL\
+	if (data->map.east_texture_path == NULL || data->map.sprite_texture_path == NULL\
 	|| data->map.elements_num != 8)
 	{
 		free_map(data);
-		exit_failure_with_err_msg("elements\n");
+		exit_failure_with_error_message("elements\n");
 		exit(0);
 	}
 }
@@ -503,7 +503,7 @@ void	check(t_data *data)
 	index = 0;
 	if (data->err_flag == true)
 	{
-		exit_failure_with_err_msg("invalid map\n");
+		exit_failure_with_error_message("invalid map\n");
 		exit(0);
 	}
 }
@@ -530,7 +530,7 @@ void	read_map_open(t_data *data, char *filename)
 	if (data->err_flag == true)
 	{
 		free_map(data);
-		exit_failure_with_err_msg("map");
+		exit_failure_with_error_message("map");
 		exit(0);
 	}
 	get_sprite_pos(data);
@@ -604,19 +604,19 @@ int		tex(t_data *data)
 	int x;
 
 	if (!(data->tex[WALL_N].img_ptr = mlx_xpm_file_to_image(data->mlx,\
-	data->map.n_tex_path, &data->tex[WALL_N].w, &data->tex[WALL_N].h)))
+	data->map.north_texture_path, &data->tex[WALL_N].w, &data->tex[WALL_N].h)))
 		return (0);
 	data->tex[WALL_N].addr = mlx_get_data_addr(data->tex[WALL_N].img_ptr,\
 	&data->tex[WALL_N].b_per_pix, &data->tex[WALL_N].line_length,\
 	&data->tex[0].endian);
 	if (!(data->tex[WALL_S].img_ptr = mlx_xpm_file_to_image(data->mlx,\
-	data->map.s_tex_path, &data->tex[WALL_S].w, &data->tex[WALL_S].h)))
+	data->map.south_texture_path, &data->tex[WALL_S].w, &data->tex[WALL_S].h)))
 		return (0);
 	data->tex[WALL_S].addr = mlx_get_data_addr(data->tex[WALL_S].img_ptr,\
 	&data->tex[WALL_S].b_per_pix, &data->tex[WALL_S].line_length,\
 	&data->tex[0].endian);
 	if (!(data->tex[WALL_E].img_ptr = mlx_xpm_file_to_image(data->mlx,\
-	data->map.e_tex_path, &data->tex[WALL_E].w, &data->tex[WALL_E].h)))
+	data->map.east_texture_path, &data->tex[WALL_E].w, &data->tex[WALL_E].h)))
 		return (0);
 	data->tex[WALL_E].addr = mlx_get_data_addr(data->tex[WALL_E].img_ptr,\
 	&data->tex[WALL_E].b_per_pix, &data->tex[WALL_E].line_length,\
@@ -646,7 +646,7 @@ void	init_game(char *filename)
 	if (data.w_map[(int)data.player.p_y][(int)data.player.p_x + 1] == '1' || data.w_map[(int)data.player.p_y][(int)data.player.p_x + 1] == '1' || data.w_map[(int)data.player.p_y][(int)data.player.p_x + 1] == '1' || data.w_map[(int)data.player.p_y - 1][(int)data.player.p_x] == '1')
 	{
 		free_map(&data);
-		exit_failure_with_err_msg("player position\n");
+		exit_failure_with_error_message("player position\n");
 		exit(0);
 	}
 	init_elements(&data);

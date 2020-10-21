@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 12:54:26 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 16:52:49 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/21 09:50:22 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ typedef struct		s_map
 {
 	int				window_width;
 	int				window_height;
-	char			*n_tex_path;
-	char			*e_tex_path;
-	char			*w_tex_path;
-	char			*s_tex_path;
-	char			*sprite_tex_path;
+	char			*north_texture_path;
+	char			*east_texture_path;
+	char			*west_texture_path;
+	char			*south_texture_path;
+	char			*sprite_texture_path;
 	int				floor_color;
 	int				ceiling_color;
 	int				elements_num;

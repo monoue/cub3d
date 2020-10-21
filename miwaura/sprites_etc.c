@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:50:21 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 13:41:20 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/21 09:50:22 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ int		get_sprite(t_data *img, char *line)
 		i++;
 	if (ft_strncmp(line + i, "./textures/barrel.xpm", 21) == 0)
 	{
-		ptr = img->map.sprite_tex_path;
-		img->map.sprite_tex_path = ft_strdup("./textures/barrel.xpm");
+		ptr = img->map.sprite_texture_path;
+		img->map.sprite_texture_path = ft_strdup("./textures/barrel.xpm");
 		free(ptr);
 		return (1);
 	}

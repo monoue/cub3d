@@ -1,4 +1,4 @@
-R 1280 720
+R 5000 5000
 
 NO ./textures/greystone.xpm
 SO ./textures/colorstone.xpm

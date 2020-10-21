@@ -50,11 +50,11 @@ typedef struct		s_map
 {
 	int				window_width;
 	int				window_height;
-	char			*n_tex_path;
-	char			*s_tex_path;
-	char			*w_tex_path;
-	char			*e_tex_path;
-	char			*sprite_tex_path;
+	char			*north_texture_path;
+	char			*south_texture_path;
+	char			*west_texture_path;
+	char			*east_texture_path;
+	char			*sprite_texture_path;
 	int				ceiling_color;
 	int				floor_color;
 	int				elements_num;
@@ -89,18 +89,18 @@ void	init_map(t_data *img)
 {
 	img->map.window_width = 0;
 	img->map.window_height = 0;
-	img->map.n_tex_path = NULL;
-	img->map.e_tex_path = NULL;
-	img->map.w_tex_path = NULL;
-	img->map.s_tex_path = NULL;
-	img->map.sprite_tex_path = NULL;
+	img->map.north_texture_path = NULL;
+	img->map.east_texture_path = NULL;
+	img->map.west_texture_path = NULL;
+	img->map.south_texture_path = NULL;
+	img->map.sprite_texture_path = NULL;
 	img->map.ceiling_color = 0;
 	img->map.floor_color = 0;
 	img->map.elements_num = 0; // 何を管理？？？
 	img->err_flag = false;
 }
 
-int		exit_failure_with_err_msg(char *msg);
+int		exit_failure_with_error_message(char *msg);
 void	exit_failure_closing_fd(char *s, int fd);
 int		get_resolution(t_data *img, char *r_line);
 int		case_n(t_data *img, char *line);
