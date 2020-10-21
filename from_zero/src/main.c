@@ -116,6 +116,7 @@ size_t	get_digits_num(const char *str)
 	return (digits_num);
 }
 
+// TODO: ゼロもしくはそれ以下だった時の処理！！
 int		get_resolution(const char **infos)
 {
 	size_t			info_num;
@@ -219,33 +220,64 @@ int		get_colors_num(char *line, int *colors)
 
 // グローバルだから第一引数要らない。
 // 色の計算のメカニズムを、例のサイトを参考に確認する。
-int		set_color(char *cubfile_line, char c)
+// int		set_color(char *cubfile_line, char id)
+// {
+
+// 	int i;
+// 	int sum[3];
+
+// 	i = 0;
+// 	// 初期化してる(多分不要)
+// 	while (i < 3)
+// 	{
+// 		sum[i] = 0;
+// 		i++;
+// 	}
+// 	// ここまで
+
+// 	// 行の何文字目かのインデックス
+// 	i = 2;
+// 	while (cubfile_line[i] == ' ')
+// 		i++;
+// 	if (get_colors_num(&cubfile_line[i], sum) == 0)
+// 		return (0);
+// 	if (id == 'F')
+// 		img->map.floor_color = sum[0] * 65536 + sum[1] * 256 + sum[2];
+// 	if (id == 'C')
+// 		img->map.ceiling_color = sum[0] * 65536 + sum[1] * 256 + sum[2];
+// 	img->map.elements_num++;
+// 	return (SUCCESS);
+// }
+
+int		set_color(int *color, char *infos, char *id)
 {
+	size_t	info_num;
+	char	**rgb_colors;
 
-	int i;
-	int sum[3];
+	if (*color != NOT_SET)
+		exit_failure_with_error_message(ID_OVERLAPPING, id);
+	info_num = 0;
+	while (infos[info_num] != NULL)
+		info_num++;
+	if (info_num != 1)
+		exit_failure_with_error_message(WRONG_INFO_NUM, id);
+	// texture_i = 0;
+	// printf("%s\n", g_texture_file_names[GREYSTONE]);
+	// printf("%s\n", infos[0]);
 
-	i = 0;
-	// 初期化してる(多分不要)
-	while (i < 3)
-	{
-		sum[i] = 0;
-		i++;
-	}
-	// ここまで
 
-	// 行の何文字目かのインデックス
-	i = 2;
-	while (cubfile_line[i] == ' ')
-		i++;
-	if (get_colors_num(&cubfile_line[i], sum) == 0)
-		return (0);
-	if (c == 'F')
-		img->map.floor_color = sum[0] * 65536 + sum[1] * 256 + sum[2];
-	if (c == 'C')
-		img->map.ceiling_color = sum[0] * 65536 + sum[1] * 256 + sum[2];
-	img->map.elements_num++;
-	return (1);
+	// // 行の何文字目かのインデックス
+	// i = 2;
+	// while (cubfile_line[i] == ' ')
+	// 	i++;
+	// if (get_colors_num(&cubfile_line[i], sum) == 0)
+	// 	return (0);
+	// if (id == 'F')
+	// 	img->map.floor_color = sum[0] * 65536 + sum[1] * 256 + sum[2];
+	// if (id == 'C')
+	// 	img->map.ceiling_color = sum[0] * 65536 + sum[1] * 256 + sum[2];
+	// img->map.elements_num++;
+	return (SUCCESS);
 }
 
 int		get_cubfile_info(t_data *data, char *cubfile_line)
@@ -265,9 +297,9 @@ int		get_cubfile_info(t_data *data, char *cubfile_line)
 	if (is_valid_identifier(element_items[0], "S"))
 		return (set_texture(&g_map.sprite_texture_path, &element_items[1], "S"));
 	if (is_valid_identifier(element_items[0], "F"))
-		return (set_color(&g_map.floor_color, &element_items[1], 'F'));
+		return (set_color(&g_map.floor_color, &element_items[1], "F"));
 	if (is_valid_identifier(element_items[0], "C"))
-		return (set_color(&g_map.ceiling_color, &element_items[1], 'C'));
+		return (set_color(&g_map.ceiling_color, &element_items[1], "C"));
 	// if (is_valid_identifier(cubfile_line, "F"))
 	// 	return (set_color(&g_map.floor_color, 'F'));
 	// if (is_valid_identifier(cubfile_line, "C"))
