@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 15:39:09 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 13:39:04 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/22 13:19:57 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	save_picture(char *file)
 	t_data	img;
 	int		x;
 
-	read_map_open(&img, file);
+	set_cubfile_data(&img, file);
 	img.mlx = mlx_init();
 	img.img = mlx_new_image(img.mlx, img.map.window_width, img.map.window_height);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,\

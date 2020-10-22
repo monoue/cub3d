@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps_get.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: miwaura <miwaura@student.42.fr>            +#+  +:+       +#+        */
+/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:55:11 by miwaura           #+#    #+#             */
-/*   Updated: 2020/09/28 15:41:27 by miwaura          ###   ########.fr       */
+/*   Updated: 2020/10/22 14:09:35 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	get_inf_sprite_num(t_data *img)
 	}
 }
 
-int		get_map(t_data *img, char *line)
+int		create_map_array(t_data *img, char *line)
 {
 	char	*map;
 	char	*tmp;

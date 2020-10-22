@@ -351,7 +351,7 @@ void	get_player_info_and_sprite_num(t_data *data)
 	}
 }
 
-int		get_map(t_data *data, char *line)
+int		create_map_array(t_data *data, char *line)
 {
 	char	*map;
 	char	*tmp;
@@ -380,7 +380,7 @@ int		get_map(t_data *data, char *line)
 	return (1);
 }
 
-int		get_cubfile_info(t_data *data, char *line)
+int		get_line_data(t_data *data, char *line)
 {
 	// return (0) ならエラーのはず
 	if (ft_strncmp(line, "R ", 2) == 0)
@@ -400,7 +400,7 @@ int		get_cubfile_info(t_data *data, char *line)
 	if (ft_strncmp(line, "C ", 2) == 0)
 		return (set_color(data, &line[1], 'C'));
 	if (is_mapline(line) == true)
-		return (get_map(data, line));
+		return (create_map_array(data, line));
 	return (1);
 }
 
@@ -508,7 +508,7 @@ void	check(t_data *data)
 	}
 }
 
-void	read_map_open(t_data *data, char *filename)
+void	get_line_data(t_data *data, char *filename)
 {
 	char	*line;
 	int		rc;
@@ -519,7 +519,7 @@ void	read_map_open(t_data *data, char *filename)
 	rc = 0;
 	while (get_next_line(data->fd, &line) > 0)
 	{
-		rc = get_cubfile_info(data, line);
+		rc = get_line_data(data, line);
 		if (rc == ERROR)
 			data->err_flag = true;
 		SAFE_FREE(line);
@@ -642,7 +642,7 @@ void	init_game(char *filename)
 {
 	t_data	data;
 
-	read_map_open(&data, filename);
+	get_line_data(&data, filename);
 	if (data.w_map[(int)data.player.p_y][(int)data.player.p_x + 1] == '1' || data.w_map[(int)data.player.p_y][(int)data.player.p_x + 1] == '1' || data.w_map[(int)data.player.p_y][(int)data.player.p_x + 1] == '1' || data.w_map[(int)data.player.p_y - 1][(int)data.player.p_x] == '1')
 	{
 		free_map(&data);

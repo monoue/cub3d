@@ -77,8 +77,8 @@ typedef struct		s_data
 	int				line_length;
 	int				endian;
 
-	int				fd;
+	// int				fd;
 
-	bool			err_flag;
+	// bool			err_flag;
 	// t_cubfile_data			map;
 }					t_data;

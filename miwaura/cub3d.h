@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 12:54:26 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/22 09:26:37 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/22 14:09:35 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,15 @@ typedef struct		s_map
 {
 	int				window_width;
 	int				window_height;
-	char			*north_texture_path;
-	char			*east_texture_path;
-	char			*west_texture_path;
-	char			*south_texture_path;
-	char			*sprite_texture_path;
+	char			*n_tex_path;
+	char			*e_tex_path;
+	char			*w_tex_path;
+	char			*s_tex_path;
+	char			*sprite_tex_path;
 	int				floor_color;
 	int				ceiling_color;
 	int				elements_num;
-}					t_cubfile_data;
+}					t_map;
 
 typedef struct		s_ky
 {
@@ -177,7 +177,7 @@ typedef struct		s_data
 	t_sprite_cal	sprite_cal;
 	t_texture		texture;
 	t_ray			ray;
-	t_cubfile_data			map;
+	t_map			map;
 }					t_data;
 
 int					set_textures(t_data *img);
@@ -193,7 +193,7 @@ void				zbuffer_init(t_data *img);
 void				ray_collison_texture(t_data *img, int x);
 void				sprites(t_data *img, int x);
 void				sort_sprite(t_data *img);
-void				read_map_open(t_data *img, char *file);
+void				set_cubfile_data(t_data *img, char *file);
 void				move_right(t_data *img);
 void				move_left(t_data *img);
 void				move_back(t_data *img);
@@ -206,10 +206,10 @@ void				cal_collision(t_data *img);
 int					key_pressed(int keycode, t_data *p);
 int					key_released(int keycode, void *p);
 void				cal_hit(t_data *img);
-void				read_map_open(t_data *img, char *file);
+void				set_cubfile_data(t_data *img, char *file);
 void				map_init(t_data *img);
-int					get_cubfile_info(t_data *img, char *line);
-int					set_color(t_data *img, char *line, char c);
+int					get_line_data(t_data *img, char *line);
+int					get_colors(t_data *img, char *line, char c);
 int					get_sprite(t_data *img, char *line);
 int					get_texture_n(t_data *img, char *line);
 int					get_texture_s(t_data *img, char *line);
@@ -232,8 +232,8 @@ void				get_inf_sprite_pos(t_data *img);
 void				moves(t_data *img);
 int					line_check(char *line);
 char				*ft_strjoin_with_n(char *map, char *line);
-int					get_map(t_data *img, char *line);
-int					set_color(t_data *img, char *line, char c);
+int					create_map_array(t_data *img, char *line);
+int					get_colors(t_data *img, char *line, char c);
 int					get_colors_num(char *line, int i, int *sum);
 void				set_py(t_data *img);
 void				check(t_data *img);

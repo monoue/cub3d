@@ -1,14 +1,12 @@
 R 5000 5000
-
 NO ./images/greystone.xpm
 SO ./images/colorstone.xpm
 EA ./images/colorstone.xpm
 WE ./images/bluestone.xpm
 S ./images/barrel.xpm
-
-
 F 220,200,0
 C 225,230,0
+
 000000000000000000000000000000000
 100000000011000001110111111111111
 11110111111111011100000010000001

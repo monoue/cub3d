@@ -105,6 +105,6 @@ void	exit_failure_closing_fd(char *s, int fd);
 int		get_resolution(t_data *img, char *r_line);
 int		case_n(t_data *img, char *line);
 int		get_texture_n(t_data *img, char *line);
-int		get_cubfile_info(t_data *img, char *line);
-void	read_map_open(t_data *img, char *filename);
+int		get_line_data(t_data *img, char *line);
+void	get_line_data(t_data *img, char *filename);
 void	init_game(char *filename);

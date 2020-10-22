@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 15:17:32 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 14:04:16 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/22 13:19:57 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	init_game(char *file)
 {
 	t_data img;
 
-	read_map_open(&img, file);
+	set_cubfile_data(&img, file);
 	if (img.w_map[(int)img.player.p_y][(int)img.player.p_x + 1] == '1'\
 	|| img.w_map[(int)img.player.p_y][(int)img.player.p_x - 1] == '1'\
 	|| img.w_map[(int)img.player.p_y + 1][(int)img.player.p_x] == '1' ||\
