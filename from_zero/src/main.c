@@ -76,9 +76,9 @@ int		exit_failure_with_error_message(t_error_types message_type, char *error_con
 // 	data->err_flag = false;
 // }
 
-// t_map g_map;
+// t_cubfile_data g_cubfile_data;
 
-t_map g_map =
+t_cubfile_data g_cubfile_data =
 {
 	.window_width = NOT_SET,
 	.window_height = NOT_SET,
@@ -101,59 +101,84 @@ void	exit_failure_closing_fd(char *error_content, int fd)
 	exit(EXIT_FAILURE);
 }
 
-bool	is_valid_identifier(const char *first_word, const char *identifier)
-{
-	const size_t	fst_wrd_len = ft_strlen(first_word);
-	const size_t	id_len = ft_strlen(identifier);
+// bool	is_valid_identifier(const char *first_word, const char *identifier)
+// {
+// 	return (ft_strcmp(first_word, identifier) == 0);
+// }
 
-	return (ft_strcmp(first_word, identifier) == 0);
+// size_t	get_digits_num(const char *str)
+// {
+// 	size_t	digits_num;
+
+// 	digits_num = 0;
+// 	while (ft_isdigit(str[digits_num]))
+// 		digits_num++;
+// 	return (digits_num);
+// }
+
+bool	ft_isdigit_str(const char *str)
+{
+	size_t	index;
+
+	index = 0;
+	while (str[index] != '\0' && ft_isdigit(str[index]))
+		index++;
+	return (index == ft_strlen(str));
 }
 
-size_t	get_digits_num(const char *str)
-{
-	size_t	digits_num;
+// bool	is_valid_info_num(const char **infos, size_t expected_num)
+// {
+// 	size_t	info_num;
 
-	digits_num = 0;
-	while (ft_isdigit(str[digits_num]))
-		digits_num++;
-	return (digits_num);
+// 	info_num = 0;
+// 	while (infos[info_num] != NULL)
+// 		info_num++;
+// 	return (info_num == expected_num);
+// }
+
+size_t	ft_count_strs(const char **strs)
+{
+	size_t	count;
+
+	count = 0;
+	while (strs[count] != NULL)
+		count++;
+	return (count);
 }
 
 // TODO: ゼロもしくはそれ以下だった時の処理！！
 int		get_resolution(const char **infos)
 {
-	size_t			info_num;
-	const size_t	info1_len = ft_strlen(infos[0]);
-	size_t			info2_len;
+	// size_t			info_num;
+	// const size_t	info1_len = ft_strlen(infos[0]);
+	// size_t			info2_len;
 
-	if (!(g_map.window_width == NOT_SET && g_map.window_height == NOT_SET))
+	if (!(g_cubfile_data.window_width == NOT_SET && g_cubfile_data.window_height == NOT_SET))
 		exit_failure_with_error_message(ID_OVERLAPPING, "R");
-	info_num = 0;
-	while (infos[info_num] != NULL)
-		info_num++;
-	if (info_num != 2)
+	if (ft_count_strs(infos) != 2)
 		exit_failure_with_error_message(WRONG_INFO_NUM, "R");
-	info2_len = ft_strlen(infos[1]);
-	if (!(info1_len == get_digits_num(infos[0]) || info2_len == get_digits_num(infos[1])))
+	// info2_len = ft_strlen(infos[1]);
+	if (!ft_isdigit_str(infos[0]) || !ft_isdigit_str(infos[1]))
 		exit_failure_with_error_message(INVALID_INFO, "R");
-	mlx_get_screen_size(g_data.mlx, &g_map.window_width, &g_map.window_height);
-	g_map.window_width = MIN(g_map.window_width, ft_atoi(infos[0]));
-	g_map.window_height = MIN(g_map.window_height, ft_atoi(infos[1]));
-	// printf("%d, %d\n", g_map.window_width, g_map.window_height);
+	mlx_get_screen_size(g_data.mlx, &g_cubfile_data.window_width, &g_cubfile_data.window_height);
+	g_cubfile_data.window_width = MIN(g_cubfile_data.window_width, ft_atoi(infos[0]));
+	g_cubfile_data.window_height = MIN(g_cubfile_data.window_height, ft_atoi(infos[1]));
+	// printf("%d, %d\n", g_cubfile_data.window_width, g_cubfile_data.window_height);
 	return (SUCCESS);
 }
 
 int		set_texture(char **texture_path, const char **infos, char *id)
 {
-	size_t			info_num;
+	// size_t			info_num;
 	size_t			texture_i;
 
 	if (*texture_path != NULL)
 		exit_failure_with_error_message(ID_OVERLAPPING, id);
-	info_num = 0;
-	while (infos[info_num] != NULL)
-		info_num++;
-	if (info_num != 1)
+	// info_num = 0;
+	// while (infos[info_num] != NULL)
+	// 	info_num++;
+	// if (info_num != 1)
+	if (ft_count_strs(infos) != 1)
 		exit_failure_with_error_message(WRONG_INFO_NUM, id);
 	texture_i = 0;
 	// printf("%s\n", g_texture_file_names[GREYSTONE]);
@@ -163,20 +188,20 @@ int		set_texture(char **texture_path, const char **infos, char *id)
 		// if (ft_strcmp(g_texture_file_names[texture_i], infos[0]) == 0)
 		// {
 			if (ft_strcmp(id, "NO") == 0)
-				g_map.north_texture_path = ft_strdup(infos[0]);
+				g_cubfile_data.north_texture_path = ft_strdup(infos[0]);
 			else if (ft_strcmp(id, "EA") == 0)
-				g_map.east_texture_path = ft_strdup(infos[0]);
+				g_cubfile_data.east_texture_path = ft_strdup(infos[0]);
 			else if (ft_strcmp(id, "WE") == 0)
-				g_map.west_texture_path = ft_strdup(infos[0]);
+				g_cubfile_data.west_texture_path = ft_strdup(infos[0]);
 			else if (ft_strcmp(id, "SO") == 0)
-				g_map.south_texture_path = ft_strdup(infos[0]);
+				g_cubfile_data.south_texture_path = ft_strdup(infos[0]);
 			break ;
 		// }
 		texture_i++;
 	}
 	if (texture_i == TEXTURES_NUM)
 		exit_failure_with_error_message(INVALID_PATH, id);
-	// printf("%s\n", g_map.north_texture_path);
+	// printf("%s\n", g_cubfile_data.north_texture_path);
 	return (SUCCESS);
 }
 
@@ -201,25 +226,25 @@ int		set_texture(char **texture_path, const char **infos, char *id)
 // 	return (1);
 // }
 
-int		get_colors_num(char *line, int *colors)
-{
-	size_t	s_i;
-	size_t	l_i;
+// int		get_colors_num(char *line, int *colors)
+// {
+// 	size_t	s_i;
+// 	size_t	l_i;
 
-	s_i = 0;
-	while (s_i < 3)
-	{
-		if (line[l_i] == ',')
-			l_i++;
-		colors[s_i] = ft_atoi(&line[l_i]);
-		if (colors[s_i] > 255)
-			return (ERROR);
-		while (ft_isdigit(line[l_i]))
-			l_i++;
-		s_i++;
-	}
-	return (1);
-}
+// 	s_i = 0;
+// 	while (s_i < 3)
+// 	{
+// 		if (line[l_i] == ',')
+// 			l_i++;
+// 		colors[s_i] = ft_atoi(&line[l_i]);
+// 		if (colors[s_i] > 255)
+// 			return (ERROR);
+// 		while (ft_isdigit(line[l_i]))
+// 			l_i++;
+// 		s_i++;
+// 	}
+// 	return (1);
+// }
 
 // グローバルだから第一引数要らない。
 // 色の計算のメカニズムを、例のサイトを参考に確認する。
@@ -251,19 +276,45 @@ int		get_colors_num(char *line, int *colors)
 // 	img->map.elements_num++;
 // 	return (SUCCESS);
 // }
-
-int		set_color(int *color, char *infos, char *id)
+bool	is_out_of_color_range(int trgb_element)
 {
-	size_t	info_num;
+	return (trgb_element < 0 || trgb_element > 255);
+}
+
+bool	is_valid_color_info()
+{
+
+}
+
+int		set_color(int *color, char **infos, char *id)
+{
+	const char **num_strs = ft_split(infos[0], ',');
 	char	**rgb_colors;
+	size_t	rgb_index;
+	int	rgb_elements[3];
 
 	if (*color != NOT_SET)
 		exit_failure_with_error_message(ID_OVERLAPPING, id);
-	info_num = 0;
-	while (infos[info_num] != NULL)
-		info_num++;
-	if (info_num != 1)
+	if (ft_count_strs(infos) != 1)
 		exit_failure_with_error_message(WRONG_INFO_NUM, id);
+	if (ft_count_strs(num_strs) != 3)
+		exit_failure_with_error_message(INVALID_INFO, id);
+	if (!ft_isdigit_str(num_strs[0]) || !ft_isdigit_str(num_strs[1]) || !ft_isdigit_str(num_strs[2]))
+		exit_failure_with_error_message(INVALID_INFO, id);
+	rgb_index = 0;
+	while (rgb_index < 3)
+	{
+		rgb_elements[rgb_index] = ft_atoi(num_strs[rgb_index]);
+		// if (rgb_elements[rgb_index] < 0 || rgb_elements[rgb_index] > 255)
+		if (is_out_of_color_range(rgb_elements[rgb_index]))
+			exit_failure_with_error_message(INVALID_INFO, id);
+		rgb_index++;
+	}
+
+	// trgb_set みたいな関数
+	// ようやく色をセット、の前に関数切り分け
+
+
 	// texture_i = 0;
 	// printf("%s\n", g_texture_file_names[GREYSTONE]);
 	// printf("%s\n", infos[0]);
@@ -287,26 +338,26 @@ int		get_cubfile_info(t_data *data, char *cubfile_line)
 {
 	const char **element_items = (const char **)ft_split(cubfile_line, ' ');
 
-	if (is_valid_identifier(element_items[0], "R"))
+	if (ft_strcmp(element_items[0], "R") == 0)
 		return (get_resolution(&element_items[1]));
-	if (is_valid_identifier(element_items[0], "NO"))
-		return (set_texture(&g_map.north_texture_path, &element_items[1], "NO"));
-	if (is_valid_identifier(element_items[0], "EA"))
-		return (set_texture(&g_map.east_texture_path, &element_items[1], "EA"));
-	if (is_valid_identifier(element_items[0], "WE"))
-		return (set_texture(&g_map.west_texture_path, &element_items[1], "WE"));
-	if (is_valid_identifier(element_items[0], "SO"))
-		return (set_texture(&g_map.south_texture_path, &element_items[1], "SO"));
-	if (is_valid_identifier(element_items[0], "S"))
-		return (set_texture(&g_map.sprite_texture_path, &element_items[1], "S"));
-	if (is_valid_identifier(element_items[0], "F"))
-		return (set_color(&g_map.floor_color, &element_items[1], "F"));
-	if (is_valid_identifier(element_items[0], "C"))
-		return (set_color(&g_map.ceiling_color, &element_items[1], "C"));
+	if (ft_strcmp(element_items[0], "NO") == 0)
+		return (set_texture(&g_cubfile_data.north_texture_path, &element_items[1], "NO"));
+	if (ft_strcmp(element_items[0], "EA") == 0)
+		return (set_texture(&g_cubfile_data.east_texture_path, &element_items[1], "EA"));
+	if (ft_strcmp(element_items[0], "WE") == 0)
+		return (set_texture(&g_cubfile_data.west_texture_path, &element_items[1], "WE"));
+	if (ft_strcmp(element_items[0], "SO") == 0)
+		return (set_texture(&g_cubfile_data.south_texture_path, &element_items[1], "SO"));
+	if (ft_strcmp(element_items[0], "S") == 0)
+		return (set_texture(&g_cubfile_data.sprite_texture_path, &element_items[1], "S"));
+	if (ft_strcmp(element_items[0], "F") == 0)
+		return (set_color(&g_cubfile_data.floor_color, &element_items[1], "F"));
+	if (ft_strcmp(element_items[0], "C") == 0)
+		return (set_color(&g_cubfile_data.ceiling_color, &element_items[1], "C"));
 	// if (is_valid_identifier(cubfile_line, "F"))
-	// 	return (set_color(&g_map.floor_color, 'F'));
+	// 	return (set_color(&g_cubfile_data.floor_color, 'F'));
 	// if (is_valid_identifier(cubfile_line, "C"))
-	// 	return (set_color(&g_map.ceiling_color, 'C'));
+	// 	return (set_color(&g_cubfile_data.ceiling_color, 'C'));
 	if (ft_strtrim(cubfile_line, " \t")[0] == '\0')
 		return (SUCCESS);
 	return (ERROR);

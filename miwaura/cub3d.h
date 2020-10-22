@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 12:54:26 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/21 13:47:36 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/22 09:26:37 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct		s_map
 	int				floor_color;
 	int				ceiling_color;
 	int				elements_num;
-}					t_map;
+}					t_cubfile_data;
 
 typedef struct		s_ky
 {
@@ -177,7 +177,7 @@ typedef struct		s_data
 	t_sprite_cal	sprite_cal;
 	t_texture		texture;
 	t_ray			ray;
-	t_map			map;
+	t_cubfile_data			map;
 }					t_data;
 
 int					set_textures(t_data *img);

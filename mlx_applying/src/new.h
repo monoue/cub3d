@@ -58,7 +58,7 @@ typedef struct		s_map
 	int				ceiling_color;
 	int				floor_color;
 	int				elements_num;
-}					t_map;
+}					t_cubfile_data;
 
 typedef struct		s_data
 {
@@ -82,7 +82,7 @@ typedef struct		s_data
 	t_sprite_cal	sprite_cal;
 	t_texture		texture;
 	t_ray			ray;
-	t_map			map;
+	t_cubfile_data			map;
 }					t_data;
 
 void	init_map(t_data *img)

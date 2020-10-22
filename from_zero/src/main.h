@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdint.h>
 
 #define SUCCESS			0
 #define MAX(x, y)		x >= y ? x : y
@@ -8,6 +9,8 @@
 #define COLORSTONE_XPM	IMGDIR"/colorstone.xpm"
 #define GREYSTONE_XPM	IMGDIR"/greystone.xpm"
 #define REDBRICK_XPM	IMGDIR"/redbrick.xpm"
+
+typedef uint32_t t_color;
 
 typedef enum	e_textures
 {
@@ -46,7 +49,7 @@ typedef enum	e_error_types
 // 	ID_NUM
 // }				t_ids;
 
-typedef struct		s_map
+typedef struct		s_cubfile_data
 {
 	int				window_width;
 	int				window_height;
@@ -55,13 +58,14 @@ typedef struct		s_map
 	char			*west_texture_path;
 	char			*south_texture_path;
 	char			*sprite_texture_path;
-	int				floor_color;
-	int				ceiling_color;
+	t_color			floor_color;
+	t_color			ceiling_color;
 	// int				elements_num;
-}					t_map;
+}					t_cubfile_data;
 
-extern t_map	g_map;
+extern t_cubfile_data	g_cubfile_data;
 
+// 切り分けて、t_mlx_data とかの方がいいかも？
 typedef struct		s_data
 {
 	void			*mlx;
@@ -76,5 +80,5 @@ typedef struct		s_data
 	int				fd;
 
 	bool			err_flag;
-	// t_map			map;
+	// t_cubfile_data			map;
 }					t_data;
