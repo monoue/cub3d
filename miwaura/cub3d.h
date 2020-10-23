@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 12:54:26 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/22 14:09:35 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/23 17:12:00 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,6 @@ void				*ft_memcpy(void *restrict dst,\
 char				*ft_strchr(const char *s, int c);
 char				*ft_strjoin(char const *s1, char const *s2);
 size_t				ft_strlen(const char *str);
-void				error_map(char *s, char *line, char *map);
+void				map_exit_failure(char *s, char *line, char *map);
 int					mapline(char *line);
 #endif

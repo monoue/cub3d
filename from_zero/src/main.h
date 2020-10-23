@@ -10,6 +10,7 @@
 #define COLORSTONE_XPM	IMGDIR"/colorstone.xpm"
 #define GREYSTONE_XPM	IMGDIR"/greystone.xpm"
 #define REDBRICK_XPM	IMGDIR"/redbrick.xpm"
+#define MAX_MAP_LENGTH	50
 
 #define DEBUGV(v_fmt, v) \
     printf(#v ": " v_fmt "\t(file \"%s\", line %d, in %s)\n", \

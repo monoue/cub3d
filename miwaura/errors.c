@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:42:30 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 14:05:38 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/23 17:12:00 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exit_failure_closing_fd(char *s, int fd)
 	exit(0);
 }
 
-void	error_map(char *s, char *line, char *map)
+void	map_exit_failure(char *s, char *line, char *map)
 {
 	put_err_msg(s);
 	free(line);

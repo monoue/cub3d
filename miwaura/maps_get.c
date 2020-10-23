@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:55:11 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/22 14:09:35 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/23 17:12:00 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,11 @@ int		create_map_array(t_data *img, char *line)
 	while ((utils[0] = get_next_line(img->fd, &line)) > 0)
 	{
 		if (line[0] == '\0')
-			error_map("invalid map\n", line, map);
+			map_exit_failure("invalid map\n", line, map);
 		map = get_map_in(line, map, utils[1]);
 		utils[1] = 1;
 		if (utils[2]++ > 50 || ft_strlen(line) > 50)
-			error_map("large file\n", line, map);
+			map_exit_failure("large file\n", line, map);
 		free(line);
 	}
 	map = get_map_in(line, map, utils[1]);
