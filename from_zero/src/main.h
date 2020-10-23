@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 
 #define SUCCESS			0
 #define MAX(x, y)		x >= y ? x : y
@@ -9,6 +10,18 @@
 #define COLORSTONE_XPM	IMGDIR"/colorstone.xpm"
 #define GREYSTONE_XPM	IMGDIR"/greystone.xpm"
 #define REDBRICK_XPM	IMGDIR"/redbrick.xpm"
+
+#define DEBUGV(v_fmt, v) \
+    printf(#v ": " v_fmt "\t(file \"%s\", line %d, in %s)\n", \
+        v, __FILE__, __LINE__, __FUNCTION__);
+
+#define DEBUGVD(v) DEBUGV("%d", v);
+#define DEBUGVS(v) DEBUGV("%s", v);
+
+#define DEBUGF(fmt, ...) \
+    printf(fmt "\t(file \"%s\", line %d, in %s)\n", \
+        __VA_ARGS__, __FILE__, __LINE__, __FUNCTION__);
+
 
 typedef uint32_t t_color;
 
