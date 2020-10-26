@@ -6,13 +6,13 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/24 12:50:21 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/14 13:41:20 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/26 14:36:13 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_inf_sprite_pos(t_data *img)
+void	get_sprites_positions(t_data *img)
 {
 	int i;
 	int j;

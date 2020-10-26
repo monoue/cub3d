@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/24 12:54:26 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/23 17:12:00 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/26 14:36:13 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ int					put_err_msg(char *s);
 void				exit_failure_closing_fd(char *s, int fd);
 int					get_resolution(t_data *img, char *line);
 void				sprite_calculation(t_data *img, int x);
-void				get_inf_sprite_pos(t_data *img);
+void				get_sprites_positions(t_data *img);
 void				moves(t_data *img);
 int					line_check(char *line);
 char				*ft_strjoin_with_n(char *map, char *line);

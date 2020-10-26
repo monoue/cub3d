@@ -1,5 +1,8 @@
 #include "../minilibx/mlx_beta/mlx.h"
+
 #include "main.h"
+#include "player.h"
+
 #include "ft_printf/ft_printf.h"
 #include "ft_printf/libft/libft.h"
 #include "get_next_line/get_next_line.h"
@@ -26,7 +29,7 @@
 // };
 
 void	exit_with_error_message(t_error_types message_type,  char *error_content)
-// int		exit_failure_with_error_message(char *error_content)
+// int		exit_with_error_message(char *error_content)
 {
 	ft_putstr_fd("Error\n", STDERR_FILENO);
 	if (message_type == SINGLE)
@@ -54,6 +57,12 @@ void	exit_with_error_message(t_error_types message_type,  char *error_content)
 		ft_putstr_fd(".cub file: \"", STDERR_FILENO);
 		ft_putstr_fd(error_content, STDERR_FILENO);
 		ft_putstr_fd("\" line's path is invalid.\n", STDERR_FILENO);
+	}
+	else if (message_type == LACKING_ELEMENT)
+	{
+		ft_putstr_fd(".cub file: \"", STDERR_FILENO);
+		ft_putstr_fd(error_content, STDERR_FILENO);
+		ft_putstr_fd("\" line is lacking.\n", STDERR_FILENO);
 	}
 	// TODO: fd の close もここでやる？　だとすれば、fd はグローバル変数？
 	exit(EXIT_FAILURE);
@@ -172,7 +181,7 @@ bool	is_out_of_color_range(int trgb_element)
 	return (trgb_element < 0 || trgb_element > 255);
 }
 
-size_t	count_specific_c(char *str, char c)
+size_t	count_specific_c(const char *str, char c)
 {
 	size_t	index;
 	size_t	c_count;
@@ -231,18 +240,24 @@ void	set_color(t_color *color, const char **infos, char *id)
 	*color = create_trgb(0, rgb_elements[0], rgb_elements[1], rgb_elements[2]);
 }
 
+bool	is_spawn_point_c(char c)
+{
+	return (c == 'N' || c == 'E' || c == 'W' || c == 'S');
+}
+
 bool	is_map_c(char c)
 {
-	return ((c >= '0' && c <= '2') || c == 'N' || c == 'E' || c == 'W' || c == 'S' || c == ' ');
+	return ((c >= '0' && c <= '2') || is_spawn_point_c(c) || c == ' ');
 }
 // 1) スペースをスキップ
 // 2) そ時時点で '\0' だったら false
 // 3) map_c もしくは スペースの間スキップ
 // 4) \0 だったら tru
-bool	is_map_line(char *cubfile_line)
+bool	is_map_line(const char *cubfile_line)
 {
 	size_t	index;
 
+	index = 0;
 	while (cubfile_line[index] == ' ')
 		index++;
 	if (cubfile_line[index] == '\0')
@@ -252,84 +267,8 @@ bool	is_map_line(char *cubfile_line)
 	return (cubfile_line[index] == '\0');
 }
 
-
-// TODO: 長さを予め指定すべきか、それとも行数を数えたの結果による malloc にすべきか決める
-// char	g_map[MAX_MAP_LEN][MAX_MAP_LEN];
-
-// TODO: 空行で一旦終了。それ以降にデータがある行があれば、"empty line" のエラーを吐かせる
-// substr で行頭から切り取っていく？
-// char	*ft_strjoin_with_n(char *map, char *line)
-// {
-// 	char *tmp;
-
-// 	tmp = map;
-// 	map = ft_strjoin(map, "\n");
-// 	if (!map)
-// 		return (NULL);
-// 	tmp = map;
-// 	map = ft_strjoin(map, line);
-// 	free(tmp);
-// 	if (!map)
-// 		return (NULL);
-// 	return (map);
-// }
-
-// char	*get_map_in(char *line, char *map, int flag)
-// {
-// 	char *tmp;
-
-// 	tmp = NULL;
-// 	if (line_check(line))
-// 	{
-// 		tmp = map;
-// 		if (flag == 0)
-// 			map = ft_strjoin(map, line);
-// 		else
-// 			map = ft_strjoin_with_n(map, line);
-// 		if (!map)
-// 		{
-// 			free(tmp);
-// 			return (NULL);
-// 		}
-// 		free(tmp);
-// 	}
-// 	(void)tmp;
-// 	return (map);
-// }
-
-// void	create_map_array(t_data *data, char *cubfile_line, int fd)
-// {
-// 	char	*map;
-// 	char	*tmp;
-// 	int		utils[3];
-// 	size_t	map_height;
-
-// 	map = ft_strdup("");
-// 	tmp = map;
-// 	utils[1] = 0;
-// 	// utils[2] = 0;
-// 	map_height = 0;
-// 	while (get_next_line(fd, &cubfile_line) > 0)
-// 	{
-// 		if (cubfile_line[0] == '\0')
-// 			error_map("invalid map\n", cubfile_line, map);
-// 		map = get_map_in(cubfile_line, map, utils[1]);
-// 		utils[1] = 1;
-// 		if (map_height++ > 50 || ft_strlen(cubfile_line) > 50)
-// 			error_map("large file\n", cubfile_line, map);
-// 		free(cubfile_line);
-// 	}
-// 	map = get_map_in(cubfile_line, map, utils[1]);
-// 	free(cubfile_line);
-// 	data->w_map = ft_split(map, '\n');
-// 	data->w_map_c = ft_split(map, '\n');
-// 	free(map);
-// 	get_inf_sprite_num(data);
-// }
-
-
-// TODO: サブリナのを参考にしながら（でも間違っていたらしいので過信せず）、どうすればエラーにならないか、思考錯誤！！！
-char	**g_map = NULL;
+char	g_map[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1] = {'\0'};
+char	g_map_to_check[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1] = {'\0'};
 
 bool	all_elements_are_set(void)
 {
@@ -342,39 +281,6 @@ bool	all_elements_are_set(void)
 	|| g_cubfile_data.sprite_texture_path == NULL
 	|| g_cubfile_data.floor_color == NOT_SET
 	|| g_cubfile_data.ceiling_color == NOT_SET));
-}
-
-// read で大量に読み込む
-// 読みきれなかったなら、エラー処理
-// cubfile_line に \n を join
-// そこに読み込んだもの全部 join
-// \n で split
-// そこから中身をチェックしていく
-// それとも、再度 gnl 使って、一行ずつチェックした方が楽？？
-// 確かに、まさとさんのように、まず \n を付け足しながら join していって、
-// 空行の
-
-char	*get_map_in(char *line, char *map)
-{
-	char *tmp;
-
-	tmp = NULL;
-	if (line_check(line))
-	{
-		tmp = map;
-		if (flag == 0)
-			map = ft_strjoin(map, line);
-		else
-			map = ft_strjoin_with_n(map, line);
-		if (!map)
-		{
-			free(tmp);
-			return (NULL);
-		}
-		free(tmp);
-	}
-	(void)tmp;
-	return (map);
 }
 
 void	map_exit_failure(char *line, char *error_message)
@@ -394,58 +300,149 @@ bool	is_empty_line(char *line)
 	return (line[index] == '\0');
 }
 
-void	add_br_and_line(char **joined_map_str, char *map_line)
-{
-	char *tmp;
+// void	add_line_with_br(char **joined_map_str, char *map_line)
+// {
+// 	char *tmp;
 
-	tmp = *joined_map_str;
-	*joined_map_str = ft_strjoin(*joined_map_str, "\n");
-	SAFE_FREE(tmp);
-	tmp = *joined_map_str;
-	*joined_map_str = ft_strjoin(*joined_map_str, map_line);
-	SAFE_FREE(tmp);
+// 	tmp = *joined_map_str;
+// 	*joined_map_str = ft_strjoin(*joined_map_str, "\n");
+// 	SAFE_FREE(tmp);
+// 	tmp = *joined_map_str;
+// 	*joined_map_str = ft_strjoin(*joined_map_str, map_line);
+// 	SAFE_FREE(tmp);
+// 	g_cubfile_data.map_height++;
+// }
+
+void	exit_if_too_large_map(char *cubfile_line)
+{
+	if (g_cubfile_data.map_height > MAX_MAP_LEN - 1)
+		map_exit_failure(cubfile_line, ".cub file: The map is too high.\n");
+	if (ft_strlen(cubfile_line) > MAX_MAP_LEN)
+		map_exit_failure(cubfile_line, ".cub file: The map is too wide.\n");
 }
 
-void	exit_if_too_large_map(size_t height, size_t width)
+float	get_spawning_angle(char c)
 {
-	if (height > 50)
-	// TODO:
-	if (width > 50)
+	if (c == 'E')
+		return (0);
+	if (c == 'S')
+		return (PI * 0.5);
+	if (c == 'W')
+		return (PI);
+	if (c == 'N')
+		return (PI * 1.5);
+}
+
+bool	map_has_double_spawn_points()
+{
+	return (!(g_player.x == NOT_SET));
+}
+
+void	set_player_spawning_data(char x, char y, char current_c)
+{
+	g_player.x = (float)CTOI(x);
+	g_player.y = (float)CTOI(y);
+	g_player.rotation_angle = get_spawning_angle(current_c);
+}
+
+void	set_spawn_data_and_sprites_num(t_data *data)
+{
+	size_t	y;
+	size_t	x;
+	char	current_c;
+
+	g_cubfile_data.sprites_num = 0;
+	y = 0;
+	while (g_map[y] != NULL)
+	{
+		x = 0;
+		while (g_map[y][x] != '\0')
+		{
+			current_c = g_map[y][x];
+			if (current_c == '2')
+				g_cubfile_data.sprites_num++;
+			if (is_spawn_point_c(current_c))
+			{
+				if (map_has_double_spawn_points())
+					exit_with_error_message(SINGLE, "The map has several spawn points.\n");
+				set_player_spawning_data(x, y, current_c);
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+// TODO: ft_strcpy 作成
+void	copy_line_to_map(const char *cubfile_line, size_t current_row)
+{
+	ft_strcpy(g_map[current_row], cubfile_line);
+	ft_strcpy(g_map_to_check[current_row], cubfile_line);
 }
 
 void	create_map_array(t_data *data, char *map_first_line, int fd)
 {
-	size_t	map_height;
 	char	*joined_map_str;
 	char	*cubfile_line;
-	char	*tmp;
+	size_t	current_row;
 
-	joined_map_str = ft_strdup_free(map_first_line);
+	copy_line_to_map(map_first_line, 0);
+	current_row = 1;
+	// joined_map_str = ft_strdup_free(map_first_line);
 	while (get_next_line(fd, &cubfile_line) > 0)
 	{
 		if (is_empty_line(cubfile_line))
-		{
 			while (get_next_line(fd, &cubfile_line) > 0)
-			{
 				if (!is_empty_line(cubfile_line))
 					map_exit_failure(cubfile_line, ".cub file: The map has empty lines.\n");
-			}
+		else
+		{
+			exit_if_too_large_map(cubfile_line);
+			copy_line_to_map(cubfile_line, current_row);
+			// add_line_with_br(&joined_map_str, cubfile_line);
+			SAFE_FREE(cubfile_line);
+			current_row++;
 		}
-		else if (!is_map_line(cubfile_line))
-			map_exit_failure(cubfile_line, ".cub file: The map is invalid.\n");
-		add_br_and_line(&joined_map_str, cubfile_line);
-		map_height++;
-		if (map_height > MAX_MAP_LENGTH || ft_strlen(cubfile_line) > MAX_MAP_LENGTH)
-			map_exit_failure(cubfile_line, ".cub file: The map is too large.\n");
-		SAFE_FREE(cubfile_line);
+		// if (g_cubfile_data.map_height > MAX_MAP_LENGTH || ft_strlen(cubfile_line) > MAX_MAP_LENGTH)
+		// {
+		// 	DEBUGVD((int)g_cubfile_data.map_height);
+		// 	DEBUGVD((int)ft_strlen(cubfile_line));
+			// map_exit_failure(cubfile_line, ".cub file: The map is too large.\n");
+		// }
+
 	}
-	add_br_and_line(&joined_map_str, cubfile_line);
-	g_map = get_map_in(cubfile_line, g_map);
-	SAFE_FREE(cubfile_line);
-	data->w_map = ft_split(g_map, '\n');
-	data->w_map_c = ft_split(g_map, '\n');
-	free(g_map);
-	get_inf_sprite_num(data);
+	exit_if_too_large_map(cubfile_line);
+	copy_line_to_map(cubfile_line, current_row);
+	// add_line_with_br(&joined_map_str, cubfile_line);
+	// g_map_to_check = ft_split(joined_map_str, '\n');
+	// g_map = ft_split(joined_map_str, '\n');
+	SAFE_FREE(joined_map_str);
+	// size_t	index = 0;
+	// while (g_map[index])
+	// {
+	// 	DEBUGVS(g_map[index]);
+	// 	index++;
+	// }
+}
+
+void	exit_if_not_all_elements_are_set(void)
+{
+	if (g_cubfile_data.window_width == NOT_SET)
+		exit_with_error_message(LACKING_ELEMENT, "R");
+	if (g_cubfile_data.north_texture_path == NULL)
+		exit_with_error_message(LACKING_ELEMENT, "NO");
+	if (g_cubfile_data.east_texture_path == NULL)
+		exit_with_error_message(LACKING_ELEMENT, "EA");
+	if (g_cubfile_data.west_texture_path == NULL)
+		exit_with_error_message(LACKING_ELEMENT, "WE");
+	if (g_cubfile_data.south_texture_path == NULL)
+		exit_with_error_message(LACKING_ELEMENT, "SO");
+	if (g_cubfile_data.sprite_texture_path == NULL)
+		exit_with_error_message(LACKING_ELEMENT, "S");
+	if (g_cubfile_data.floor_color == NOT_SET)
+		exit_with_error_message(LACKING_ELEMENT, "F");
+	if (g_cubfile_data.ceiling_color == NOT_SET)
+		exit_with_error_message(LACKING_ELEMENT, "C");
 }
 
 void	get_line_data(t_data *data, char *cubfile_line, int fd)
@@ -455,7 +452,7 @@ void	get_line_data(t_data *data, char *cubfile_line, int fd)
 	// 要は、他の要素が入りきっていないのに map だった場合。
 	// つまり、初期化されていないデータが残っていないかを確認すれば良い。
 	if (!all_elements_are_set() && is_map_line(cubfile_line))
-		exit_failure_with_error_message(SINGLE, "The map is in the wrong place.");
+		exit_with_error_message(SINGLE, "The map is in the wrong place.");
 	if (ft_strcmp(element_items[0], "R") == 0)
 		get_resolution(&element_items[1]);
 	else if (ft_strcmp(element_items[0], "NO") == 0)
@@ -473,7 +470,10 @@ void	get_line_data(t_data *data, char *cubfile_line, int fd)
 	else if (ft_strcmp(element_items[0], "C") == 0)
 		set_color(&g_cubfile_data.ceiling_color, &element_items[1], "C");
 	else if (is_map_line(cubfile_line))
+	{
+		exit_if_not_all_elements_are_set();
 		create_map_array(data, cubfile_line, fd);
+	}
 	// printf("%s\n", g_cubfile_data.north_texture_path);
 	// printf("%s\n", g_cubfile_data.east_texture_path);
 	// printf("%s\n", g_cubfile_data.west_texture_path);
@@ -485,6 +485,73 @@ void	get_line_data(t_data *data, char *cubfile_line, int fd)
 	// printf("%d\n", g_cubfile_data.ceiling_color);
 }
 
+
+
+// TODO: そもそも、フリーする必要なくなったらこの関数要らない
+void	exit_freeing_maps()
+{
+	// SAFE_FREE(g_map);
+	// SAFE_FREE(g_map_to_check);
+	exit_with_error_message("SINGLE", "The map is not surrounded by walls.\n");
+}
+
+bool	is_out_of_map(int x, int y)
+{
+	return (y < 0 || y >= g_cubfile_data.map_height || x < 0 || g_map[y][x] == '\0');
+}
+
+// TODO: strcpy 作成後、こちらを完成させてテスト
+void	check_whether_map_is_surrounded(int current_x, int current_y)
+{
+	int	direction;
+	int	new_x;
+	int	new_y;
+
+	g_map_to_check[current_y][current_x] = 'X';
+	direction = 0;
+	while (direction < 4)
+	{
+		new_x = current_x + dx[direction];
+		new_y = current_y + dy[direction];
+		if (is_out_of_map(new_x, new_y))
+			exit_freeing_maps();
+		// TODO: この関数はここから
+		if (g_map_to_check[new_y][new_x] == )
+	}
+	char	current_c;
+
+	if (current_y < 0 || current_y >= g_cubfile_data.map_height || current_x < 0 || g_map_to_check[current_y][current_x] == '\0')
+		return ;
+	current_c = g_map_to_check[current_y][current_x];
+	if (current_c == '1')
+		return ;
+	if (!(img->w_map_c[row][col] == 'N' || img->w_map_c[row][col] == 'W'\
+	|| img->w_map_c[row][col] == 'E' || img->w_map_c[row][col] == 'S' ||\
+	img->w_map_c[row][col] == '0' || img->w_map_c[row][col] == '2'))
+		return ;
+	if (img->flag == 1)
+		return ;
+	if (row == 0 || col == 0 || row == i ||\
+	col == (int)(ft_strlen(img->w_map_c[row]) - 1))
+		img->flag = 1;
+	if (up(img, row - 1, col) == 1 || down(img, row + 1, col) == 1 ||\
+	right(img, row, col + 1) == 1 || right(img, row, col - 1) == 1)
+		img->flag = 1;
+	img->w_map_c[row][col] = 'x';
+	fill(img, row + 1, col, i);
+	fill(img, row - 1, col, i);
+	fill(img, row, col + 1, i);
+	fill(img, row, col - 1, i);
+}
+
+void	exit_if_map_is_not_surrounded_by_walls()
+{
+	g_cubfile_data.not_surrounded = false;
+	check_whether_map_is_surrounded(g_player.x, g_player.y);
+	if (g_cubfile_data.not_surrounded == true)
+		exit_freeing_maps();
+}
+
 void	set_cubfile_data(t_data *data, char *filename)
 {
 	char		*line;
@@ -493,7 +560,7 @@ void	set_cubfile_data(t_data *data, char *filename)
 	// map_init(data);
 	// data->err_flag = false;
 	if (fd == ERROR)
-		exit_failure_with_error_message(SINGLE, ".cub file cloud not be opened.\n");
+		exit_with_error_message(SINGLE, ".cub file cloud not be opened.\n");
 	while (get_next_line(fd, &line) > 0)
 	{
 		// printf("%s\n", line);
@@ -508,16 +575,16 @@ void	set_cubfile_data(t_data *data, char *filename)
 		// }
 		SAFE_FREE(line);
 	}
-	SAFE_FREE(line);
-	// map_elements_check(data);
+	// SAFE_FREE(line);
+	set_spawn_data_and_sprites_num(data);
+	exit_if_map_is_not_surrounded_by_walls();
+	// if (map_is_not_surrounded_by_walls())
+
+	// TODO: sprite の malloc の必然性が分からない
+	// なので後回し
 	// data->sprite = malloc(sizeof(t_sprite) * data->sprite_num);
-	// if (data->err_flag == true)
-	// {
-	// 	free_reads(data);
-	// 	exit_failure_with_error_message("map");
-	// 	exit(0);
-	// }
-	// get_inf_sprite_pos(data);
+	// TODO: 同じく、sprite の位置の獲得の必然性もわからないので後で
+	// get_sprites_positions(data);
 	// check(data);
 }
 
@@ -550,13 +617,13 @@ int	main(int argc, char **argv)
 	const char	*option = "--save";
 
 	if (argc < 2)
-		exit_failure_with_error_message(SINGLE, "No arguments.\n");
+		exit_with_error_message(SINGLE, "No arguments.\n");
 	if (ft_strlen(argv[1]) < 5 || ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], extension, 4) != 0)
-		exit_failure_with_error_message(SINGLE, "File's extension is not \".cub\".\n");
+		exit_with_error_message(SINGLE, "File's extension is not \".cub\".\n");
 	if (argc > 2)
 	{
 		if (ft_strlen(argv[2]) != ft_strlen(option) || ft_strncmp(argv[2], option, ft_strlen(option)) != 0)
-			exit_failure_with_error_message(SINGLE, "Option is not \"--save\".\n");
+			exit_with_error_message(SINGLE, "Option is not \"--save\".\n");
 		// TODO: save_picture(argv[1]);
 	}
 	else

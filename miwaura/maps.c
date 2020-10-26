@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 15:04:36 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/22 14:09:35 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/26 14:36:13 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	set_cubfile_data(t_data *img, char *file)
 		put_err_msg("map");
 		exit(0);
 	}
-	get_inf_sprite_pos(img);
+	get_sprites_positions(img);
 	check(img);
 }
 

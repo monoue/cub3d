@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/16 14:55:11 by miwaura           #+#    #+#             */
-/*   Updated: 2020/10/23 17:12:00 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/26 13:41:50 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	set_py(t_data *img)
 	}
 }
 
-void	get_inf_sprite_num(t_data *img)
+void	set_spawn_data_and_sprites_num(t_data *img)
 {
 	int i;
 	int j;
@@ -132,7 +132,7 @@ int		create_map_array(t_data *img, char *line)
 	img->w_map = ft_split(map, '\n');
 	img->w_map_c = ft_split(map, '\n');
 	free(map);
-	get_inf_sprite_num(img);
+	set_spawn_data_and_sprites_num(img);
 	free(line);
 	return (1);
 }

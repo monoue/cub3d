@@ -23,6 +23,10 @@
     printf(fmt "\t(file \"%s\", line %d, in %s)\n", \
         __VA_ARGS__, __FILE__, __LINE__, __FUNCTION__);
 
+extern const int	dx[4] = {1, 0, -1, 0};
+extern const int	dy[4] = {0, 1, 0, -1};
+
+
 
 typedef uint32_t t_color;
 
@@ -44,6 +48,7 @@ typedef enum	e_error_types
 	WRONG_INFO_NUM,
 	INVALID_INFO,
 	INVALID_PATH,
+	LACKING_ELEMENT,
 	// FD
 
 	ERROR_TYPES_NUM
@@ -74,7 +79,10 @@ typedef struct		s_cubfile_data
 	char			*sprite_texture_path;
 	t_color			floor_color;
 	t_color			ceiling_color;
+
+	size_t			sprites_num;
 	// int				elements_num;
+	size_t			map_height;	
 }					t_cubfile_data;
 
 extern t_cubfile_data	g_cubfile_data;
