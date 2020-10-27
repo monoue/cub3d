@@ -32,7 +32,9 @@ void	exit_with_error_message(t_error_types message_type,  char *error_content)
 // int		exit_with_error_message(char *error_content)
 {
 	ft_putstr_fd("Error\n", STDERR_FILENO);
-	if (message_type == SINGLE)
+	if (message_type == ERRNO)
+		perror(NULL);
+	else if (message_type == SINGLE)
 		ft_putstr_fd(error_content, STDERR_FILENO);
 	else if (message_type == ID_OVERLAPPING)
 	{
@@ -52,6 +54,8 @@ void	exit_with_error_message(t_error_types message_type,  char *error_content)
 		ft_putstr_fd(error_content, STDERR_FILENO);
 		ft_putstr_fd("\" line's informations is invalid.\n", STDERR_FILENO);
 	}
+	// TODO: これって、今まだ使っているんだっけ？
+	// ERRNO で対応できないかな？
 	else if (message_type == INVALID_PATH)
 	{
 		ft_putstr_fd(".cub file: \"", STDERR_FILENO);
@@ -618,12 +622,16 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		exit_with_error_message(SINGLE, "No arguments.\n");
-	if (ft_strlen(argv[1]) < 5 || ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], extension, 4) != 0)
-		exit_with_error_message(SINGLE, "File's extension is not \".cub\".\n");
+	// TODO: SINGLE の場合、strerror の活用を考えると、改行は関数内に含めなくてはいけない
+	if (argc > 3)
+		exit_with_error_message(SINGLE, strerror(E2BIG));
+	// TODO: 以下の２つはエラーパターンが同じなので、まとめる
+	if (ft_strlen(argv[1]) < 5 || ft_strcmp(&argv[1][ft_strlen(argv[1]) - 4], extension) != 0)
+		exit_with_error_message(SINGLE, strerror(EINVAL));
 	if (argc > 2)
 	{
-		if (ft_strlen(argv[2]) != ft_strlen(option) || ft_strncmp(argv[2], option, ft_strlen(option)) != 0)
-			exit_with_error_message(SINGLE, "Option is not \"--save\".\n");
+		if (ft_strcmp(argv[2], option) != 0)
+			exit_with_error_message(SINGLE, strerror(EINVAL));
 		// TODO: save_picture(argv[1]);
 	}
 	else

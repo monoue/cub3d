@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <errno.h>
 
 #define SUCCESS			0
 #define MAX(x, y)		x >= y ? x : y
@@ -43,6 +44,7 @@ typedef enum	e_textures
 
 typedef enum	e_error_types
 {
+	ERRNO,
 	SINGLE,
 	ID_OVERLAPPING,
 	WRONG_INFO_NUM,
@@ -82,7 +84,7 @@ typedef struct		s_cubfile_data
 
 	size_t			sprites_num;
 	// int				elements_num;
-	size_t			map_height;	
+	size_t			map_height;
 }					t_cubfile_data;
 
 extern t_cubfile_data	g_cubfile_data;
