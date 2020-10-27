@@ -1,6 +1,0 @@
-a.out
-*.o
-ft_printf
-*.dSYM
-libftprintf.a
-pft_2019/

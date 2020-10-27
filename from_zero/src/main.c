@@ -1,11 +1,9 @@
 #include "../minilibx/mlx_beta/mlx.h"
 
+#include "libft/libft.h"
 #include "main.h"
 #include "player.h"
 
-#include "ft_printf/ft_printf.h"
-#include "ft_printf/libft/libft.h"
-#include "get_next_line/get_next_line.h"
 
 // こんな感じ？
 // const char *g_texture_file_names[TEXTURES_NUM] =
