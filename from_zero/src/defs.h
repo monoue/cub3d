@@ -61,22 +61,6 @@ typedef enum	e_error_types
 	ERROR_TYPES_NUM
 }				t_error_types;
 
-typedef struct		s_cubfile_data
-{
-	int				window_width;
-	int				window_height;
-	char			*north_texture_path;
-	char			*east_texture_path;
-	char			*west_texture_path;
-	char			*south_texture_path;
-	char			*sprite_texture_path;
-	t_color			floor_color;
-	t_color			ceiling_color;
-
-	size_t			sprites_num;
-	// int				elements_num;
-	size_t			map_height;
-}					t_cubfile_data;
 
 typedef struct		s_data
 {
@@ -110,3 +94,24 @@ typedef struct		s_data
 # define NEUTRAL 0
 
 #endif
+
+// こんな感じ？
+// const char *g_texture_file_names[TEXTURES_NUM] =
+// {
+// 	BLUESTONE_XPM,
+// 	BARREL_XPM,
+// 	COLORSTONE_XPM,
+// 	GREYSTONE_XPM,
+// 	REDBRICK_XPM
+// };
+// const char *g_ids[ID_NUM] =
+// {
+// 	"R",
+// 	"NO",
+// 	"EA",
+// 	"WE",
+// 	"SO",
+// 	"S",
+// 	"F",
+// 	"C",
+// };

@@ -6,9 +6,13 @@ OBJS =		$(SRCS:%.c=%.o)
 CLIBS =		-L . -lft
 CFLAGS =	-Wall -Wextra -Werror
 
-SRCS += src/main.c
+SRCS += src/check_map_error.c
+SRCS += src/create_maps.c
 SRCS += src/error.c
+SRCS += src/main.c
 SRCS += src/player.c
+SRCS += src/set_cubfile_data.c
+SRCS += src/set_color.c
 
 $(NAME): $(OBJS)
 	gcc -g -fsanitize=address $(SRCS) ./libft.a -o cub3D;

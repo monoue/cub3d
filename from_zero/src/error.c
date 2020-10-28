@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:29:46 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/28 14:23:01 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/28 17:20:38 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,3 @@ void	map_exit_failure(char *map_line, char *error_message)
 	SAFE_FREE(map_line);
 	exit_with_error_message(SINGLE, error_message);
 }
-
-void	exit_if_too_large_map(char *map_line, size_t height)
-{
-	const size_t width = ft_strlen(map_line);
-
-	if (height > MAX_MAP_LEN - 1)
-		map_exit_failure(map_line, ".cub file: The map is too high.\n");
-	if (width > MAX_MAP_LEN)
-		map_exit_failure(map_line, ".cub file: The map is too wide.\n");
-}
-
-// TODO: そもそも、フリーする必要なくなったらこの関数要らない
-
-// void	exit_freeing_maps()
-// {
-// 	// SAFE_FREE(g_map);
-// 	// SAFE_FREE(g_map_to_check);
-// 	exit_with_error_message("SINGLE", "The map is not surrounded by walls.\n");
-// }
-
