@@ -35,6 +35,7 @@
 
 typedef uint32_t t_color;
 
+
 typedef enum	e_textures
 {
 	BLUESTONE,

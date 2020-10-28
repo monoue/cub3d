@@ -11,7 +11,8 @@ SRCS += src/error.c
 SRCS += src/player.c
 
 $(NAME): $(OBJS)
-	gcc -g -fsanitize=address $(SRCS) ./libft.a ./libmlx.dylib -o cub3D;
+	gcc -g -fsanitize=address $(SRCS) ./libft.a -o cub3D;
+	# gcc -g -fsanitize=address $(SRCS) ./libft.a ./libmlx.dylib -o cub3D;
 	# ar rcs $(NAME) $(OBJS)
 
 all: $(NAME)
@@ -25,7 +26,7 @@ fclean: clean
 re: fclean all
 
 run:
-	./cub3D;
+	./cub3D test_map/1.cub
 
 .PHONY: all clean fclean re run
 

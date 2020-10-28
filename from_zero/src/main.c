@@ -70,6 +70,20 @@ t_cubfile_data g_cubfile_data =
 
 };
 
+t_player	g_player =
+{
+	.x = NOT_SET,
+	.y = NOT_SET,
+	.width = 1,
+	.height = 1,
+	.turn_direction = 0,
+	.walk_direction = 0,
+	.rotation_angle = PI / 2,
+	.walk_speed = 100,
+	.turn_speed = 45 * (PI / 180)
+};
+
+
 t_data g_data;
 
 // void	exit_failure_closing_fd(int fd)
@@ -107,11 +121,16 @@ void	get_resolution(const char **infos)
 		exit_with_error_message(WRONG_INFO_NUM, "R");
 	if (!ft_str_is_numeric(infos[0]) || !ft_str_is_numeric(infos[1]))
 		exit_with_error_message(INVALID_INFO, "R");
-	mlx_get_screen_size(g_data.mlx, &g_cubfile_data.window_width, &g_cubfile_data.window_height);
-	g_cubfile_data.window_width = MIN(g_cubfile_data.window_width, ft_atoi(infos[0]));
-	g_cubfile_data.window_height = MIN(g_cubfile_data.window_height, ft_atoi(infos[1]));
-	if (g_cubfile_data.window_width == 0 || g_cubfile_data.window_height == 0)
-		exit_with_error_message(INVALID_INFO, "R");
+	// TODO: デバッグ終了後、削除
+	g_cubfile_data.window_width = 500;
+	g_cubfile_data.window_height = 500;
+
+	// TODO: デバッグ後、コメントアウト解除
+	// mlx_get_screen_size(g_data.mlx, &g_cubfile_data.window_width, &g_cubfile_data.window_height);
+	// g_cubfile_data.window_width = MIN(g_cubfile_data.window_width, ft_atoi(infos[0]));
+	// g_cubfile_data.window_height = MIN(g_cubfile_data.window_height, ft_atoi(infos[1]));
+	// if (g_cubfile_data.window_width == 0 || g_cubfile_data.window_height == 0)
+	// 	exit_with_error_message(INVALID_INFO, "R");
 	// printf("%d, %d\n", g_cubfile_data.window_width, g_cubfile_data.window_height);
 }
 
@@ -240,6 +259,7 @@ bool	is_map_line(const char *cubfile_line)
 char	g_map[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];
 char	g_map_to_check[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];
 
+
 bool	all_elements_are_set(void)
 {
 	return (!(g_cubfile_data.window_width == NOT_SET
@@ -291,13 +311,16 @@ float	get_spawning_angle(char c)
 
 bool	map_has_double_spawn_points()
 {
-	return (!(g_player.x == NOT_SET));
+	printf("%f\n", g_player.x);
+	if ((int)g_player.x != NOT_SET)
+		return (true);
+	return (false);
 }
 
-void	set_player_spawning_data(char x, char y, char current_c)
+void	set_player_spawning_data(size_t x, size_t y, char current_c)
 {
-	g_player.x = (float)CTOI(x);
-	g_player.y = (float)CTOI(y);
+	g_player.x = (float)x;
+	g_player.y = (float)y;
 	g_player.rotation_angle = get_spawning_angle(current_c);
 }
 
@@ -310,12 +333,13 @@ void	set_spawn_data_and_sprites_num(t_data *data)
 
 	g_cubfile_data.sprites_num = 0;
 	y = 0;
-	while (g_map[y] != NULL)
+	// while (g_map[y][0] != 'Z')
+	while (g_map[y][0] != '\0')
 	{
 		x = 0;
-		while (g_map[y][x] != '\0')
+		// while ((current_c = g_map[y][x]) != 'Z')
+		while ((current_c = g_map[y][x]) != '\0')
 		{
-			current_c = g_map[y][x];
 			if (current_c == '2')
 				g_cubfile_data.sprites_num++;
 			if (is_spawn_point_c(current_c))
@@ -407,6 +431,8 @@ void	get_line_data(t_data *data, char *cubfile_line, int fd)
 {
 	const char **element_items = (const char **)ft_split(cubfile_line, ' ');
 
+	if (element_items[0] == NULL)
+		return ;
 	// 要は、他の要素が入りきっていないのに map だった場合。
 	// つまり、初期化されていないデータが残っていないかを確認すれば良い。
 	if (!all_elements_are_set() && is_map_line(cubfile_line))
@@ -458,7 +484,6 @@ bool	is_out_of_map(int x, int y)
 	return (x < 0 || x >= MAX_MAP_LEN || y < 0 || y >= MAX_MAP_LEN);
 }
 
-// TODO: strcpy 作成後、こちらを完成させてテスト
 void	exit_if_map_is_not_surrounded_by_walls(int current_x, int current_y)
 {
 	int		direction;
@@ -472,12 +497,13 @@ void	exit_if_map_is_not_surrounded_by_walls(int current_x, int current_y)
 	{
 		new_x = current_x + dx[direction];
 		new_y = current_y + dy[direction];
-		if (is_out_of_map(new_x, new_y))
+		if (is_out_of_map(new_x, new_y) || (new_c = g_map_to_check[new_y][new_x]) == '\0')
 			exit_with_error_message(SINGLE, "The map is not surrounded by walls");
-		new_c = g_map_to_check[new_y][new_x];
 		if (new_c == '1' || new_c == 'X')
-			continue ;
-		exit_if_map_is_not_surrounded_by_walls(new_x, new_y);
+			;
+		else
+			exit_if_map_is_not_surrounded_by_walls(new_x, new_y);
+		direction++;
 	}
 }
 
@@ -497,6 +523,7 @@ void	initialize_map(void)
 		while (x_i <= MAX_MAP_LEN)
 		{
 			g_map[y_i][x_i] = '\0';
+			// g_map[y_i][x_i] = 'Z';
 			x_i++;
 		}
 		y_i++;
@@ -528,6 +555,13 @@ void	set_cubfile_data(t_data *data, char *filename)
 		SAFE_FREE(line);
 	}
 	// SAFE_FREE(line);
+	// マップ出力テスト
+	// size_t	index = 0;
+	// while(index < 50)
+	// {
+	// 	printf("%s\n", g_map[index]);
+	// 	index++;
+	// }
 	set_spawn_data_and_sprites_num(data);
 	exit_if_map_is_not_surrounded_by_walls(g_player.x, g_player.y);
 	// if (map_is_not_surrounded_by_walls())

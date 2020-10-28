@@ -17,8 +17,6 @@ typedef struct	s_player {
 	float	turn_speed;
 }				t_player;
 
-extern t_player	g_player;
-
 void	move_player(float deltaTime);
 void	render_player();
 #endif
