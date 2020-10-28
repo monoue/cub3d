@@ -1,8 +1,31 @@
-build:
-	gcc -g -fsanitize=address ./src/main.c ./libft.a ./libmlx.dylib -o cub3D;
+NAME = cub3D
+CC = gcc
+
+SRCS =
+OBJS =		$(SRCS:%.c=%.o)
+CLIBS =		-L . -lft
+CFLAGS =	-Wall -Wextra -Werror
+
+SRCS += src/main.c
+SRCS += src/error.c
+SRCS += src/player.c
+
+$(NAME): $(OBJS)
+	gcc -g -fsanitize=address $(SRCS) ./libft.a ./libmlx.dylib -o cub3D;
+	# ar rcs $(NAME) $(OBJS)
+
+all: $(NAME)
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
 
 run:
 	./cub3D;
 
-clean:
-	rm cub3D;
+.PHONY: all clean fclean re run
+

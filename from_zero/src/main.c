@@ -1,8 +1,20 @@
 #include "../minilibx/mlx_beta/mlx.h"
 
+#include <errno.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <fcntl.h>
+
 #include "libft/libft.h"
 #include "main.h"
 #include "player.h"
+#include "error.h"
+#include "defs.h"
+
+const int	dx[4] = {1, 0, -1, 0};
+const int	dy[4] = {0, 1, 0, -1};
+
 
 
 // こんな感じ？
@@ -25,50 +37,6 @@
 // 	"F",
 // 	"C",
 // };
-
-void	exit_with_error_message(t_error_types message_type,  char *error_content)
-// int		exit_with_error_message(char *error_content)
-{
-	ft_putstr_fd("Error\n", STDERR_FILENO);
-	if (message_type == ERRNO)
-		perror(NULL);
-	else if (message_type == SINGLE)
-		ft_putstr_fd(error_content, STDERR_FILENO);
-	else if (message_type == ID_OVERLAPPING)
-	{
-		ft_putstr_fd(".cub file has more than one \"", STDERR_FILENO);
-		ft_putstr_fd(error_content, STDERR_FILENO);
-		ft_putstr_fd("\" lines.\n", STDERR_FILENO);
-	}
-	else if (message_type == WRONG_INFO_NUM)
-	{
-		ft_putstr_fd(".cub file: \"", STDERR_FILENO);
-		ft_putstr_fd(error_content, STDERR_FILENO);
-		ft_putstr_fd("\" line's informations' number is wrong.\n", STDERR_FILENO);
-	}
-	else if (message_type == INVALID_INFO)
-	{
-		ft_putstr_fd(".cub file: \"", STDERR_FILENO);
-		ft_putstr_fd(error_content, STDERR_FILENO);
-		ft_putstr_fd("\" line's informations is invalid.\n", STDERR_FILENO);
-	}
-	// TODO: これって、今まだ使っているんだっけ？
-	// ERRNO で対応できないかな？
-	else if (message_type == INVALID_PATH)
-	{
-		ft_putstr_fd(".cub file: \"", STDERR_FILENO);
-		ft_putstr_fd(error_content, STDERR_FILENO);
-		ft_putstr_fd("\" line's path is invalid.\n", STDERR_FILENO);
-	}
-	else if (message_type == LACKING_ELEMENT)
-	{
-		ft_putstr_fd(".cub file: \"", STDERR_FILENO);
-		ft_putstr_fd(error_content, STDERR_FILENO);
-		ft_putstr_fd("\" line is lacking.\n", STDERR_FILENO);
-	}
-	// TODO: fd の close もここでやる？　だとすれば、fd はグローバル変数？
-	exit(EXIT_FAILURE);
-}
 
 #include <string.h>
 
@@ -203,7 +171,7 @@ void	exit_if_color_line_is_invalid(t_color color, const char **infos, const char
 {
 	size_t	index;
 
-	if (color != NOT_SET)
+	if ((int)color != NOT_SET)
 		exit_with_error_message(ID_OVERLAPPING, id);
 	if (ft_count_strs(infos) != 1)
 		exit_with_error_message(WRONG_INFO_NUM, id);
@@ -269,8 +237,8 @@ bool	is_map_line(const char *cubfile_line)
 	return (cubfile_line[index] == '\0');
 }
 
-char	g_map[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1] = {'\0'};
-char	g_map_to_check[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1] = {'\0'};
+char	g_map[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];
+char	g_map_to_check[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];
 
 bool	all_elements_are_set(void)
 {
@@ -281,15 +249,8 @@ bool	all_elements_are_set(void)
 	|| g_cubfile_data.west_texture_path == NULL
 	|| g_cubfile_data.south_texture_path == NULL
 	|| g_cubfile_data.sprite_texture_path == NULL
-	|| g_cubfile_data.floor_color == NOT_SET
-	|| g_cubfile_data.ceiling_color == NOT_SET));
-}
-
-void	map_exit_failure(char *line, char *error_message)
-{
-	free(line);
-	free(g_map);
-	exit_with_error_message(SINGLE, error_message);
+	|| (int)g_cubfile_data.floor_color == NOT_SET
+	|| (int)g_cubfile_data.ceiling_color == NOT_SET));
 }
 
 bool	is_empty_line(char *line)
@@ -315,14 +276,6 @@ bool	is_empty_line(char *line)
 // 	g_cubfile_data.map_height++;
 // }
 
-void	exit_if_too_large_map(char *cubfile_line)
-{
-	if (g_cubfile_data.map_height > MAX_MAP_LEN - 1)
-		map_exit_failure(cubfile_line, ".cub file: The map is too high.\n");
-	if (ft_strlen(cubfile_line) > MAX_MAP_LEN)
-		map_exit_failure(cubfile_line, ".cub file: The map is too wide.\n");
-}
-
 float	get_spawning_angle(char c)
 {
 	if (c == 'E')
@@ -333,6 +286,7 @@ float	get_spawning_angle(char c)
 		return (PI);
 	if (c == 'N')
 		return (PI * 1.5);
+	return (0);
 }
 
 bool	map_has_double_spawn_points()
@@ -349,6 +303,7 @@ void	set_player_spawning_data(char x, char y, char current_c)
 
 void	set_spawn_data_and_sprites_num(t_data *data)
 {
+	(void)data;
 	size_t	y;
 	size_t	x;
 	char	current_c;
@@ -384,26 +339,28 @@ void	copy_line_to_map(const char *cubfile_line, size_t current_row)
 
 void	create_map_array(t_data *data, char *map_first_line, int fd)
 {
-	char	*joined_map_str;
+	(void)data;
 	char	*cubfile_line;
-	size_t	current_row;
+	size_t	current_height;
 
 	copy_line_to_map(map_first_line, 0);
-	current_row = 1;
+	current_height = 1;
 	// joined_map_str = ft_strdup_free(map_first_line);
 	while (get_next_line(fd, &cubfile_line) > 0)
 	{
 		if (is_empty_line(cubfile_line))
+		{
 			while (get_next_line(fd, &cubfile_line) > 0)
 				if (!is_empty_line(cubfile_line))
 					map_exit_failure(cubfile_line, ".cub file: The map has empty lines.\n");
+		}
 		else
 		{
-			exit_if_too_large_map(cubfile_line);
-			copy_line_to_map(cubfile_line, current_row);
+			exit_if_too_large_map(cubfile_line, current_height);
+			copy_line_to_map(cubfile_line, current_height);
 			// add_line_with_br(&joined_map_str, cubfile_line);
 			SAFE_FREE(cubfile_line);
-			current_row++;
+			current_height++;
 		}
 		// if (g_cubfile_data.map_height > MAX_MAP_LENGTH || ft_strlen(cubfile_line) > MAX_MAP_LENGTH)
 		// {
@@ -413,12 +370,11 @@ void	create_map_array(t_data *data, char *map_first_line, int fd)
 		// }
 
 	}
-	exit_if_too_large_map(cubfile_line);
-	copy_line_to_map(cubfile_line, current_row);
+	exit_if_too_large_map(cubfile_line, current_height);
+	copy_line_to_map(cubfile_line, current_height);
 	// add_line_with_br(&joined_map_str, cubfile_line);
 	// g_map_to_check = ft_split(joined_map_str, '\n');
 	// g_map = ft_split(joined_map_str, '\n');
-	SAFE_FREE(joined_map_str);
 	// size_t	index = 0;
 	// while (g_map[index])
 	// {
@@ -441,9 +397,9 @@ void	exit_if_not_all_elements_are_set(void)
 		exit_with_error_message(LACKING_ELEMENT, "SO");
 	if (g_cubfile_data.sprite_texture_path == NULL)
 		exit_with_error_message(LACKING_ELEMENT, "S");
-	if (g_cubfile_data.floor_color == NOT_SET)
+	if ((int)g_cubfile_data.floor_color == NOT_SET)
 		exit_with_error_message(LACKING_ELEMENT, "F");
-	if (g_cubfile_data.ceiling_color == NOT_SET)
+	if ((int)g_cubfile_data.ceiling_color == NOT_SET)
 		exit_with_error_message(LACKING_ELEMENT, "C");
 }
 
@@ -490,24 +446,25 @@ void	get_line_data(t_data *data, char *cubfile_line, int fd)
 
 
 // TODO: そもそも、フリーする必要なくなったらこの関数要らない
-void	exit_freeing_maps()
-{
-	// SAFE_FREE(g_map);
-	// SAFE_FREE(g_map_to_check);
-	exit_with_error_message("SINGLE", "The map is not surrounded by walls.\n");
-}
+// void	exit_freeing_maps()
+// {
+// 	// SAFE_FREE(g_map);
+// 	// SAFE_FREE(g_map_to_check);
+// 	exit_with_error_message(SINGLE, "The map is not surrounded by walls.\n");
+// }
 
 bool	is_out_of_map(int x, int y)
 {
-	return (y < 0 || y >= g_cubfile_data.map_height || x < 0 || g_map[y][x] == '\0');
+	return (x < 0 || x >= MAX_MAP_LEN || y < 0 || y >= MAX_MAP_LEN);
 }
 
 // TODO: strcpy 作成後、こちらを完成させてテスト
-void	check_whether_map_is_surrounded(int current_x, int current_y)
+void	exit_if_map_is_not_surrounded_by_walls(int current_x, int current_y)
 {
-	int	direction;
-	int	new_x;
-	int	new_y;
+	int		direction;
+	int		new_x;
+	int		new_y;
+	char	new_c;
 
 	g_map_to_check[current_y][current_x] = 'X';
 	direction = 0;
@@ -516,42 +473,34 @@ void	check_whether_map_is_surrounded(int current_x, int current_y)
 		new_x = current_x + dx[direction];
 		new_y = current_y + dy[direction];
 		if (is_out_of_map(new_x, new_y))
-			exit_freeing_maps();
-		// TODO: この関数はここから
-		if (g_map_to_check[new_y][new_x] == )
+			exit_with_error_message(SINGLE, "The map is not surrounded by walls");
+		new_c = g_map_to_check[new_y][new_x];
+		if (new_c == '1' || new_c == 'X')
+			continue ;
+		exit_if_map_is_not_surrounded_by_walls(new_x, new_y);
 	}
-	char	current_c;
-
-	if (current_y < 0 || current_y >= g_cubfile_data.map_height || current_x < 0 || g_map_to_check[current_y][current_x] == '\0')
-		return ;
-	current_c = g_map_to_check[current_y][current_x];
-	if (current_c == '1')
-		return ;
-	if (!(img->w_map_c[row][col] == 'N' || img->w_map_c[row][col] == 'W'\
-	|| img->w_map_c[row][col] == 'E' || img->w_map_c[row][col] == 'S' ||\
-	img->w_map_c[row][col] == '0' || img->w_map_c[row][col] == '2'))
-		return ;
-	if (img->flag == 1)
-		return ;
-	if (row == 0 || col == 0 || row == i ||\
-	col == (int)(ft_strlen(img->w_map_c[row]) - 1))
-		img->flag = 1;
-	if (up(img, row - 1, col) == 1 || down(img, row + 1, col) == 1 ||\
-	right(img, row, col + 1) == 1 || right(img, row, col - 1) == 1)
-		img->flag = 1;
-	img->w_map_c[row][col] = 'x';
-	fill(img, row + 1, col, i);
-	fill(img, row - 1, col, i);
-	fill(img, row, col + 1, i);
-	fill(img, row, col - 1, i);
 }
 
-void	exit_if_map_is_not_surrounded_by_walls()
+// void	exit_if_map_is_not_surrounded_by_walls()
+// {
+// 	check_whether_map_is_surrounded(g_player.x, g_player.y);
+// }
+void	initialize_map(void)
 {
-	g_cubfile_data.not_surrounded = false;
-	check_whether_map_is_surrounded(g_player.x, g_player.y);
-	if (g_cubfile_data.not_surrounded == true)
-		exit_freeing_maps();
+	size_t	y_i;
+	size_t	x_i;
+
+	y_i = 0;
+	while (y_i <= MAX_MAP_LEN)
+	{
+		x_i = 0;
+		while (x_i <= MAX_MAP_LEN)
+		{
+			g_map[y_i][x_i] = '\0';
+			x_i++;
+		}
+		y_i++;
+	}
 }
 
 void	set_cubfile_data(t_data *data, char *filename)
@@ -563,11 +512,12 @@ void	set_cubfile_data(t_data *data, char *filename)
 	// data->err_flag = false;
 	if (fd == ERROR)
 		exit_with_error_message(SINGLE, ".cub file cloud not be opened.\n");
+	initialize_map();
 	while (get_next_line(fd, &line) > 0)
 	{
 		// printf("%s\n", line);
 		get_line_data(data, line, fd);
-		if (g_map != NULL)		// if (get_line_data(data, line, fd) == ERROR)
+		if (g_map[0][0] != '\0')		// if (get_line_data(data, line, fd) == ERROR)
 			break ;
 		// {
 		// 	// なぜここで終わらせちゃわないのか？ free とか？
@@ -579,7 +529,7 @@ void	set_cubfile_data(t_data *data, char *filename)
 	}
 	// SAFE_FREE(line);
 	set_spawn_data_and_sprites_num(data);
-	exit_if_map_is_not_surrounded_by_walls();
+	exit_if_map_is_not_surrounded_by_walls(g_player.x, g_player.y);
 	// if (map_is_not_surrounded_by_walls())
 
 	// TODO: sprite の malloc の必然性が分からない

@@ -6,11 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:29:46 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/27 17:33:36 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/28 12:27:21 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
+#include "defs.h"
 
 void	exit_with_error_message(t_error_types message_type,  char *error_content)
 {
