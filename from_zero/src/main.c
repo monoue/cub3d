@@ -6,29 +6,30 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/28 17:08:23 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/29 10:15:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minilibx/mlx_beta/mlx.h"
-
-#include "libft/libft.h"
-#include "main.h"
-#include "player.h"
-#include "error.h"
-#include "defs.h"
-#include "create_maps.h"
-#include "check_map_error.h"
-#include "set_cubfile_data.h"
-
 #include <errno.h>
 #include <stdio.h>
+
+#include "check_map_error.h"
+#include "create_maps.h"
+#include "defs.h"
+#include "error.h"
+#include "init_mlx.h"
+#include "libft/libft.h"
+#include "main.h"
+#include "../minilibx/mlx_beta/mlx.h"
+#include "player.h"
+#include "set_cubfile_data.h"
 
 t_data g_data;
 
 void	play_the_game(char *filename)
 {
 	set_cubfile_data(filename);
+
 	// initialize_mlx_elements();
 	// mlx_hook(data.win, 2, 1L << 0, key_pressed, &data);
 	// mlx_hook(data.win, 3, 1L << 1, key_released, &data);

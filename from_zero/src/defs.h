@@ -62,22 +62,6 @@ typedef enum	e_error_types
 }				t_error_types;
 
 
-typedef struct		s_data
-{
-	void			*mlx;
-	void			*win;
-
-	void			*img;
-	char			*addr;
-	int				bits_per_pixel;
-	int				line_length;
-	int				endian;
-
-	// int				fd;
-
-	// bool			err_flag;
-	// t_cubfile_data			map;
-}					t_data;
 
 // 要る？
 # define FPS 30
