@@ -36,16 +36,28 @@
 typedef uint32_t t_color;
 
 
+// typedef enum	e_textures
+// {
+// 	BLUESTONE,
+// 	BARREL,
+// 	COLORSTONE,
+// 	GREYSTONE,
+// 	REDBRICK,
+
+// 	TEXTURES_NUM
+// }				t_textures;
+
 typedef enum	e_textures
 {
-	BLUESTONE,
-	BARREL,
-	COLORSTONE,
-	GREYSTONE,
-	REDBRICK,
+	WALL_N,
+	WALL_E,
+	WALL_W,
+	WALL_S,
+	SPRITE,
 
 	TEXTURES_NUM
 }				t_textures;
+
 
 typedef enum	e_error_types
 {

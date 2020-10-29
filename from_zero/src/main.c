@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/29 10:15:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/29 12:39:04 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@
 #include "player.h"
 #include "set_cubfile_data.h"
 
-t_data g_data;
-
 void	play_the_game(char *filename)
 {
 	set_cubfile_data(filename);
+	mlx();
 
 	// initialize_mlx_elements();
 	// mlx_hook(data.win, 2, 1L << 0, key_pressed, &data);

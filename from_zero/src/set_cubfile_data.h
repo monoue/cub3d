@@ -8,6 +8,7 @@
 # include "set_color.h"
 # include <fcntl.h>
 
+// TODO: ここの path を配列にしてやらないと、mlx でセットする時に while を回せない！
 typedef struct		s_cubfile_data
 {
 	int				window_width;
@@ -20,7 +21,8 @@ typedef struct		s_cubfile_data
 	t_color			floor_color;
 	t_color			ceiling_color;
 	size_t			sprites_num;
-	size_t			map_height;
+	// これ、つかっていないのでは？
+	// size_t			map_height;
 }					t_cubfile_data;
 
 extern t_cubfile_data g_cubfile_data;
