@@ -6,6 +6,8 @@
 // # include "map.h"
 
 typedef struct	s_player {
+	int		grid_x;
+	int		grid_y;
 	float	x;
 	float	y;
 	float	width;

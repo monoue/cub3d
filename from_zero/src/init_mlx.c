@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/30 13:04:17 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/30 15:07:30 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ t_img	g_img;
 // TODO: 悩んでいても進まない！　とにかく、一旦そのままなぞる！　最後にまとめてリファクタリング！
 
 
+void	init_texture_paths()
+{
+	size_t	t_i;
+
+	t_i = 0;
+	while (t_i < TEXTURES_NUM)
+	{
+		g_textures[t_i].path = NULL;
+		t_i++;
+	}
+}
 
 
 static void	set_textures()

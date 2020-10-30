@@ -29,6 +29,8 @@ static float	get_spawning_angle(char c)
 
 void	set_player_spawning_data(size_t x, size_t y, char current_c)
 {
+	g_player.grid_x = x;
+	g_player.grid_y = y;
 	g_player.x = x * TILE_SIZE + TILE_SIZE * 0.5;
 	g_player.y = y * TILE_SIZE + TILE_SIZE * 0.5;
 	g_player.rotation_angle = get_spawning_angle(current_c);

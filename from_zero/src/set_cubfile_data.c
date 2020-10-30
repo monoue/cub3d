@@ -6,25 +6,29 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/30 13:03:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/30 15:06:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set_cubfile_data.h"
-#include "init_mlx.h"
+
+#include "test.h"
+
+static char *g_ids[TEXTURES_NUM] =
+{
+	"NO",
+	"EA",
+	"WE",
+	"SO",
+	"S"
+};
 
 t_cubfile_data g_cubfile_data =
 {
 	.window_width = NOT_SET,
 	.window_height = NOT_SET,
-	.north_texture_path = NULL,
-	.south_texture_path = NULL,
-	.west_texture_path = NULL,
-	.east_texture_path = NULL,
-	.sprite_texture_path = NULL,
 	.floor_color = NOT_SET,
 	.ceiling_color = NOT_SET,
-
 };
 
 
@@ -49,8 +53,6 @@ void	get_resolution(const char **infos)
 	// g_cubfile_data.window_height = MIN(g_cubfile_data.window_height, ft_atoi(infos[1]));
 	// if (g_cubfile_data.window_width == 0 || g_cubfile_data.window_height == 0)
 	// 	exit_with_error_message(INVALID_INFO, "R");
-	// printf("%d, %d\n", g_cubfile_data.window_width, g_cubfile_data.window_height);
-
 }
 
 // 一応残しておく
@@ -82,16 +84,15 @@ void	get_resolution(const char **infos)
 // 	}
 // 	if (texture_i == TEXTURES_NUM)
 // 		exit_with_error_message(INVALID_PATH, id);
-// 	// printf("%s\n", g_cubfile_data.north_texture_path);
 // }
 
-static void	set_texture(char *texture_path, const char **infos, char *id)
+static void	set_texture(char **texture_path, const char **infos, char *id)
 {
-	if (texture_path != NULL)
+	if (*texture_path != NULL)
 		exit_with_error_message(ID_OVERLAPPING, id);
 	if (ft_count_strs(infos) != 1)
 		exit_with_error_message(WRONG_INFO_NUM, id);
-	texture_path = ft_strdup(infos[0]);
+	*texture_path = ft_strdup(infos[0]);
 }
 
 
@@ -121,15 +122,20 @@ bool	is_map_line(const char *cubfile_line)
 
 bool	all_elements_are_set(void)
 {
-	return (!(g_cubfile_data.window_width == NOT_SET
-	|| g_cubfile_data.window_height == NOT_SET
-	|| g_cubfile_data.north_texture_path == NULL
-	|| g_cubfile_data.east_texture_path == NULL
-	|| g_cubfile_data.west_texture_path == NULL
-	|| g_cubfile_data.south_texture_path == NULL
-	|| g_cubfile_data.sprite_texture_path == NULL
-	|| (int)g_cubfile_data.floor_color == NOT_SET
-	|| (int)g_cubfile_data.ceiling_color == NOT_SET));
+	size_t	t_i;
+
+	t_i = 0;
+	while (t_i < TEXTURES_NUM)
+	{
+		if (g_textures[t_i].path == NULL)
+			return (false);
+		t_i++;
+	}
+	if (g_cubfile_data.window_width == NOT_SET || g_cubfile_data.window_height == NOT_SET)
+		return (false);
+	if ((int)g_cubfile_data.floor_color == NOT_SET || (int)g_cubfile_data.ceiling_color == NOT_SET)
+		return (false);
+	return (true);
 }
 
 bool	map_has_double_spawn_points()
@@ -166,20 +172,20 @@ void	set_spawn_data_and_sprites_num(void)
 	}
 }
 
+// TODO: textures の path、初期化する
 void	exit_if_not_all_elements_are_set(void)
 {
+	size_t	t_i;
+
+	t_i = 0;
+	while (t_i < TEXTURES_NUM)
+	{
+		if (g_textures[t_i].path == NULL)
+			exit_with_error_message(LACKING_ELEMENT, g_ids[t_i]);
+		t_i++;
+	}
 	if (g_cubfile_data.window_width == NOT_SET)
 		exit_with_error_message(LACKING_ELEMENT, "R");
-	if (g_cubfile_data.north_texture_path == NULL)
-		exit_with_error_message(LACKING_ELEMENT, "NO");
-	if (g_cubfile_data.east_texture_path == NULL)
-		exit_with_error_message(LACKING_ELEMENT, "EA");
-	if (g_cubfile_data.west_texture_path == NULL)
-		exit_with_error_message(LACKING_ELEMENT, "WE");
-	if (g_cubfile_data.south_texture_path == NULL)
-		exit_with_error_message(LACKING_ELEMENT, "SO");
-	if (g_cubfile_data.sprite_texture_path == NULL)
-		exit_with_error_message(LACKING_ELEMENT, "S");
 	if ((int)g_cubfile_data.floor_color == NOT_SET)
 		exit_with_error_message(LACKING_ELEMENT, "F");
 	if ((int)g_cubfile_data.ceiling_color == NOT_SET)
@@ -188,24 +194,27 @@ void	exit_if_not_all_elements_are_set(void)
 
 static void	get_line_data(char *cubfile_line, int fd)
 {
-	const char **element_items = (const char **)ft_split(cubfile_line, ' ');
+	const char	**element_items = (const char **)ft_split(cubfile_line, ' ');
+	size_t		t_i;
 
 	if (element_items[0] == NULL)
 		return ;
 	if (!all_elements_are_set() && is_map_line(cubfile_line))
+	// {
+		// DEBUGVD(all_elements_are_set());
+		// DEBUGVS(cubfile_line);
+		// put_all_cubfile_data();
 		exit_with_error_message(SINGLE, "The map is in the wrong place.");
+	// }
+	t_i = 0;
+	while (t_i < TEXTURES_NUM)
+	{
+		if (ft_strcmp(element_items[0], g_ids[t_i]) == 0)
+			set_texture(&g_textures[t_i].path, &element_items[1], g_ids[t_i]);
+		t_i++;
+	}
 	if (ft_strcmp(element_items[0], "R") == 0)
 		get_resolution(&element_items[1]);
-	else if (ft_strcmp(element_items[0], "NO") == 0)
-		set_texture(g_textures[WALL_N].path, &element_items[1], "NO");
-	else if (ft_strcmp(element_items[0], "EA") == 0)
-		set_texture(g_textures[WALL_E].path, &element_items[1], "EA");
-	else if (ft_strcmp(element_items[0], "WE") == 0)
-		set_texture(g_textures[WALL_W].path, &element_items[1], "WE");
-	else if (ft_strcmp(element_items[0], "SO") == 0)
-		set_texture(g_textures[WALL_S].path, &element_items[1], "SO");
-	else if (ft_strcmp(element_items[0], "S") == 0)
-		set_texture(g_textures[SPRITE].path, &element_items[1], "S");
 	else if (ft_strcmp(element_items[0], "F") == 0)
 		set_color(&g_cubfile_data.floor_color, &element_items[1], "F");
 	else if (ft_strcmp(element_items[0], "C") == 0)
@@ -215,15 +224,6 @@ static void	get_line_data(char *cubfile_line, int fd)
 		exit_if_not_all_elements_are_set();
 		create_map_array(cubfile_line, fd);
 	}
-	// printf("%s\n", g_cubfile_data.north_texture_path);
-	// printf("%s\n", g_cubfile_data.east_texture_path);
-	// printf("%s\n", g_cubfile_data.west_texture_path);
-	// printf("%s\n", g_cubfile_data.south_texture_path);
-	// printf("%s\n", g_cubfile_data.sprite_texture_path);
-	// printf("%d\n", g_cubfile_data.window_width);
-	// printf("%d\n", g_cubfile_data.window_height);
-	// printf("%d\n", g_cubfile_data.floor_color);
-	// printf("%d\n", g_cubfile_data.ceiling_color);
 }
 
 void	set_cubfile_data(char *filename)
@@ -235,7 +235,8 @@ void	set_cubfile_data(char *filename)
 	// data->err_flag = false;
 	if (fd == ERROR)
 		exit_with_error_message(SINGLE, ".cub file cloud not be opened.\n");
-	initialize_map();
+	init_map();
+	init_texture_paths();
 	while (get_next_line(fd, &line) > 0)
 	{
 		// printf("%s\n", line);
@@ -252,7 +253,7 @@ void	set_cubfile_data(char *filename)
 	// 	index++;
 	// }
 	set_spawn_data_and_sprites_num();
-	exit_if_map_is_not_surrounded_by_walls(g_player.x, g_player.y);
+	exit_if_map_is_not_surrounded_by_walls(g_player.grid_x, g_player.grid_y);
 
 	// TODO: sprite の malloc の必然性が分からない
 	// なので後回し

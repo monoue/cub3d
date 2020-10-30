@@ -14,11 +14,11 @@ typedef struct		s_cubfile_data
 {
 	int				window_width;
 	int				window_height;
-	char			*north_texture_path;
-	char			*east_texture_path;
-	char			*west_texture_path;
-	char			*south_texture_path;
-	char			*sprite_texture_path;
+	// char			*north_texture_path;
+	// char			*east_texture_path;
+	// char			*west_texture_path;
+	// char			*south_texture_path;
+	// char			*sprite_texture_path;
 	t_color			floor_color;
 	t_color			ceiling_color;
 	size_t			sprites_num;

@@ -10,6 +10,6 @@ extern char	g_map[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];
 extern char	g_map_to_check[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];
 
 void	create_map_array(char *map_first_line, int fd);
-void	initialize_map(void);
+void	init_map(void);
 
 #endif

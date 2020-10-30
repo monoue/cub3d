@@ -63,5 +63,6 @@ extern	t_mlx g_mlx;
 extern	t_img g_img;
 
 void	mlx(void);
+void	init_texture_paths();
 
 #endif

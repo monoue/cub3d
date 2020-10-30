@@ -6,6 +6,7 @@
 		"random": "cpp",
 		"utility": "cpp",
 		"*.tcc": "cpp",
-		"stop_token": "cpp"
+		"stop_token": "cpp",
+		"__threading_support": "c"
 	}
 }
