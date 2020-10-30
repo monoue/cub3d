@@ -6,46 +6,18 @@
 
 # include "./libft/libft.h"
 
-# define MAX_MAP_LEN 50
-
-# define PI 3.14159265
-# define TWO_PI 6.28318530
-
-# define TILE_SIZE 64
-
-# define MINIMAP_SCALE_FACTOR 0.2
-
-#define SUCCESS			0
-#define IMGDIR			"./images"
-#define BLUESTONE_XPM	IMGDIR"/bluestone.xpm"
-#define BARREL_XPM		IMGDIR"/barrel.xpm"
-#define COLORSTONE_XPM	IMGDIR"/colorstone.xpm"
-#define GREYSTONE_XPM	IMGDIR"/greystone.xpm"
-#define REDBRICK_XPM	IMGDIR"/redbrick.xpm"
-#define MAX_MAP_LENGTH	50
-
-// # define WINDOW_WIDTH 1280
-// # define WINDOW_HEIGHT 800
-
-# define FOV_ANGLE (60 * (PI / 180))
-
+# define SUCCESS				0
+# define PI						3.14159265
+# define TWO_PI					6.28318530
+# define TILE_SIZE				64
+# define MAX_MAP_LEN			50
+# define MINIMAP_SCALE_FACTOR	0.2
+# define IMGDIR					"./images"
+# define FOV_ANGLE				(60 * (PI / 180))
+# define DIST_PROJ_PLANE		((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
 // # define NUM_RAYS WINDOW_WIDTH
 
-# define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
-
 typedef uint32_t t_color;
-
-
-// typedef enum	e_textures
-// {
-// 	BLUESTONE,
-// 	BARREL,
-// 	COLORSTONE,
-// 	GREYSTONE,
-// 	REDBRICK,
-
-// 	TEXTURES_NUM
-// }				t_textures;
 
 typedef enum	e_textures
 {
@@ -57,7 +29,6 @@ typedef enum	e_textures
 
 	TEXTURES_NUM
 }				t_textures;
-
 
 typedef enum	e_error_types
 {
@@ -111,3 +82,20 @@ typedef enum	e_error_types
 // 	"F",
 // 	"C",
 // };
+
+// #define BLUESTONE_XPM	IMGDIR"/bluestone.xpm"
+// #define BARREL_XPM		IMGDIR"/barrel.xpm"
+// #define COLORSTONE_XPM	IMGDIR"/colorstone.xpm"
+// #define GREYSTONE_XPM	IMGDIR"/greystone.xpm"
+// #define REDBRICK_XPM	IMGDIR"/redbrick.xpm"
+
+// typedef enum	e_textures
+// {
+// 	BLUESTONE,
+// 	BARREL,
+// 	COLORSTONE,
+// 	GREYSTONE,
+// 	REDBRICK,
+
+// 	TEXTURES_NUM
+// }				t_textures;

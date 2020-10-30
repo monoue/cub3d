@@ -29,6 +29,21 @@
 # define KEY_LEFT	123	
 # define KEY_RIGHT	124	
 
+typedef struct	s_texture
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+// cubfile_data よりも、こっちに入れちゃった方が多分いい。cubfile_data にまとめる必要性は特にないのでは。
+	char	*path;
+}				t_texture;
+
+extern t_texture g_textures[TEXTURES_NUM];
+
 typedef struct	s_img
 {
 	void	*img_ptr;
@@ -44,7 +59,9 @@ typedef struct	s_mlx
 	void	*win_ptr;
 }				t_mlx;
 
-extern	g_mlx;
-extern	g_img;
+extern	t_mlx g_mlx;
+extern	t_img g_img;
+
+void	mlx(void);
 
 #endif

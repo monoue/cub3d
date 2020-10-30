@@ -6,6 +6,7 @@
 # include "player.h"
 # include "check_map_error.h"
 # include "set_color.h"
+# include "init_mlx.h"
 # include <fcntl.h>
 
 // TODO: ここの path を配列にしてやらないと、mlx でセットする時に while を回せない！

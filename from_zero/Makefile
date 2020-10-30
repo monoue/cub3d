@@ -13,10 +13,11 @@ SRCS += src/main.c
 SRCS += src/player.c
 SRCS += src/set_cubfile_data.c
 SRCS += src/set_color.c
+SRCS += src/init_mlx.c
 
 $(NAME): $(OBJS)
-	gcc -g -fsanitize=address $(SRCS) ./libft.a -o cub3D;
-	# gcc -g -fsanitize=address $(SRCS) ./libft.a ./libmlx.dylib -o cub3D;
+	gcc -g -fsanitize=address $(SRCS) ./libft.a ./libmlx.dylib -o cub3D;
+	# gcc -g -fsanitize=address $(SRCS) ./libft.a -o cub3D;
 	# ar rcs $(NAME) $(OBJS)
 
 all: $(NAME)

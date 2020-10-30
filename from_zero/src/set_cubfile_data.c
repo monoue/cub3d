@@ -6,11 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/28 17:13:14 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/30 13:03:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set_cubfile_data.h"
+#include "init_mlx.h"
 
 t_cubfile_data g_cubfile_data =
 {
@@ -26,13 +27,17 @@ t_cubfile_data g_cubfile_data =
 
 };
 
+
+/*
+** If a render size is of more than four digits, it is taken to be invalid size.
+*/
 void	get_resolution(const char **infos)
 {
 	if (!(g_cubfile_data.window_width == NOT_SET && g_cubfile_data.window_height == NOT_SET))
 		exit_with_error_message(ID_OVERLAPPING, "R");
 	if (ft_count_strs(infos) != 2)
 		exit_with_error_message(WRONG_INFO_NUM, "R");
-	if (!ft_str_is_numeric(infos[0]) || !ft_str_is_numeric(infos[1]))
+	if (!ft_str_is_numeric(infos[0]) || !ft_str_is_numeric(infos[1]) || ft_strlen(infos[0]) > 4 || ft_strlen(infos[0]) > 4)
 		exit_with_error_message(INVALID_INFO, "R");
 	// TODO: デバッグ終了後、削除
 	g_cubfile_data.window_width = 500;
@@ -48,35 +53,45 @@ void	get_resolution(const char **infos)
 
 }
 
-void	set_texture(char **texture_path, const char **infos, char *id)
-{
-	size_t	texture_i;
+// 一応残しておく
+// void	set_texture(char **texture_path, const char **infos, char *id)
+// {
+// 	size_t	texture_i;
 
-	if (*texture_path != NULL)
+// 	if (*texture_path != NULL)
+// 		exit_with_error_message(ID_OVERLAPPING, id);
+// 	if (ft_count_strs(infos) != 1)
+// 		exit_with_error_message(WRONG_INFO_NUM, id);
+// 	texture_i = 0;
+// 	// printf("%s\n", g_texture_file_names[GREYSTONE]);
+// 	// printf("%s\n", infos[0]);
+// 	while (texture_i < TEXTURES_NUM)
+// 	{
+// 		if (ft_strcmp(id, "NO") == 0)
+// 			g_cubfile_data.north_texture_path = ft_strdup(infos[0]);
+// 		else if (ft_strcmp(id, "EA") == 0)
+// 			g_cubfile_data.east_texture_path = ft_strdup(infos[0]);
+// 		else if (ft_strcmp(id, "WE") == 0)
+// 			g_cubfile_data.west_texture_path = ft_strdup(infos[0]);
+// 		else if (ft_strcmp(id, "SO") == 0)
+// 			g_cubfile_data.south_texture_path = ft_strdup(infos[0]);
+// 		else if (ft_strcmp(id, "S") == 0)
+// 			g_cubfile_data.sprite_texture_path = ft_strdup(infos[0]);
+// 		break ;
+// 		texture_i++;
+// 	}
+// 	if (texture_i == TEXTURES_NUM)
+// 		exit_with_error_message(INVALID_PATH, id);
+// 	// printf("%s\n", g_cubfile_data.north_texture_path);
+// }
+
+static void	set_texture(char *texture_path, const char **infos, char *id)
+{
+	if (texture_path != NULL)
 		exit_with_error_message(ID_OVERLAPPING, id);
 	if (ft_count_strs(infos) != 1)
 		exit_with_error_message(WRONG_INFO_NUM, id);
-	texture_i = 0;
-	// printf("%s\n", g_texture_file_names[GREYSTONE]);
-	// printf("%s\n", infos[0]);
-	while (texture_i < TEXTURES_NUM)
-	{
-		if (ft_strcmp(id, "NO") == 0)
-			g_cubfile_data.north_texture_path = ft_strdup(infos[0]);
-		else if (ft_strcmp(id, "EA") == 0)
-			g_cubfile_data.east_texture_path = ft_strdup(infos[0]);
-		else if (ft_strcmp(id, "WE") == 0)
-			g_cubfile_data.west_texture_path = ft_strdup(infos[0]);
-		else if (ft_strcmp(id, "SO") == 0)
-			g_cubfile_data.south_texture_path = ft_strdup(infos[0]);
-		else if (ft_strcmp(id, "S") == 0)
-			g_cubfile_data.sprite_texture_path = ft_strdup(infos[0]);
-		break ;
-		texture_i++;
-	}
-	if (texture_i == TEXTURES_NUM)
-		exit_with_error_message(INVALID_PATH, id);
-	// printf("%s\n", g_cubfile_data.north_texture_path);
+	texture_path = ft_strdup(infos[0]);
 }
 
 
@@ -182,15 +197,15 @@ static void	get_line_data(char *cubfile_line, int fd)
 	if (ft_strcmp(element_items[0], "R") == 0)
 		get_resolution(&element_items[1]);
 	else if (ft_strcmp(element_items[0], "NO") == 0)
-		set_texture(&g_cubfile_data.north_texture_path, &element_items[1], "NO");
+		set_texture(g_textures[WALL_N].path, &element_items[1], "NO");
 	else if (ft_strcmp(element_items[0], "EA") == 0)
-		set_texture(&g_cubfile_data.east_texture_path, &element_items[1], "EA");
+		set_texture(g_textures[WALL_E].path, &element_items[1], "EA");
 	else if (ft_strcmp(element_items[0], "WE") == 0)
-		set_texture(&g_cubfile_data.west_texture_path, &element_items[1], "WE");
+		set_texture(g_textures[WALL_W].path, &element_items[1], "WE");
 	else if (ft_strcmp(element_items[0], "SO") == 0)
-		set_texture(&g_cubfile_data.south_texture_path, &element_items[1], "SO");
+		set_texture(g_textures[WALL_S].path, &element_items[1], "SO");
 	else if (ft_strcmp(element_items[0], "S") == 0)
-		set_texture(&g_cubfile_data.sprite_texture_path, &element_items[1], "S");
+		set_texture(g_textures[SPRITE].path, &element_items[1], "S");
 	else if (ft_strcmp(element_items[0], "F") == 0)
 		set_color(&g_cubfile_data.floor_color, &element_items[1], "F");
 	else if (ft_strcmp(element_items[0], "C") == 0)

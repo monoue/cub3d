@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/29 12:39:04 by monoue           ###   ########.fr       */
+/*   Updated: 2020/10/30 12:55:54 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "init_mlx.h"
 #include "libft/libft.h"
 #include "main.h"
-#include "../minilibx/mlx_beta/mlx.h"
+#include "../minilibx/mlx.h"
 #include "player.h"
 #include "set_cubfile_data.h"
 
