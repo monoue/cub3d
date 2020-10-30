@@ -3,6 +3,7 @@
 
 # include "defs.h"
 # include "set_cubfile_data.h"
+# include "player.h"
 
 /*
 ** X11 events
