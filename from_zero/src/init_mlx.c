@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/02 13:52:33 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/02 14:19:33 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,21 +125,21 @@ void	init_texture_paths()
 // 	return (0);
 // }
 
-// int	playerX, playerY;
+int	playerX, playerY;
 
-// int	setup()
-// {
-// 	playerX = 0;
-// 	playerY = 0;
-// 	return (0);
-// }
+int	setup()
+{
+	playerX = 0;
+	playerY = 0;
+	return (0);
+}
 
-// int update()
-// {
-// 	playerX++;
-// 	playerY++;
-// 	return (0);
-// }
+int update()
+{
+	playerX++;
+	playerY++;
+	return (0);
+}
 void            my_mlx_pixel_put(int x, int y, t_color color)
 {
     char    *dst;
@@ -148,57 +148,63 @@ void            my_mlx_pixel_put(int x, int y, t_color color)
     *(unsigned int*)dst = color;
 }
 
-void	draw_rectangle(int x, int y)
-{
-	int i;
-	int j;
-
-	// x *= TILE_SIZE;
-	// y *= TILE_SIZE;
-	i = 0;
-	while (i < 5)
-	{
-		j = 0;
-		while (j < 5)
-		{
-			my_mlx_pixel_put(x + j, y + i, 0x00FF0000);
-			j++;
-		}
-		i++;
-	}
-}
-// void	draw_rectangle(size_t start_x, size_t start_y, size_t width, size_t height, t_color color)
+// void	draw_rectangle(int x, int y)
 // {
-// 	size_t	y_i;
-// 	size_t	x_i;
+// 	int i;
+// 	int j;
 
-// 	y_i = 0;
-// 	while (y_i < height)
+// 	// x *= TILE_SIZE;
+// 	// y *= TILE_SIZE;
+// 	i = 0;
+// 	while (i < 5)
 // 	{
-// 		x_i = 0;
-// 		while (x_i < width)
+// 		j = 0;
+// 		while (j < 5)
 // 		{
-// 			g_img.data[(start_y + y_i) * g_cubfile_data.window_width + start_x + x_i] = color;
-// 			x_i++;
+// 			my_mlx_pixel_put(x + j, y + i, 0x00FF0000);
+// 			j++;
 // 		}
-// 		y_i++;
+// 		i++;
 // 	}
 // }
+void	draw_rectangle(size_t start_x, size_t start_y, size_t width, size_t height, t_color color)
+{
+	size_t	y_i;
+	size_t	x_i;
+
+	y_i = 0;
+	while (y_i < height)
+	{
+		x_i = 0;
+		while (x_i < width)
+		{
+			my_mlx_pixel_put(start_x + x_i, start_y + y_i, color);
+			x_i++;
+		}
+		y_i++;
+	}
+}
 
 // int	render()
 // {
+// 	draw_rectangle(playerX, playerY, 20, 20, 0x00FF0000);
 // 	return (0);
 // }
 
 int	main_loop(void *null)
 {
+	// mlx_destroy_image(g_mlx.mlx_ptr, g_img.img_ptr);
+	// g_img.img_ptr = mlx_new_image(g_mlx.mlx_ptr, WIDTH, HEIGHT);
+	update();
 	(void)null;
 
-	// t_color	color;
+	draw_rectangle(0, 0, WIDTH, HEIGHT, 0x00000000);
+	t_color	color;
 
-	// color = create_trgb(0, 255, 255, 255);
+	color = create_trgb(0, 255, 255, 255);
+	draw_rectangle(playerX, playerY, 20, 20, color);
 	// draw_rectangle(30, 30, 3, 3, color);
-	draw_rectangle(5, 5);
+	// draw_rectangle(5, 5);
 	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
 	return (0);
 }
@@ -208,7 +214,6 @@ void	mlx(void)
 	g_mlx.mlx_ptr = mlx_init();
 	g_mlx.win_ptr = mlx_new_window(g_mlx.mlx_ptr, WIDTH, HEIGHT, "Monoue's cub3D");
 	g_img.img_ptr = mlx_new_image(g_mlx.mlx_ptr, WIDTH, HEIGHT);
-	// g_img.data = (t_color *)mlx_get_data_addr(g_img.img_ptr, &g_img.bits_per_pixel, &g_img.line_length, &g_img.endian);
 	g_img.data = mlx_get_data_addr(g_img.img_ptr, &g_img.bits_per_pixel, &g_img.line_length, &g_img.endian);
 	// g_img.data = (int *)mlx_get_data_addr(g_img.img_ptr, &g_img.bits_per_pixel, &g_img.line_length, &g_img.endian);
 	// g_mlx.mlx_ptr = mlx_init();
@@ -237,9 +242,9 @@ void	mlx(void)
 
 	// mlx_hook(g_mlx.win_ptr, KEY_PRESS, KEY_PRESS_MASK, key_down, NULL);
 	// mlx_hook(g_mlx.win_ptr, KEY_RELEASE, KEY_RELEASE_MASK, key_up, NULL);
-	// setup();
-	// update();
+	setup();
 	// render();
+	update();
 	mlx_hook(g_mlx.win_ptr, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK, finish_program, NULL);
 	// mlx_loop_hook(g_mlx.mlx_ptr, render_next_frame, NULL);
 	// mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
