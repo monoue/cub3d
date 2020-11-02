@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/02 16:42:57 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/02 16:51:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,11 +182,17 @@ void	render_map()
 		{
 			tile_x = TILE_SIZE * x_i;
 			tile_y = TILE_SIZE * y_i;
-			if (g_map[y_i][x_i] == '0')
-				tile_color = 0x00000000;
-			else
+			if (g_map[y_i][x_i] == '1')
 				tile_color = 0x00FFFFFF;
-			draw_rectangle(tile_x, tile_y, TILE_SIZE, TILE_SIZE, tile_color);
+			else
+				tile_color = 0x00000000;
+			draw_rectangle(
+				tile_x * MINIMAP_SCALE_FACTOR,
+				tile_y * MINIMAP_SCALE_FACTOR,
+				TILE_SIZE * MINIMAP_SCALE_FACTOR,
+				TILE_SIZE * MINIMAP_SCALE_FACTOR,
+				tile_color
+			);
 			x_i++;
 		}
 		y_i++;
