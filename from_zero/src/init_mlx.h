@@ -4,13 +4,14 @@
 # include "defs.h"
 # include "set_cubfile_data.h"
 # include "player.h"
+# include "set_color.h"
 
 /*
 ** X11 events
 */
 # define KEY_PRESS		2
 # define KEY_RELEASE	3
-# define DESTROY_NOTIFY	17	
+# define DESTROY_NOTIFY	17
 
 /*
 ** X11 masks
@@ -27,8 +28,8 @@
 # define KEY_A		0
 # define KEY_S		1
 # define KEY_D		2
-# define KEY_LEFT	123	
-# define KEY_RIGHT	124	
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
 
 typedef struct	s_texture
 {
@@ -48,7 +49,7 @@ extern t_texture g_textures[TEXTURES_NUM];
 typedef struct	s_img
 {
 	void	*img_ptr;
-	t_color	*data;
+	char	*data;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

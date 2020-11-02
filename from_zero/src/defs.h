@@ -9,7 +9,8 @@
 # define SUCCESS				0
 # define PI						3.14159265
 # define TWO_PI					6.28318530
-# define TILE_SIZE				64
+# define TILE_SIZE				32
+// # define TILE_SIZE				64
 # define MAX_MAP_LEN			50
 # define MINIMAP_SCALE_FACTOR	0.2
 # define IMGDIR					"./images"
