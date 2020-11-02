@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/30 15:06:36 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/02 16:29:43 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	get_resolution(const char **infos)
 	if (!ft_str_is_numeric(infos[0]) || !ft_str_is_numeric(infos[1]) || ft_strlen(infos[0]) > 4 || ft_strlen(infos[0]) > 4)
 		exit_with_error_message(INVALID_INFO, "R");
 	// TODO: デバッグ終了後、削除
-	g_cubfile_data.window_width = 500;
-	g_cubfile_data.window_height = 500;
+	g_cubfile_data.window_width = 900;
+	g_cubfile_data.window_height = 900;
 
 	// TODO: デバッグ後、コメントアウト解除
 	// mlx_get_screen_size(g_data.mlx, &g_cubfile_data.window_width, &g_cubfile_data.window_height);

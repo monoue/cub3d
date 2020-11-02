@@ -9,16 +9,28 @@
 # define SUCCESS				0
 # define PI						3.14159265
 # define TWO_PI					6.28318530
-# define TILE_SIZE				32
-// # define TILE_SIZE				64
+# define TILE_SIZE				64
 # define MAX_MAP_LEN			50
 # define MINIMAP_SCALE_FACTOR	0.2
 # define IMGDIR					"./images"
 # define FOV_ANGLE				(60 * (PI / 180))
 # define DIST_PROJ_PLANE		((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
 // # define NUM_RAYS WINDOW_WIDTH
+# define FPS 30
+# define FRAME_TIME_LENGTH (1000 / FPS)
 
 typedef uint32_t t_color;
+
+typedef enum	e_move_directions
+{
+	NEUTRAL,
+	FRONT,
+	BACK,
+	LEFT,
+	RIGHT,
+
+	WALK_DIRECTIONS_NUM
+}				t_move_directions;
 
 typedef enum	e_textures
 {

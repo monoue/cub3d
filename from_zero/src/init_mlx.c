@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/02 14:19:33 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/02 16:42:57 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 t_texture g_textures[TEXTURES_NUM];
 t_mlx	g_mlx;
 t_img	g_img;
-# define ROWS 11
-# define COLS 15
-# define WIDTH COLS * TILE_SIZE
-# define HEIGHT ROWS * TILE_SIZE
+// # define ROWS 11
+// # define COLS 15
+// # define WIDTH COLS * TILE_SIZE
+// # define HEIGHT ROWS * TILE_SIZE
 int		key_down(int keycode, void *null)
 {
 	(void)null;
@@ -40,23 +40,23 @@ int		key_down(int keycode, void *null)
 	return (0);
 }
 
-// int		key_up(int keycode, void *null)
-// {
-// 	(void)null;
-// 	if (keycode == KEY_W)
-// 		g_player.walk_direction = NEUTRAL;
-// 	if (keycode == KEY_S)
-// 		g_player.walk_direction = NEUTRAL;
-// 	// if (keycode == KEY_A)
-// 	// 	g_player.walk_direction = NEUTRAL;
-// 	// if (keycode == KEY_D)
-// 	// 	g_player.walk_direction = NEUTRAL;
-// 	if (keycode == KEY_LEFT)
-// 		g_player.turn_direction = NEUTRAL;
-// 	if (keycode == KEY_RIGHT)
-// 		g_player.turn_direction = NEUTRAL;
-// 	return (0);
-// }
+int		key_up(int keycode, void *null)
+{
+	(void)null;
+	if (keycode == KEY_W)
+		g_player.walk_direction = NEUTRAL;
+	if (keycode == KEY_S)
+		g_player.walk_direction = NEUTRAL;
+	// if (keycode == KEY_A)
+	// 	g_player.walk_direction = NEUTRAL;
+	// if (keycode == KEY_D)
+	// 	g_player.walk_direction = NEUTRAL;
+	if (keycode == KEY_LEFT)
+		g_player.turn_direction = NEUTRAL;
+	if (keycode == KEY_RIGHT)
+		g_player.turn_direction = NEUTRAL;
+	return (0);
+}
 
 int		finish_program(void *null)
 {
@@ -83,23 +83,23 @@ void	init_texture_paths()
 	}
 }
 
+static void	set_textures()
+{
+	size_t		t_i;
+	t_texture	texture_i;
 
-// static void	set_textures()
-// {
-// 	size_t		t_i;
-// 	t_texture	texture_i;
-
-// 	t_i = 0;
-// 	while (t_i < TEXTURES_NUM)
-// 	{
-// 		texture_i = g_textures[t_i];
-// 		texture_i.img_ptr = mlx_xpm_file_to_image(g_mlx.mlx_ptr, texture_i.path, &texture_i.width, &texture_i.height);
-// 		// TODO: エラーメッセージ、strerror で対処できるか後でやってみる
-// 		if (texture_i.img_ptr == NULL)
-// 			exit_with_error_message(SINGLE, "xpm file's data could not be read");
-// 		texture_i.addr = mlx_get_data_addr(texture_i.img_ptr, &texture_i.bits_per_pixel, &texture_i.line_length, &texture_i.endian);
-// 	}
-// }
+	t_i = 0;
+	while (t_i < TEXTURES_NUM)
+	{
+		texture_i = g_textures[t_i];
+		texture_i.img_ptr = mlx_xpm_file_to_image(g_mlx.mlx_ptr, texture_i.path, &texture_i.width, &texture_i.height);
+		// TODO: エラーメッセージ、strerror で対処できるか後でやってみる
+		if (texture_i.img_ptr == NULL)
+			exit_with_error_message(SINGLE, "xpm file's data could not be read");
+		texture_i.addr = mlx_get_data_addr(texture_i.img_ptr, &texture_i.bits_per_pixel, &texture_i.line_length, &texture_i.endian);
+		t_i++;
+	}
+}
 
 // void	zbuffer_init(t_data *img)
 // {
@@ -148,25 +148,6 @@ void            my_mlx_pixel_put(int x, int y, t_color color)
     *(unsigned int*)dst = color;
 }
 
-// void	draw_rectangle(int x, int y)
-// {
-// 	int i;
-// 	int j;
-
-// 	// x *= TILE_SIZE;
-// 	// y *= TILE_SIZE;
-// 	i = 0;
-// 	while (i < 5)
-// 	{
-// 		j = 0;
-// 		while (j < 5)
-// 		{
-// 			my_mlx_pixel_put(x + j, y + i, 0x00FF0000);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
 void	draw_rectangle(size_t start_x, size_t start_y, size_t width, size_t height, t_color color)
 {
 	size_t	y_i;
@@ -185,43 +166,54 @@ void	draw_rectangle(size_t start_x, size_t start_y, size_t width, size_t height,
 	}
 }
 
-// int	render()
-// {
-// 	draw_rectangle(playerX, playerY, 20, 20, 0x00FF0000);
-// 	return (0);
-// }
+void	render_map()
+{
+	size_t	y_i;
+	size_t	x_i;
+	size_t	tile_x;
+	size_t	tile_y;
+	t_color	tile_color;
+
+	y_i = 0;
+	while (g_map[y_i][0] != '\0')
+	{
+		x_i = 0;
+		while (g_map[y_i][x_i] != '\0')
+		{
+			tile_x = TILE_SIZE * x_i;
+			tile_y = TILE_SIZE * y_i;
+			if (g_map[y_i][x_i] == '0')
+				tile_color = 0x00000000;
+			else
+				tile_color = 0x00FFFFFF;
+			draw_rectangle(tile_x, tile_y, TILE_SIZE, TILE_SIZE, tile_color);
+			x_i++;
+		}
+		y_i++;
+	}
+}
 
 int	main_loop(void *null)
 {
-	// mlx_destroy_image(g_mlx.mlx_ptr, g_img.img_ptr);
-	// g_img.img_ptr = mlx_new_image(g_mlx.mlx_ptr, WIDTH, HEIGHT);
-	update();
 	(void)null;
-
-	draw_rectangle(0, 0, WIDTH, HEIGHT, 0x00000000);
-	t_color	color;
-
-	color = create_trgb(0, 255, 255, 255);
-	draw_rectangle(playerX, playerY, 20, 20, color);
-	// draw_rectangle(30, 30, 3, 3, color);
-	// draw_rectangle(5, 5);
+	update();
+	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height, 0x00000000);
+	render_map();
+	// render_rays();
+	// render_player();
 	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
+	mlx_do_sync(g_mlx.mlx_ptr);
 	return (0);
 }
 
 void	mlx(void)
 {
 	g_mlx.mlx_ptr = mlx_init();
-	g_mlx.win_ptr = mlx_new_window(g_mlx.mlx_ptr, WIDTH, HEIGHT, "Monoue's cub3D");
-	g_img.img_ptr = mlx_new_image(g_mlx.mlx_ptr, WIDTH, HEIGHT);
+	g_mlx.win_ptr = mlx_new_window(g_mlx.mlx_ptr, g_cubfile_data.window_width, g_cubfile_data.window_height, "Monoue's cub3D");
+	g_img.img_ptr = mlx_new_image(g_mlx.mlx_ptr, g_cubfile_data.window_width, g_cubfile_data.window_height);
 	g_img.data = mlx_get_data_addr(g_img.img_ptr, &g_img.bits_per_pixel, &g_img.line_length, &g_img.endian);
-	// g_img.data = (int *)mlx_get_data_addr(g_img.img_ptr, &g_img.bits_per_pixel, &g_img.line_length, &g_img.endian);
-	// g_mlx.mlx_ptr = mlx_init();
-	// g_mlx.win_ptr = mlx_new_window(g_mlx.mlx_ptr, g_cubfile_data.window_width, g_cubfile_data.window_height, "Monoue's cub3D");
-	// g_img.img_ptr = mlx_new_image(g_mlx.mlx_ptr, g_cubfile_data.window_width, g_cubfile_data.window_height);
-	// g_img.data = (int *)mlx_get_data_addr(g_img.img_ptr, &g_img.bits_per_pixel, &g_img.line_length, &g_img.endian);
 
-	// set_textures();
+	set_textures();
 	// int		count_w;
 	// int		count_h;
 
@@ -238,17 +230,10 @@ void	mlx(void)
 	// 	}
 	// }
 
-
-
-	// mlx_hook(g_mlx.win_ptr, KEY_PRESS, KEY_PRESS_MASK, key_down, NULL);
-	// mlx_hook(g_mlx.win_ptr, KEY_RELEASE, KEY_RELEASE_MASK, key_up, NULL);
+	mlx_hook(g_mlx.win_ptr, KEY_PRESS, KEY_PRESS_MASK, key_down, NULL);
+	mlx_hook(g_mlx.win_ptr, KEY_RELEASE, KEY_RELEASE_MASK, key_up, NULL);
 	setup();
-	// render();
-	update();
 	mlx_hook(g_mlx.win_ptr, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK, finish_program, NULL);
-	// mlx_loop_hook(g_mlx.mlx_ptr, render_next_frame, NULL);
-	// mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
-	// mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
 	mlx_loop_hook(g_mlx.mlx_ptr, &main_loop, NULL);
 	mlx_loop(g_mlx.mlx_ptr);
 }
