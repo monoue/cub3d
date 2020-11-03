@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/02 16:29:43 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/03 09:04:39 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ static void	get_line_data(char *cubfile_line, int fd)
 	// {
 		// DEBUGVD(all_elements_are_set());
 		// DEBUGVS(cubfile_line);
-		// put_all_cubfile_data();
+		// test_all_cubfile_data();
 		exit_with_error_message(SINGLE, "The map is in the wrong place.");
 	// }
 	t_i = 0;

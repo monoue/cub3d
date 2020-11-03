@@ -6,12 +6,14 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/02 16:51:11 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/03 10:15:39 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minilibx/mlx.h"
 #include "init_mlx.h"
+
+#include "test.h"
 
 t_texture g_textures[TEXTURES_NUM];
 t_mlx	g_mlx;
@@ -29,10 +31,10 @@ int		key_down(int keycode, void *null)
 		g_player.walk_direction = FRONT;
 	if (keycode == KEY_S)
 		g_player.walk_direction = BACK;
-	// if (keycode == KEY_A)
-	// 	g_player.walk_direction = LEFT;
-	// if (keycode == KEY_D)
-	// 	g_player.walk_direction = RIGHT;
+	if (keycode == KEY_A)
+		g_player.walk_direction = LEFT;
+	if (keycode == KEY_D)
+		g_player.walk_direction = RIGHT;
 	if (keycode == KEY_LEFT)
 		g_player.turn_direction = LEFT;
 	if (keycode == KEY_RIGHT)
@@ -47,10 +49,10 @@ int		key_up(int keycode, void *null)
 		g_player.walk_direction = NEUTRAL;
 	if (keycode == KEY_S)
 		g_player.walk_direction = NEUTRAL;
-	// if (keycode == KEY_A)
-	// 	g_player.walk_direction = NEUTRAL;
-	// if (keycode == KEY_D)
-	// 	g_player.walk_direction = NEUTRAL;
+	if (keycode == KEY_A)
+		g_player.walk_direction = NEUTRAL;
+	if (keycode == KEY_D)
+		g_player.walk_direction = NEUTRAL;
 	if (keycode == KEY_LEFT)
 		g_player.turn_direction = NEUTRAL;
 	if (keycode == KEY_RIGHT)
@@ -101,46 +103,7 @@ static void	set_textures()
 	}
 }
 
-// void	zbuffer_init(t_data *img)
-// {
-// 	// zbuffer とは？？
-// 	img->zbuffer = (double *)malloc(sizeof(double) * img->map.window_width);
-// }
-
-// int		render_next_frame(void *null)
-// {
-// 	(void)null;
-// 	// int		x;
-
-// 	// x = 0;
-// 	// zbuffer_init(img);
-// 	// ray_cast(img, x);
-// 	// sprite_init(img);
-// 	// sort_sprite(img);
-// 	// x = 0;
-// 	// sprites(img, x);
-// 	// moves(img);
-// 	// mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
-// 	// free(img->zbuffer);
-// 	return (0);
-// }
-
-int	playerX, playerY;
-
-int	setup()
-{
-	playerX = 0;
-	playerY = 0;
-	return (0);
-}
-
-int update()
-{
-	playerX++;
-	playerY++;
-	return (0);
-}
-void            my_mlx_pixel_put(int x, int y, t_color color)
+void	draw_pixel(int x, int y, t_color color)
 {
     char    *dst;
 
@@ -159,10 +122,41 @@ void	draw_rectangle(size_t start_x, size_t start_y, size_t width, size_t height,
 		x_i = 0;
 		while (x_i < width)
 		{
-			my_mlx_pixel_put(start_x + x_i, start_y + y_i, color);
+			draw_pixel(start_x + x_i, start_y + y_i, color);
 			x_i++;
 		}
 		y_i++;
+	}
+}
+
+void	draw_line(int x0, int y0, int x1, int y1, t_color color)
+{
+	int		delta_x;
+	int		delta_y;
+	size_t	longer_side_length;
+	size_t	index;
+	float	x_increment;
+	float	y_increment;
+	float	current_x;
+	float	current_y;
+
+	delta_x = (x1 - x0);
+	delta_y = (y1 - y0);
+	if (abs(delta_x) >= abs(delta_y))
+		longer_side_length = abs(delta_x);
+	else
+		longer_side_length = abs(delta_y);
+	x_increment = delta_x / (float)longer_side_length;
+	y_increment = delta_y / (float)longer_side_length;
+	current_x = x0;
+	current_y = y0;
+	index = 0;
+	while (index < longer_side_length)
+	{
+		draw_pixel(round(current_x), round(current_y), color);
+		current_x += x_increment;
+		current_y += y_increment;
+		index++;
 	}
 }
 
@@ -199,6 +193,42 @@ void	render_map()
 	}
 }
 
+void	render_player()
+{
+	draw_rectangle(
+		g_player.x * MINIMAP_SCALE_FACTOR,
+		g_player.y * MINIMAP_SCALE_FACTOR,
+		g_player.width * MINIMAP_SCALE_FACTOR, g_player.height * MINIMAP_SCALE_FACTOR,
+		create_trgb(0, 0, 255, 255)
+	);
+	draw_line(
+		g_player.x * MINIMAP_SCALE_FACTOR,
+		g_player.y * MINIMAP_SCALE_FACTOR,
+		(g_player.x + cos(g_player.rotation_angle) * 40) * MINIMAP_SCALE_FACTOR,
+		(g_player.y + sin(g_player.rotation_angle) * 40) * MINIMAP_SCALE_FACTOR,
+		create_trgb(0, 0, 255, 255)
+	);
+}
+
+void	move_player(void)
+{
+	float	move_step;
+	float	new_player_x;
+	float	new_player_y;
+
+	g_player.rotation_angle += g_player.turn_direction * g_player.turn_speed;
+	move_step = g_player.walk_direction * g_player.walk_speed;
+	new_player_x = g_player.x + cos(g_player.rotation_angle) * move_step;
+	new_player_y = g_player.y + sin(g_player.rotation_angle) * move_step;
+	g_player.x = new_player_x;
+	g_player.y = new_player_y;
+}
+
+void	update(void)
+{
+	move_player();
+}
+
 int	main_loop(void *null)
 {
 	(void)null;
@@ -206,7 +236,7 @@ int	main_loop(void *null)
 	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height, 0x00000000);
 	render_map();
 	// render_rays();
-	// render_player();
+	render_player();
 	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
 	mlx_do_sync(g_mlx.mlx_ptr);
 	return (0);
@@ -220,25 +250,10 @@ void	mlx(void)
 	g_img.data = mlx_get_data_addr(g_img.img_ptr, &g_img.bits_per_pixel, &g_img.line_length, &g_img.endian);
 
 	set_textures();
-	// int		count_w;
-	// int		count_h;
-
-	// count_h = -1;
-	// while (++count_h < g_cubfile_data.window_height)
-	// {
-	// 	count_w = -1;
-	// 	while (++count_w < g_cubfile_data.window_width)
-	// 	{
-	// 		if (count_w % 2)
-	// 			g_img.data[count_h * g_cubfile_data.window_width + count_w] = 0xFFFFFF;
-	// 		else
-	// 			g_img.data[count_h * g_cubfile_data.window_width + count_w] = 0xFF0000;
-	// 	}
-	// }
-
+	// test_player_data();
 	mlx_hook(g_mlx.win_ptr, KEY_PRESS, KEY_PRESS_MASK, key_down, NULL);
 	mlx_hook(g_mlx.win_ptr, KEY_RELEASE, KEY_RELEASE_MASK, key_up, NULL);
-	setup();
+	// setup();
 	mlx_hook(g_mlx.win_ptr, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK, finish_program, NULL);
 	mlx_loop_hook(g_mlx.mlx_ptr, &main_loop, NULL);
 	mlx_loop(g_mlx.mlx_ptr);

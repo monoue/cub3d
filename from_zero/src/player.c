@@ -5,13 +5,13 @@ t_player	g_player =
 {
 	.x = NOT_SET,
 	// .y = NOT_SET,
-	.width = 1,
-	.height = 1,
+	.width = 5,
+	.height = 5,
 	.turn_direction = NEUTRAL,
 	.walk_direction = NEUTRAL,
-	// .rotation_angle = PI / 2,
-	.walk_speed = 100,
-	.turn_speed = 45 * (PI / 180)
+	.walk_speed = 5,
+	// .turn_speed = 45 * (PI / 180)
+	.turn_speed = 2.5 * (PI / 180)
 };
 
 static float	get_spawning_angle(char c)

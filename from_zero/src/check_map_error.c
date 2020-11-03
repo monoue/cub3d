@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:18:51 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/30 15:06:56 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/03 09:04:17 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		exit_if_map_is_not_surrounded_by_walls(int current_x, int current_y)
 	direction = 0;
 	while (direction < 4)
 	{
-		// put_current_g_map_to_check();
+		// test_current_g_map_to_check();
 		new_x = current_x + g_dx[direction];
 		new_y = current_y + g_dy[direction];
 		if (is_out_of_map(new_x, new_y))

@@ -7,6 +7,7 @@
 
 #define DEBUGVD(v) DEBUGV("%d", v);
 #define DEBUGVS(v) DEBUGV("%s", v);
+#define DEBUGVF(v) DEBUGV("%f", v);
 
 #define DEBUGF(fmt, ...) \
     printf(fmt "\t(file \"%s\", line %d, in %s)\n", \

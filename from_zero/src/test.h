@@ -8,5 +8,6 @@
 #include "set_color.h"
 #include "set_cubfile_data.h"
 
-void	put_all_cubfile_data(void);
-void	put_current_g_map_to_check(void);
+void	test_all_cubfile_data(void);
+void	test_current_g_map_to_check(void);
+void	test_player_data(void);
