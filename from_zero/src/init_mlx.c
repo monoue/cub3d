@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/03 10:15:39 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/03 13:42:21 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,18 @@ int		key_down(int keycode, void *null)
 		g_player.walk_direction = FRONT;
 	if (keycode == KEY_S)
 		g_player.walk_direction = BACK;
+	// if (keycode == KEY_A)
+	// 	g_player.walk_horz = LEFT;
+	// if (keycode == KEY_D)
+	// 	g_player.walk_horz = RIGHT;
 	if (keycode == KEY_A)
 		g_player.walk_direction = LEFT;
 	if (keycode == KEY_D)
 		g_player.walk_direction = RIGHT;
 	if (keycode == KEY_LEFT)
-		g_player.turn_direction = LEFT;
+		g_player.turn_direction = TO_LEFT;
 	if (keycode == KEY_RIGHT)
-		g_player.turn_direction = RIGHT;
+		g_player.turn_direction = TO_RIGHT;
 	return (0);
 }
 
@@ -49,6 +53,10 @@ int		key_up(int keycode, void *null)
 		g_player.walk_direction = NEUTRAL;
 	if (keycode == KEY_S)
 		g_player.walk_direction = NEUTRAL;
+	// if (keycode == KEY_A)
+	// 	g_player.walk_horz = NEUTRAL;
+	// if (keycode == KEY_D)
+	// 	g_player.walk_horz = NEUTRAL;
 	if (keycode == KEY_A)
 		g_player.walk_direction = NEUTRAL;
 	if (keycode == KEY_D)
@@ -129,33 +137,32 @@ void	draw_rectangle(size_t start_x, size_t start_y, size_t width, size_t height,
 	}
 }
 
+size_t	get_longer_side_length(int x0, int y0, int x1, int y1)
+{
+	int	delta_x;
+	int	delta_y;
+
+	delta_x = abs(x1 - x0);
+	delta_y = abs(y1 - y0);
+	return (MAX(delta_x, delta_y));
+}
+
 void	draw_line(int x0, int y0, int x1, int y1, t_color color)
 {
-	int		delta_x;
-	int		delta_y;
 	size_t	longer_side_length;
 	size_t	index;
-	float	x_increment;
-	float	y_increment;
 	float	current_x;
 	float	current_y;
 
-	delta_x = (x1 - x0);
-	delta_y = (y1 - y0);
-	if (abs(delta_x) >= abs(delta_y))
-		longer_side_length = abs(delta_x);
-	else
-		longer_side_length = abs(delta_y);
-	x_increment = delta_x / (float)longer_side_length;
-	y_increment = delta_y / (float)longer_side_length;
+	longer_side_length = get_longer_side_length(x0, y0, x1, y1);
 	current_x = x0;
 	current_y = y0;
 	index = 0;
 	while (index < longer_side_length)
 	{
 		draw_pixel(round(current_x), round(current_y), color);
-		current_x += x_increment;
-		current_y += y_increment;
+		current_x += (x1 - x0) / (float)longer_side_length;
+		current_y += (y1 - y0) / (float)longer_side_length;
 		index++;
 	}
 }
@@ -177,9 +184,9 @@ void	render_map()
 			tile_x = TILE_SIZE * x_i;
 			tile_y = TILE_SIZE * y_i;
 			if (g_map[y_i][x_i] == '1')
-				tile_color = 0x00FFFFFF;
+				tile_color = create_trgb(0, 255, 255, 255);
 			else
-				tile_color = 0x00000000;
+				tile_color = create_trgb(0, 0, 0, 0);
 			draw_rectangle(
 				tile_x * MINIMAP_SCALE_FACTOR,
 				tile_y * MINIMAP_SCALE_FACTOR,
@@ -210,18 +217,32 @@ void	render_player()
 	);
 }
 
+bool	map_has_wall_at(float x, float y)
+{
+	size_t	grid_x;
+	size_t	grid_y;
+
+	grid_x = floor(x / TILE_SIZE);
+	grid_y = floor(y / TILE_SIZE);
+	return (g_map[grid_x][grid_y] == '1');
+}
+
 void	move_player(void)
 {
-	float	move_step;
-	float	new_player_x;
-	float	new_player_y;
+	const float	moving_direction = g_player.rotation_angle + HALF_PI * g_player.walk_direction;
+	float		new_player_x;
+	float		new_player_y;
 
 	g_player.rotation_angle += g_player.turn_direction * g_player.turn_speed;
-	move_step = g_player.walk_direction * g_player.walk_speed;
-	new_player_x = g_player.x + cos(g_player.rotation_angle) * move_step;
-	new_player_y = g_player.y + sin(g_player.rotation_angle) * move_step;
-	g_player.x = new_player_x;
-	g_player.y = new_player_y;
+	if (g_player.walk_direction != NEUTRAL)
+	{
+		new_player_x = g_player.x + cos(moving_direction) * g_player.walk_speed;
+		new_player_y = g_player.y + sin(moving_direction) * g_player.walk_speed;
+		if (!map_has_wall_at(new_player_x, g_player.y))
+			g_player.x = new_player_x;
+		if (!map_has_wall_at(g_player.x, new_player_y))
+			g_player.y = new_player_y;
+	}
 }
 
 void	update(void)
@@ -233,7 +254,7 @@ int	main_loop(void *null)
 {
 	(void)null;
 	update();
-	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height, 0x00000000);
+	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height, create_trgb(0, 0, 0, 0));
 	render_map();
 	// render_rays();
 	render_player();

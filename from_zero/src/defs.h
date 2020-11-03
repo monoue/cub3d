@@ -7,6 +7,8 @@
 # include "./libft/libft.h"
 
 # define SUCCESS				0
+# define HALF_PI				1.57079633
+# define TWO_PI					6.28318530
 # define PI						3.14159265
 # define TWO_PI					6.28318530
 # define TILE_SIZE				64
@@ -24,13 +26,16 @@ typedef uint32_t t_color;
 typedef enum	e_move_directions
 {
 	NEUTRAL,
-	FRONT,
+	RIGHT,
 	BACK,
 	LEFT,
-	RIGHT,
+	FRONT,
 
 	WALK_DIRECTIONS_NUM
 }				t_move_directions;
+
+# define TO_LEFT -1
+# define TO_RIGHT 1
 
 typedef enum	e_textures
 {
@@ -67,10 +72,10 @@ typedef enum	e_error_types
 # define SUCCESS 0
 // # define SDL_ERROR 1
 // # define DEFAULT_GRAPHIC_DRIVER -1
-# define LEFT -1
-# define RIGHT 1
-# define FRONT 1
-# define BACK -1
+// # define LEFT -1
+// # define RIGHT 1
+// # define FRONT 1
+// # define BACK -1
 # define NEUTRAL 0
 
 #endif
