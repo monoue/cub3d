@@ -5,6 +5,7 @@
 # include "set_cubfile_data.h"
 # include "player.h"
 # include "set_color.h"
+# include "draw.h"
 
 /*
 ** X11 events

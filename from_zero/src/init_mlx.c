@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/03 13:42:21 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/03 14:11:10 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,6 @@ int		key_down(int keycode, void *null)
 		g_player.walk_direction = FRONT;
 	if (keycode == KEY_S)
 		g_player.walk_direction = BACK;
-	// if (keycode == KEY_A)
-	// 	g_player.walk_horz = LEFT;
-	// if (keycode == KEY_D)
-	// 	g_player.walk_horz = RIGHT;
 	if (keycode == KEY_A)
 		g_player.walk_direction = LEFT;
 	if (keycode == KEY_D)
@@ -53,10 +49,6 @@ int		key_up(int keycode, void *null)
 		g_player.walk_direction = NEUTRAL;
 	if (keycode == KEY_S)
 		g_player.walk_direction = NEUTRAL;
-	// if (keycode == KEY_A)
-	// 	g_player.walk_horz = NEUTRAL;
-	// if (keycode == KEY_D)
-	// 	g_player.walk_horz = NEUTRAL;
 	if (keycode == KEY_A)
 		g_player.walk_direction = NEUTRAL;
 	if (keycode == KEY_D)
@@ -101,6 +93,7 @@ static void	set_textures()
 	t_i = 0;
 	while (t_i < TEXTURES_NUM)
 	{
+		// これ、本当に動いているんだっけ？？
 		texture_i = g_textures[t_i];
 		texture_i.img_ptr = mlx_xpm_file_to_image(g_mlx.mlx_ptr, texture_i.path, &texture_i.width, &texture_i.height);
 		// TODO: エラーメッセージ、strerror で対処できるか後でやってみる
@@ -111,61 +104,6 @@ static void	set_textures()
 	}
 }
 
-void	draw_pixel(int x, int y, t_color color)
-{
-    char    *dst;
-
-    dst = g_img.data + (y * g_img.line_length + x * (g_img.bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
-}
-
-void	draw_rectangle(size_t start_x, size_t start_y, size_t width, size_t height, t_color color)
-{
-	size_t	y_i;
-	size_t	x_i;
-
-	y_i = 0;
-	while (y_i < height)
-	{
-		x_i = 0;
-		while (x_i < width)
-		{
-			draw_pixel(start_x + x_i, start_y + y_i, color);
-			x_i++;
-		}
-		y_i++;
-	}
-}
-
-size_t	get_longer_side_length(int x0, int y0, int x1, int y1)
-{
-	int	delta_x;
-	int	delta_y;
-
-	delta_x = abs(x1 - x0);
-	delta_y = abs(y1 - y0);
-	return (MAX(delta_x, delta_y));
-}
-
-void	draw_line(int x0, int y0, int x1, int y1, t_color color)
-{
-	size_t	longer_side_length;
-	size_t	index;
-	float	current_x;
-	float	current_y;
-
-	longer_side_length = get_longer_side_length(x0, y0, x1, y1);
-	current_x = x0;
-	current_y = y0;
-	index = 0;
-	while (index < longer_side_length)
-	{
-		draw_pixel(round(current_x), round(current_y), color);
-		current_x += (x1 - x0) / (float)longer_side_length;
-		current_y += (y1 - y0) / (float)longer_side_length;
-		index++;
-	}
-}
 
 void	render_map()
 {
@@ -248,6 +186,7 @@ void	move_player(void)
 void	update(void)
 {
 	move_player();
+	// cast_all_rays();
 }
 
 int	main_loop(void *null)

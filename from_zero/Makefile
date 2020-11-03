@@ -14,6 +14,7 @@ SRCS += src/player.c
 SRCS += src/set_cubfile_data.c
 SRCS += src/set_color.c
 SRCS += src/init_mlx.c
+SRCS += src/draw.c
 
 SRCS += src/test.c
 
@@ -36,4 +37,3 @@ run:
 	./cub3D test_map/1.cub
 
 .PHONY: all clean fclean re run
-

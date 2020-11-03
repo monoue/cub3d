@@ -31,9 +31,6 @@ void	set_player_spawning_data(size_t x, size_t y, char current_c)
 {
 	g_player.grid_x = x;
 	g_player.grid_y = y;
-	// 下の二つは、どうにか消せるような気がする。
-	// x を突っ込んだら x * TILE_SIZE + TILE_SIZE * 0.5 を返す
-	// 関数を作って、最初の setup の時だけ使ってやればいい
 	g_player.x = x * TILE_SIZE + TILE_SIZE * 0.5;
 	g_player.y = y * TILE_SIZE + TILE_SIZE * 0.5;
 	g_player.rotation_angle = get_spawning_angle(current_c);
