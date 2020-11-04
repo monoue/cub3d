@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/04 10:49:42 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/04 14:24:37 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,15 @@ float	distance_between_points(float x1, float y1, float x2, float y2)
 	return (sqrt(pow(x_diff, 2) + pow(y_diff, 2)));
 }
 
-bool is_inside_map(float x, float y) {
+bool is_out_of_window(float x, float y) {
+	return (x < 0 || x >= MAX_MAP_LEN * TILE_SIZE || y < 0 || y >= MAX_MAP_LEN * TILE_SIZE);
+	// return (x < 0 && x >= g_cubfile_data.window_width && y < 0 && y >= g_cubfile_data.window_height);
+    // return (x >= 0 && x <= MAP_NUM_COLS * TILE_SIZE && y >= 0 && y <= MAP_NUM_ROWS * TILE_SIZE);
+}
 
-	return (x >= 0 && x <= g_cubfile_data.window_width && y >= 0 && y <= g_cubfile_data.window_height);
+bool is_inside_map(float x, float y) {
+	return (x >= 0 && x < MAX_MAP_LEN * TILE_SIZE && y >= 0 && y < MAX_MAP_LEN * TILE_SIZE);
+	// return (x >= 0 && x <= g_cubfile_data.window_width && y >= 0 && y <= g_cubfile_data.window_height);
     // return (x >= 0 && x <= MAP_NUM_COLS * TILE_SIZE && y >= 0 && y <= MAP_NUM_ROWS * TILE_SIZE);
 }
 // mlx_applying ver.
@@ -323,6 +329,21 @@ void	cast_ray(float ray_angle, int stripId)
 // 	rays[strip_id].ray_angle = ray_angle;
 // }
 
+// void	cast_all_rays(void)
+// {
+// 	float		ray_angle;
+// 	int			col;
+
+// 	col = 0;
+// 	while (col < NUM_RAYS)
+// 	{
+// 		// rotationAngle は、向いている真っ正面。
+// 		// col = 0 の時は開始の角度になるようマイナスになり、半分でど真ん中、そして段々とプラスの端っこへ
+// 		ray_angle = g_player.rotation_angle + atan((col - (NUM_RAYS / 2)) / ((g_cubfile_data.window_width/ 2) / tan(FOV_ANGLE / 2)));
+// 		cast_ray(ray_angle, col);
+// 		col++;
+// 	}
+// }
 void	cast_all_rays()
 {
 	float	ray_angle;
