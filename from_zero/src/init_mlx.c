@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/03 14:11:10 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/04 10:54:33 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		finish_program(void *null)
 // TODO: 悩んでいても進まない！　とにかく、一旦そのままなぞる！　最後にまとめてリファクタリング！
 
 
-void	init_texture_paths()
+void	init_texture_paths(void)
 {
 	size_t	t_i;
 
@@ -85,7 +85,7 @@ void	init_texture_paths()
 	}
 }
 
-static void	set_textures()
+static void	set_textures(void)
 {
 	size_t		t_i;
 	t_texture	texture_i;
@@ -105,13 +105,12 @@ static void	set_textures()
 }
 
 
-void	render_map()
+void	render_map(void)
 {
 	size_t	y_i;
 	size_t	x_i;
 	size_t	tile_x;
 	size_t	tile_y;
-	t_color	tile_color;
 
 	y_i = 0;
 	while (g_map[y_i][0] != '\0')
@@ -122,15 +121,14 @@ void	render_map()
 			tile_x = TILE_SIZE * x_i;
 			tile_y = TILE_SIZE * y_i;
 			if (g_map[y_i][x_i] == '1')
-				tile_color = create_trgb(0, 255, 255, 255);
+				g_color = create_trgb(0, 255, 255, 255);
 			else
-				tile_color = create_trgb(0, 0, 0, 0);
+				g_color = create_trgb(0, 0, 0, 0);
 			draw_rectangle(
 				tile_x * MINIMAP_SCALE_FACTOR,
 				tile_y * MINIMAP_SCALE_FACTOR,
 				TILE_SIZE * MINIMAP_SCALE_FACTOR,
-				TILE_SIZE * MINIMAP_SCALE_FACTOR,
-				tile_color
+				TILE_SIZE * MINIMAP_SCALE_FACTOR
 			);
 			x_i++;
 		}
@@ -138,22 +136,23 @@ void	render_map()
 	}
 }
 
-void	render_player()
+void	render_player(void)
 {
+	g_color = create_trgb(0, 0, 255, 255);
 	draw_rectangle(
 		g_player.x * MINIMAP_SCALE_FACTOR,
 		g_player.y * MINIMAP_SCALE_FACTOR,
-		g_player.width * MINIMAP_SCALE_FACTOR, g_player.height * MINIMAP_SCALE_FACTOR,
-		create_trgb(0, 0, 255, 255)
+		g_player.width * MINIMAP_SCALE_FACTOR, g_player.height * MINIMAP_SCALE_FACTOR
 	);
 	draw_line(
 		g_player.x * MINIMAP_SCALE_FACTOR,
 		g_player.y * MINIMAP_SCALE_FACTOR,
 		(g_player.x + cos(g_player.rotation_angle) * 40) * MINIMAP_SCALE_FACTOR,
-		(g_player.y + sin(g_player.rotation_angle) * 40) * MINIMAP_SCALE_FACTOR,
-		create_trgb(0, 0, 255, 255)
+		(g_player.y + sin(g_player.rotation_angle) * 40) * MINIMAP_SCALE_FACTOR
 	);
 }
+
+
 
 bool	map_has_wall_at(float x, float y)
 {
@@ -167,7 +166,10 @@ bool	map_has_wall_at(float x, float y)
 
 void	move_player(void)
 {
-	const float	moving_direction = g_player.rotation_angle + HALF_PI * g_player.walk_direction;
+	// const float	moving_direction = normalize_angle(g_player.rotation_angle + HALF_PI * g_player.walk_direction);
+	float	moving_direction;
+	moving_direction = g_player.rotation_angle + HALF_PI * g_player.walk_direction;
+	normalize_angle(&moving_direction);
 	float		new_player_x;
 	float		new_player_y;
 
@@ -186,16 +188,17 @@ void	move_player(void)
 void	update(void)
 {
 	move_player();
-	// cast_all_rays();
+	cast_all_rays();
 }
 
 int	main_loop(void *null)
 {
 	(void)null;
 	update();
-	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height, create_trgb(0, 0, 0, 0));
+	g_color = create_trgb(0, 0, 0, 0);
+	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height);
 	render_map();
-	// render_rays();
+	render_rays();
 	render_player();
 	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
 	mlx_do_sync(g_mlx.mlx_ptr);

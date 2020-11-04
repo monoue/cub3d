@@ -31,3 +31,13 @@ void	test_player_data(void)
 	DEBUGVF(g_player.walk_speed);
 	DEBUGVF(g_player.turn_speed);
 }
+
+void	test_ray_data(size_t index)
+{
+	DEBUGVF(rays[index].ray_angle);
+	DEBUGVF(rays[index].wall_hit_x);
+	DEBUGVF(rays[index].wall_hit_y);
+	DEBUGVF(rays[index].distance);
+	DEBUGVD(rays[index].was_hit_vertical);
+	DEBUGVC(rays[index].wall_hit_content);
+}

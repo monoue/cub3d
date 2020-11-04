@@ -14,7 +14,8 @@ SRCS += src/player.c
 SRCS += src/set_cubfile_data.c
 SRCS += src/set_color.c
 SRCS += src/init_mlx.c
-SRCS += src/draw.c
+SRCS += src/graphics.c
+SRCS += src/ray.c
 
 SRCS += src/test.c
 

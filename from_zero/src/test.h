@@ -1,3 +1,5 @@
+#ifndef TEST_H
+# define TEST_H
 #include "check_map_error.h"
 #include "create_maps.h"
 #include "defs.h"
@@ -7,7 +9,11 @@
 #include "player.h"
 #include "set_color.h"
 #include "set_cubfile_data.h"
+#include "ray.h"
 
 void	test_all_cubfile_data(void);
 void	test_current_g_map_to_check(void);
 void	test_player_data(void);
+void	test_ray_data(size_t index);
+
+#endif

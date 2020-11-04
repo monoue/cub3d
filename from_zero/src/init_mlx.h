@@ -5,7 +5,8 @@
 # include "set_cubfile_data.h"
 # include "player.h"
 # include "set_color.h"
-# include "draw.h"
+# include "graphics.h"
+# include "ray.h"
 
 /*
 ** X11 events
@@ -67,5 +68,6 @@ extern	t_img g_img;
 
 void	mlx(void);
 void	init_texture_paths();
+bool	map_has_wall_at(float x, float y);
 
 #endif

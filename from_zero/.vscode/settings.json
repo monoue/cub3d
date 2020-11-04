@@ -7,6 +7,7 @@
 		"utility": "cpp",
 		"*.tcc": "cpp",
 		"stop_token": "cpp",
-		"__threading_support": "c"
+		"__threading_support": "c",
+		"init_mlx.h": "c"
 	}
 }
