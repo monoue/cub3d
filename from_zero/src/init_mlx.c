@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/04 14:36:33 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/05 10:18:35 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ bool	map_has_wall_at(float x, float y)
 
 	grid_x = floor(x / TILE_SIZE);
 	grid_y = floor(y / TILE_SIZE);
-	return (g_map[grid_x][grid_y] == '1');
+	return (g_map[grid_y][grid_x] == '1');
 }
 
 bool	is_space_at(const float pixel_x, const float pixel_y)
@@ -174,6 +174,7 @@ bool	is_space_at(const float pixel_x, const float pixel_y)
 // from_zero ver.
 void	move_player(void)
 {
+	// こいつがバグの原因の可能性あり
 	// const float	moving_direction = normalize_angle(g_player.rotation_angle + HALF_PI * g_player.walk_direction);
 	float	moving_direction;
 	moving_direction = g_player.rotation_angle + HALF_PI * g_player.walk_direction;
@@ -186,10 +187,6 @@ void	move_player(void)
 	{
 		new_player_x = g_player.x + cos(moving_direction) * g_player.walk_speed;
 		new_player_y = g_player.y + sin(moving_direction) * g_player.walk_speed;
-		DEBUGVF(g_player.x);
-		DEBUGVF(g_player.y);
-		DEBUGVF(new_player_x);
-		DEBUGVF(new_player_y);
 		if (!map_has_wall_at(new_player_x, g_player.y))
 			g_player.x = new_player_x;
 		if (!map_has_wall_at(g_player.x, new_player_y))
@@ -201,7 +198,7 @@ void	update(void)
 {
 	move_player();
 	// これと
-	cast_all_rays();
+	// cast_all_rays();
 }
 
 int	main_loop(void *null)
@@ -212,7 +209,7 @@ int	main_loop(void *null)
 	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height);
 	render_map();
 	// これ
-	render_rays();
+	// render_rays();
 	render_player();
 	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
 	mlx_do_sync(g_mlx.mlx_ptr);
