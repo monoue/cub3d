@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/05 10:41:15 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/05 12:46:10 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,12 +153,25 @@ void	render_player(void)
 
 bool	map_has_wall_at(float x, float y)
 {
-	size_t	grid_x;
-	size_t	grid_y;
+	// size_t	grid_x;
+	// size_t	grid_y;
+	int grid_x;
+	int grid_y;
 
 	grid_x = floor(x / TILE_SIZE);
 	grid_y = floor(y / TILE_SIZE);
+	if (grid_x < 0)
+		grid_x = 0;
+	if (grid_x > MAX_MAP_LEN)
+		grid_x = MAX_MAP_LEN;
+	if (grid_y < 0)
+		grid_y = 0;
+	if (grid_y > MAX_MAP_LEN)
+		grid_y = MAX_MAP_LEN;
+	// DEBUGVD(grid_x);
+	// DEBUGVD(grid_y)
 	return (g_map[grid_y][grid_x] == '1');
+	// return (g_map[grid_x][grid_y] == '1');
 }
 
 bool	is_space_at(const float pixel_x, const float pixel_y)
@@ -183,6 +196,7 @@ void	move_player(void)
 	float		new_player_y;
 
 	g_player.rotation_angle += g_player.turn_direction * g_player.turn_speed;
+	normalize_angle(&g_player.rotation_angle);
 	if (g_player.walk_direction != NEUTRAL)
 	{
 		new_player_x = g_player.x + cos(moving_direction) * g_player.walk_speed;

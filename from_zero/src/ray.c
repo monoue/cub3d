@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/05 11:09:02 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/05 12:48:31 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ void	normalize_angle(float *angle)
 
 float	distance_between_points(float x1, float y1, float x2, float y2)
 {
-	const float	x_diff = x2 - x1;
-	const float	y_diff = y2 - y1;
+	// const float	x_diff = x2 - x1;
+	// const float	y_diff = y2 - y1;
 
-	return (sqrt(pow(x_diff, 2) + pow(y_diff, 2)));
+	// return (sqrt(pow(x_diff, 2) + pow(y_diff, 2)));
+	return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+	
 }
 
 bool is_out_of_window(float x, float y) {
@@ -191,7 +193,7 @@ void	cast_ray(float original_ray_angle, size_t strip_id)
 	float	ray_angle;
 
 	ray_angle = original_ray_angle;
-	normalize_angle(&ray_angle);
+	// normalize_angle(&ray_angle);
 	bool	is_ray_facing_down = ray_angle > 0 && ray_angle < PI;
 	bool	is_ray_facing_up = !is_ray_facing_down;
 	// bool	is_ray_facing_right = ray_angle < HALF_PI || ray_angle > PI + HALF_PI;
@@ -268,9 +270,6 @@ void	cast_ray(float original_ray_angle, size_t strip_id)
 	vert_wall_hit_x = 0;
 	vert_wall_hit_y = 0;
 	char	vert_wall_content;
-	// 関数切り分けにするなら必要かも
-	// float	x_to_check;
-	// float	y_to_check;
 
 	x_intercept = floor(g_player.x / TILE_SIZE) * TILE_SIZE;
 	if (is_ray_facing_right)
@@ -318,7 +317,7 @@ void	cast_ray(float original_ray_angle, size_t strip_id)
 	float horz_hit_distance = found_horz_wall_hit
         ? distance_between_points(g_player.x, g_player.y, horz_wall_hit_x, horz_wall_hit_y)
         : FLT_MAX;
-    float vertHitDistance = found_vert_wall_hit
+    float vert_hit_distance = found_vert_wall_hit
         ? distance_between_points(g_player.x, g_player.y, vert_wall_hit_x, vert_wall_hit_y)
         : FLT_MAX;
 	// 僕の
@@ -375,11 +374,13 @@ void	cast_all_rays()
 	size_t	strip_id;
 
 	ray_angle = g_player.rotation_angle - (FOV_ANGLE / 2);
+	normalize_angle(&ray_angle);
 	strip_id = 0;
 	while (strip_id < NUM_RAYS)
 	{
 		cast_ray(ray_angle, strip_id);
 		ray_angle += FOV_ANGLE / NUM_RAYS;
+		normalize_angle(&ray_angle);
 		strip_id++;
 	}
 }
