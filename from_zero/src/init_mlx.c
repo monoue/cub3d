@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/05 10:18:35 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/05 10:41:15 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,8 +197,8 @@ void	move_player(void)
 void	update(void)
 {
 	move_player();
-	// これと
-	// cast_all_rays();
+	// これが原因
+	cast_all_rays();
 }
 
 int	main_loop(void *null)
@@ -208,8 +208,8 @@ int	main_loop(void *null)
 	g_color = create_trgb(0, 0, 0, 0);
 	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height);
 	render_map();
-	// これ
-	// render_rays();
+	// これは無罪
+	render_rays();
 	render_player();
 	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
 	mlx_do_sync(g_mlx.mlx_ptr);
