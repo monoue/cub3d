@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/05 12:46:10 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/05 15:20:47 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@
 t_texture g_textures[TEXTURES_NUM];
 t_mlx	g_mlx;
 t_img	g_img;
+
 // # define ROWS 11
 // # define COLS 15
 // # define WIDTH COLS * TILE_SIZE
 // # define HEIGHT ROWS * TILE_SIZE
+
 int		key_down(int keycode, void *null)
 {
 	(void)null;
@@ -68,9 +70,6 @@ int		finish_program(void *null)
 	exit(0);
 	return (0);
 }
-
-// TODO: 悩んでいても進まない！　とにかく、一旦そのままなぞる！　最後にまとめてリファクタリング！
-
 
 void	init_texture_paths(void)
 {
@@ -135,26 +134,9 @@ void	render_map(void)
 	}
 }
 
-void	render_player(void)
-{
-	g_color = create_trgb(0, 0, 255, 255);
-	draw_rectangle(
-		g_player.x * MINIMAP_SCALE_FACTOR,
-		g_player.y * MINIMAP_SCALE_FACTOR,
-		g_player.width * MINIMAP_SCALE_FACTOR, g_player.height * MINIMAP_SCALE_FACTOR
-	);
-	draw_line(
-		g_player.x * MINIMAP_SCALE_FACTOR,
-		g_player.y * MINIMAP_SCALE_FACTOR,
-		(g_player.x + cos(g_player.rotation_angle) * 40) * MINIMAP_SCALE_FACTOR,
-		(g_player.y + sin(g_player.rotation_angle) * 40) * MINIMAP_SCALE_FACTOR
-	);
-}
 
 bool	map_has_wall_at(float x, float y)
 {
-	// size_t	grid_x;
-	// size_t	grid_y;
 	int grid_x;
 	int grid_y;
 
@@ -168,51 +150,78 @@ bool	map_has_wall_at(float x, float y)
 		grid_y = 0;
 	if (grid_y > MAX_MAP_LEN)
 		grid_y = MAX_MAP_LEN;
-	// DEBUGVD(grid_x);
-	// DEBUGVD(grid_y)
 	return (g_map[grid_y][grid_x] == '1');
-	// return (g_map[grid_x][grid_y] == '1');
 }
 
 bool	is_space_at(const float pixel_x, const float pixel_y)
 {
-	const size_t grid_x = floor(pixel_x / TILE_SIZE);
-	const size_t grid_y = floor(pixel_y / TILE_SIZE);
+	int grid_x = floor(pixel_x / TILE_SIZE);
+	int grid_y = floor(pixel_y / TILE_SIZE);
 
 	if (is_out_of_window(pixel_x, pixel_y))
 		return (false);
+	if (grid_x < 0)
+		grid_x = 0;
+	if (grid_x > MAX_MAP_LEN)
+		grid_x = MAX_MAP_LEN;
+	if (grid_y < 0)
+		grid_y = 0;
+	if (grid_y > MAX_MAP_LEN)
+		grid_y = MAX_MAP_LEN;
 	return (g_map[grid_y][grid_x] == '1' ? false : true);
-}
-
-// from_zero ver.
-void	move_player(void)
-{
-	// こいつがバグの原因の可能性あり
-	// const float	moving_direction = normalize_angle(g_player.rotation_angle + HALF_PI * g_player.walk_direction);
-	float	moving_direction;
-	moving_direction = g_player.rotation_angle + HALF_PI * g_player.walk_direction;
-	normalize_angle(&moving_direction);
-	float		new_player_x;
-	float		new_player_y;
-
-	g_player.rotation_angle += g_player.turn_direction * g_player.turn_speed;
-	normalize_angle(&g_player.rotation_angle);
-	if (g_player.walk_direction != NEUTRAL)
-	{
-		new_player_x = g_player.x + cos(moving_direction) * g_player.walk_speed;
-		new_player_y = g_player.y + sin(moving_direction) * g_player.walk_speed;
-		if (!map_has_wall_at(new_player_x, g_player.y))
-			g_player.x = new_player_x;
-		if (!map_has_wall_at(g_player.x, new_player_y))
-			g_player.y = new_player_y;
-	}
 }
 
 void	update(void)
 {
 	move_player();
-	// これが原因
 	cast_all_rays();
+}
+
+/*
+** Unlike our natural view, the view in the screen is rectangle shaped.
+** Therefore, we need to cut the cub3D world's view to "projection plane".
+** "distance_proj_plane" is how far the player is from the projection plane.
+** The field of view's edges are the edges of the window width.
+** 
+** tanjent (FOV_ANGLE / 2) = (window_width / 2) / distance_proj_plane
+** actual height(= TILE_SIZE) : projected height = actual distance : distance_proj_plane
+*/
+void	generate_3d_projection(void)
+{
+	int		r_i;
+	float	distance_proj_plane;
+	float	projected_wall_height;
+	int		wall_strip_height;
+	int		wall_top_pixel;
+	int		wall_bottom_pixel;
+	int		h_i;
+	float	perp_distance;
+
+	r_i = 0;
+	// while (r_i < NUM_RAYS)
+	while (r_i < g_cubfile_data.window_width)
+	{
+		perp_distance = rays[r_i].distance * cos(rays[r_i].ray_angle - g_player.rotation_angle);
+		distance_proj_plane = (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
+		// projected_wall_height = (TILE_SIZE / rays[r_i].distance) * distance_proj_plane;
+		projected_wall_height = (TILE_SIZE / perp_distance) * distance_proj_plane;
+
+		wall_strip_height = (int)projected_wall_height;
+		wall_top_pixel = (g_cubfile_data.window_height / 2) - (wall_strip_height / 2);
+		if (wall_top_pixel < 0)
+			wall_top_pixel = 0;
+		wall_bottom_pixel = (g_cubfile_data.window_height / 2) + (wall_strip_height / 2);
+		if (wall_bottom_pixel > g_cubfile_data.window_height)
+			wall_bottom_pixel = g_cubfile_data.window_height;
+		h_i = wall_top_pixel;
+		g_color = create_trgb(0, 0, 128, 255);
+		while (h_i < wall_bottom_pixel)	
+		{
+			draw_pixel(r_i, h_i);
+			h_i++;
+		}
+		r_i++;
+	}
 }
 
 int	main_loop(void *null)
@@ -221,8 +230,8 @@ int	main_loop(void *null)
 	update();
 	g_color = create_trgb(0, 0, 0, 0);
 	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height);
+	generate_3d_projection();
 	render_map();
-	// これは無罪
 	render_rays();
 	render_player();
 	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/04 13:50:34 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/05 13:18:40 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ void	set_cubfile_data(char *filename)
 	// data->err_flag = false;
 	if (fd == ERROR)
 		exit_with_error_message(SINGLE, ".cub file cloud not be opened.\n");
-	init_map();
+	init_maps();
 	init_texture_paths();
 	while (get_next_line(fd, &line) > 0)
 	{

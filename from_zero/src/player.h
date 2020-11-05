@@ -2,7 +2,7 @@
 # define PLAYER_H
 
 # include "defs.h"
-// # include "graphics.h"
+# include "graphics.h"
 // # include "map.h"
 
 typedef struct	s_player {
@@ -23,7 +23,7 @@ typedef struct	s_player {
 extern t_player g_player;
 void	set_player_spawning_data(size_t x, size_t y, char current_c);
 
-// void	move_player(float deltaTime);
-// void	render_player();
+void	move_player(void);
+void	render_player(void);
 
 #endif

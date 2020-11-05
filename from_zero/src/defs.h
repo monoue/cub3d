@@ -17,8 +17,8 @@
 # define IMGDIR					"./images"
 # define FOV_ANGLE				(60 * (PI / 180))
 // # define DIST_PROJ_PLANE		((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
-// # define NUM_RAYS				300
-# define NUM_RAYS				5	
+# define NUM_RAYS				300
+// # define NUM_RAYS				5	
 // # define NUM_RAYS WINDOW_WIDTH
 # define FPS 30
 # define FRAME_TIME_LENGTH (1000 / FPS)
