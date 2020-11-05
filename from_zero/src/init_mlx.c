@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/05 15:20:47 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/05 16:24:16 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,11 @@ void	update(void)
 ** 
 ** tanjent (FOV_ANGLE / 2) = (window_width / 2) / distance_proj_plane
 ** actual height(= TILE_SIZE) : projected height = actual distance : distance_proj_plane
+**
+** perpendicular_distance is for fixing the "fishbowl effect".
+** Our eyes are spherical, so distortion of view does not happen.
+** In order to mimic the function, we have to calculate each projected wall height
+** on the basis of the perpendicular distance instead of acutual distance.
 */
 void	generate_3d_projection(void)
 {
@@ -195,16 +200,16 @@ void	generate_3d_projection(void)
 	int		wall_top_pixel;
 	int		wall_bottom_pixel;
 	int		h_i;
-	float	perp_distance;
+	float	perpendicular_distance;
 
 	r_i = 0;
 	// while (r_i < NUM_RAYS)
 	while (r_i < g_cubfile_data.window_width)
 	{
-		perp_distance = rays[r_i].distance * cos(rays[r_i].ray_angle - g_player.rotation_angle);
+		perpendicular_distance = rays[r_i].distance * cos(rays[r_i].ray_angle - g_player.rotation_angle);
 		distance_proj_plane = (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
 		// projected_wall_height = (TILE_SIZE / rays[r_i].distance) * distance_proj_plane;
-		projected_wall_height = (TILE_SIZE / perp_distance) * distance_proj_plane;
+		projected_wall_height = (TILE_SIZE / perpendicular_distance) * distance_proj_plane;
 
 		wall_strip_height = (int)projected_wall_height;
 		wall_top_pixel = (g_cubfile_data.window_height / 2) - (wall_strip_height / 2);
@@ -213,9 +218,24 @@ void	generate_3d_projection(void)
 		wall_bottom_pixel = (g_cubfile_data.window_height / 2) + (wall_strip_height / 2);
 		if (wall_bottom_pixel > g_cubfile_data.window_height)
 			wall_bottom_pixel = g_cubfile_data.window_height;
-		h_i = wall_top_pixel;
-		g_color = create_trgb(0, 0, 128, 255);
+		h_i = 0;
+		g_color = g_cubfile_data.ceiling_color;
+		while (h_i < wall_top_pixel)	
+		{
+			draw_pixel(r_i, h_i);
+			h_i++;
+		}
+		if (rays[r_i].was_hit_vertical)
+			g_color = create_trgb(0, 255, 255, 255);
+		else
+			g_color = create_trgb(0, 200, 200, 200);
 		while (h_i < wall_bottom_pixel)	
+		{
+			draw_pixel(r_i, h_i);
+			h_i++;
+		}
+		g_color = g_cubfile_data.floor_color;
+		while (h_i < g_cubfile_data.window_height)	
 		{
 			draw_pixel(r_i, h_i);
 			h_i++;

@@ -9,10 +9,10 @@ t_player	g_player =
 	.height = 5,
 	.turn_direction = NEUTRAL,
 	.walk_direction = NEUTRAL,
-	.walk_speed = 5,
+	.walk_speed = 10,
 	// .walk_speed = 2,
 	// .turn_speed = 45 * (PI / 180)
-	.turn_speed = 2.5 * (PI / 180)
+	.turn_speed = 5 * (PI / 180)
 	// .turn_speed = 1.0 * (PI / 180)
 };
 

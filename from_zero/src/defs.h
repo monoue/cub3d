@@ -13,11 +13,12 @@
 # define TWO_PI					6.28318530
 # define TILE_SIZE				64
 # define MAX_MAP_LEN			50
-# define MINIMAP_SCALE_FACTOR	0.6
+# define MINIMAP_SCALE_FACTOR	0.4
 # define IMGDIR					"./images"
 # define FOV_ANGLE				(60 * (PI / 180))
 // # define DIST_PROJ_PLANE		((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
 # define NUM_RAYS				300
+# define MAX_WINDOW_WIDTH		3840	
 // # define NUM_RAYS				5	
 // # define NUM_RAYS WINDOW_WIDTH
 # define FPS 30

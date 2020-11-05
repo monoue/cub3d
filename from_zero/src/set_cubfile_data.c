@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/05 13:18:40 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/05 16:17:20 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,16 @@ static void	get_line_data(char *cubfile_line, int fd)
 		exit_if_not_all_elements_are_set();
 		create_map_array(cubfile_line, fd);
 	}
+	else
+		while (t_i < TEXTURES_NUM)
+		{
+			if (ft_strcmp(element_items[0], g_ids[t_i]) == 0)
+			{
+				set_texture(&g_textures[t_i].path, &element_items[1], g_ids[t_i]);
+				break ;
+			}
+			t_i++;
+		}
 }
 
 void	set_cubfile_data(char *filename)

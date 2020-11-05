@@ -6,13 +6,15 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/05 15:23:12 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/05 16:36:22 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray.h"
 
-t_ray	rays[NUM_RAYS];
+// t_ray	rays[g_cubfile_data.window_width];
+// t_ray	rays[NUM_RAYS];
+t_ray	rays[MAX_WINDOW_WIDTH];
 
 void	normalize_angle(float *angle)
 {
@@ -216,11 +218,12 @@ void	cast_all_rays()
 
 	ray_angle = g_player.rotation_angle - (FOV_ANGLE / 2);
 	strip_id = 0;
-	while (strip_id < NUM_RAYS)
+	while (strip_id < (size_t)g_cubfile_data.window_width)
 	{
 		normalize_angle(&ray_angle);
 		cast_ray(ray_angle, strip_id);
-		ray_angle += FOV_ANGLE / NUM_RAYS;
+		// ray_angle += FOV_ANGLE / NUM_RAYS;
+		ray_angle += FOV_ANGLE / g_cubfile_data.window_width;
 		strip_id++;
 	}
 }
@@ -228,10 +231,10 @@ void	cast_all_rays()
 void	render_rays(void)
 {
 	size_t	index;
-
+;
 	index = 0;
-	g_color = create_trgb(0, 255, 0, 255);
-	while (index < NUM_RAYS)
+	g_color = create_trgb(200, 255, 255, 224);
+	while (index < (size_t)g_cubfile_data.window_width)
 	{
 		draw_line
 		(

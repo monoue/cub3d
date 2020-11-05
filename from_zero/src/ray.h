@@ -21,7 +21,7 @@ typedef struct	s_ray {
 	char	wall_hit_content;
 }				t_ray;
 
-extern t_ray	rays[NUM_RAYS];
+extern t_ray	rays[MAX_WINDOW_WIDTH];
 
 void	normalize_angle(float *angle);
 
