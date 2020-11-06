@@ -44,10 +44,10 @@ typedef enum	e_move_directions
 
 typedef enum	e_textures
 {
-	WALL_N,
-	WALL_E,
-	WALL_W,
-	WALL_S,
+	NORTH,
+	EAST,
+	WEST,
+	SOUTH,
 	SPRITE,
 
 	TEXTURES_NUM

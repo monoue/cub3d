@@ -13,12 +13,13 @@
 # include "test.h"
 
 typedef struct	s_ray {
-	float	ray_angle;
-	float	wall_hit_x;
-	float	wall_hit_y;
-	float	distance;
-	bool	was_hit_vertical;
-	char	wall_hit_content;
+	float		ray_angle;
+	float		wall_hit_x;
+	float		wall_hit_y;
+	float		distance;
+	bool		was_hit_vertical;
+	char		wall_hit_content;
+	t_textures	direction;
 }				t_ray;
 
 extern t_ray	rays[MAX_WINDOW_WIDTH];

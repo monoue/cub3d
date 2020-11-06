@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/06 13:55:44 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/07 04:23:17 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ void	render_wall_projection(void)
 			texture_offset_x = (size_t)rays[window_x].wall_hit_y % TILE_SIZE;
 		else
 			texture_offset_x = (size_t)rays[window_x].wall_hit_x % TILE_SIZE;
+		// どの方角のテクスチャーから持ってくるのか、ray のアングルなどを元に導く
+		// ray の情報の構造体に、どの方角の壁なのかを情報として持たせてやる
 		while (window_y < wall_bottom_pixel)
 		{
 			// g_color = wall_texture[(TEXTURE_WIDTH * texture_offset_y) + texture_offset_x];

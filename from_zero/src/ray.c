@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/05 16:36:22 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/07 04:51:29 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,24 @@ bool is_out_of_window(float x, float y) {
 
 bool is_inside_map(float x, float y) {
 	return (x >= 0 && x < MAX_MAP_LEN * TILE_SIZE && y >= 0 && y < MAX_MAP_LEN * TILE_SIZE);
+}
+
+static void	set_ray_direction(t_textures *direction, bool was_hit_vertical, bool is_ray_facing_right, bool is_ray_facing_down)
+{
+	if (was_hit_vertical)
+	{
+		if (is_ray_facing_right)
+			*direction = EAST;
+		else
+			*direction = WEST;
+	}
+	else
+	{
+		if (is_ray_facing_down)
+			*direction = SOUTH;
+		else
+			*direction = NORTH;
+	}
 }
 
 void	cast_ray(float original_ray_angle, size_t strip_id)
@@ -207,9 +225,14 @@ void	cast_ray(float original_ray_angle, size_t strip_id)
 		rays[strip_id].wall_hit_content = horz_wall_content;
 		rays[strip_id].was_hit_vertical = false;
 	}
+	set_ray_direction(&rays[strip_id].direction, rays[strip_id].was_hit_vertical, is_ray_facing_right, is_ray_facing_down);
+	// is
 	// これ、要る？？
 	rays[strip_id].ray_angle = ray_angle;
+	DEBUGVD(rays[strip_id].direction);
 }
+
+
 
 void	cast_all_rays()
 {
