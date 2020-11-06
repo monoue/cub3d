@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/05 16:17:20 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/06 16:23:12 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,12 +207,6 @@ static void	get_line_data(char *cubfile_line, int fd)
 		exit_with_error_message(SINGLE, "The map is in the wrong place.");
 	// }
 	t_i = 0;
-	while (t_i < TEXTURES_NUM)
-	{
-		if (ft_strcmp(element_items[0], g_ids[t_i]) == 0)
-			set_texture(&g_textures[t_i].path, &element_items[1], g_ids[t_i]);
-		t_i++;
-	}
 	if (ft_strcmp(element_items[0], "R") == 0)
 		get_resolution(&element_items[1]);
 	else if (ft_strcmp(element_items[0], "F") == 0)
@@ -229,6 +223,7 @@ static void	get_line_data(char *cubfile_line, int fd)
 		{
 			if (ft_strcmp(element_items[0], g_ids[t_i]) == 0)
 			{
+				// set_texture(&g_textures[t_i].path, &element_items[1], g_ids[t_i]);
 				set_texture(&g_textures[t_i].path, &element_items[1], g_ids[t_i]);
 				break ;
 			}
