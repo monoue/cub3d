@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/05 16:24:16 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/06 10:55:54 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ t_texture g_textures[TEXTURES_NUM];
 t_mlx	g_mlx;
 t_img	g_img;
 
-// # define ROWS 11
-// # define COLS 15
-// # define WIDTH COLS * TILE_SIZE
-// # define HEIGHT ROWS * TILE_SIZE
+// t_color	*color_buffer = NULL;
+
+// t_color	*color_buffer_texture;
+
 
 int		key_down(int keycode, void *null)
 {
@@ -101,6 +101,10 @@ static void	set_textures(void)
 		t_i++;
 	}
 }
+
+// TODO: 多分要らない
+t_color	*wall_texture = NULL;
+
 
 
 void	render_map(void)
@@ -182,7 +186,7 @@ void	update(void)
 ** Therefore, we need to cut the cub3D world's view to "projection plane".
 ** "distance_proj_plane" is how far the player is from the projection plane.
 ** The field of view's edges are the edges of the window width.
-** 
+**
 ** tanjent (FOV_ANGLE / 2) = (window_width / 2) / distance_proj_plane
 ** actual height(= TILE_SIZE) : projected height = actual distance : distance_proj_plane
 **
@@ -190,6 +194,23 @@ void	update(void)
 ** Our eyes are spherical, so distortion of view does not happen.
 ** In order to mimic the function, we have to calculate each projected wall height
 ** on the basis of the perpendicular distance instead of acutual distance.
+** In order to get the color of each pixel from a texture,
+** we can make use of the relation between the texture's width and
+** TILE_SIZE.
+** If we set these two to be the same, we can use wall_hit_vertical flag.
+** If the horizontal face was hit, the column from which we should get
+** each pixel's color is the same as the x coordinate of the hit
+** divided by TILE_SIZE.
+** Otherwise, the column is equal to the y coordinate divided by TILE_SIZE.
+**
+** In order to calculate the row from which we should get the color,
+** we can make use of the ratio of TILE_SIZE : wall_strip_height.
+**
+** The solo difference between projected_wall_height and wall_strip_height
+** is the object types of them.
+**
+** The reason we need the variable "distance_from_top" is to avoid the distortion
+** which occurs when the projected_wall_height is longer than the window height.
 */
 void	generate_3d_projection(void)
 {
@@ -211,6 +232,7 @@ void	generate_3d_projection(void)
 		// projected_wall_height = (TILE_SIZE / rays[r_i].distance) * distance_proj_plane;
 		projected_wall_height = (TILE_SIZE / perpendicular_distance) * distance_proj_plane;
 
+		// wall_strip_height と  projected_wall_height の違いは、int か float かだけ。
 		wall_strip_height = (int)projected_wall_height;
 		wall_top_pixel = (g_cubfile_data.window_height / 2) - (wall_strip_height / 2);
 		if (wall_top_pixel < 0)
@@ -220,22 +242,34 @@ void	generate_3d_projection(void)
 			wall_bottom_pixel = g_cubfile_data.window_height;
 		h_i = 0;
 		g_color = g_cubfile_data.ceiling_color;
-		while (h_i < wall_top_pixel)	
+		while (h_i < wall_top_pixel)
 		{
 			draw_pixel(r_i, h_i);
 			h_i++;
 		}
+		// if (rays[r_i].was_hit_vertical)
+		// 	g_color = create_trgb(0, 255, 255, 255);
+		// else
+		// 	g_color = create_trgb(0, 220, 220, 220);
+		// size_t	texture_offset_x;
+		size_t	texture_offset_x;
+		size_t	texture_offset_y;
 		if (rays[r_i].was_hit_vertical)
-			g_color = create_trgb(0, 255, 255, 255);
+			texture_offset_x = (size_t)rays[r_i].wall_hit_y % TILE_SIZE;
 		else
-			g_color = create_trgb(0, 200, 200, 200);
-		while (h_i < wall_bottom_pixel)	
+			texture_offset_x = (size_t)rays[r_i].wall_hit_x % TILE_SIZE;
+		while (h_i < wall_bottom_pixel)
 		{
+			// g_color = wall_texture[(TEXTURE_WIDTH * texture_offset_y) + texture_offset_x];
+			size_t distance_from_top = h_i + (wall_strip_height / 2) - (g_cubfile_data.window_height / 2);
+			texture_offset_y = distance_from_top * ((float)TILE_SIZE / wall_strip_height);
+			// texture_offset_y = (h_i - wall_top_pixel) * ((float)TILE_SIZE / wall_strip_height);
+			g_color = wall_texture[(TILE_SIZE * texture_offset_y) + texture_offset_x];
 			draw_pixel(r_i, h_i);
 			h_i++;
 		}
 		g_color = g_cubfile_data.floor_color;
-		while (h_i < g_cubfile_data.window_height)	
+		while (h_i < g_cubfile_data.window_height)
 		{
 			draw_pixel(r_i, h_i);
 			h_i++;
@@ -259,6 +293,35 @@ int	main_loop(void *null)
 	return (0);
 }
 
+void	setup()
+{
+	wall_texture = malloc(sizeof(t_color) * (t_color)g_cubfile_data.window_width * (t_color)g_cubfile_data.window_height);
+	size_t	x;
+	size_t	y;
+	y = 0;
+	while (y < TILE_SIZE)
+	{
+		x = 0;
+		while (x < TILE_SIZE)
+		{
+			wall_texture[(TILE_SIZE * y) + x] = ((x % 6 && y % 8) ? create_trgb(0, 200, 100, 100) : create_trgb(0, 200, 50, 50));
+			x++;
+		}
+		y++;
+	}
+	// TILE_WIDTH を使わないバージョン
+	// while (y < TEXTURE_HEIGHT)
+	// {
+	// 	x = 0;
+	// 	while (x < TEXTURE_WIDTH)
+	// 	{
+	// 		wall_texture[(TEXTURE_WIDTH * y) + x] = (x % 0 && y % 0 ? create_trgb(0, 0, 100, 200) : create_trgb(0, 100, 200, 0));
+	// 		x++;
+	// 	}
+	// 	y++;
+	// }
+}
+
 void	mlx(void)
 {
 	g_mlx.mlx_ptr = mlx_init();
@@ -270,7 +333,8 @@ void	mlx(void)
 	// test_player_data();
 	mlx_hook(g_mlx.win_ptr, KEY_PRESS, KEY_PRESS_MASK, key_down, NULL);
 	mlx_hook(g_mlx.win_ptr, KEY_RELEASE, KEY_RELEASE_MASK, key_up, NULL);
-	// setup();
+	// TODO: 要らないかも
+	setup();
 	mlx_hook(g_mlx.win_ptr, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK, finish_program, NULL);
 	mlx_loop_hook(g_mlx.mlx_ptr, &main_loop, NULL);
 	mlx_loop(g_mlx.mlx_ptr);

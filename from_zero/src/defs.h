@@ -18,9 +18,11 @@
 # define FOV_ANGLE				(60 * (PI / 180))
 // # define DIST_PROJ_PLANE		((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
 # define NUM_RAYS				300
-# define MAX_WINDOW_WIDTH		3840	
-// # define NUM_RAYS				5	
+# define MAX_WINDOW_WIDTH		3840
+// # define NUM_RAYS				5
 // # define NUM_RAYS WINDOW_WIDTH
+// # define TEXTURE_WIDTH			64
+// # define TEXTURE_HEIGHT			64
 # define FPS 30
 # define FRAME_TIME_LENGTH (1000 / FPS)
 
