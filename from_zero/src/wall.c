@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/07 04:23:17 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/07 05:10:25 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,19 @@ void	render_wall_projection(void)
 			texture_offset_x = (size_t)rays[window_x].wall_hit_y % TILE_SIZE;
 		else
 			texture_offset_x = (size_t)rays[window_x].wall_hit_x % TILE_SIZE;
-		// どの方角のテクスチャーから持ってくるのか、ray のアングルなどを元に導く
-		// ray の情報の構造体に、どの方角の壁なのかを情報として持たせてやる
+		// ここから追加中
+		t_texture texture = g_textures[rays[window_x].direction];
+
 		while (window_y < wall_bottom_pixel)
 		{
-			// g_color = wall_texture[(TEXTURE_WIDTH * texture_offset_y) + texture_offset_x];
 			size_t distance_from_wall_strip_top = (window_y + (wall_strip_height / 2)) - (g_cubfile_data.window_height / 2);
 			texture_offset_y = distance_from_wall_strip_top * ((float)TILE_SIZE / wall_strip_height);
-			// texture_offset_y = (h_i - wall_top_pixel) * ((float)TILE_SIZE / wall_strip_height);
-			g_color = wall_texture[(TILE_SIZE * texture_offset_y) + texture_offset_x];
+
+
+
+			// これが縞々バージョン
+			// g_color = wall_texture[(TILE_SIZE * texture_offset_y) + texture_offset_x];
+			g_color = texture.addr[texture.width * ]
 			draw_pixel(window_x, window_y);
 			window_y++;
 		}
