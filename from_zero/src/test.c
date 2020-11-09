@@ -3,12 +3,12 @@
 
 void	test_all_cubfile_data(void)
 {
-	DEBUGVD(g_cubfile_data.window_width);
-	DEBUGVD(g_cubfile_data.window_height);
-	DEBUGVD((int)g_cubfile_data.floor_color);
-	DEBUGVD((int)g_cubfile_data.ceiling_color);
+	DI(g_cubfile_data.window_width);
+	DI(g_cubfile_data.window_height);
+	DI((int)g_cubfile_data.floor_color);
+	DI((int)g_cubfile_data.ceiling_color);
 	for (size_t t_i = 0; t_i < TEXTURES_NUM; t_i++)
-		DEBUGVS(g_textures[t_i].path);
+		DS(g_textures[t_i].path);
 }
 
 void	test_current_g_map_to_check(void)
@@ -19,25 +19,43 @@ void	test_current_g_map_to_check(void)
 
 void	test_player_data(void)
 {
-	DEBUGVD(g_player.grid_x);
-	DEBUGVD(g_player.grid_y);
-	DEBUGVF(g_player.x);
-	DEBUGVF(g_player.y);
-	DEBUGVF(g_player.width);
-	DEBUGVF(g_player.height);
-	DEBUGVD(g_player.turn_direction);
-	DEBUGVD(g_player.walk_direction);
-	DEBUGVF(g_player.rotation_angle);
-	DEBUGVF(g_player.walk_speed);
-	DEBUGVF(g_player.turn_speed);
+	DI(g_player.grid_x);
+	DI(g_player.grid_y);
+	DF(g_player.x);
+	DF(g_player.y);
+	DF(g_player.width);
+	DF(g_player.height);
+	DI(g_player.turn_direction);
+	DI(g_player.walk_direction);
+	DF(g_player.rotation_angle);
+	DF(g_player.walk_speed);
+	DF(g_player.turn_speed);
+}
+
+void	test_texture_data(void)
+{
+	size_t	t_i;
+
+	t_i = 0;
+	while (t_i < TEXTURES_NUM)
+	{
+		DS(g_textures[t_i].addr);
+		DI(g_textures[t_i].bits_per_pixel);
+		DI(g_textures[t_i].line_length);
+		DI(g_textures[t_i].endian);
+		DI(g_textures[t_i].width);
+		DI(g_textures[t_i].height);
+		DS(g_textures[t_i].path);
+		t_i++;
+	}
 }
 
 void	test_ray_data(size_t index)
 {
-	DEBUGVF(rays[index].ray_angle);
-	DEBUGVF(rays[index].wall_hit_x);
-	DEBUGVF(rays[index].wall_hit_y);
-	DEBUGVF(rays[index].distance);
-	DEBUGVD(rays[index].was_hit_vertical);
-	DEBUGVC(rays[index].wall_hit_content);
+	DF(rays[index].ray_angle);
+	DF(rays[index].wall_hit_x);
+	DF(rays[index].wall_hit_y);
+	DF(rays[index].distance);
+	DI(rays[index].was_hit_vertical);
+	DC(rays[index].wall_hit_content);
 }

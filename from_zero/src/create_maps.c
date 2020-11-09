@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:57:52 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/05 13:18:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/09 15:32:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		create_map_array(char *map_first_line, int fd)
 	// size_t	index = 0;
 	// while (g_map[index])
 	// {
-	// 	DEBUGVS(g_map[index]);
+	// 	DS(g_map[index]);
 	// 	index++;
 	// }
 }

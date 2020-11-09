@@ -5,10 +5,10 @@
     printf(#v ": " v_fmt "\t(file \"%s\", line %d, in %s)\n", \
         v, __FILE__, __LINE__, __FUNCTION__);
 
-#define DEBUGVD(v) DEBUGV("%d", v);
-#define DEBUGVS(v) DEBUGV("%s", v);
-#define DEBUGVF(v) DEBUGV("%f", v);
-#define DEBUGVC(v) DEBUGV("%c", v);
+#define DI(v) DEBUGV("%d", v);
+#define DS(v) DEBUGV("%s", v);
+#define DF(v) DEBUGV("%f", v);
+#define DC(v) DEBUGV("%c", v);
 
 #define DEBUGF(fmt, ...) \
     printf(fmt "\t(file \"%s\", line %d, in %s)\n", \

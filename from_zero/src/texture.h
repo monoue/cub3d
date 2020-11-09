@@ -10,6 +10,7 @@ typedef struct	s_texture
 {
 	void	*img_ptr;
 	char	*addr;
+	// t_color	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -21,7 +22,8 @@ typedef struct	s_texture
 
 extern t_texture g_textures[TEXTURES_NUM];
 
+void	set_textures(void);
 void	init_texture_paths(void);
-// void	set_textures(void);
+void	set_textures(void);
 
 #endif

@@ -9,11 +9,14 @@
 #include "player.h"
 #include "set_color.h"
 #include "set_cubfile_data.h"
+#include "texture.h"
+
 #include "ray.h"
 
 void	test_all_cubfile_data(void);
 void	test_current_g_map_to_check(void);
 void	test_player_data(void);
+void	test_texture_data(void);
 void	test_ray_data(size_t index);
 
 #endif

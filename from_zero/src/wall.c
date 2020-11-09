@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/07 05:10:25 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/09 16:57:19 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@
 ** which occurs when the wall_strip_height is longer than the window height.
 */
 
+void	set_texture_color(t_texture texture, int x, int y)
+{
+	char	*pixel_color;
+
+	pixel_color = texture.addr + (y * texture.line_length + x * (texture.bits_per_pixel / 8));
+	g_color = *(unsigned int*)pixel_color;
+}
 
 void	render_wall_projection(void)
 {
@@ -91,19 +98,17 @@ void	render_wall_projection(void)
 			texture_offset_x = (size_t)rays[window_x].wall_hit_y % TILE_SIZE;
 		else
 			texture_offset_x = (size_t)rays[window_x].wall_hit_x % TILE_SIZE;
-		// ここから追加中
-		t_texture texture = g_textures[rays[window_x].direction];
+		// ここから追加中。英語コメントも後でまとめて付けるべき。
+		t_texture texture;
+		texture = g_textures[rays[window_x].direction];
 
 		while (window_y < wall_bottom_pixel)
 		{
 			size_t distance_from_wall_strip_top = (window_y + (wall_strip_height / 2)) - (g_cubfile_data.window_height / 2);
 			texture_offset_y = distance_from_wall_strip_top * ((float)TILE_SIZE / wall_strip_height);
-
-
-
+			set_texture_color(texture, texture_offset_x, texture_offset_y);
 			// これが縞々バージョン
 			// g_color = wall_texture[(TILE_SIZE * texture_offset_y) + texture_offset_x];
-			g_color = texture.addr[texture.width * ]
 			draw_pixel(window_x, window_y);
 			window_y++;
 		}

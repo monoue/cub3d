@@ -18,7 +18,7 @@
 typedef struct	s_img
 {
 	void	*img_ptr;
-	char	*data;
+	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

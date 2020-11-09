@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/07 04:51:29 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/09 15:26:09 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ void	cast_ray(float original_ray_angle, size_t strip_id)
 	// is
 	// これ、要る？？
 	rays[strip_id].ray_angle = ray_angle;
-	DEBUGVD(rays[strip_id].direction);
+	// DI(rays[strip_id].direction);
 }
 
 

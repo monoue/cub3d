@@ -1,7 +1,7 @@
 R 1280 720
 NO ./images/greystone.xpm
 SO ./images/colorstone.xpm
-EA ./images/colorstone.xpm
+EA ./images/flower.xpm
 WE ./images/bluestone.xpm
 S ./images/barrel.xpm
 F 164,202,104
