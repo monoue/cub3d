@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/10 17:06:08 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/11 08:38:49 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	render_map(void)
 			else
 				g_color = create_trgb(0, 0, 0, 0);
 			draw_rectangle(
-				tile_x * MINIMAP_SCALE_FACTOR,
-				tile_y * MINIMAP_SCALE_FACTOR,
-				TILE_SIZE * MINIMAP_SCALE_FACTOR,
-				TILE_SIZE * MINIMAP_SCALE_FACTOR
+				floor(tile_x * MINIMAP_SCALE_FACTOR),
+				floor(tile_y * MINIMAP_SCALE_FACTOR),
+				ceil(TILE_SIZE * MINIMAP_SCALE_FACTOR),
+				ceil(TILE_SIZE * MINIMAP_SCALE_FACTOR)
 			);
 			x_i++;
 		}
@@ -105,19 +105,15 @@ void	update(void)
 	cast_all_rays();
 }
 
-
-// ソートは、どうやれば？？
-// Piscine でやったみたいにやる。
-// ソートと言っても、まるごと順番を変える必要あるかな？
-// ソート順だけを構造体のメンバに増やす？　その方が面倒？
 void	render_rays_to_sprites()
 {
-	size_t	index;
+	size_t			index;
+	const size_t	s_num = g_cubfile_data.sprites_num;
 
 	index = 0;
-	while (index < g_cubfile_data.sprites_num)
+	while (index < s_num)
 	{
-		g_color = create_trgb(0, 50 * index, 100, 100);
+		g_color = create_trgb(0, floor(255 * index / (s_num - 1)), 50, floor(255 - 255 * (index / (s_num - 1))));
 		draw_line(
 			g_player.x * MINIMAP_SCALE_FACTOR,
 			g_player.y * MINIMAP_SCALE_FACTOR,
@@ -196,34 +192,23 @@ int	main_loop(void *null)
 	return (0);
 }
 
-void	setup()
-{
-	wall_texture = malloc(sizeof(t_color) * (t_color)g_cubfile_data.window_width * (t_color)g_cubfile_data.window_height);
-	size_t	x;
-	size_t	y;
-	y = 0;
-	while (y < TILE_SIZE)
-	{
-		x = 0;
-		while (x < TILE_SIZE)
-		{
-			wall_texture[(TILE_SIZE * y) + x] = ((x % 6 && y % 8) ? create_trgb(0, 200, 100, 100) : create_trgb(0, 200, 50, 50));
-			x++;
-		}
-		y++;
-	}
-	// TILE_WIDTH を使わないバージョン
-	// while (y < TEXTURE_HEIGHT)
-	// {
-	// 	x = 0;
-	// 	while (x < TEXTURE_WIDTH)
-	// 	{
-	// 		wall_texture[(TEXTURE_WIDTH * y) + x] = (x % 0 && y % 0 ? create_trgb(0, 0, 100, 200) : create_trgb(0, 100, 200, 0));
-	// 		x++;
-	// 	}
-	// 	y++;
-	// }
-}
+// void	setup()
+// {
+// 	wall_texture = malloc(sizeof(t_color) * (t_color)g_cubfile_data.window_width * (t_color)g_cubfile_data.window_height);
+// 	size_t	x;
+// 	size_t	y;
+// 	y = 0;
+// 	while (y < TILE_SIZE)
+// 	{
+// 		x = 0;
+// 		while (x < TILE_SIZE)
+// 		{
+// 			wall_texture[(TILE_SIZE * y) + x] = ((x % 6 && y % 8) ? create_trgb(0, 200, 100, 100) : create_trgb(0, 200, 50, 50));
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
 
 void	mlx(void)
 {
@@ -233,20 +218,13 @@ void	mlx(void)
 	g_img.addr = mlx_get_data_addr(g_img.img_ptr, &g_img.bits_per_pixel, &g_img.line_length, &g_img.endian);
 
 	set_textures();
-	// DI(g_textures[0].width);
 	// test_texture_data();
 	// test_player_data();
 	mlx_hook(g_mlx.win_ptr, KEY_PRESS, KEY_PRESS_MASK, key_down, NULL);
 	mlx_hook(g_mlx.win_ptr, KEY_RELEASE, KEY_RELEASE_MASK, key_up, NULL);
-	// TODO: 要らないかも
-	setup();
+	// wall_texture の作成
+	// setup();
 	mlx_hook(g_mlx.win_ptr, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK, finish_program, NULL);
-
-	// ただのテスト。即消去
-	// t_texture	texture_i;
-	// texture_i = g_textures[0];
-	// mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, texture_i.img_ptr, 50, 50);
-
 	mlx_loop_hook(g_mlx.mlx_ptr, &main_loop, NULL);
 	mlx_loop(g_mlx.mlx_ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/09 15:26:09 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/11 08:03:03 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	cast_ray(float original_ray_angle, size_t strip_id)
 	if (is_ray_facing_up)
 		y_step *= -1;
 	x_step = TILE_SIZE / tan(ray_angle);
-	// １つにまとめると
 	if ((is_ray_facing_left && x_step > 0) || (is_ray_facing_right && x_step < 0))
 		x_step *= -1;
 	// デバッグのため、元のヤツだと
@@ -121,9 +120,7 @@ void	cast_ray(float original_ray_angle, size_t strip_id)
 
 	next_horz_touch_x = x_intercept;
 	next_horz_touch_y =	y_intercept;
-	// デバッグ用
 	while (next_horz_touch_x >= 0 && next_horz_touch_x < TILE_SIZE * MAX_MAP_LEN && next_horz_touch_y >= 0 && next_horz_touch_y < TILE_SIZE * MAX_MAP_LEN)
-	// while (next_horz_touch_x >= 0 && next_horz_touch_x <= g_cubfile_data.window_width && next_horz_touch_y >= 0 && next_horz_touch_y <= g_cubfile_data.window_height)
 	{
 		float	x_to_check;
 		float	y_to_check;
@@ -177,7 +174,6 @@ void	cast_ray(float original_ray_angle, size_t strip_id)
 	next_vert_touch_x = x_intercept;
 	next_vert_touch_y =	y_intercept;
 	while (next_vert_touch_x >= 0 && next_vert_touch_x < TILE_SIZE * MAX_MAP_LEN && next_vert_touch_y >= 0 && next_vert_touch_y < TILE_SIZE * MAX_MAP_LEN)
-	// while (next_vert_touch_x >= 0 && next_vert_touch_x <= g_cubfile_data.window_width && next_vert_touch_y >= 0 && next_vert_touch_y <= g_cubfile_data.window_height)
 	{
 		float	x_to_check;
 		float	y_to_check;
@@ -226,8 +222,6 @@ void	cast_ray(float original_ray_angle, size_t strip_id)
 		rays[strip_id].was_hit_vertical = false;
 	}
 	set_ray_direction(&rays[strip_id].direction, rays[strip_id].was_hit_vertical, is_ray_facing_right, is_ray_facing_down);
-	// is
-	// これ、要る？？
 	rays[strip_id].ray_angle = ray_angle;
 	// DI(rays[strip_id].direction);
 }
