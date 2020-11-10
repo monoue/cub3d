@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/09 15:32:36 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/10 12:32:28 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	get_resolution(const char **infos)
 		exit_with_error_message(ID_OVERLAPPING, "R");
 	if (ft_count_strs(infos) != 2)
 		exit_with_error_message(WRONG_INFO_NUM, "R");
-	if (!ft_str_is_numeric(infos[0]) || !ft_str_is_numeric(infos[1]) || ft_strlen(infos[0]) > 4 || ft_strlen(infos[0]) > 4)
+	if (!ft_str_is_numeric(infos[0]) || !ft_str_is_numeric(infos[1]) || ft_strlen(infos[0]) > 4 || ft_strlen(infos[1]) > 4)
 		exit_with_error_message(INVALID_INFO, "R");
 	// TODO: デバッグ終了後、削除
 	// g_cubfile_data.window_width = 900;
@@ -150,8 +150,9 @@ void	set_spawn_data_and_sprites_num(void)
 	size_t	y;
 	size_t	x;
 	char	current_c;
+	size_t	sprites_count;
 
-	g_cubfile_data.sprites_num = 0;
+	sprites_count = 0;
 	y = 0;
 	while (g_map[y][0] != '\0')
 	{
@@ -159,8 +160,11 @@ void	set_spawn_data_and_sprites_num(void)
 		while ((current_c = g_map[y][x]) != '\0')
 		{
 			if (current_c == '2')
-				g_cubfile_data.sprites_num++;
-			if (is_spawn_point_c(current_c))
+			{
+				set_sprite_data(x, y, sprites_count);
+				sprites_count++;
+			}
+			else if (is_spawn_point_c(current_c))
 			{
 				if (map_has_double_spawn_points())
 					exit_with_error_message(SINGLE, "The map has several spawn points.\n");
@@ -170,6 +174,7 @@ void	set_spawn_data_and_sprites_num(void)
 		}
 		y++;
 	}
+	g_cubfile_data.sprites_num = sprites_count;
 }
 
 // TODO: textures の path、初期化する

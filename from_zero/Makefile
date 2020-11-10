@@ -19,6 +19,7 @@ SRCS += src/set_color.c
 SRCS += src/set_cubfile_data.c
 SRCS += src/texture.c
 SRCS += src/wall.c
+SRCS += src/sprite.c
 
 SRCS += src/test.c
 

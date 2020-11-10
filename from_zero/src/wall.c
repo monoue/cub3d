@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/10 11:54:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/10 14:28:49 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ void	render_wall_projection(void)
 		t_texture texture;
 		texture = g_textures[rays[window_x].direction];
 		if (rays[window_x].was_hit_vertical)
-			texture_offset_x = ((size_t)rays[window_x].wall_hit_y % TILE_SIZE) * texture.width / TILE_SIZE;
+			texture_offset_x = ((size_t)rays[window_x].wall_hit_y % TILE_SIZE) * ((float)texture.width / TILE_SIZE);
 		else
-			texture_offset_x = ((size_t)rays[window_x].wall_hit_x % TILE_SIZE) * texture.width / TILE_SIZE;
+			texture_offset_x = ((size_t)rays[window_x].wall_hit_x % TILE_SIZE) * ((float)texture.width / TILE_SIZE);
 		// ここから追加中。英語コメントも後でまとめて付けるべき。
 		while (window_y < wall_bottom_pixel)
 		{

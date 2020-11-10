@@ -10,7 +10,6 @@ typedef struct	s_texture
 {
 	void	*img_ptr;
 	char	*addr;
-	// t_color	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
