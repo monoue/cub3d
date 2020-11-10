@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/09 16:57:19 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/10 11:54:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ void	render_wall_projection(void)
 	{
 		perpendicular_distance = rays[window_x].distance * cos(rays[window_x].ray_angle - g_player.rotation_angle);
 		distance_proj_plane = (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
-		// projected_wall_height = (TILE_SIZE / rays[r_i].distance) * distance_proj_plane;
 		projected_wall_height = (TILE_SIZE / perpendicular_distance) * distance_proj_plane;
-
 		// wall_strip_height と  projected_wall_height の違いは、int か float かだけ。
 		wall_strip_height = (int)projected_wall_height;
 		wall_top_pixel = (g_cubfile_data.window_height / 2) - (wall_strip_height / 2);
@@ -94,18 +92,17 @@ void	render_wall_projection(void)
 		// size_t	texture_offset_x;
 		size_t	texture_offset_x;
 		size_t	texture_offset_y;
-		if (rays[window_x].was_hit_vertical)
-			texture_offset_x = (size_t)rays[window_x].wall_hit_y % TILE_SIZE;
-		else
-			texture_offset_x = (size_t)rays[window_x].wall_hit_x % TILE_SIZE;
-		// ここから追加中。英語コメントも後でまとめて付けるべき。
 		t_texture texture;
 		texture = g_textures[rays[window_x].direction];
-
+		if (rays[window_x].was_hit_vertical)
+			texture_offset_x = ((size_t)rays[window_x].wall_hit_y % TILE_SIZE) * texture.width / TILE_SIZE;
+		else
+			texture_offset_x = ((size_t)rays[window_x].wall_hit_x % TILE_SIZE) * texture.width / TILE_SIZE;
+		// ここから追加中。英語コメントも後でまとめて付けるべき。
 		while (window_y < wall_bottom_pixel)
 		{
 			size_t distance_from_wall_strip_top = (window_y + (wall_strip_height / 2)) - (g_cubfile_data.window_height / 2);
-			texture_offset_y = distance_from_wall_strip_top * ((float)TILE_SIZE / wall_strip_height);
+			texture_offset_y = distance_from_wall_strip_top * ((float)texture.height / wall_strip_height);
 			set_texture_color(texture, texture_offset_x, texture_offset_y);
 			// これが縞々バージョン
 			// g_color = wall_texture[(TILE_SIZE * texture_offset_y) + texture_offset_x];
