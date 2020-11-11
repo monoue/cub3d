@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/11 08:38:49 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/11 14:26:10 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ void	render_map(void)
 }
 
 
-bool	map_has_wall_at(float x, float y)
+bool	map_has_wall_at(t_coord *coord)
 {
 	int grid_x;
 	int grid_y;
 
-	grid_x = floor(x / TILE_SIZE);
-	grid_y = floor(y / TILE_SIZE);
+	grid_x = floor(coord->x / TILE_SIZE);
+	grid_y = floor(coord->y / TILE_SIZE);
 	if (grid_x < 0)
 		grid_x = 0;
 	if (grid_x > MAX_MAP_LEN)
