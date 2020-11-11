@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:18:51 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/03 09:04:17 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/11 09:51:54 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static bool	is_out_of_map(int x, int y)
 {
 	return (x < 0 || x >= MAX_MAP_LEN || y < 0 || y >= MAX_MAP_LEN);
 }
+
 
 void		exit_if_map_is_not_surrounded_by_walls(int current_x, int current_y)
 {

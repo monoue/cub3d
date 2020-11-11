@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 13:53:27 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/09 14:58:29 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/11 08:44:40 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 t_color	g_color;
 
-void	draw_pixel(int x, int y)
+void			draw_pixel(int x, int y)
 {
-    char    *dst;
+	char	*dst;
 
-    dst = g_img.addr + (y * g_img.line_length + x * (g_img.bits_per_pixel / 8));
-    *(unsigned int*)dst = g_color;
+	dst = g_img.addr + (y * g_img.line_length + x * (g_img.bits_per_pixel / 8));
+	*(unsigned int*)dst = g_color;
 }
 
-void	draw_rectangle(size_t start_x, size_t start_y, size_t width, size_t height)
+void			draw_rectangle(size_t start_x, size_t start_y, size_t width,
+																size_t height)
 {
 	size_t	y_i;
 	size_t	x_i;
@@ -50,7 +51,7 @@ static size_t	get_longer_side_length(int x0, int y0, int x1, int y1)
 	return (MAX(delta_x, delta_y));
 }
 
-void	draw_line(int x0, int y0, int x1, int y1)
+void			draw_line(int x0, int y0, int x1, int y1)
 {
 	size_t	longer_side_length;
 	size_t	index;

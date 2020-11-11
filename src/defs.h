@@ -11,7 +11,7 @@
 # define TWO_PI					6.28318530
 # define PI						3.14159265
 # define TWO_PI					6.28318530
-// # define TILE_SIZE				256	
+// # define TILE_SIZE				256
 # define TILE_SIZE				64
 # define MAX_MAP_LEN			50
 // # define MINIMAP_SCALE_FACTOR	0.1
@@ -41,6 +41,14 @@ typedef enum	e_move_directions
 
 	WALK_DIRECTIONS_NUM
 }				t_move_directions;
+
+typedef enum	e_axes
+{
+	HORIZONTAL,
+	VERTICAL,
+
+	AXES_NUM
+}				t_axes;
 
 # define TO_LEFT -1
 # define TO_RIGHT 1
