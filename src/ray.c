@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/12 15:41:11 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/12 16:38:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,6 @@ char	get_map_at(t_coord *coord)
 }
 
 // 構造体作るしかなさそう（intercept_coord, step, wall_hit_coord）
-// axes から名前変えた方がいいかも。なぜなら、構造体のメンバそれぞれ、[2] にして X と Y で使った方が良さそうで、それこそ axes だから。
-// TODO: これでうまく行かなければ、構造体メンバの x と y はポインタで渡す
 // t_ray_materials	cast_ray_horizontal(t_ray_materials *horz, float ray_angle)
 void	cast_ray_horizontal(t_ray_materials *horz, float ray_angle)
 {
@@ -238,6 +236,38 @@ void	free_t_ray_materials(t_ray_materials *struct1, t_ray_materials *struct2)
 	free_each_t_ray_materials(struct2);
 }
 
+void	cast_ray_to_sprite(float ray_angle, size_t strip_id)
+{
+	t_ray_materials	*horz;
+	t_ray_materials	*vert;
+
+	horz = malloc_t_ray_materials();
+	vert = malloc_t_ray_materials();
+	cast_ray_horizontal(horz, ray_angle);
+	cast_ray_vertical(vert, ray_angle);
+	// TODO: wall_hit_coord, 最後に free
+	g_rays[strip_id].wall_hit_coord = malloc(sizeof(t_coord));
+	if (vert->hit_distance < horz->hit_distance)
+	{
+		g_rays[strip_id].distance = vert->hit_distance;
+		coord_copy(g_rays[strip_id].wall_hit_coord, vert->wall_hit_coord);
+		// g_rays[strip_id].wall_hit_content = vert->wall_content;
+		g_rays[strip_id].was_hit_vertical = true;
+	}
+	else
+	{
+		g_rays[strip_id].distance = horz->hit_distance;
+		coord_copy(g_rays[strip_id].wall_hit_coord, horz->wall_hit_coord);
+		// g_rays[strip_id].wall_hit_content = horz->wall_content;
+		g_rays[strip_id].was_hit_vertical = false;
+	}
+	set_ray_direction(&g_rays[strip_id].direction, g_rays[strip_id].was_hit_vertical, is_ray_facing_right(ray_angle), is_ray_facing_down(ray_angle));
+	g_rays[strip_id].ray_angle = ray_angle;
+	free_t_ray_materials(horz, vert);
+	// DI(rays[strip_id].direction);
+}
+
+
 void	cast_ray_to_wall(float ray_angle, size_t strip_id)
 {
 	t_ray_materials	*horz;
@@ -289,6 +319,11 @@ static void	cast_all_rays(void (*func)(float, size_t))
 void	cast_all_rays_to_wall(void)
 {
 	cast_all_rays(cast_ray_to_wall);// 関数ポインタ);
+}
+
+void	cast_all_rays_to_sprite(void)
+{
+	cast_all_rays(cast_ray_to_sprite);
 }
 
 void	render_rays(void)
