@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/10 14:28:49 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/12 15:24:23 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	set_texture_color(t_texture texture, int x, int y)
 void	render_wall_projection(void)
 {
 	int		window_x;
-	float	distance_proj_plane;
+	const float	distance_proj_plane = (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
 	float	projected_wall_height;
 	int		wall_strip_height;
 	int		wall_top_pixel;
@@ -67,9 +67,9 @@ void	render_wall_projection(void)
 	// while (r_i < NUM_RAYS)
 	while (window_x < g_cubfile_data.window_width)
 	{
-		perpendicular_distance = rays[window_x].distance * cos(rays[window_x].ray_angle - g_player.rotation_angle);
-		distance_proj_plane = (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
-		projected_wall_height = (TILE_SIZE / perpendicular_distance) * distance_proj_plane;
+		perpendicular_distance = g_rays[window_x].distance * cos(g_rays[window_x].ray_angle - g_player.rotation_angle);
+		// distance_proj_plane = ;
+		projected_wall_height = distance_proj_plane * (TILE_SIZE / perpendicular_distance) ;
 		// wall_strip_height と  projected_wall_height の違いは、int か float かだけ。
 		wall_strip_height = (int)projected_wall_height;
 		wall_top_pixel = (g_cubfile_data.window_height / 2) - (wall_strip_height / 2);
@@ -93,11 +93,11 @@ void	render_wall_projection(void)
 		size_t	texture_offset_x;
 		size_t	texture_offset_y;
 		t_texture texture;
-		texture = g_textures[rays[window_x].direction];
-		if (rays[window_x].was_hit_vertical)
-			texture_offset_x = ((size_t)rays[window_x].wall_hit_y % TILE_SIZE) * ((float)texture.width / TILE_SIZE);
+		texture = g_textures[g_rays[window_x].direction];
+		if (g_rays[window_x].was_hit_vertical)
+			texture_offset_x = ((size_t)g_rays[window_x].wall_hit_coord->y % TILE_SIZE) * ((float)texture.width / TILE_SIZE);
 		else
-			texture_offset_x = ((size_t)rays[window_x].wall_hit_x % TILE_SIZE) * ((float)texture.width / TILE_SIZE);
+			texture_offset_x = ((size_t)g_rays[window_x].wall_hit_coord->x % TILE_SIZE) * ((float)texture.width / TILE_SIZE);
 		// ここから追加中。英語コメントも後でまとめて付けるべき。
 		while (window_y < wall_bottom_pixel)
 		{

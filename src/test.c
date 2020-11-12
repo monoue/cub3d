@@ -52,10 +52,10 @@ void	test_texture_data(void)
 
 void	test_ray_data(size_t index)
 {
-	DF(rays[index].ray_angle);
-	DF(rays[index].wall_hit_x);
-	DF(rays[index].wall_hit_y);
-	DF(rays[index].distance);
-	DI(rays[index].was_hit_vertical);
-	DC(rays[index].wall_hit_content);
+	DF(g_rays[index].ray_angle);
+	DF(g_rays[index].wall_hit_coord->x);
+	DF(g_rays[index].wall_hit_coord->y);
+	DF(g_rays[index].distance);
+	DI(g_rays[index].was_hit_vertical);
+	// DC(g_rays[index].wall_hit_content);
 }

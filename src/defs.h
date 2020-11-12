@@ -22,6 +22,9 @@
 # define NUM_RAYS				300
 # define MAX_WINDOW_WIDTH		3840
 # define MAX_SPRITES_NUM		2500
+
+# define WALL_C '1'
+# define SPRITE_C '2'
 // # define NUM_RAYS				5
 // # define NUM_RAYS WINDOW_WIDTH
 // # define TEXTURE_WIDTH			64

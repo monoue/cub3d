@@ -5,7 +5,7 @@
 #include "defs.h"
 #include "error.h"
 #include "init_mlx.h"
-#include "main.h"
+#include "debug.h"
 #include "player.h"
 #include "set_color.h"
 #include "set_cubfile_data.h"

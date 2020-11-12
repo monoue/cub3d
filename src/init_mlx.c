@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/11 14:26:10 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/12 15:34:22 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,13 @@ void	render_map(void)
 	}
 }
 
-
-bool	map_has_wall_at(t_coord *coord)
+bool	map_has_target_at(float x, float y, char c)
 {
 	int grid_x;
 	int grid_y;
 
-	grid_x = floor(coord->x / TILE_SIZE);
-	grid_y = floor(coord->y / TILE_SIZE);
+	grid_x = floor(x / TILE_SIZE);
+	grid_y = floor(y / TILE_SIZE);
 	if (grid_x < 0)
 		grid_x = 0;
 	if (grid_x > MAX_MAP_LEN)
@@ -78,7 +77,17 @@ bool	map_has_wall_at(t_coord *coord)
 		grid_y = 0;
 	if (grid_y > MAX_MAP_LEN)
 		grid_y = MAX_MAP_LEN;
-	return (g_map[grid_y][grid_x] == '1');
+	return (g_map[grid_y][grid_x] == c);
+}
+
+bool	map_has_sprite_at(float x, float y)
+{
+	return (map_has_target_at(x, y, SPRITE_C));
+}
+
+bool	map_has_wall_at(float x, float y)
+{
+	return (map_has_target_at(x, y, WALL_C));
 }
 
 bool	is_space_at(const float pixel_x, const float pixel_y)
@@ -102,7 +111,8 @@ bool	is_space_at(const float pixel_x, const float pixel_y)
 void	update(void)
 {
 	move_player();
-	cast_all_rays();
+	cast_all_rays_to_wall();
+	// cast_all_rays();
 }
 
 void	render_rays_to_sprites()

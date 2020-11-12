@@ -7,6 +7,7 @@ CLIBS =		-L . -lft
 CFLAGS =	-Wall -Wextra -Werror
 
 SRCS += src/check_map_error.c
+SRCS += src/coord.c
 SRCS += src/create_maps.c
 SRCS += src/error.c
 SRCS += src/event_hook.c

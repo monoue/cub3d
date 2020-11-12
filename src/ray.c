@@ -6,15 +6,15 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/11 14:47:51 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/12 15:41:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray.h"
 
-// t_ray	rays[g_cubfile_data.window_width];
-// t_ray	rays[NUM_RAYS];
-t_ray	rays[MAX_WINDOW_WIDTH];
+// t_ray_to_wall	rays[g_cubfile_data.window_width];
+// t_ray_to_wall	rays[NUM_RAYS];
+t_ray_to_wall	g_rays[MAX_WINDOW_WIDTH];
 
 void	normalize_angle(float *angle)
 {
@@ -103,12 +103,12 @@ bool is_ray_facing_left(float angle)
 }
 
 // float	get_hit_distance(float wall_hit_x, float wall_hit_y, bool is_hit_found)
-float	get_hit_distance(t_coord *wall_hit, bool is_hit_found)
+float	get_hit_distance(t_coord *wall_hit_coord, bool is_hit_found)
 {
 	float	hit_distance;
 
 	if (is_hit_found == true)
-		hit_distance = distance_between_points(g_player.x, g_player.y, wall_hit->x, wall_hit->y);
+		hit_distance = distance_between_points(g_player.x, g_player.y, wall_hit_coord->x, wall_hit_coord->y);
 	else
 		hit_distance = FLT_MAX;
 	return (hit_distance);
@@ -133,57 +133,6 @@ float	init_parallel_step(float ray_angle, t_axes axis)
 	return (step);
 }
 
-t_coord	*coord_assign(t_coord *dst, float x, float y)
-{
-	dst->x = x;
-	dst->y = y;
-	return (dst);
-}
-
-t_coord	*coord_copy(t_coord *dst, t_coord *src)
-{
-	coord_assign(dst, src->x, src->y);
-	return (dst);
-}
-
-t_coord	*coord_add(t_coord *dst, t_coord *add)
-{
-	coord_assign(dst, dst->x + add->x, dst->y + add->y);
-	return (dst);
-}
-
-
-// 構造体作るしかなさそう（intercept, step, wall_hit）
-// axes から名前変えた方がいいかも。なぜなら、構造体のメンバそれぞれ、[2] にして X と Y で使った方が良さそうで、それこそ axes だから。
-// TODO: これでうまく行かなければ、構造体メンバの x と y はポインタで渡す
-t_ray_materials	cast_ray_horizontal(t_ray_materials *horz, float ray_angle, size_t strip_id)
-{
-	horz->is_wall_hit_found = false;
-	coord_assign(horz->wall_hit, 0, 0);
-	horz->intercept->y = floor(g_player.y / TILE_SIZE) * TILE_SIZE;
-	if (is_ray_facing_down(ray_angle))
-		horz->intercept->y += TILE_SIZE;
-	horz->intercept->x = g_player.x + (horz->intercept->y - g_player.y) / tan(ray_angle);
-	horz->step->y = is_ray_facing_down(ray_angle) ? TILE_SIZE : -(TILE_SIZE);
-	horz->step->x = init_parallel_step(ray_angle, HORIZONTAL);
-	coord_copy(horz->next_touch, horz->intercept);
-	while (is_inside_map(horz->next_touch) == true)
-	{
-		coord_copy(horz->to_check, horz->next_touch);
-		if (is_ray_facing_up(ray_angle))
-			horz->to_check->y--;
-		if (map_has_wall_at(horz->to_check) == true)
-		{
-			coord_copy(horz->wall_hit, horz->next_touch);
-			horz->wall_content = get_map_at(horz->to_check);
-			horz->is_wall_hit_found = true;
-			break;
-		}
-		coord_add(horz->next_touch, horz->step);
-	}
-	horz->hit_distance = get_hit_distance(horz->wall_hit, horz->is_wall_hit_found);
-}
-
 char	get_map_at(t_coord *coord)
 {
 	const int x = (int)(coord->x / TILE_SIZE);
@@ -192,77 +141,135 @@ char	get_map_at(t_coord *coord)
 	return (g_map[y][x]);
 }
 
-t_ray_materials	cast_ray_vertical(t_ray_materials *vert, float ray_angle, size_t strip_id)
+// 構造体作るしかなさそう（intercept_coord, step, wall_hit_coord）
+// axes から名前変えた方がいいかも。なぜなら、構造体のメンバそれぞれ、[2] にして X と Y で使った方が良さそうで、それこそ axes だから。
+// TODO: これでうまく行かなければ、構造体メンバの x と y はポインタで渡す
+// t_ray_materials	cast_ray_horizontal(t_ray_materials *horz, float ray_angle)
+void	cast_ray_horizontal(t_ray_materials *horz, float ray_angle)
+{
+	horz->is_wall_hit_found = false;
+	coord_assign(horz->wall_hit_coord, 0, 0);
+	horz->intercept_coord->y = floor(g_player.y / TILE_SIZE) * TILE_SIZE;
+	if (is_ray_facing_down(ray_angle))
+		horz->intercept_coord->y += TILE_SIZE;
+	horz->intercept_coord->x = g_player.x + (horz->intercept_coord->y - g_player.y) / tan(ray_angle);
+	horz->step_coord->y = is_ray_facing_down(ray_angle) ? TILE_SIZE : -(TILE_SIZE);
+	horz->step_coord->x = init_parallel_step(ray_angle, HORIZONTAL);
+	coord_copy(horz->next_touch_coord, horz->intercept_coord);
+	while (is_inside_map(horz->next_touch_coord) == true)
+	{
+		coord_copy(horz->to_check_coord, horz->next_touch_coord);
+		if (is_ray_facing_up(ray_angle))
+			horz->to_check_coord->y--;
+		if (map_has_wall_at(horz->to_check_coord->x, horz->to_check_coord->y) == true)
+		{
+			coord_copy(horz->wall_hit_coord, horz->next_touch_coord);
+			// horz->wall_content = get_map_at(horz->to_check_coord);
+			horz->is_wall_hit_found = true;
+			break;
+		}
+		coord_add(horz->next_touch_coord, horz->step_coord);
+	}
+	horz->hit_distance = get_hit_distance(horz->wall_hit_coord, horz->is_wall_hit_found);
+}
+
+
+
+void	cast_ray_vertical(t_ray_materials *vert, float ray_angle)
 {
 	vert->is_wall_hit_found = false;
-	coord_assign(vert->wall_hit, 0, 0);
-	vert->intercept->x = floor(g_player.x / TILE_SIZE) * TILE_SIZE;
+	coord_assign(vert->wall_hit_coord, 0, 0);
+	vert->intercept_coord->x = floor(g_player.x / TILE_SIZE) * TILE_SIZE;
 	if (is_ray_facing_right(ray_angle))
-		vert->intercept->x += TILE_SIZE;
-	vert->intercept->y = g_player.y + (vert->intercept->x - g_player.x) * tan(ray_angle);
-	vert->step->x = is_ray_facing_right(ray_angle) ? TILE_SIZE : -(TILE_SIZE);
-	vert->step->y = init_parallel_step(ray_angle, VERTICAL);
-	coord_copy(vert->next_touch, vert->intercept);
-	while (is_inside_map(vert->next_touch) == true)
+		vert->intercept_coord->x += TILE_SIZE;
+	vert->intercept_coord->y = g_player.y + (vert->intercept_coord->x - g_player.x) * tan(ray_angle);
+	vert->step_coord->x = is_ray_facing_right(ray_angle) ? TILE_SIZE : -(TILE_SIZE);
+	vert->step_coord->y = init_parallel_step(ray_angle, VERTICAL);
+	coord_copy(vert->next_touch_coord, vert->intercept_coord);
+	while (is_inside_map(vert->next_touch_coord) == true)
 	{
-		coord_copy(vert->to_check, vert->next_touch);
+		coord_copy(vert->to_check_coord, vert->next_touch_coord);
 		if (is_ray_facing_left(ray_angle))
-			vert->to_check->x--;
-		if (map_has_wall_at(vert->to_check) == true)
+			vert->to_check_coord->x--;
+		if (map_has_wall_at(vert->to_check_coord->x, vert->to_check_coord->y) == true)
 		{
-			coord_copy(vert->wall_hit, vert->next_touch);
-			vert->wall_content = get_map_at(vert->to_check);
+			coord_copy(vert->wall_hit_coord, vert->next_touch_coord);
+			// vert->wall_content = get_map_at(vert->to_check_coord);
 			vert->is_wall_hit_found = true;
 			break;
 		}
-		coord_add(vert->next_touch, vert->step);
+		coord_add(vert->next_touch_coord, vert->step_coord);
 	}
-	vert->hit_distance = get_hit_distance(vert->wall_hit, vert->is_wall_hit_found);
+	vert->hit_distance = get_hit_distance(vert->wall_hit_coord, vert->is_wall_hit_found);
 }
 
-void	cast_ray(float ray_angle, size_t strip_id)
+t_ray_materials	*malloc_t_ray_materials()
 {
-	t_ray_materials	horz;
-	t_ray_materials	vert;
+	t_ray_materials	*ray_materials;
+	
+	ray_materials = malloc(sizeof(t_ray_materials));
+	ray_materials->intercept_coord = malloc(sizeof(t_coord));
+	ray_materials->step_coord = malloc(sizeof(t_coord));
+	ray_materials->wall_hit_coord = malloc(sizeof(t_coord));
+	ray_materials->next_touch_coord = malloc(sizeof(t_coord));
+	ray_materials->to_check_coord = malloc(sizeof(t_coord));
+	return (ray_materials);
+}
 
-	cast_ray_horizontal(&horz, ray_angle, strip_id);
-	cast_ray_vertical(&vert, ray_angle, strip_id);
-	if (vert.hit_distance < horz.hit_distance)
+// void	malloc_two_ray_materials(t_ray_materials *strct1, t_ray_materials *strct2)
+// {
+// 	strct1 = malloc_t_ray_materials();
+// 	strct2 = malloc_t_ray_materials();
+// }
+
+void	free_each_t_ray_materials(t_ray_materials *ray_materials)
+{
+	free(ray_materials->intercept_coord);
+	free(ray_materials->step_coord);
+	free(ray_materials->wall_hit_coord);
+	free(ray_materials->next_touch_coord);
+	free(ray_materials->to_check_coord);
+	free(ray_materials);
+}
+
+void	free_t_ray_materials(t_ray_materials *struct1, t_ray_materials *struct2)
+{
+	free_each_t_ray_materials(struct1);
+	free_each_t_ray_materials(struct2);
+}
+
+void	cast_ray_to_wall(float ray_angle, size_t strip_id)
+{
+	t_ray_materials	*horz;
+	t_ray_materials	*vert;
+
+	horz = malloc_t_ray_materials();
+	vert = malloc_t_ray_materials();
+	cast_ray_horizontal(horz, ray_angle);
+	cast_ray_vertical(vert, ray_angle);
+	// TODO: wall_hit_coord, 最後に free
+	g_rays[strip_id].wall_hit_coord = malloc(sizeof(t_coord));
+	if (vert->hit_distance < horz->hit_distance)
 	{
-		rays[strip_id].distance = vert.hit_distance;
-		// assign 使うべき
-
-		rays[strip_id].wall_hit.x = vert->wall_hit->x;
-		rays[strip_id].wall_hit.y = *(vert->wall_hit->y);
-		rays[strip_id].wall_hit_content = vert.wall_content;
-		rays[strip_id].was_hit_vertical = true;
-
-		// rays[strip_id].distance = vert_hit_distance;
-		// rays[strip_id].wall_hit.x = vert_wall_hit_x;
-		// rays[strip_id].wall_hit.y = vert_wall_hit_y;
-		// rays[strip_id].wall_hit_content = vert_wall_content;
-		// rays[strip_id].was_hit_vertical = true;
+		g_rays[strip_id].distance = vert->hit_distance;
+		coord_copy(g_rays[strip_id].wall_hit_coord, vert->wall_hit_coord);
+		// g_rays[strip_id].wall_hit_content = vert->wall_content;
+		g_rays[strip_id].was_hit_vertical = true;
 	}
 	else
 	{
-		rays[strip_id].distance = horz_hit_distance;
-		rays[strip_id].wall_hit.x = horz_wall_hit_x;
-		rays[strip_id].wall_hit.y = horz_wall_hit_y;
-		rays[strip_id].wall_hit_content = horz_wall_content;
-		rays[strip_id].was_hit_vertical = false;
-
-		// rays[strip_id].distance = horz_hit_distance;
-		// rays[strip_id].wall_hit.x = horz_wall_hit_x;
-		// rays[strip_id].wall_hit.y = horz_wall_hit_y;
-		// rays[strip_id].wall_hit_content = horz_wall_content;
-		// rays[strip_id].was_hit_vertical = false;
+		g_rays[strip_id].distance = horz->hit_distance;
+		coord_copy(g_rays[strip_id].wall_hit_coord, horz->wall_hit_coord);
+		// g_rays[strip_id].wall_hit_content = horz->wall_content;
+		g_rays[strip_id].was_hit_vertical = false;
 	}
-	set_ray_direction(&rays[strip_id].direction, rays[strip_id].was_hit_vertical, is_ray_facing_right(ray_angle), is_ray_facing_down(ray_angle));
-	rays[strip_id].ray_angle = ray_angle;
+	set_ray_direction(&g_rays[strip_id].direction, g_rays[strip_id].was_hit_vertical, is_ray_facing_right(ray_angle), is_ray_facing_down(ray_angle));
+	g_rays[strip_id].ray_angle = ray_angle;
+	free_t_ray_materials(horz, vert);
 	// DI(rays[strip_id].direction);
 }
 
-void	cast_all_rays()
+static void	cast_all_rays(void (*func)(float, size_t))
 {
 	float	ray_angle;
 	size_t	strip_id;
@@ -272,10 +279,16 @@ void	cast_all_rays()
 	while (strip_id < (size_t)g_cubfile_data.window_width)
 	{
 		normalize_angle(&ray_angle);
-		cast_ray(ray_angle, strip_id);
+		func(ray_angle, strip_id);
+		// cast_ray_to_wall(ray_angle, strip_id);
 		ray_angle += FOV_ANGLE / g_cubfile_data.window_width;
 		strip_id++;
 	}
+}
+
+void	cast_all_rays_to_wall(void)
+{
+	cast_all_rays(cast_ray_to_wall);// 関数ポインタ);
 }
 
 void	render_rays(void)
@@ -290,8 +303,8 @@ void	render_rays(void)
 		(
 			g_player.x * MINIMAP_SCALE_FACTOR,
 			g_player.y * MINIMAP_SCALE_FACTOR,
-			rays[index].wall_hit_x * MINIMAP_SCALE_FACTOR,
-			rays[index].wall_hit_y * MINIMAP_SCALE_FACTOR
+			g_rays[index].wall_hit_coord->x * MINIMAP_SCALE_FACTOR,
+			g_rays[index].wall_hit_coord->y * MINIMAP_SCALE_FACTOR
 		);
 		index++;
 	}

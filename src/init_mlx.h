@@ -36,7 +36,8 @@ extern	t_color	*wall_texture;
 
 void	mlx(void);
 void	init_texture_paths();
-bool	map_has_wall_at(t_coord *coord);
+// bool	map_has_wall_at(t_coord *coord);
+bool	map_has_wall_at(float x, float y);
 bool	is_out_of_window(float x, float y);
 
 #endif
