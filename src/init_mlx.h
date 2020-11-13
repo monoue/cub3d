@@ -4,7 +4,7 @@
 # include "defs.h"
 # include "event_hook.h"
 # include "graphics.h"
-# include "minimap.h"
+# include "render_mini_map.h"
 # include "player.h"
 # include "ray.h"
 # include "set_color.h"

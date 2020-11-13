@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 12:04:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 13:33:14 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/13 16:02:26 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,6 @@ void	sort_sprites(void)
 	}
 }
 
-void	render_rays_to_sprites()
-{
-	size_t			index;
-	const size_t	s_num = g_cubfile_data.sprites_num;
-
-	index = 0;
-	while (index < s_num)
-	{
-		g_color = create_trgb(0, floor(255 * index / (s_num - 1)), 50, floor(255 - 255 * (index / (s_num - 1))));
-		draw_line(
-			g_player.x * MINIMAP_SCALE_FACTOR,
-			g_player.y * MINIMAP_SCALE_FACTOR,
-			g_sprites[index].x * MINIMAP_SCALE_FACTOR,
-			g_sprites[index].y * MINIMAP_SCALE_FACTOR);
-		index++;
-	}
-}
 
 void	sprites(void)
 {

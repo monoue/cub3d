@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 15:32:05 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/13 16:39:19 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ void	free_t_ray_materials(t_ray_materials *struct1, t_ray_materials *struct2)
 }
 
 // TODO: ray_to_sprite は別ファイルにて
-// void	cast_ray_to_sprite(float ray_angle, size_t strip_id)
+// void	cast_ray_to_count_visible_sprites(float ray_angle, size_t strip_id)
 // {
 // 	t_ray_materials	*horz;
 // 	t_ray_materials	*vert;
@@ -308,31 +308,5 @@ static void	cast_all_rays(void (*func)(float, size_t))
 
 void	cast_all_rays_to_wall(void)
 {
-	cast_all_rays(cast_ray_to_wall);// 関数ポインタ);
-}
-
-// void	cast_all_rays_to_sprite(void)
-// {
-// 	cast_all_rays(cast_ray_to_sprite);
-// }
-
-void	render_rays(void)
-{
-	size_t	index;
-
-	index = 0;
-	g_color = create_trgb(200, 255, 241, 0);
-	while (index < (size_t)g_cubfile_data.window_width)
-	{
-		draw_line
-		(
-			g_player.x * MINIMAP_SCALE_FACTOR,
-			g_player.y * MINIMAP_SCALE_FACTOR,
-			g_rays[index].wall_hit_coord->x * MINIMAP_SCALE_FACTOR,
-			g_rays[index].wall_hit_coord->y * MINIMAP_SCALE_FACTOR
-		);
-		index++;
-	}
-	// test_ray_data(0);
-	// test_ray_data(NUM_RAYS - 1);
+	cast_all_rays(cast_ray_to_wall);
 }

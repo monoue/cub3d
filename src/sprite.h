@@ -5,6 +5,7 @@
 
 # include "defs.h"
 # include "graphics.h"
+# include "render_mini_map.h"
 
 typedef struct	s_sprite {
 	float	x;
