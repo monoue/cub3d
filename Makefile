@@ -6,7 +6,6 @@ OBJS =		$(SRCS:%.c=%.o)
 CLIBS =		-L . -lft
 CFLAGS =	-Wall -Wextra -Werror
 
-SRCS += src/check_map_error.c
 SRCS += src/coord.c
 SRCS += src/create_maps.c
 SRCS += src/error.c
@@ -14,6 +13,9 @@ SRCS += src/event_hook.c
 SRCS += src/graphics.c
 SRCS += src/init_mlx.c
 SRCS += src/main.c
+SRCS += src/map_check.c
+SRCS += src/map_error.c
+SRCS += src/minimap.c
 SRCS += src/player.c
 SRCS += src/ray.c
 SRCS += src/set_color.c

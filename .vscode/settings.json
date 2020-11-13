@@ -3,6 +3,13 @@
 		"graphics.h": "c",
 		"chrono": "c",
 		"istream": "cpp",
-		"ostream": "cpp"
+		"ostream": "cpp",
+		"algorithm": "cpp",
+		"functional": "cpp",
+		"iterator": "cpp",
+		"locale": "cpp",
+		"string": "cpp",
+		"unordered_map": "cpp",
+		"vector": "cpp"
 	}
 }

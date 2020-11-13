@@ -6,11 +6,11 @@
 # include "coord.h"
 # include "defs.h"
 # include "graphics.h"
-# include "set_cubfile_data.h"
-# include "check_map_error.h"
 # include "init_mlx.h"
+# include "map_error.h"
 # include "player.h"
-# include "float.h"
+# include "set_cubfile_data.h"
+# include <float.h>
 
 # include "test.h"
 
@@ -19,7 +19,6 @@ typedef struct	s_ray_to_wall {
 	t_coord		*wall_hit_coord;
 	float		distance;
 	bool		was_hit_vertical;
-	// char		wall_hit_content;
 	t_textures	wall_hit_direction;
 }				t_ray_to_wall;
 

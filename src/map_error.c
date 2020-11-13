@@ -6,11 +6,11 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:18:51 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/11 09:51:54 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/13 13:50:44 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_map_error.h"
+#include "map_error.h"
 
 #include "test.h"
 

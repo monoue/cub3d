@@ -2,13 +2,14 @@
 # define INIT_MLX_H
 
 # include "defs.h"
-# include "set_cubfile_data.h"
-# include "player.h"
-# include "set_color.h"
-# include "texture.h"
-# include "graphics.h"
-# include "ray.h"
 # include "event_hook.h"
+# include "graphics.h"
+# include "minimap.h"
+# include "player.h"
+# include "ray.h"
+# include "set_color.h"
+# include "set_cubfile_data.h"
+# include "texture.h"
 # include "wall.h"
 # include "../minilibx/mlx.h"
 

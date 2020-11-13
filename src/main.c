@@ -6,14 +6,14 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/12 14:54:09 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/13 13:53:46 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
 #include <stdio.h>
 
-#include "check_map_error.h"
+#include "map_error.h"
 #include "create_maps.h"
 #include "defs.h"
 #include "error.h"

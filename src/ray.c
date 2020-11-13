@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 10:15:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/13 14:25:58 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,6 @@ float	distance_between_points(float x1, float y1, float x2, float y2)
 
 	return (sqrt(pow(x_diff, 2) + pow(y_diff, 2)));
 }
-
-bool is_out_of_window(float x, float y) {
-	return (x < 0 || x >= MAX_MAP_LEN * TILE_SIZE || y < 0 || y >= MAX_MAP_LEN * TILE_SIZE);
-}
-
-// bool is_inside_map(float x, float y) {
-// 	return (x >= 0 && x < MAX_MAP_LEN * TILE_SIZE && y >= 0 && y < MAX_MAP_LEN * TILE_SIZE);
-// }
 
 bool	is_inside_map(t_coord *coord)
 {
@@ -142,63 +134,63 @@ char	get_map_at(t_coord *coord)
 }
 
 // 構造体作るしかなさそう（intercept_coord, step, wall_hit_coord）
-// t_ray_materials	cast_ray_horizontal(t_ray_materials *horz, float ray_angle)
-void	cast_ray_horizontal(t_ray_materials *horz, float ray_angle)
+// t_ray_materials	seek_horizontal_hit(t_ray_materials *horz, float ray_angle)
+void	seek_horizontal_hit(t_ray_materials *horz_hitter, float ray_angle)
 {
-	horz->is_wall_hit_found = false;
-	coord_assign(horz->wall_hit_coord, 0, 0);
-	horz->intercept_coord->y = floor(g_player.y / TILE_SIZE) * TILE_SIZE;
+	horz_hitter->is_wall_hit_found = false;
+	// coord_assign(horz_hitter->wall_hit_coord, 0, 0);
+	horz_hitter->intercept_coord->y = floor(g_player.y / TILE_SIZE) * TILE_SIZE;
 	if (is_ray_facing_down(ray_angle))
-		horz->intercept_coord->y += TILE_SIZE;
-	horz->intercept_coord->x = g_player.x + (horz->intercept_coord->y - g_player.y) / tan(ray_angle);
-	horz->step_coord->y = is_ray_facing_down(ray_angle) ? TILE_SIZE : -(TILE_SIZE);
-	horz->step_coord->x = init_parallel_step(ray_angle, HORIZONTAL);
-	coord_copy(horz->next_touch_coord, horz->intercept_coord);
-	while (is_inside_map(horz->next_touch_coord) == true)
+		horz_hitter->intercept_coord->y += TILE_SIZE;
+	horz_hitter->intercept_coord->x = g_player.x + (horz_hitter->intercept_coord->y - g_player.y) / tan(ray_angle);
+	horz_hitter->step_coord->y = is_ray_facing_down(ray_angle) ? TILE_SIZE : -(TILE_SIZE);
+	horz_hitter->step_coord->x = init_parallel_step(ray_angle, HORIZONTAL);
+	coord_copy(horz_hitter->next_touch_coord, horz_hitter->intercept_coord);
+	while (is_inside_map(horz_hitter->next_touch_coord) == true)
 	{
-		coord_copy(horz->to_check_coord, horz->next_touch_coord);
+		coord_copy(horz_hitter->to_check_coord, horz_hitter->next_touch_coord);
 		if (is_ray_facing_up(ray_angle))
-			horz->to_check_coord->y--;
-		if (map_has_wall_at(horz->to_check_coord->x, horz->to_check_coord->y) == true)
+			horz_hitter->to_check_coord->y--;
+		if (map_has_wall_at(horz_hitter->to_check_coord->x, horz_hitter->to_check_coord->y) == true)
 		{
-			coord_copy(horz->wall_hit_coord, horz->next_touch_coord);
+			coord_copy(horz_hitter->wall_hit_coord, horz_hitter->next_touch_coord);
 			// horz->wall_content = get_map_at(horz->to_check_coord);
-			horz->is_wall_hit_found = true;
+			horz_hitter->is_wall_hit_found = true;
 			break;
 		}
-		coord_add(horz->next_touch_coord, horz->step_coord);
+		coord_add(horz_hitter->next_touch_coord, horz_hitter->step_coord);
 	}
-	horz->hit_distance = get_hit_distance(horz->wall_hit_coord, horz->is_wall_hit_found);
+	horz_hitter->hit_distance = get_hit_distance(horz_hitter->wall_hit_coord, horz_hitter->is_wall_hit_found);
 }
 
 
 
-void	cast_ray_vertical(t_ray_materials *vert, float ray_angle)
+void	seek_vertical_hit(t_ray_materials *vert_hitter, float ray_angle)
 {
-	vert->is_wall_hit_found = false;
-	coord_assign(vert->wall_hit_coord, 0, 0);
-	vert->intercept_coord->x = floor(g_player.x / TILE_SIZE) * TILE_SIZE;
+	vert_hitter->is_wall_hit_found = false;
+	// coord_assign(vert_hitter->wall_hit_coord, 0, 0);
+	vert_hitter->intercept_coord->x = floor(g_player.x / TILE_SIZE) * TILE_SIZE;
 	if (is_ray_facing_right(ray_angle))
-		vert->intercept_coord->x += TILE_SIZE;
-	vert->intercept_coord->y = g_player.y + (vert->intercept_coord->x - g_player.x) * tan(ray_angle);
-	vert->step_coord->x = is_ray_facing_right(ray_angle) ? TILE_SIZE : -(TILE_SIZE);
-	vert->step_coord->y = init_parallel_step(ray_angle, VERTICAL);
-	coord_copy(vert->next_touch_coord, vert->intercept_coord);
-	while (is_inside_map(vert->next_touch_coord) == true)
+		vert_hitter->intercept_coord->x += TILE_SIZE;
+	vert_hitter->intercept_coord->y = g_player.y + (vert_hitter->intercept_coord->x - g_player.x) * tan(ray_angle);
+	vert_hitter->step_coord->x = is_ray_facing_right(ray_angle) ? TILE_SIZE : -(TILE_SIZE);
+	vert_hitter->step_coord->y = init_parallel_step(ray_angle, VERTICAL);
+	coord_copy(vert_hitter->next_touch_coord, vert_hitter->intercept_coord);
+	while (is_inside_map(vert_hitter->next_touch_coord) == true)
 	{
-		coord_copy(vert->to_check_coord, vert->next_touch_coord);
+		coord_copy(vert_hitter->to_check_coord, vert_hitter->next_touch_coord);
 		if (is_ray_facing_left(ray_angle))
-			vert->to_check_coord->x--;
-		if (map_has_wall_at(vert->to_check_coord->x, vert->to_check_coord->y) == true)
+			vert_hitter->to_check_coord->x--;
+		if (map_has_wall_at(vert_hitter->to_check_coord->x, vert_hitter->to_check_coord->y) == true)
 		{
-			coord_copy(vert->wall_hit_coord, vert->next_touch_coord);
+			coord_copy(vert_hitter->wall_hit_coord, vert_hitter->next_touch_coord);
 			// vert->wall_content = get_map_at(vert->to_check_coord);
-			vert->is_wall_hit_found = true;
+			vert_hitter->is_wall_hit_found = true;
 			break;
 		}
-		coord_add(vert->next_touch_coord, vert->step_coord);
+		coord_add(vert_hitter->next_touch_coord, vert_hitter->step_coord);
 	}
-	vert->hit_distance = get_hit_distance(vert->wall_hit_coord, vert->is_wall_hit_found);
+	vert_hitter->hit_distance = get_hit_distance(vert_hitter->wall_hit_coord, vert_hitter->is_wall_hit_found);
 }
 
 t_ray_materials	*malloc_t_ray_materials()
@@ -236,66 +228,67 @@ void	free_t_ray_materials(t_ray_materials *struct1, t_ray_materials *struct2)
 	free_each_t_ray_materials(struct2);
 }
 
-void	cast_ray_to_sprite(float ray_angle, size_t strip_id)
-{
-	t_ray_materials	*horz;
-	t_ray_materials	*vert;
+// TODO: ray_to_sprite は別ファイルにて
+// void	cast_ray_to_sprite(float ray_angle, size_t strip_id)
+// {
+// 	t_ray_materials	*horz;
+// 	t_ray_materials	*vert;
 
-	horz = malloc_t_ray_materials();
-	vert = malloc_t_ray_materials();
-	cast_ray_horizontal(horz, ray_angle);
-	cast_ray_vertical(vert, ray_angle);
-	// TODO: wall_hit_coord, 最後に free
-	g_rays[strip_id].wall_hit_coord = malloc(sizeof(t_coord));
-	if (vert->hit_distance < horz->hit_distance)
-	{
-		g_rays[strip_id].distance = vert->hit_distance;
-		coord_copy(g_rays[strip_id].wall_hit_coord, vert->wall_hit_coord);
-		// g_rays[strip_id].wall_hit_content = vert->wall_content;
-		g_rays[strip_id].was_hit_vertical = true;
-	}
-	else
-	{
-		g_rays[strip_id].distance = horz->hit_distance;
-		coord_copy(g_rays[strip_id].wall_hit_coord, horz->wall_hit_coord);
-		// g_rays[strip_id].wall_hit_content = horz->wall_content;
-		g_rays[strip_id].was_hit_vertical = false;
-	}
-	set_ray_direction(&g_rays[strip_id].wall_hit_direction, g_rays[strip_id].was_hit_vertical, is_ray_facing_right(ray_angle), is_ray_facing_down(ray_angle));
-	g_rays[strip_id].ray_angle = ray_angle;
-	free_t_ray_materials(horz, vert);
-	// DI(rays[strip_id].direction);
-}
+// 	horz = malloc_t_ray_materials();
+// 	vert = malloc_t_ray_materials();
+// 	seek_horizontal_hit(horz, ray_angle);
+// 	seek_vertical_hit(vert, ray_angle);
+// 	// TODO: wall_hit_coord, 最後に free
+// 	g_rays[strip_id].wall_hit_coord = malloc(sizeof(t_coord));
+// 	if (vert->hit_distance < horz->hit_distance)
+// 	{
+// 		g_rays[strip_id].distance = vert->hit_distance;
+// 		coord_copy(g_rays[strip_id].wall_hit_coord, vert->wall_hit_coord);
+// 		// g_rays[strip_id].wall_hit_content = vert->wall_content;
+// 		g_rays[strip_id].was_hit_vertical = true;
+// 	}
+// 	else
+// 	{
+// 		g_rays[strip_id].distance = horz->hit_distance;
+// 		coord_copy(g_rays[strip_id].wall_hit_coord, horz->wall_hit_coord);
+// 		// g_rays[strip_id].wall_hit_content = horz->wall_content;
+// 		g_rays[strip_id].was_hit_vertical = false;
+// 	}
+// 	set_ray_direction(&g_rays[strip_id].wall_hit_direction, g_rays[strip_id].was_hit_vertical, is_ray_facing_right(ray_angle), is_ray_facing_down(ray_angle));
+// 	g_rays[strip_id].ray_angle = ray_angle;
+// 	free_t_ray_materials(horz, vert);
+// 	// DI(rays[strip_id].direction);
+// }
 
 
 void	cast_ray_to_wall(float ray_angle, size_t strip_id)
 {
-	t_ray_materials	*horz;
-	t_ray_materials	*vert;
+	t_ray_materials	*horz_hitter;
+	t_ray_materials	*vert_hitter;
 
-	horz = malloc_t_ray_materials();
-	vert = malloc_t_ray_materials();
-	cast_ray_horizontal(horz, ray_angle);
-	cast_ray_vertical(vert, ray_angle);
+	horz_hitter = malloc_t_ray_materials();
+	vert_hitter = malloc_t_ray_materials();
+	seek_horizontal_hit(horz_hitter, ray_angle);
+	seek_vertical_hit(vert_hitter, ray_angle);
 	// TODO: wall_hit_coord, 最後に free
 	g_rays[strip_id].wall_hit_coord = malloc(sizeof(t_coord));
-	if (vert->hit_distance < horz->hit_distance)
+	if (vert_hitter->hit_distance < horz_hitter->hit_distance)
 	{
-		g_rays[strip_id].distance = vert->hit_distance;
-		coord_copy(g_rays[strip_id].wall_hit_coord, vert->wall_hit_coord);
+		g_rays[strip_id].distance = vert_hitter->hit_distance;
+		coord_copy(g_rays[strip_id].wall_hit_coord, vert_hitter->wall_hit_coord);
 		// g_rays[strip_id].wall_hit_content = vert->wall_content;
 		g_rays[strip_id].was_hit_vertical = true;
 	}
 	else
 	{
-		g_rays[strip_id].distance = horz->hit_distance;
-		coord_copy(g_rays[strip_id].wall_hit_coord, horz->wall_hit_coord);
+		g_rays[strip_id].distance = horz_hitter->hit_distance;
+		coord_copy(g_rays[strip_id].wall_hit_coord, horz_hitter->wall_hit_coord);
 		// g_rays[strip_id].wall_hit_content = horz->wall_content;
 		g_rays[strip_id].was_hit_vertical = false;
 	}
 	set_ray_direction(&g_rays[strip_id].wall_hit_direction, g_rays[strip_id].was_hit_vertical, is_ray_facing_right(ray_angle), is_ray_facing_down(ray_angle));
 	g_rays[strip_id].ray_angle = ray_angle;
-	free_t_ray_materials(horz, vert);
+	free_t_ray_materials(horz_hitter, vert_hitter);
 	// DI(rays[strip_id].direction);
 }
 
@@ -321,10 +314,10 @@ void	cast_all_rays_to_wall(void)
 	cast_all_rays(cast_ray_to_wall);// 関数ポインタ);
 }
 
-void	cast_all_rays_to_sprite(void)
-{
-	cast_all_rays(cast_ray_to_sprite);
-}
+// void	cast_all_rays_to_sprite(void)
+// {
+// 	cast_all_rays(cast_ray_to_sprite);
+// }
 
 void	render_rays(void)
 {

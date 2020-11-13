@@ -3,10 +3,10 @@
 
 # include <fcntl.h>
 
-# include "check_map_error.h"
 # include "create_maps.h"
 # include "init_mlx.h"
 # include "libft/libft.h"
+# include "map_error.h"
 # include "player.h"
 # include "set_color.h"
 # include "sprite.h"
