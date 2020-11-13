@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 13:56:48 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/13 14:32:34 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void	update(void)
 	move_player();
 	cast_all_rays_to_wall();
 	// cast_all_rays();
+}
+
+bool is_out_of_window(float x, float y) {
+	return (x < 0 || x >= MAX_MAP_LEN * TILE_SIZE || y < 0 || y >= MAX_MAP_LEN * TILE_SIZE);
 }
 
 

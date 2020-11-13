@@ -32,8 +32,8 @@ typedef struct	s_ray_to_sprite {
 }				t_ray_to_sprite;
 
 typedef struct	s_ray_materials {
-	t_coord	*intercept_coord;
-	t_coord	*step_coord;
+	t_coord	*intercept;
+	t_coord	*step;
 	bool	is_wall_hit_found;
 	t_coord	*wall_hit_coord;
 	// char	wall_content;
