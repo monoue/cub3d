@@ -20,7 +20,7 @@ typedef struct	s_ray_to_wall {
 	float		distance;
 	bool		was_hit_vertical;
 	// char		wall_hit_content;
-	t_textures	direction;
+	t_textures	wall_hit_direction;
 }				t_ray_to_wall;
 
 typedef struct	s_ray_to_sprite {

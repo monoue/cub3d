@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/12 15:34:22 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/13 09:57:01 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ int	main_loop(void *null)
 	update();
 	g_color = create_trgb(0, 0, 0, 0);
 	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height);
-	render_wall_projection();
+	render_background();
 	render_map();
 	render_rays();
 	sprites();

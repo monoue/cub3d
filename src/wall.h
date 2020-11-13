@@ -4,6 +4,6 @@
 # include "defs.h"
 # include "graphics.h" // g_color
 
-void	render_wall_projection(void);
+void	render_background(void);
 
 #endif

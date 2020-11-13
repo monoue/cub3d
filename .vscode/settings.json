@@ -1,6 +1,8 @@
 {
 	"files.associations": {
 		"graphics.h": "c",
-		"chrono": "c"
+		"chrono": "c",
+		"istream": "cpp",
+		"ostream": "cpp"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/12 16:38:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/13 10:15:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void	cast_ray_vertical(t_ray_materials *vert, float ray_angle)
 t_ray_materials	*malloc_t_ray_materials()
 {
 	t_ray_materials	*ray_materials;
-	
+
 	ray_materials = malloc(sizeof(t_ray_materials));
 	ray_materials->intercept_coord = malloc(sizeof(t_coord));
 	ray_materials->step_coord = malloc(sizeof(t_coord));
@@ -261,7 +261,7 @@ void	cast_ray_to_sprite(float ray_angle, size_t strip_id)
 		// g_rays[strip_id].wall_hit_content = horz->wall_content;
 		g_rays[strip_id].was_hit_vertical = false;
 	}
-	set_ray_direction(&g_rays[strip_id].direction, g_rays[strip_id].was_hit_vertical, is_ray_facing_right(ray_angle), is_ray_facing_down(ray_angle));
+	set_ray_direction(&g_rays[strip_id].wall_hit_direction, g_rays[strip_id].was_hit_vertical, is_ray_facing_right(ray_angle), is_ray_facing_down(ray_angle));
 	g_rays[strip_id].ray_angle = ray_angle;
 	free_t_ray_materials(horz, vert);
 	// DI(rays[strip_id].direction);
@@ -293,7 +293,7 @@ void	cast_ray_to_wall(float ray_angle, size_t strip_id)
 		// g_rays[strip_id].wall_hit_content = horz->wall_content;
 		g_rays[strip_id].was_hit_vertical = false;
 	}
-	set_ray_direction(&g_rays[strip_id].direction, g_rays[strip_id].was_hit_vertical, is_ray_facing_right(ray_angle), is_ray_facing_down(ray_angle));
+	set_ray_direction(&g_rays[strip_id].wall_hit_direction, g_rays[strip_id].was_hit_vertical, is_ray_facing_right(ray_angle), is_ray_facing_down(ray_angle));
 	g_rays[strip_id].ray_angle = ray_angle;
 	free_t_ray_materials(horz, vert);
 	// DI(rays[strip_id].direction);
