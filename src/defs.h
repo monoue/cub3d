@@ -12,6 +12,7 @@
 # define PI						3.14159265
 # define TWO_PI					6.28318530
 # define TILE_SIZE				512
+// # define TILE_SIZE				256
 # define MAX_MAP_LEN			50
 # define MINIMAP_SCALE_FACTOR	0.05
 # define IMGDIR					"./images"

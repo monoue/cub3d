@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 13:43:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 16:05:51 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:31:04 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	render_rays(void)
 	size_t	index;
 
 	index = 0;
-	g_color = create_trgb(200, 255, 241, 0);
+	g_color = create_trgb(245, 255, 241, 0);
 	while (index < (size_t)g_cubfile_data.window_width)
 	{
 		draw_line
@@ -90,7 +90,7 @@ void	render_rays_to_sprites()
 	index = 0;
 	while (index < s_num)
 	{
-		g_color = create_trgb(0, floor(255 * index / (s_num - 1)), 50, floor(255 - 255 * (index / (s_num - 1))));
+		g_color = create_trgb(230, floor(255 * index / (s_num - 1)), 50, floor(255 - 255 * (index / (s_num - 1))));
 		draw_line(
 			g_player.x * MINIMAP_SCALE_FACTOR,
 			g_player.y * MINIMAP_SCALE_FACTOR,

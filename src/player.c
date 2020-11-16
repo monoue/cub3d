@@ -10,7 +10,7 @@ t_player	g_player =
 	.turn_direction = NEUTRAL,
 	.walk_direction = NEUTRAL,
 	.walk_speed = 80,
-	.turn_speed = 5 * (PI / 180)
+	.turn_speed = 3 * (PI / 180)
 	// .turn_speed = 1.0 * (PI / 180)
 };
 
@@ -33,6 +33,10 @@ void	move_player(void)
 		if (!map_has_wall_at(g_player.x, new_player_y))
 			g_player.y = new_player_y;
 	}
+	// DF(g_player.x);
+	// DF(g_player.x / TILE_SIZE)
+	// DF(g_player.y);
+	// DF(g_player.y / TILE_SIZE)
 }
 
 static float	get_spawning_angle(char c)

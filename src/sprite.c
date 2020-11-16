@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 12:04:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/16 07:57:54 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/16 13:23:22 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,17 @@ void	set_sprite_basic_data(size_t x, size_t y, size_t sprite_i)
 
 void	set_distance_to_sprite(size_t index)
 {
-	float	delta_x;
-	float	delta_y;
+	// float	delta_x;
+	// float	delta_y;
 
-	delta_x = g_sprites[index].x - g_player.x;
-	delta_y = g_sprites[index].y - g_player.y;
-	g_sprites[index].distance_from_player = sqrt(pow(delta_x, 2) + pow(delta_x, 2));
+	// DF(g_sprites[0].x);
+	// DF(g_player.x);
+	// DF(g_sprites[0].y);
+	// DF(g_player.y);
+	// DF(g_sprites[0].x - g_player.x);
+	const float delta_x = g_sprites[index].x - g_player.x;
+	const float delta_y = g_sprites[index].y - g_player.y;
+	g_sprites[index].distance_from_player = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
 }
 
 void	update_distances_to_sprites(void)
