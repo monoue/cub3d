@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:39:15 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 16:55:50 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/16 09:50:04 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,42 @@
 
 t_ray_to_wall	g_rays_to_sprite[MAX_WINDOW_WIDTH];
 
+t_coord	*adjust_coord_to_tile_center(t_coord *coord)
+{
+	t_coord	*coord_adjusted;
+	const int	center_x = floor(coord->x / TILE_SIZE) * TILE_SIZE + TILE_SIZE * 0.5;
+	const int	center_y = floor(coord->y / TILE_SIZE) * TILE_SIZE + TILE_SIZE * 0.5;
+
+	coord_adjusted = malloc(sizeof(coord_adjusted));
+	coord_assign(coord_adjusted, center_x, center_y);
+	// coord_int->x = malloc(sizeof(int));
+	// coord_int->y = malloc(sizeof(int));
+	// coord_adjusted->x = center_x;
+	// coord_adjusted->y = center_y;
+	return (coord_adjusted);
+}
+
+void	record_sprite_hit(t_coord *to_check_coord)
+{
+	size_t	index;
+	// const t_coord_int	*to_check_coord_int = adjust_coord_to_tile_center(to_check_coord);
+	const t_coord	*tile_center_coord = adjust_coord_to_tile_center(to_check_coord);
+
+	index = 0;
+	while (index < g_cubfile_data.sprites_num)
+	{
+		// DF(g_sprites[index].x);
+		// DF(tile_center_coord->x);
+		// DF(g_sprites[index].y);
+		// DF(tile_center_coord->y);
+		if (g_sprites[index].x == tile_center_coord->x && g_sprites[index].y == tile_center_coord->y)
+		{
+			g_sprites[index].is_visible = true;
+			break ;
+		}
+		index++;
+	}
+}
 
 // この関数、蛇足かも
 // char	get_map_at(size_t y, size_t x)
@@ -66,36 +102,36 @@ t_ray_to_wall	g_rays_to_sprite[MAX_WINDOW_WIDTH];
 // 	}
 // }
 
-bool is_ray_facing_down(float angle)
-{
-	return (angle > 0 && angle < PI);
-}
+// bool is_ray_facing_down(float angle)
+// {
+// 	return (angle > 0 && angle < PI);
+// }
 
-bool is_ray_facing_up(float angle)
-{
-	return (!is_ray_facing_down(angle));
-}
+// bool is_ray_facing_up(float angle)
+// {
+// 	return (!is_ray_facing_down(angle));
+// }
 
-bool is_ray_facing_right(float angle)
-{
-	return (angle < HALF_PI || angle > PI + HALF_PI);
-}
+// bool is_ray_facing_right(float angle)
+// {
+// 	return (angle < HALF_PI || angle > PI + HALF_PI);
+// }
 
-bool is_ray_facing_left(float angle)
-{
-	return (!is_ray_facing_right(angle));
-}
+// bool is_ray_facing_left(float angle)
+// {
+// 	return (!is_ray_facing_right(angle));
+// }
 
-float	get_hit_distance(t_coord *wall_hit_coord, bool is_hit_found)
-{
-	float	hit_distance;
+// float	get_hit_distance(t_coord *wall_hit_coord, bool is_hit_found)
+// {
+// 	float	hit_distance;
 
-	if (is_hit_found == true)
-		hit_distance = distance_between_points(g_player.x, g_player.y, wall_hit_coord->x, wall_hit_coord->y);
-	else
-		hit_distance = FLT_MAX;
-	return (hit_distance);
-}
+// 	if (is_hit_found == true)
+// 		hit_distance = distance_between_points(g_player.x, g_player.y, wall_hit_coord->x, wall_hit_coord->y);
+// 	else
+// 		hit_distance = FLT_MAX;
+// 	return (hit_distance);
+// }
 
 // void	init_horz_hitter_step(t_coord *step, float ray_angle)
 // {
@@ -180,7 +216,7 @@ void	seek_vertical_hit(t_ray_materials *vert_hitter, float ray_angle)
 		}
 		coord_add(vert_hitter->next_touch_coord, vert_hitter->step);
 	}
-	// TODO: update ごとに、構造体全部のループを回して、ray_hit を初期化し直すのを忘れずに！
+	// TODO: update ごとに、構造体全部のループを回して、is_visible を初期化し直すのを忘れずに！
 }
 
 t_ray_materials	*malloc_t_ray_materials()

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/12 17:22:26 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/16 07:57:54 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ void	set_spawn_data_and_sprites_num(void)
 		{
 			if (current_c == '2')
 			{
-				set_sprite_data(x, y, sprites_count);
+				set_sprite_basic_data(x, y, sprites_count);
 				sprites_count++;
 			}
 			else if (is_spawn_point_c(current_c))

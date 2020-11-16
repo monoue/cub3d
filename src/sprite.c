@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 12:04:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 16:02:26 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/16 07:57:54 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_sprite g_sprites[MAX_SPRITES_NUM];
 
-void	set_sprite_data(size_t x, size_t y, size_t sprite_i)
+void	set_sprite_basic_data(size_t x, size_t y, size_t sprite_i)
 {
 	g_sprites[sprite_i].x = x * TILE_SIZE + TILE_SIZE * 0.5;
 	g_sprites[sprite_i].y = y * TILE_SIZE + TILE_SIZE * 0.5;

@@ -7,6 +7,7 @@
 # include "defs.h"
 # include "graphics.h"
 # include "init_mlx.h"
+# include "map_check.h"
 # include "map_error.h"
 # include "player.h"
 # include "set_cubfile_data.h"

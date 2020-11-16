@@ -59,3 +59,15 @@ void	test_ray_data(size_t index)
 	DI(g_rays[index].was_hit_vertical);
 	// DC(g_rays[index].wall_hit_content);
 }
+
+void	test_sprite_hit(void)
+{
+	size_t	index;
+
+	index = 0;
+	while (index < g_cubfile_data.sprites_num)
+	{
+		DI(g_sprites[index].is_visible);
+		index++;
+	}
+}

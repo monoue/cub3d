@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 16:39:19 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/16 09:50:04 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ float	get_hit_distance(t_coord *wall_hit_coord, bool is_hit_found)
 	return (hit_distance);
 }
 
+
 // char	get_map_at(t_coord *coord)
 // {
 // 	const int x = (int)(coord->x / TILE_SIZE);
@@ -143,6 +144,9 @@ void	seek_horizontal_hit(t_ray_materials *horz_hitter, float ray_angle)
 		coord_copy(horz_hitter->to_check_coord, horz_hitter->next_touch_coord);
 		if (is_ray_facing_up(ray_angle))
 			horz_hitter->to_check_coord->y--;
+		// if (map_has_sprite_at(horz_hitter->to_check_coord->x, horz_hitter->to_check_coord->y) == true)
+		// 	record_sprite_hit(horz_hitter->to_check_coord);
+		// else if (map_has_wall_at(horz_hitter->to_check_coord->x, horz_hitter->to_check_coord->y) == true)
 		if (map_has_wall_at(horz_hitter->to_check_coord->x, horz_hitter->to_check_coord->y) == true)
 		{
 			coord_copy(horz_hitter->wall_hit_coord, horz_hitter->next_touch_coord);
@@ -172,6 +176,22 @@ void	init_vert_hitter_intercept(t_coord *intercept, float ray_angle)
 	intercept->y = g_player.y + (intercept->x - g_player.x) * tan(ray_angle);
 }
 
+
+
+// void	record_sprite_hit(t_coord *to_check_coord)
+// {
+// 	size_t	index;
+// 	const t_coord_int	*to_check_coord_int = adjust_coord_to_tile_center(to_check_coord);
+
+// 	index = 0;
+// 	while (index < g_cubfile_data.sprites_num)
+// 	{
+// 		if (g_sprites[index].x == to_check_coord_int->x && g_sprites[index].y == to_check_coord_int->y)
+// 			g_sprites[index].is_visible = true;
+// 		index++;
+// 	}
+// }
+
 void	seek_vertical_hit(t_ray_materials *vert_hitter, float ray_angle)
 {
 	vert_hitter->is_wall_hit_found = false;
@@ -184,6 +204,9 @@ void	seek_vertical_hit(t_ray_materials *vert_hitter, float ray_angle)
 		coord_copy(vert_hitter->to_check_coord, vert_hitter->next_touch_coord);
 		if (is_ray_facing_left(ray_angle))
 			vert_hitter->to_check_coord->x--;
+		// if (map_has_sprite_at(vert_hitter->to_check_coord->x, vert_hitter->to_check_coord->y) == true)
+		// 	record_sprite_hit(vert_hitter->to_check_coord);
+		// else if (map_has_wall_at(vert_hitter->to_check_coord->x, vert_hitter->to_check_coord->y) == true)
 		if (map_has_wall_at(vert_hitter->to_check_coord->x, vert_hitter->to_check_coord->y) == true)
 		{
 			coord_copy(vert_hitter->wall_hit_coord, vert_hitter->next_touch_coord);

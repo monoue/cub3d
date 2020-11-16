@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 14:32:34 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/16 10:25:13 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,58 @@ t_mlx	g_mlx;
 t_img	g_img;
 
 
+void	reset_sprites_texture_data(void)
+{
+	size_t	index;
+
+	index = 0;
+	while (index < g_cubfile_data.sprites_num)
+	{
+		g_sprites[index].is_visible = false;
+		index++;
+	}
+}
+
+bool	is_sprite_within_fov(size_t index)
+{
+	t_coord *vector;
+	float	angle_from_player_to_sprite;
+	float	angle_difference;
+
+	vector = malloc(sizeof(vector));
+	
+	coord_assign(vector, g_sprites[index].x - g_player.x, g_sprites[index].y - g_player.y);
+	angle_from_player_to_sprite = atan2f(vector->y, vector->x);
+	angle_difference = g_player.rotation_angle - angle_from_player_to_sprite;
+	normalize_angle(&angle_difference);
+    if (angle_difference < -(PI))
+        angle_difference += TWO_PI;
+    if (angle_difference > PI)
+        angle_difference -= TWO_PI;
+	angle_difference = fabsf(angle_difference);
+	return (angle_difference < FOV_ANGLE / 2);
+}
+
+void	record_sprites_within_fov(void)
+{
+	size_t	index;
+
+	index = 0;
+	while (index < g_cubfile_data.sprites_num)
+	{
+		if (is_sprite_within_fov(index))
+			g_sprites[index].is_visible = true;
+		index++;
+	}
+}
 
 void	update(void)
 {
 	move_player();
+	reset_sprites_texture_data();
+	record_sprites_within_fov();
 	cast_all_rays_to_wall();
+	test_sprite_hit();
 	// cast_all_rays();
 }
 

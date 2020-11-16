@@ -18,5 +18,6 @@ void	test_current_g_map_to_check(void);
 void	test_player_data(void);
 void	test_texture_data(void);
 void	test_ray_data(size_t index);
+void	test_sprite_hit(void);
 
 #endif
