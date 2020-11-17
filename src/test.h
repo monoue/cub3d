@@ -19,5 +19,6 @@ void	test_player_data(void);
 void	test_texture_data(void);
 void	test_ray_data(size_t index);
 void	test_sprite_hit(void);
+void	test_draw_sprite_center_vertical_lines(void);
 
 #endif

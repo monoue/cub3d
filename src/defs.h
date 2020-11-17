@@ -14,7 +14,7 @@
 # define TILE_SIZE				512
 // # define TILE_SIZE				256
 # define MAX_MAP_LEN			50
-# define MINIMAP_SCALE_FACTOR	0.05
+# define MINIMAP_SCALE_FACTOR	0.025
 # define IMGDIR					"./images"
 # define FOV_ANGLE				(60 * (PI / 180))
 // # define DIST_PROJ_PLANE		((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))

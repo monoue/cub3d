@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 12:21:10 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/17 12:57:42 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int		calc_projected_wall_height(t_ray_to_wall ray)
 	const float	distance_proj_plane
 					= (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
 	const float perp_distance_to_wall
-		= ray.distance
-				* cos(ray.ray_angle - g_player.rotation_angle);
+		= ray.distance * cos(ray.ray_angle - g_player.rotation_angle);
 
 	return ((int)(distance_proj_plane * (TILE_SIZE / perp_distance_to_wall)));
 }
