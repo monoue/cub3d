@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/18 15:03:55 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/18 15:14:03 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,9 +252,16 @@ void	render_sprite(size_t index)
 	// DI(sprite_left_edge_pixel);
 	// DI(sprite_right_edge_pixel);
 	// ft_putchar('\n');
+	
+	// とりあえずテストのため、二重に書いている。あとでまとめる
+	float	normalized_angle_difference = calc_angle_difference_between_player_and_sprite(index);
+	normalize_angle(&normalized_angle_difference);
+	const float perp_distance_to_project
+	= fabs(g_sprites[index].distance_from_player * cos(normalized_angle_difference));
+	// ここまで、ダブっている
 	while (x < sprite_right_edge_pixel)
 	{
-		if (x < 0)
+		if (x < 0 || g_rays[x].distance <= perp_distance_to_project)
 			;
 		else
 		{
