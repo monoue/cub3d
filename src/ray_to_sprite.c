@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:39:15 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/16 09:50:04 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/18 11:36:39 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	record_sprite_hit(t_coord *to_check_coord)
 //     return (x >= 0 && x <= edge && y >= 0 && y <= edge);
 // }
 
-// static void	set_ray_direction(t_textures *direction, bool was_hit_vertical, bool is_ray_facing_right, bool is_ray_facing_down)
+// static void	set_ray_direction(t_textures_num *direction, bool was_hit_vertical, bool is_ray_facing_right, bool is_ray_facing_down)
 // {
 // 	if (was_hit_vertical)
 // 	{

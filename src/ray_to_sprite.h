@@ -20,7 +20,7 @@
 // 	t_coord		*wall_hit_coord;
 // 	float		distance;
 // 	bool		was_hit_vertical;
-// 	t_textures	wall_hit_direction;
+// 	t_textures_num	wall_hit_direction;
 // }				t_ray_to_wall;
 
 // この構造体自体要らないかも
@@ -31,7 +31,7 @@ typedef struct	s_ray_to_sprite {
 	// bool		is_visible;
 	bool		was_hit_vertical;
 	// char		wall_hit_content;
-	t_textures	direction;
+	t_textures_num	direction;
 }				t_ray_to_sprite;
 
 typedef struct	s_ray_to_sprite_materials {

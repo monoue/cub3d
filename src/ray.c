@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/16 11:48:49 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/18 11:36:39 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	is_inside_map(t_coord *coord)
     return (x >= 0 && x <= edge && y >= 0 && y <= edge);
 }
 
-static void	set_ray_direction(t_textures *direction, bool was_hit_vertical, bool is_ray_facing_right, bool is_ray_facing_down)
+static void	set_ray_direction(t_textures_num *direction, bool was_hit_vertical, bool is_ray_facing_right, bool is_ray_facing_down)
 {
 	if (was_hit_vertical)
 	{

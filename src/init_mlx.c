@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/18 10:38:44 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/18 12:35:40 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,11 +192,12 @@ int		calc_projected_sprite_height(size_t	index)
 	// if (fabs(normalized_angle_difference) > 90 * (PI / 180))
 	// 	return (0);
 	const float perp_distance_to_project
-		= fabs(g_sprites[index].distance_from_player * cos(normalized_angle_difference));
-	DI((int)index);
-	DF(normalized_angle_difference);
-	DF(cos(normalized_angle_difference));
-	DF(perp_distance_to_project);
+		= g_sprites[index].distance_from_player * cos(normalized_angle_difference);
+		// = fabs(g_sprites[index].distance_from_player * cos(normalized_angle_difference));
+	// DI((int)index);
+	// DF(normalized_angle_difference);
+	// DF(cos(normalized_angle_difference));
+	// DF(perp_distance_to_project);
 
 	return ((int)(g_distance_proj_plane * (TILE_SIZE / perp_distance_to_project)));
 }
@@ -249,14 +250,18 @@ void	test_draw_sprite_left_vertical_line(size_t index)
 			;
 		else
 		{
-			int sprite_texture_offset_x = (sprite_width - (x - sprite_left_edge_pixel)) * (g_textures[SPRITE].width / sprite_width);
+			int sprite_texture_offset_x = (int)((float)(x - sprite_left_edge_pixel) / sprite_width * g_textures[SPRITE].width);
 
 			int y = sprite_top_pixel;
 			while (y < sprite_bottom_pixel)
 			{
-				int sprite_texture_offset_y = (sprite_height - (y - assumed_sprite_top_pixel)) * (g_textures[SPRITE].height / sprite_height);
+				int sprite_texture_offset_y = (int)((float)(y - sprite_top_pixel) / sprite_height * g_textures[SPRITE].height);
+				// DI(sprite_texture_offset_x);
+				// DI(sprite_texture_offset_y);
+				// g_color = create_trgb(0, 0, 0, 255);
 				set_texture_color(g_textures[SPRITE], sprite_texture_offset_x, sprite_texture_offset_y);
-				draw_pixel(x, y);
+				if (g_color)
+					draw_pixel(x, y);
 				y++;
 			}
 		}

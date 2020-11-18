@@ -13,9 +13,6 @@
 # include "wall.h"
 # include "../minilibx/mlx.h"
 
-
-
-
 typedef struct	s_img
 {
 	void	*img_ptr;

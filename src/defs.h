@@ -12,9 +12,11 @@
 # define PI						3.14159265
 # define TWO_PI					6.28318530
 # define TILE_SIZE				512
+// # define TILE_SIZE				32
 // # define TILE_SIZE				256
 # define MAX_MAP_LEN			50
 # define MINIMAP_SCALE_FACTOR	0.035
+// # define MINIMAP_SCALE_FACTOR	0.4
 # define IMGDIR					"./images"
 # define FOV_ANGLE				(60 * (PI / 180))
 // # define DIST_PROJ_PLANE		((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
@@ -44,18 +46,18 @@ typedef enum	e_move_directions
 	WALK_DIRECTIONS_NUM
 }				t_move_directions;
 
-typedef enum	e_axes
-{
-	HORIZONTAL,
-	VERTICAL,
+// typedef enum	e_axes
+// {
+// 	HORIZONTAL,
+// 	VERTICAL,
 
-	AXES_NUM
-}				t_axes;
+// 	AXES_NUM
+// }				t_axes;
 
 # define TO_LEFT -1
 # define TO_RIGHT 1
 
-typedef enum	e_textures
+typedef enum	e_textures_num
 {
 	NORTH,
 	EAST,
@@ -64,7 +66,7 @@ typedef enum	e_textures
 	SPRITE,
 
 	TEXTURES_NUM
-}				t_textures;
+}				t_textures_num;
 
 typedef enum	e_error_types
 {
@@ -134,4 +136,4 @@ typedef enum	e_error_types
 // 	REDBRICK,
 
 // 	TEXTURES_NUM
-// }				t_textures;
+// }				t_textures_num;
