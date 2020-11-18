@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/17 12:57:42 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/18 09:06:45 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Projected wall height is calculated based on perpendicular distance from
 ** the player to wall.
-** 
+**
 ** Our eyes are spherical, so distortion of view does not happen.
 **
 ** In order to mimic the function, we have to calculate each projected wall
@@ -34,14 +34,18 @@
 ** actual wall height(= TILE_SIZE) : projected wall height
 ** 					= actual distance to wall : distance to projected plane
 */
+float	g_distance_proj_plane;
+
 int		calc_projected_wall_height(t_ray_to_wall ray)
 {
-	const float	distance_proj_plane
+	// const float	distance_proj_plane
+	// 				= (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
+	g_distance_proj_plane
 					= (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
 	const float perp_distance_to_wall
 		= ray.distance * cos(ray.ray_angle - g_player.rotation_angle);
 
-	return ((int)(distance_proj_plane * (TILE_SIZE / perp_distance_to_wall)));
+	return ((int)(g_distance_proj_plane * (TILE_SIZE / perp_distance_to_wall)));
 }
 
 void	render_ceiling_ray_basis(int window_x, int *window_y, const int projected_wall_height)

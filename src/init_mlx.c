@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/17 17:33:03 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/18 10:38:44 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	reset_sprites_texture_data(void)
 // 	float	angle_difference;
 
 // 	vector = malloc(sizeof(vector));
-	
+
 // 	coord_assign(vector, g_sprites[index].x - g_player.x, g_sprites[index].y - g_player.y);
 // 	angle_from_player_to_sprite = atan2f(vector->y, vector->x);
 // 	angle_difference = g_player.rotation_angle - angle_from_player_to_sprite;
@@ -68,7 +68,7 @@ float	calc_angle_difference_between_player_and_sprite(size_t index)
 	const float	x_difference = g_sprites[index].x - g_player.x;
 	const float	y_difference = g_sprites[index].y - g_player.y;
 	float	angle_difference;
-	
+
 	angle_from_player_to_sprite = atan2f(y_difference, x_difference);
 	angle_difference = g_player.rotation_angle - angle_from_player_to_sprite;
     if (angle_difference < -(PI))
@@ -84,7 +84,7 @@ float	calc_angle_difference_between_player_and_sprite(size_t index)
 // void	draw_green_line_vertically(size_t index)
 // {
 // 	const float	angle_difference_between_player_and_sprite = calc_angle_difference_between_player_and_sprite(index);
-	
+
 // 	// const float	distance_proj_plane = (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
 // 	float	x_difference_from_center = (g_cubfile_data.window_width / FOV_ANGLE) * angle_difference_between_player_and_sprite;
 // 	// float	base_distance = fabs(g_sprites[index].distance_from_player * cos(angle_difference_between_player_and_sprite / PI * 180));
@@ -121,7 +121,7 @@ float	calc_angle_difference_between_player_and_sprite(size_t index)
 // void	draw_sprite_center_vertical_line(size_t index)
 // {
 // 	const float	angle_difference_between_player_and_sprite = calc_angle_difference_between_player_and_sprite(index);
-	
+
 // 	// const float	distance_proj_plane = (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
 // 	float	x_difference_from_center = (g_cubfile_data.window_width / FOV_ANGLE) * angle_difference_between_player_and_sprite;
 // 	// こっちは絶対値(abs)版
@@ -185,12 +185,38 @@ void	render_from_top_to_sprite_ray_basis(int window_x, int *window_y, const int 
 
 int		calc_projected_sprite_height(size_t	index)
 {
-	const float	distance_proj_plane
-					= (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
+	float	normalized_angle_difference = calc_angle_difference_between_player_and_sprite(index);
+	normalize_angle(&normalized_angle_difference);
+	// これだと、中心への角度をもとにしているため、中心が視野に入っていない場合を弾いてしまう
+	// if (fabs(normalized_angle_difference) > FOV_ANGLE / 2)
+	// if (fabs(normalized_angle_difference) > 90 * (PI / 180))
+	// 	return (0);
 	const float perp_distance_to_project
-		= g_sprites[index].distance_from_player * cos(calc_angle_difference_between_player_and_sprite(index));
+		= fabs(g_sprites[index].distance_from_player * cos(normalized_angle_difference));
+	DI((int)index);
+	DF(normalized_angle_difference);
+	DF(cos(normalized_angle_difference));
+	DF(perp_distance_to_project);
 
-	return ((int)(distance_proj_plane * (TILE_SIZE / perp_distance_to_project)));
+	return ((int)(g_distance_proj_plane * (TILE_SIZE / perp_distance_to_project)));
+}
+
+size_t	calc_sprite_texture_offset_x(t_ray_to_wall ray, float texture_width)
+{
+	const float texture_width_to_tile_size_ratio = texture_width / TILE_SIZE;
+	const t_coord *wall_hit_coord = ray.wall_hit_coord;
+
+	if (ray.was_hit_vertical)
+		return (((size_t)wall_hit_coord->y % TILE_SIZE) * texture_width_to_tile_size_ratio);
+	else
+		return (((size_t)wall_hit_coord->x % TILE_SIZE) * texture_width_to_tile_size_ratio);
+}
+
+size_t	calc_sprite_texture_offset_y(int texture_height, const int projected_wall_height, int window_y)
+{
+	const size_t distance_from_wall_strip_top = (window_y + (projected_wall_height / 2)) - (g_cubfile_data.window_height / 2);
+
+	return (distance_from_wall_strip_top * ((float)texture_height / projected_wall_height));
 }
 
 void	test_draw_sprite_left_vertical_line(size_t index)
@@ -201,62 +227,80 @@ void	test_draw_sprite_left_vertical_line(size_t index)
 
 	int		projected_sprite_height = calc_projected_sprite_height(index);
 
+	const int assumed_sprite_top_pixel = (g_cubfile_data.window_height / 2) - (projected_sprite_height / 2);
 	const int sprite_top_pixel = MAX((g_cubfile_data.window_height / 2) - (projected_sprite_height / 2), 0);
+	const int		assumed_sprite_bottom_pixel = (g_cubfile_data.window_height / 2) + (projected_sprite_height / 2);
 	const int		sprite_bottom_pixel = MIN((g_cubfile_data.window_height / 2) + (projected_sprite_height / 2), g_cubfile_data.window_height);
+	const int sprite_height = assumed_sprite_bottom_pixel - assumed_sprite_top_pixel;
 	const int		sprite_left_edge_pixel = sprite_center_x - projected_sprite_height / 2;
+	const int		assumed_sprite_right_edge_pixel = sprite_center_x + projected_sprite_height / 2;
 	const int		sprite_right_edge_pixel = MIN(sprite_center_x + projected_sprite_height / 2, g_cubfile_data.window_width);
+	const int sprite_width = assumed_sprite_right_edge_pixel - sprite_left_edge_pixel;
 
 	int x = sprite_left_edge_pixel;
+	// DI(sprite_center_x);
+	// DI(projected_sprite_height / 2);
+	// DI(sprite_left_edge_pixel);
+	// DI(sprite_right_edge_pixel);
+	// ft_putchar('\n');
 	while (x < sprite_right_edge_pixel)
 	{
 		if (x < 0)
 			;
 		else
 		{
+			int sprite_texture_offset_x = (sprite_width - (x - sprite_left_edge_pixel)) * (g_textures[SPRITE].width / sprite_width);
+
 			int y = sprite_top_pixel;
-			g_color = create_trgb(0, 0, 255, 0);
 			while (y < sprite_bottom_pixel)
 			{
+				int sprite_texture_offset_y = (sprite_height - (y - assumed_sprite_top_pixel)) * (g_textures[SPRITE].height / sprite_height);
+				set_texture_color(g_textures[SPRITE], sprite_texture_offset_x, sprite_texture_offset_y);
 				draw_pixel(x, y);
 				y++;
 			}
 		}
 		x++;
 	}
-	// if (sprite_center_x >= 0 && sprite_center_x < g_cubfile_data.window_width)
-	// {
-	// 	int y = sprite_top_pixel;
-	// 	g_color = create_trgb(0, 0, 255, 0);
-	// 	while (y < sprite_bottom_pixel)
-	// 	{
-	// 		draw_pixel(sprite_center_x, y);
-	// 		y++;
-	// 	}
-	// }
-
-	// ここからが left_edge 描写用の変更点
-	// float	distance_proj_plane = (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
-	// float	perp_distance = g_sprites[index].distance_from_player * cos(angle_difference_between_player_and_sprite);
-	// float	projected_h = (TILE_SIZE / perp_distance) * distance_proj_plane;
-	// int		sprite_projection_left_x = sprite_center_x - (projected_h / 2);
-	// if (sprite_projection_left_x >= 0 && sprite_center_x < g_cubfile_data.window_width)
-	// {
-	// 	g_color = create_trgb(0, 0, 255, 0);
-	// 	int y = 0;
-	// 	while (y < sprite_height)
-	// 	{
-	// 		draw_pixel(sprite_projection_left_x, y);
-	// 		y++;
-	// 	}
-	// 	for (int y = 0; y < sprite_height; y++)
-	// 	while (y < g_cubfile_data.window_height)
-	// 	{
-
-	// 	}
-	// 	for (int y = 0; y < g_cubfile_data.window_height; y++)
-	// 		draw_pixel(sprite_projection_left_x, y);
-	// }
 }
+
+// スプライト描写用の fix 以前
+// void	test_draw_sprite_left_vertical_line(size_t index)
+// {
+// 	const float	angle_difference_between_player_and_sprite = calc_angle_difference_between_player_and_sprite(index);
+// 	float	x_difference_between_window_center_and_sprite = (g_cubfile_data.window_width / FOV_ANGLE) * angle_difference_between_player_and_sprite;
+// 	int		sprite_center_x = g_cubfile_data.window_width / 2 - (x_difference_between_window_center_and_sprite);
+
+// 	int		projected_sprite_height = calc_projected_sprite_height(index);
+
+// 	const int sprite_top_pixel = MAX((g_cubfile_data.window_height / 2) - (projected_sprite_height / 2), 0);
+// 	const int		sprite_bottom_pixel = MIN((g_cubfile_data.window_height / 2) + (projected_sprite_height / 2), g_cubfile_data.window_height);
+// 	const int		sprite_left_edge_pixel = sprite_center_x - projected_sprite_height / 2;
+// 	const int		sprite_right_edge_pixel = MIN(sprite_center_x + projected_sprite_height / 2, g_cubfile_data.window_width);
+
+// 	int x = sprite_left_edge_pixel;
+// 	// DI(sprite_center_x);
+// 	// DI(projected_sprite_height / 2);
+// 	// DI(sprite_left_edge_pixel);
+// 	// DI(sprite_right_edge_pixel);
+// 	// ft_putchar('\n');
+// 	while (x < sprite_right_edge_pixel)
+// 	{
+// 		if (x < 0)
+// 			;
+// 		else
+// 		{
+// 			int y = sprite_top_pixel;
+// 			g_color = create_trgb(0, 0, 255, 0);
+// 			while (y < sprite_bottom_pixel)
+// 			{
+// 				draw_pixel(x, y);
+// 				y++;
+// 			}
+// 		}
+// 		x++;
+// 	}
+// }
 
 void	test_draw_sprite_left_vertical_lines(void)
 {
@@ -289,7 +333,7 @@ void	test_draw_sprite_left_vertical_lines(void)
 // 	float	strip_h = projected_h;
 // 	float	top_pixel = MAX(g_cubfile_data.window_height / 2 - strip_h / 2, 0);
 // 	float	bottom_pixel = MIN(g_cubfile_data.window_height / 2 + strip_h / 2, g_cubfile_data.window_height);
-	
+
 // 	const float	angle_difference_between_player_and_sprite = calc_angle_difference_between_player_and_sprite(index);
 // 	float	x_difference_from_center = (g_cubfile_data.window_width / FOV_ANGLE) * angle_difference_between_player_and_sprite;
 // 	float	start_render_x = g_cubfile_data.window_width / 2 - x_difference_from_center;
