@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 09:19:48 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/19 17:00:55 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/19 17:15:30 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	write_bmp_file()
 	close(fd);
 }
 
-void	make_screenshot()
+void	save_bitmap()
 {
 	write_bmp_file();
 	write(1, "Screenshot saved!\n", 18);

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/19 17:09:42 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/19 17:17:16 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_mlx	g_mlx;
 t_img	g_img;
 
 
+// この関数とメンバ、いらないかも
 void	reset_sprites_texture_data(void)
 {
 	size_t	index;
@@ -419,8 +420,7 @@ int	main_loop(void *null)
 	// }
 	// draw_green_line_vertically(1);
 
-	// save_bitmap のテスト
-	// make_screenshot();
+	save_bitmap();
 
 	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
 	mlx_do_sync(g_mlx.mlx_ptr);

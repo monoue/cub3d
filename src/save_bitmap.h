@@ -49,7 +49,7 @@ int Write_Bmp(char *filename, t_image *img);
 t_image *Create_Image(int width, int height);
 void Free_Image(t_image *img);
 
-void	make_screenshot();
+void	save_bitmap();
 
 
 #endif
