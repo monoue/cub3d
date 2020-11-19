@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 09:19:48 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/19 10:10:16 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/19 13:35:48 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,57 +40,57 @@ void	ft_bdata(int fd)
 	}
 }
 
-void	ft_binfo(int fd)
+void	write_info_header(int fd)
 {
-	int				n;
-	unsigned char	header[40];
+	unsigned char	info_header_buf[INFO_HEADER_SIZE];
 
-	n = 0;
-	while (n < 40)
-		header[n++] = (unsigned char)(0);
-	header[0] = (unsigned char)(40);
+	ft_bzero(info_header_buf, sizeof(info_header_buf));
+	int				n;
+
+	// n = 0;
+	// while (n < 40)
+	// 	info_header_buf[n++] = (unsigned char)(0);
+	info_header_buf[0] = (unsigned char)(40);
 	n = g_cubfile_data.window_width;
-	header[4] = (unsigned char)(n % 256);
-	header[5] = (unsigned char)(n / 256 % 256);
-	header[6] = (unsigned char)(n / 256 / 256 % 256);
-	header[7] = (unsigned char)(n / 256 / 256 / 256);
+	info_header_buf[4] = (unsigned char)(n % 256);
+	info_header_buf[5] = (unsigned char)(n / 256 % 256);
+	info_header_buf[6] = (unsigned char)(n / 256 / 256 % 256);
+	info_header_buf[7] = (unsigned char)(n / 256 / 256 / 256);
 	n = g_cubfile_data.window_height;
-	header[8] = (unsigned char)(n % 256);
-	header[9] = (unsigned char)(n / 256 % 256);
-	header[10] = (unsigned char)(n / 256 / 256 % 256);
-	header[11] = (unsigned char)(n / 256 / 256 / 256);
-	header[12] = (unsigned char)(1);
-	header[14] = (unsigned char)(32);
-	write(fd, header, 40);
+	info_header_buf[8] = (unsigned char)(n % 256);
+	info_header_buf[9] = (unsigned char)(n / 256 % 256);
+	info_header_buf[10] = (unsigned char)(n / 256 / 256 % 256);
+	info_header_buf[11] = (unsigned char)(n / 256 / 256 / 256);
+	info_header_buf[12] = (unsigned char)(1);
+	info_header_buf[14] = (unsigned char)(32);
+	write(fd, info_header_buf, INFO_HEADER_SIZE);
 }
 
-void	ft_bfile(int fd)
+void	write_file_header(int fd)
 {
-	int				n;
-	unsigned char	header[14];
+	unsigned char	file_header_buf[FILE_HEADER_SIZE];
+	const int		real_width = g_cubfile_data.window_width * 3 + g_cubfile_data.window_width % 4;
+	const unsigned int	file_size = g_cubfile_data.window_height * real_width + HEADER_SIZE;
 
-	n = 0;
-	while (n < 14)
-		header[n++] = (unsigned char)(0);
-	header[0] = (unsigned char)(66);
-	header[1] = (unsigned char)(77);
-	n = g_cubfile_data.window_width * g_cubfile_data.window_height * 4 + 54;
-	header[2] = (unsigned char)(n % 256);
-	header[3] = (unsigned char)(n / 256 % 256);
-	header[4] = (unsigned char)(n / 256 / 256 % 256);
-	header[5] = (unsigned char)(n / 256 / 256 / 256);
-	header[10] = (unsigned char)(54);
-	write(fd, header, 14);
+	ft_bzero(file_header_buf, sizeof(file_header_buf));
+	file_header_buf[FILE_TYPE_1] = 'B';
+	file_header_buf[FILE_TYPE_2] = 'M';
+	ft_memcpy(&file_header_buf[FILE_SIZE], &file_size, sizeof(file_size));
+	file_header_buf[OFFSET_TO_PIXEL_DATA] = HEADER_SIZE;
+	write(fd, file_header_buf, FILE_HEADER_SIZE);
 }
+
 
 int		take_screenshot()
 {
 	int		fd;
 
+
 	// draw_wolf(e);
 	fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-	ft_bfile(fd);
-	ft_binfo(fd);
+
+	write_file_header(fd);
+	write_info_header(fd);
 	ft_bdata(fd);
 	close(fd);
 	// free(e->mlx);

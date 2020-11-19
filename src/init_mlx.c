@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/19 10:40:05 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/19 11:38:59 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,7 +323,7 @@ void	render_sprite(size_t index)
 // 	}
 // }
 
-void	test_draw_sprite_left_vertical_lines(void)
+void	render_all_sprites(void)
 {
 	size_t	index;
 
@@ -334,7 +334,7 @@ void	test_draw_sprite_left_vertical_lines(void)
 		index++;
 	}
 }
-// void	test_draw_sprite_left_vertical_lines(void)
+// void	render_all_sprites(void)
 // {
 // 	size_t	index;
 
@@ -405,10 +405,10 @@ int	main_loop(void *null)
 	g_color = create_trgb(0, 0, 0, 0);
 	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height);
 	render_background();
-	test_draw_sprite_left_vertical_lines();
+	sprites();
+	render_all_sprites();
 	render_mini_map();
 	render_rays();
-	sprites();
 	render_player();
 
 	// DF(calc_angle_difference_between_player_and_sprite(0));
