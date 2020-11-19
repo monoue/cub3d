@@ -7,6 +7,7 @@
 # include "render_mini_map.h"
 # include "player.h"
 # include "ray.h"
+# include "save_bitmap.h"
 # include "set_color.h"
 # include "set_cubfile_data.h"
 # include "texture.h"

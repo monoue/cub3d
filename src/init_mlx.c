@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/18 15:14:03 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/19 10:23:13 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,7 @@ void	render_sprite(size_t index)
 	// DI(sprite_left_edge_pixel);
 	// DI(sprite_right_edge_pixel);
 	// ft_putchar('\n');
-	
+
 	// とりあえずテストのため、二重に書いている。あとでまとめる
 	float	normalized_angle_difference = calc_angle_difference_between_player_and_sprite(index);
 	normalize_angle(&normalized_angle_difference);
@@ -421,8 +421,11 @@ int	main_loop(void *null)
 	// }
 	// draw_green_line_vertically(1);
 
-	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
+	// save_bitmap のテスト
 	mlx_do_sync(g_mlx.mlx_ptr);
+	// make_screenshot();
+
+	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
 	return (0);
 }
 
@@ -440,6 +443,7 @@ void	mlx(void)
 	mlx_hook(g_mlx.win_ptr, KEY_RELEASE, KEY_RELEASE_MASK, key_up, NULL);
 	// wall_texture の作成
 	// setup();
+	// TODO: 17 から 33 に変える
 	mlx_hook(g_mlx.win_ptr, DESTROY_NOTIFY, STRUCTURE_NOTIFY_MASK, finish_program, NULL);
 	mlx_loop_hook(g_mlx.mlx_ptr, &main_loop, NULL);
 	mlx_loop(g_mlx.mlx_ptr);

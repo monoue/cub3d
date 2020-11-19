@@ -18,6 +18,7 @@ SRCS += src/map_error.c
 SRCS += src/player.c
 SRCS += src/ray.c
 SRCS += src/render_mini_map.c
+SRCS += src/save_bitmap.c
 SRCS += src/set_color.c
 SRCS += src/set_cubfile_data.c
 SRCS += src/texture.c
