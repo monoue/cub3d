@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 13:43:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/17 14:57:19 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/19 17:10:13 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ void	render_mini_map(void)
 		}
 		y_i++;
 	}
+	render_rays_to_wall();
+	render_rays_to_sprites();
+	render_player();
 }
 
-void	render_rays(void)
+void	render_rays_to_wall(void)
 {
 	size_t	index;
 

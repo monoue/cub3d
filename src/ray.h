@@ -51,7 +51,7 @@ char	get_map_at(t_coord *coord);
 float	distance_between_points(float x1, float y1, float x2, float y2);
 void	cast_ray_to_wall(float original_ray_angle, size_t strip_id);
 // void	cast_all_rays(void);
-void	render_rays(void);
+void	render_rays_to_wall(void);
 void	cast_all_rays_to_wall(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/19 11:38:59 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/19 17:09:42 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,7 +323,7 @@ void	render_sprite(size_t index)
 // 	}
 // }
 
-void	render_all_sprites(void)
+void	render_sprites(void)
 {
 	size_t	index;
 
@@ -388,6 +388,7 @@ void	update(void)
 	reset_sprites_texture_data();
 	// record_sprites_within_fov();
 	cast_all_rays_to_wall();
+	sprites();
 	// test_sprite_hit();
 	// cast_all_rays();
 }
@@ -405,11 +406,8 @@ int	main_loop(void *null)
 	g_color = create_trgb(0, 0, 0, 0);
 	draw_rectangle(0, 0, g_cubfile_data.window_width, g_cubfile_data.window_height);
 	render_background();
-	sprites();
-	render_all_sprites();
+	render_sprites();
 	render_mini_map();
-	render_rays();
-	render_player();
 
 	// DF(calc_angle_difference_between_player_and_sprite(0));
 	// test_draw_sprite_center_vertical_lines();
@@ -422,7 +420,7 @@ int	main_loop(void *null)
 	// draw_green_line_vertically(1);
 
 	// save_bitmap のテスト
-	make_screenshot();
+	// make_screenshot();
 
 	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);
 	mlx_do_sync(g_mlx.mlx_ptr);

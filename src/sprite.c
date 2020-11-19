@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 12:04:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/16 13:23:22 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/19 17:07:17 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,4 @@ void	sprites(void)
 {
 	update_distances_to_sprites();
 	sort_sprites();
-	render_rays_to_sprites();
 }
