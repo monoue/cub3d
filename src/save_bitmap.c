@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 09:19:48 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/19 13:35:48 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/19 15:08:01 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	ft_bdata(int fd)
 {
+	const int *addr = (const int *)g_img.addr;
+
 	int				i;
 	int				j;
 	unsigned char	buffer[4];
-	int *addr = (int *)g_img.addr;
 
 	i = g_cubfile_data.window_width * (g_cubfile_data.window_height - 1);
 	while (i >= 0)
@@ -25,13 +26,11 @@ void	ft_bdata(int fd)
 		j = 0;
 		while (j < g_cubfile_data.window_width)
 		{
-			// buffer[0] = (unsigned char)((int)(g_img.addr[i * 4]) % 256);
-			// buffer[1] = (unsigned char)((int)(g_img.addr[i * 4]) / 256 % 256);
-			// buffer[2] = (unsigned char)((int)(g_img.addr[i * 4]) / 256 / 256 % 256);
 			buffer[0] = (unsigned char)(addr[i] % 256);
 			buffer[1] = (unsigned char)(addr[i] / 256 % 256);
 			buffer[2] = (unsigned char)(addr[i] / 256 / 256 % 256);
-			buffer[3] = (unsigned char)(0);
+			buffer[3] = (unsigned char)(addr[i] / 256 / 256 / 256);
+			// buffer[3] = (unsigned char)(0);
 			write(fd, buffer, 4);
 			i++;
 			j++;
@@ -40,57 +39,111 @@ void	ft_bdata(int fd)
 	}
 }
 
-void	write_info_header(int fd)
+// void	ft_bdata(int fd)
+// {
+// 	const int *addr = (const int *)g_img.addr;
+
+// 	int				pixel_location;
+// 	int				x;
+// 	const int 
+// 	unsigned char	image_buf[g_cubfile_data.window_height * g_cubfile_data.window_width * 4];
+
+// 	pixel_location = g_cubfile_data.window_width * (g_cubfile_data.window_height - 1);
+// 	while (pixel_location >= 0)
+// 	{
+// 		x = 0;
+// 		while (x < g_cubfile_data.window_width)
+// 		{
+// 			image_buf[0] = (unsigned char)(addr[pixel_location] % 256);
+// 			image_buf[1] = (unsigned char)(addr[pixel_location] / 256 % 256);
+// 			image_buf[2] = (unsigned char)(addr[pixel_location] / 256 / 256 % 256);
+// 			image_buf[3] = (unsigned char)(0);
+// 			write(fd, image_buf, 4);
+// 			pixel_location++;
+// 			x++;
+// 		}
+// 		pixel_location -= 2 * g_cubfile_data.window_width;
+// 	}
+
+// 	int y = g_cubfile_data.window_height - 1;
+
+// 	while (y >= 0)
+// 	{
+// 		x = 0;
+// 		while (x < g_cubfile_data.window_width)
+// 		{
+// 			pixel_location = g_cubfile_data.window_width * y + x;
+// 			// TODO: ビットシフトで書き直す
+// 			image_buf[] = addr[pixel_location] % 256;
+// 		}
+// 	}
+// 	// while (pixel_location >= 0)
+// 	{
+// 		x = 0;
+// 		while (x < g_cubfile_data.window_width)
+// 		{
+// 			image_buf[0] = (unsigned char)(addr[pixel_location] % 256);
+// 			image_buf[1] = (unsigned char)(addr[pixel_location] / 256 % 256);
+// 			image_buf[2] = (unsigned char)(addr[pixel_location] / 256 / 256 % 256);
+// 			image_buf[3] = (unsigned char)(0);
+// 			write(fd, image_buf, 4);
+// 			pixel_location++;
+// 			x++;
+// 		}
+// 		pixel_location -= 2 * g_cubfile_data.window_width;
+// 	}
+// }
+
+static void	set_file_header_data(unsigned char header_buf[HEADER_SIZE])
 {
-	unsigned char	info_header_buf[INFO_HEADER_SIZE];
-
-	ft_bzero(info_header_buf, sizeof(info_header_buf));
-	int				n;
-
-	// n = 0;
-	// while (n < 40)
-	// 	info_header_buf[n++] = (unsigned char)(0);
-	info_header_buf[0] = (unsigned char)(40);
-	n = g_cubfile_data.window_width;
-	info_header_buf[4] = (unsigned char)(n % 256);
-	info_header_buf[5] = (unsigned char)(n / 256 % 256);
-	info_header_buf[6] = (unsigned char)(n / 256 / 256 % 256);
-	info_header_buf[7] = (unsigned char)(n / 256 / 256 / 256);
-	n = g_cubfile_data.window_height;
-	info_header_buf[8] = (unsigned char)(n % 256);
-	info_header_buf[9] = (unsigned char)(n / 256 % 256);
-	info_header_buf[10] = (unsigned char)(n / 256 / 256 % 256);
-	info_header_buf[11] = (unsigned char)(n / 256 / 256 / 256);
-	info_header_buf[12] = (unsigned char)(1);
-	info_header_buf[14] = (unsigned char)(32);
-	write(fd, info_header_buf, INFO_HEADER_SIZE);
-}
-
-void	write_file_header(int fd)
-{
-	unsigned char	file_header_buf[FILE_HEADER_SIZE];
-	const int		real_width = g_cubfile_data.window_width * 3 + g_cubfile_data.window_width % 4;
+	// const int			real_width = g_cubfile_data.window_width * 3 + g_cubfile_data.window_width % 4;
+	const int			real_width = g_cubfile_data.window_width * 4;
 	const unsigned int	file_size = g_cubfile_data.window_height * real_width + HEADER_SIZE;
 
-	ft_bzero(file_header_buf, sizeof(file_header_buf));
-	file_header_buf[FILE_TYPE_1] = 'B';
-	file_header_buf[FILE_TYPE_2] = 'M';
-	ft_memcpy(&file_header_buf[FILE_SIZE], &file_size, sizeof(file_size));
-	file_header_buf[OFFSET_TO_PIXEL_DATA] = HEADER_SIZE;
-	write(fd, file_header_buf, FILE_HEADER_SIZE);
+	header_buf[FILE_TYPE_1_OFFSET] = 'B';
+	header_buf[FILE_TYPE_2_OFFSET] = 'M';
+	ft_memcpy(&header_buf[FILE_SIZE_OFFSET], &file_size, sizeof(file_size));
+	ft_memset(&header_buf[RESERVED_1_OFFSET], 0, 2);
+	ft_memset(&header_buf[RESERVED_2_OFFSET], 0, 2);
+	header_buf[OFFSET_TO_PIXEL_DATA_OFFSET] = HEADER_SIZE;
 }
 
+static void	set_info_header_data(unsigned char header_buf[HEADER_SIZE])
+{
+	// const int			real_width = g_cubfile_data.window_width * 3 + g_cubfile_data.window_width % 4;
+	const int			real_width = g_cubfile_data.window_width * 4;
+	const unsigned int	image_size = g_cubfile_data.window_height * real_width;
+
+	header_buf[INFO_HEADER_SIZE_OFFSET] = INFO_HEADER_SIZE;
+	ft_memcpy(&header_buf[IMAGE_WIDTH_OFFSET], &g_cubfile_data.window_width, sizeof(g_cubfile_data.window_width));
+	ft_memcpy(&header_buf[IMAGE_HEIGHT_OFFSET], &g_cubfile_data.window_height, sizeof(g_cubfile_data.window_height));
+	header_buf[PLANES_OFFSET] = PLANES;
+	// header_buf[BITS_PER_PIXEL_OFFSET] = BITS_PER_PIXEL;
+	header_buf[BITS_PER_PIXEL_OFFSET] = 32;
+	ft_memset(&header_buf[COMPRESSION_METHOD_OFFSET], 0, 4);
+	ft_memcpy(&header_buf[IMAGE_SIZE_OFFSET], &image_size, sizeof(image_size));
+	ft_memset(&header_buf[HORZ_RESOLUTION_OFFSET], 0, 4);
+	ft_memset(&header_buf[VERT_RESOLUTION_OFFSET], 0, 4);
+	ft_memset(&header_buf[TOTAL_COLORS_OFFSET], 0, 4);
+	ft_memset(&header_buf[IMPORTANT_COLORS_OFFSET], 0, 4);
+}
 
 int		take_screenshot()
 {
-	int		fd;
+	int				fd;
+	unsigned char	header_buf[HEADER_SIZE];
+	
+	ft_bzero(header_buf, sizeof(header_buf));
+	fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+	set_file_header_data(header_buf);
+	set_info_header_data(header_buf);
+	write(fd, header_buf, HEADER_SIZE);
 
 
 	// draw_wolf(e);
-	fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 
-	write_file_header(fd);
-	write_info_header(fd);
+	// write_file_header(fd);
+	// write_info_header(fd);
 	ft_bdata(fd);
 	close(fd);
 	// free(e->mlx);
