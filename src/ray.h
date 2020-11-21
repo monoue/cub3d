@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/21 13:11:16 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/21 13:11:18 by monoue           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RAY_H
 # define RAY_H
 
@@ -18,7 +30,7 @@
 typedef struct	s_ray_to_wall {
 	float		ray_angle;
 	t_coord		*wall_hit_coord;
-	float		distance;
+	float		distance_to_wall;
 	bool		was_hit_vertical;
 	t_textures_num	wall_hit_direction;
 }				t_ray_to_wall;

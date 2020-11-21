@@ -7,7 +7,7 @@ static float	calc_angle_difference_between_player_and_sprite(size_t index)
 	const float	x_difference = g_sprites[index].x - g_player.x;
 	const float	y_difference = g_sprites[index].y - g_player.y;
 	float	angle_difference;
-	
+
 	angle_from_player_to_sprite = atan2f(y_difference, x_difference);
 	angle_difference = g_player.rotation_angle - angle_from_player_to_sprite;
     if (angle_difference < -(PI))
@@ -72,22 +72,21 @@ void	test_ray_data(size_t index)
 	DF(g_rays[index].ray_angle);
 	DF(g_rays[index].wall_hit_coord->x);
 	DF(g_rays[index].wall_hit_coord->y);
-	DF(g_rays[index].distance);
+	DF(g_rays[index].distance_to_wall);
 	DI(g_rays[index].was_hit_vertical);
-	// DC(g_rays[index].wall_hit_content);
 }
 
-void	test_sprite_hit(void)
-{
-	size_t	index;
+// void	test_sprite_hit(void)
+// {
+// 	size_t	index;
 
-	index = 0;
-	while (index < g_cubfile_data.sprites_num)
-	{
-		DI(g_sprites[index].is_visible);
-		index++;
-	}
-}
+// 	index = 0;
+// 	while (index < g_cubfile_data.sprites_num)
+// 	{
+// 		DI(g_sprites[index].is_visible);
+// 		index++;
+// 	}
+// }
 
 static void	test_sprite_center_vertical_line(size_t index)
 {

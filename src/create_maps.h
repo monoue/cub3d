@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_maps.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/21 13:10:13 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/21 13:12:51 by monoue           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CREATE_MAPS_H
 # define CREATE_MAPS_H
 
 # include "libft/libft.h"
 # include "defs.h"
 # include "error.h"
-
 
 extern char	g_map[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];
 extern char	g_map_to_check[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];

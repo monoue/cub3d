@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 12:04:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/19 17:07:17 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/20 23:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,15 @@ void	set_sprite_basic_data(size_t x, size_t y, size_t sprite_i)
 	g_sprites[sprite_i].y = y * TILE_SIZE + TILE_SIZE * 0.5;
 }
 
-void	set_distance_to_sprite(size_t index)
+static void	set_distance_to_sprite(size_t index)
 {
-	// float	delta_x;
-	// float	delta_y;
-
-	// DF(g_sprites[0].x);
-	// DF(g_player.x);
-	// DF(g_sprites[0].y);
-	// DF(g_player.y);
-	// DF(g_sprites[0].x - g_player.x);
 	const float delta_x = g_sprites[index].x - g_player.x;
 	const float delta_y = g_sprites[index].y - g_player.y;
+
 	g_sprites[index].distance_from_player = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
 }
 
-void	update_distances_to_sprites(void)
+static void	update_distances_to_sprites(void)
 {
 	size_t	index;
 
@@ -47,7 +40,7 @@ void	update_distances_to_sprites(void)
 	}
 }
 
-void	sort_sprites(void)
+static void	sort_sprites(void)
 {
 	size_t		index;
 	size_t		inner_i;
@@ -70,7 +63,6 @@ void	sort_sprites(void)
 		index++;
 	}
 }
-
 
 void	sprites(void)
 {

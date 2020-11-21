@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   save_image.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/21 13:11:41 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/21 13:11:45 by monoue           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SAVE_BITMAP_H
 # define SAVE_BITMAP_H
 
@@ -49,7 +61,7 @@ int Write_Bmp(char *filename, t_image *img);
 t_image *Create_Image(int width, int height);
 void Free_Image(t_image *img);
 
-void	save_bitmap();
+void	save_image();
 
 
 #endif

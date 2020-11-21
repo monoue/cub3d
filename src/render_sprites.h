@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.h                                           :+:      :+:    :+:   */
+/*   render_sprites.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 13:12:04 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/21 13:12:07 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:11:28 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/21 13:11:30 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPRITE_H
-# define SPRITE_H
-
-# include <unistd.h>
+#ifndef RENDER_SPRITES_H
+# define RENDER_SPRITES_H
 
 # include "defs.h"
 # include "graphics.h"
-# include "render_mini_map.h"
+# include "sprite.h"
 
-
-typedef struct	s_sprite {
-	float	x;
-	float	y;
-	float	distance_from_player;
-}				t_sprite;
-
-extern t_sprite g_sprites[MAX_SPRITES_NUM];
-
-void	set_sprite_basic_data(size_t x, size_t y, size_t sprite_i);
-void	sprites(void);
+void	render_sprites(void);
 
 #endif

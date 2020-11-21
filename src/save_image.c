@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_bitmap.c                                      :+:      :+:    :+:   */
+/*   save_image.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 09:19:48 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/19 17:21:28 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/20 14:56:35 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "save_bitmap.h"
+#include "save_image.h"
 
 int		calc_current_location_in_image_buf(int x, int y, const int image_buf_size)
 {
@@ -22,7 +22,7 @@ int		calc_current_location_in_image_buf(int x, int y, const int image_buf_size)
 void	set_color_element(unsigned char *image_buf, const int current_location_in_buf, const int pixel_location, size_t color_element_index)
 {
 	const int	*addr = (const int *)g_img.addr;
-	
+
 	image_buf[current_location_in_buf + color_element_index] = (addr[pixel_location] >> (color_element_index * 8)) % (2 << 8);
 }
 
@@ -62,9 +62,9 @@ void	write_image(int fd)
 	write(fd, image_buf, image_buf_size);
 }
 
-static void	set_file_header(unsigned char header_buf[HEADER_SIZE], const int line_size)
+static void	set_file_header(unsigned char header_buf[HEADER_SIZE], const unsigned int image_size)
 {
-	const unsigned int	file_size = g_cubfile_data.window_height * line_size + HEADER_SIZE;
+	const unsigned int	file_size = image_size + HEADER_SIZE;
 
 	header_buf[FILE_TYPE_1_OFFSET] = 'B';
 	header_buf[FILE_TYPE_2_OFFSET] = 'M';
@@ -74,10 +74,8 @@ static void	set_file_header(unsigned char header_buf[HEADER_SIZE], const int lin
 	header_buf[OFFSET_TO_PIXEL_DATA_OFFSET] = HEADER_SIZE;
 }
 
-static void	set_info_header(unsigned char header_buf[HEADER_SIZE], const int line_size)
+static void	set_info_header(unsigned char header_buf[HEADER_SIZE], const unsigned int image_size)
 {
-	const unsigned int	image_size = g_cubfile_data.window_height * line_size;
-
 	header_buf[INFO_HEADER_SIZE_OFFSET] = INFO_HEADER_SIZE;
 	ft_memcpy(&header_buf[IMAGE_WIDTH_OFFSET], &g_cubfile_data.window_width, sizeof(g_cubfile_data.window_width));
 	ft_memcpy(&header_buf[IMAGE_HEIGHT_OFFSET], &g_cubfile_data.window_height, sizeof(g_cubfile_data.window_height));
@@ -95,10 +93,11 @@ void	write_header(int fd)
 {
 	unsigned char		header_buf[HEADER_SIZE];
 	const int			line_size = g_cubfile_data.window_width * 4;
+	const unsigned int	image_size = g_cubfile_data.window_height * line_size;
 
 	ft_bzero(header_buf, sizeof(header_buf));
-	set_file_header(header_buf, line_size);
-	set_info_header(header_buf, line_size);
+	set_file_header(header_buf, image_size);
+	set_info_header(header_buf, image_size);
 	write(fd, header_buf, HEADER_SIZE);
 }
 
@@ -112,7 +111,7 @@ void	write_bmp_file()
 	close(fd);
 }
 
-void	save_bitmap()
+void	save_image()
 {
 	write_bmp_file();
 	write(1, "Screenshot saved!\n", 18);

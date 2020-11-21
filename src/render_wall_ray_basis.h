@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.h                                           :+:      :+:    :+:   */
+/*   render_wall_ray_basis.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 13:12:04 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/21 13:12:07 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:11:34 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/21 13:11:37 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPRITE_H
-# define SPRITE_H
-
-# include <unistd.h>
+#ifndef RENDER_WALL_RAY_BASIS_H
+# define RENDER_WALL_RAY_BASIS_H
 
 # include "defs.h"
 # include "graphics.h"
-# include "render_mini_map.h"
+# include "texture.h"
 
-
-typedef struct	s_sprite {
-	float	x;
-	float	y;
-	float	distance_from_player;
-}				t_sprite;
-
-extern t_sprite g_sprites[MAX_SPRITES_NUM];
-
-void	set_sprite_basic_data(size_t x, size_t y, size_t sprite_i);
-void	sprites(void);
+void	render_wall_ray_basis(int window_x, int *window_y, const int projected_wall_height);
+void	set_texture_color(t_texture texture, int x, int y);
 
 #endif

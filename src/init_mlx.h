@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_mlx.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/21 13:10:44 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/21 13:10:46 by monoue           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef INIT_MLX_H
 # define INIT_MLX_H
 
@@ -7,7 +19,9 @@
 # include "render_mini_map.h"
 # include "player.h"
 # include "ray.h"
-# include "save_bitmap.h"
+# include "render_sprites.h" // set_texture_color
+# include "render_wall_ray_basis.h" // set_texture_color
+# include "save_image.h"
 # include "set_color.h"
 # include "set_cubfile_data.h"
 # include "texture.h"

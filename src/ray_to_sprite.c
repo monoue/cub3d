@@ -6,10 +6,11 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:39:15 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/18 11:36:39 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/20 17:39:20 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// TODO: このファイルまるごと要らないかも
 #include "ray_to_sprite.h"
 
 t_ray_to_wall	g_rays_to_sprite[MAX_WINDOW_WIDTH];

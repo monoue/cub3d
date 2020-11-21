@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:57:52 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/09 15:32:36 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/21 13:09:55 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		create_map_array(char *map_first_line, int fd)
 		{
 			while (get_next_line(fd, &cubfile_line) > 0)
 				if (!is_empty_line(cubfile_line))
-					map_exit_failure(cubfile_line, ".cub file: The map has empty lines.\n");
+					map_exit_failure(cubfile_line, MAP_HAS_EMPTY_LINES);
 		}
 		else
 		{
@@ -66,13 +66,6 @@ void		create_map_array(char *map_first_line, int fd)
 	}
 	exit_if_too_large_map(cubfile_line, current_height);
 	copy_line_to_map(cubfile_line, current_height);
-
-	// size_t	index = 0;
-	// while (g_map[index])
-	// {
-	// 	DS(g_map[index]);
-	// 	index++;
-	// }
 }
 
 void		init_maps(void)
