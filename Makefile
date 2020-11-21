@@ -8,6 +8,7 @@ CFLAGS =	-Wall -Wextra -Werror
 
 SRCS += src/coord.c
 SRCS += src/create_maps.c
+SRCS += src/draw_shape.c
 SRCS += src/error.c
 SRCS += src/event_hook.c
 SRCS += src/graphics.c

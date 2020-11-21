@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:44 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/21 13:10:46 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/21 16:44:02 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ extern	t_mlx g_mlx;
 extern	t_img g_img;
 extern	t_color	*wall_texture;
 
-void	mlx(void);
-void	init_texture_paths();
-// bool	map_has_wall_at(t_coord *coord);
-bool	map_has_wall_at(float x, float y);
-bool	is_out_of_window(float x, float y);
+void			mlx(void);
+void			init_texture_paths();
+bool			map_has_wall_at(float x, float y);
 
 #endif

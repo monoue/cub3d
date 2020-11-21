@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:50 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/21 13:10:53 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/21 16:44:20 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ bool	map_has_target_at(float x, float y, char c);
 bool	map_has_sprite_at(float x, float y);
 bool	map_has_wall_at(float x, float y);
 bool	is_space_at(const float pixel_x, const float pixel_y);
+bool	is_out_of_window(float x, float y);
 
 #endif

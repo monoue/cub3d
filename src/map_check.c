@@ -6,11 +6,16 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 13:56:12 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 14:04:17 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/21 16:37:00 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_check.h"
+
+bool is_out_of_window(float x, float y)
+{
+	return (x < 0 || x >= MAX_MAP_LEN * TILE_SIZE || y < 0 || y >= MAX_MAP_LEN * TILE_SIZE);
+}
 
 bool	map_has_target_at(float x, float y, char c)
 {

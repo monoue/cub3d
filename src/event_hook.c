@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:43:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/20 21:59:23 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/21 15:59:13 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int		finish_program(void *null)
 	(void)null;
 	// free 関係？
 	exit(0);
-	mlx_destroy_image(g_mlx.mlx_ptr, g_img.img_ptr);
-	mlx_destroy_window(g_mlx.mlx_ptr, g_mlx.mlx_ptr);
+	// mlx_clear_window(g_mlx.mlx_ptr, g_mlx.win_ptr);
+	// mlx_destroy_window(g_mlx.mlx_ptr, g_mlx.win_ptr);
+	// mlx_destroy_image(g_mlx.mlx_ptr, g_img.img_ptr);
 	return (0);
 }

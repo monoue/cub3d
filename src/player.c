@@ -1,7 +1,18 @@
-// #include "main.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/21 16:25:25 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/21 16:27:57 by monoue           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "player.h"
 
-t_player	g_player =
+t_player		g_player =
 {
 	.x = NOT_SET,
 	.y = NOT_SET,
@@ -11,17 +22,17 @@ t_player	g_player =
 	.walk_direction = NEUTRAL,
 	.walk_speed = 80,
 	.turn_speed = 3 * (PI / 180)
-	// .turn_speed = 1.0 * (PI / 180)
 };
 
-void	move_player(void)
+void			move_player(void)
 {
 	float	moving_direction;
-	moving_direction = g_player.rotation_angle + HALF_PI * g_player.walk_direction;
-	normalize_angle(&moving_direction);
-	float		new_player_x;
-	float		new_player_y;
+	float	new_player_x;
+	float	new_player_y;
 
+	moving_direction =
+				g_player.rotation_angle + HALF_PI * g_player.walk_direction;
+	normalize_angle(&moving_direction);
 	g_player.rotation_angle += g_player.turn_direction * g_player.turn_speed;
 	normalize_angle(&g_player.rotation_angle);
 	if (g_player.walk_direction != NEUTRAL)
@@ -33,10 +44,6 @@ void	move_player(void)
 		if (!map_has_wall_at(g_player.x, new_player_y))
 			g_player.y = new_player_y;
 	}
-	// DF(g_player.x);
-	// DF(g_player.x / TILE_SIZE)
-	// DF(g_player.y);
-	// DF(g_player.y / TILE_SIZE)
 }
 
 static float	get_spawning_angle(char c)
@@ -52,7 +59,7 @@ static float	get_spawning_angle(char c)
 	return (0);
 }
 
-void	set_player_spawning_data(size_t x, size_t y, char current_c)
+void			set_player_spawning_data(size_t x, size_t y, char current_c)
 {
 	g_player.grid_x = x;
 	g_player.grid_y = y;
