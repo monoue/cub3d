@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:39:15 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/20 17:39:20 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 07:47:43 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,25 +280,4 @@ void	cast_ray_to_count_visible_sprites(float ray_angle, size_t strip_id)
 	// set_ray_direction(&g_rays[strip_id].wall_hit_direction, g_rays[strip_id].was_hit_vertical, is_ray_facing_right(ray_angle), is_ray_facing_down(ray_angle));
 	// g_rays[strip_id].ray_angle = ray_angle;
 	free_t_ray_materials(horz_hitter, vert_hitter);
-}
-
-// static void	cast_all_rays(void (*func)(float, size_t))
-// {
-// 	float	ray_angle;
-// 	size_t	strip_id;
-
-// 	ray_angle = g_player.rotation_angle - (FOV_ANGLE / 2);
-// 	strip_id = 0;
-// 	while (strip_id < (size_t)g_cubfile_data.window_width)
-// 	{
-// 		normalize_angle(&ray_angle);
-// 		func(ray_angle, strip_id);
-// 		ray_angle += FOV_ANGLE / g_cubfile_data.window_width;
-// 		strip_id++;
-// 	}
-// }
-
-void	cast_all_rays_to_sprite(void)
-{
-	cast_all_rays(cast_ray_to_count_visible_sprites);
 }

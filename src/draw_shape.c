@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:08:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/21 16:11:59 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 07:48:28 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void			draw_rectangle_minimap(size_t start_x, size_t start_y,
 		floor(start_x * MINIMAP_SCALE_FACTOR),
 		floor(start_y * MINIMAP_SCALE_FACTOR),
 		ceil(width * MINIMAP_SCALE_FACTOR),
-		ceil(height * MINIMAP_SCALE_FACTOR)
-	);
+		ceil(height * MINIMAP_SCALE_FACTOR));
 }
 
 static size_t	get_longer_side_length(int x0, int y0, int x1, int y1)
