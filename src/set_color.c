@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:12:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/30 12:49:32 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 10:28:49 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ size_t	count_specific_c(const char *str, char c)
 /*
 ** If a color size is of more than three digits, it is taken to be invalid.
 */
+
 void	exit_if_color_line_is_invalid(t_color color, const char **infos, const char **num_strs, char *id)
 {
 	size_t	index;

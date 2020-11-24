@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:31 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/21 13:10:34 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 09:15:01 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "defs.h"
 # include "player.h"
-// # include "../minilibx/mlx.h"
 
 /*
 ** X11 events

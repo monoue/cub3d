@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/20 20:02:03 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 09:09:38 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,20 @@ float	g_distance_proj_plane;
 
 static int		calc_projected_wall_height(t_ray_to_wall ray)
 {
-	const float perp_distance_to_wall
-		= ray.distance_to_wall * cos(ray.ray_angle - g_player.rotation_angle);
+	float perp_distance_to_wall;
 
+	perp_distance_to_wall
+		= ray.distance_to_wall * cos(ray.ray_angle - g_player.rotation_angle);
 	return ((int)(g_distance_proj_plane * (TILE_SIZE / perp_distance_to_wall)));
 }
 
-static void	render_ceiling_ray_basis(int window_x, int *window_y, const int projected_wall_height)
+static void		render_ceiling_ray_basis(int window_x, int *window_y,
+												const int projected_wall_height)
 {
-	const int wall_top_pixel = MAX((g_cubfile_data.window_height / 2) - (projected_wall_height / 2), 0);
+	int wall_top_pixel;
 
+	wall_top_pixel = MAX((g_cubfile_data.window_height / 2)
+											- (projected_wall_height / 2), 0);
 	g_color = g_cubfile_data.ceiling_color;
 	while (*window_y < wall_top_pixel)
 	{
@@ -56,7 +60,7 @@ static void	render_ceiling_ray_basis(int window_x, int *window_y, const int proj
 	}
 }
 
-static void	render_floor_ray_basis(int window_x, int window_y)
+static void		render_floor_ray_basis(int window_x, int window_y)
 {
 	g_color = g_cubfile_data.floor_color;
 	while (window_y < g_cubfile_data.window_height)
@@ -66,18 +70,19 @@ static void	render_floor_ray_basis(int window_x, int window_y)
 	}
 }
 
-static void	render_background_ray_basis(int window_x)
+static void		render_background_ray_basis(int window_x)
 {
-	const int	projected_wall_height = calc_projected_wall_height(g_rays[window_x]);
-	int			window_y;
+	int	projected_wall_height;
+	int	window_y;
 
+	projected_wall_height = calc_projected_wall_height(g_rays[window_x]);
 	window_y = 0;
 	render_ceiling_ray_basis(window_x, &window_y, projected_wall_height);
 	render_wall_ray_basis(window_x, &window_y, projected_wall_height);
 	render_floor_ray_basis(window_x, window_y);
 }
 
-void	render_background(void)
+void			render_background(void)
 {
 	int		window_x;
 

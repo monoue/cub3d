@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:18 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/21 13:33:25 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 10:11:40 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define MAX_MAP_LEN			50
 # define MINIMAP_SCALE_FACTOR	0.035
 # define IMGDIR					"./images"
-# define FOV_ANGLE				1.04719755
+# define FOV_ANGLE				(60 * (PI / 180))
 # define NUM_RAYS				300
 # define MAX_WINDOW_WIDTH		3840
 # define MAX_SPRITES_NUM		2500
