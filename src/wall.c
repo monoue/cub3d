@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 09:09:38 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 13:09:06 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static int		calc_projected_wall_height(t_ray_to_wall ray)
 {
 	float perp_distance_to_wall;
 
-	perp_distance_to_wall
-		= ray.distance_to_wall * cos(ray.ray_angle - g_player.rotation_angle);
+	perp_distance_to_wall = ray.distance_to_wall
+								* cos(ray.ray_angle - g_player.rotation_angle);
 	return ((int)(g_distance_proj_plane * (TILE_SIZE / perp_distance_to_wall)));
 }
 
@@ -86,8 +86,8 @@ void			render_background(void)
 {
 	int		window_x;
 
-	g_distance_proj_plane
-				= (g_cubfile_data.window_width / 2) / tan(FOV_ANGLE / 2);
+	g_distance_proj_plane = (g_cubfile_data.window_width / 2)
+														/ tan(FOV_ANGLE / 2);
 	window_x = 0;
 	while (window_x < g_cubfile_data.window_width)
 	{

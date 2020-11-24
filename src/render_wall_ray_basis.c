@@ -6,11 +6,13 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 17:43:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 08:37:31 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 13:42:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render_wall_ray_basis.h"
+
+t_texture	g_textures[TEXTURES_NUM];
 
 static size_t	calc_texture_offset_x(t_ray_to_wall ray, float texture_width)
 {

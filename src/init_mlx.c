@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/21 16:43:08 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 13:42:45 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 #include "test.h"
 
-t_mlx	g_mlx;
-t_img	g_img;
+t_mlx		g_mlx;
+t_img		g_img;
 
-void	update(void)
+static void	update(void)
 {
 	move_player();
 	cast_all_rays_to_wall();
 	sprites();
 }
 
-int	main_loop(void *null)
+static int	main_loop(void *null)
 {
 	(void)null;
 	update();
@@ -42,7 +42,30 @@ int	main_loop(void *null)
 	return (0);
 }
 
-void	mlx(void)
+static void	set_textures(void)
+{
+	size_t		t_i;
+
+	t_i = 0;
+	while (t_i < TEXTURES_NUM)
+	{
+		g_textures[t_i].img_ptr = mlx_xpm_file_to_image(
+			g_mlx.mlx_ptr,
+			g_textures[t_i].path,
+			&g_textures[t_i].width,
+			&g_textures[t_i].height);
+		if (g_textures[t_i].img_ptr == NULL)
+			exit_with_error_message(ERRNO, NULL);
+		g_textures[t_i].addr = mlx_get_data_addr(
+			g_textures[t_i].img_ptr,
+			&g_textures[t_i].bits_per_pixel,
+			&g_textures[t_i].line_length,
+			&g_textures[t_i].endian);
+		t_i++;
+	}
+}
+
+void		mlx(void)
 {
 	g_mlx.mlx_ptr = mlx_init();
 	g_mlx.win_ptr = mlx_new_window(g_mlx.mlx_ptr, g_cubfile_data.window_width, g_cubfile_data.window_height, "Monoue's cub3D");

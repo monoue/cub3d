@@ -10,7 +10,6 @@
 #include "ray.h"
 #include "set_color.h"
 #include "set_cubfile_data.h"
-#include "texture.h"
 
 
 void	test_all_cubfile_data(void);
