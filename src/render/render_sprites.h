@@ -1,41 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.h                                           :+:      :+:    :+:   */
+/*   render_sprites.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 13:11:02 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 15:44:35 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:11:28 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/24 14:44:44 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLAYER_H
-# define PLAYER_H
+#ifndef RENDER_SPRITES_H
+# define RENDER_SPRITES_H
 
 # include "defs.h"
-# include "map_has_wall_at.h"
+# include "graphics.h"
 # include "normalize_angle.h"
+# include "sprite.h"
 
-typedef struct	s_player {
-	int		grid_x;
-	int		grid_y;
-	float	x;
-	float	y;
-	float	width;
-	float	height;
-	int		turn_direction;
-	int		walk_direction;
-	int		walk_horz;
-	float	rotation_angle;
-	float	walk_speed;
-	float	turn_speed;
-}				t_player;
-
-extern			t_player g_player;
-void			set_player_spawning_data(size_t x, size_t y, char current_c);
-
-void			move_player(void);
-void			render_player(void);
+void	render_sprites(void);
 
 #endif

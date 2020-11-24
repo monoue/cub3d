@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics.c                                         :+:      :+:    :+:   */
+/*   normalize_angle.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 13:53:27 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 15:48:21 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/24 14:43:07 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/24 15:02:59 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "graphics.h"
+#ifndef NORMALIZE_ANGLE_H
+# define NORMALIZE_ANGLE_H
 
-t_color	g_color;
+# include <math.h>
 
-void	draw_pixel(int x, int y)
-{
-	char	*dst;
+# include "defs.h"
 
-	dst = &g_img.addr[y * g_img.line_length + x * (g_img.bits_per_pixel / 8)];
-	*(unsigned int*)dst = g_color;
-}
+void	normalize_angle(float *angle);
+
+#endif

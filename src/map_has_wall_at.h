@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics.c                                         :+:      :+:    :+:   */
+/*   map_has_wall_at.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 13:53:27 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 15:48:21 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:10:50 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/24 15:46:29 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "graphics.h"
+#ifndef MAP_HAS_WALL_AT_H
+# define MAP_HAS_WALL_AT_H
 
-t_color	g_color;
+# include "create_maps.h"
+# include "defs.h"
+# include "init_mlx.h"
+# include "map_error.h"
 
-void	draw_pixel(int x, int y)
-{
-	char	*dst;
+bool	map_has_wall_at(float x, float y);
+bool	is_space_at(const float pixel_x, const float pixel_y);
 
-	dst = &g_img.addr[y * g_img.line_length + x * (g_img.bits_per_pixel / 8)];
-	*(unsigned int*)dst = g_color;
-}
+#endif

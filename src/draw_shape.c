@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:08:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 07:48:28 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 13:48:07 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,5 @@ void			draw_line_minimap(int x0, int y0, int x1, int y1)
 		x0 * MINIMAP_SCALE_FACTOR,
 		y0 * MINIMAP_SCALE_FACTOR,
 		x1 * MINIMAP_SCALE_FACTOR,
-		y1 * MINIMAP_SCALE_FACTOR
-	);
+		y1 * MINIMAP_SCALE_FACTOR);
 }

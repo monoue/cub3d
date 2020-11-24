@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics.c                                         :+:      :+:    :+:   */
+/*   seek_vertical_hit.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 13:53:27 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 15:48:21 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/24 14:29:17 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/24 15:14:22 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "graphics.h"
+#ifndef SEEK_VERTICAL_HIT_H
+# define SEEK_VERTICAL_HIT_H
 
-t_color	g_color;
+# include "defs.h"
+# include "is_ray_facing.h"
+# include "player.h"
+# include "seek_hit_utils.h"
+# include "ray_def.h"
 
-void	draw_pixel(int x, int y)
-{
-	char	*dst;
+void		seek_vertical_hit(t_ray_materials *vert_hitter, float ray_angle);
 
-	dst = &g_img.addr[y * g_img.line_length + x * (g_img.bits_per_pixel / 8)];
-	*(unsigned int*)dst = g_color;
-}
+#endif

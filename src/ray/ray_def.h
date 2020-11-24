@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_sprites.h                                   :+:      :+:    :+:   */
+/*   ray_def.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 13:11:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/21 13:11:30 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/24 14:27:39 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/24 16:36:46 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_SPRITES_H
-# define RENDER_SPRITES_H
+#ifndef RAY_DEF_H
+# define RAY_DEF_H
 
-# include "defs.h"
-# include "graphics.h"
-# include "sprite.h"
+# include "coord.h"
 
-void	render_sprites(void);
+typedef struct	s_ray_materials {
+	t_coord	*intercept;
+	t_coord	*step;
+	bool	is_wall_hit_found;
+	t_coord	*wall_hit_coord;
+	t_coord	*next_touch_coord;
+	t_coord	*to_check_coord;
+	float	hit_distance;
+}				t_ray_materials;
 
 #endif
