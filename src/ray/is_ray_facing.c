@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics.c                                         :+:      :+:    :+:   */
+/*   is_ray_facing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 13:53:27 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 15:48:21 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/24 14:09:50 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/24 16:27:52 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "graphics.h"
+#include "is_ray_facing.h"
 
-t_color	g_color;
-
-void	draw_pixel(int x, int y)
+bool	is_ray_facing_down(float angle)
 {
-	char	*dst;
+	return (angle > 0 && angle < PI);
+}
 
-	dst = &g_img.addr[y * g_img.line_length + x * (g_img.bits_per_pixel / 8)];
-	*(unsigned int*)dst = g_color;
+bool	is_ray_facing_up(float angle)
+{
+	return (!is_ray_facing_down(angle));
+}
+
+bool	is_ray_facing_right(float angle)
+{
+	return (angle < HALF_PI || angle > PI + HALF_PI);
+}
+
+bool	is_ray_facing_left(float angle)
+{
+	return (!is_ray_facing_right(angle));
 }

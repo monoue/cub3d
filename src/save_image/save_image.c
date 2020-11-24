@@ -6,12 +6,11 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:12:59 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 13:17:02 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 16:34:26 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "save_image.h"
-
 
 static void	set_file_header(unsigned char header_buf[HEADER_SIZE],
 												const unsigned int image_size)
@@ -44,8 +43,7 @@ static void	set_info_header(unsigned char header_buf[HEADER_SIZE],
 	ft_memset(&header_buf[IMPORTANT_COLORS_OFFSET], 0, 4);
 }
 
-// write_bmp_file
-void	write_header(int fd, const unsigned int image_size)
+static void	write_header(int fd, const unsigned int image_size)
 {
 	unsigned char	header_buf[HEADER_SIZE];
 
@@ -55,12 +53,11 @@ void	write_header(int fd, const unsigned int image_size)
 	write(fd, header_buf, HEADER_SIZE);
 }
 
-// save_image
-void	write_bmp_file()
+static void	write_bmp_file(void)
 {
 	const int			line_size = g_cubfile_data.window_width * 4;
 	const unsigned int	image_size = g_cubfile_data.window_height * line_size;
-	int	fd;
+	int					fd;
 
 	fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	write_header(fd, image_size);
@@ -68,7 +65,7 @@ void	write_bmp_file()
 	close(fd);
 }
 
-void	save_image()
+void		save_image(void)
 {
 	write_bmp_file();
 	write(1, "Screenshot saved!\n", 18);

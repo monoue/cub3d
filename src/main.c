@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/13 13:53:46 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 16:30:39 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,6 @@ void	play_the_game(char *filename)
 {
 	set_cubfile_data(filename);
 	mlx();
-
-	// initialize_mlx_elements();
-	// mlx_hook(data.win, 2, 1L << 0, key_pressed, &data);
-	// mlx_hook(data.win, 3, 1L << 1, key_released, &data);
-	// mlx_hook(data.win, 17, 1L << 17, finish_program, &data);
-	// mlx_loop_hook(data.mlx, render_next_frame, &data);
-	// mlx_loop(data.mlx);
 }
 
 int	main(int argc, char **argv)

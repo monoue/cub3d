@@ -4,10 +4,9 @@
 #include "debug.h"
 #include "defs.h"
 #include "error.h"
-#include "init_mlx.h"
+// #include "init_mlx.h"
 #include "map_error.h"
 #include "player.h"
-#include "ray.h"
 #include "set_color.h"
 #include "set_cubfile_data.h"
 

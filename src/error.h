@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:26 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 10:50:09 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 16:35:47 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define MAP_NOT_CLOSED "The map is not surrounded by walls.\n"
 
 void	map_exit_failure(char *map_line, char *error_message);
-void	exit_with_error_message(t_error_types message_type,  char *error_content);
+void	exit_with_error_message(t_error_types message_type,
+														char *error_content);
 
 #endif

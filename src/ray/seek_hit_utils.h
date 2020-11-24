@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics.c                                         :+:      :+:    :+:   */
+/*   seek_hit_utils.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 13:53:27 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 15:48:21 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/24 14:15:32 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/24 14:38:39 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "graphics.h"
+#ifndef SEEK_HIT_UTILS_H
+# define SEEK_HIT_UTILS_H
 
-t_color	g_color;
+# include <float.h>
+# include <stdbool.h>
 
-void	draw_pixel(int x, int y)
-{
-	char	*dst;
+# include "coord.h"
+# include "defs.h"
+# include "player.h"
 
-	dst = &g_img.addr[y * g_img.line_length + x * (g_img.bits_per_pixel / 8)];
-	*(unsigned int*)dst = g_color;
-}
+float	get_hit_distance(t_coord *wall_hit_coord, bool is_hit_found);
+bool	is_inside_map(t_coord *coord);
+
+#endif

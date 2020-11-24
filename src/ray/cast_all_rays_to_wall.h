@@ -1,41 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.h                                           :+:      :+:    :+:   */
+/*   cast_all_rays_to_wall.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 13:11:02 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 15:44:35 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:11:16 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/24 16:26:06 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLAYER_H
-# define PLAYER_H
+#ifndef CAST_ALL_RAYS_TO_WALL_H
+# define CAST_ALL_RAYS_TO_WALL_H
 
+# include "cast_ray_to_wall_utils.h"
 # include "defs.h"
-# include "map_has_wall_at.h"
 # include "normalize_angle.h"
+# include "player.h"
+# include "seek_horizontal_hit.h"
+# include "seek_vertical_hit.h"
+# include "set_cubfile_data.h"
 
-typedef struct	s_player {
-	int		grid_x;
-	int		grid_y;
-	float	x;
-	float	y;
-	float	width;
-	float	height;
-	int		turn_direction;
-	int		walk_direction;
-	int		walk_horz;
-	float	rotation_angle;
-	float	walk_speed;
-	float	turn_speed;
-}				t_player;
-
-extern			t_player g_player;
-void			set_player_spawning_data(size_t x, size_t y, char current_c);
-
-void			move_player(void);
-void			render_player(void);
+void	cast_all_rays_to_wall(void);
 
 #endif

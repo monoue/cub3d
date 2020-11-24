@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:12:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 10:28:49 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/24 15:24:29 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ size_t	count_specific_c(const char *str, char c)
 ** If a color size is of more than three digits, it is taken to be invalid.
 */
 
-void	exit_if_color_line_is_invalid(t_color color, const char **infos, const char **num_strs, char *id)
+void	exit_if_color_line_is_invalid(t_color color, const char **infos,
+												const char **num_strs, char *id)
 {
 	size_t	index;
 
@@ -50,7 +51,8 @@ void	exit_if_color_line_is_invalid(t_color color, const char **infos, const char
 	index = 0;
 	while (index < 3)
 	{
-		if (!ft_str_is_numeric(num_strs[index]) || ft_strlen(num_strs[index]) > 3)
+		if (!ft_str_is_numeric(num_strs[index])
+				|| ft_strlen(num_strs[index]) > 3)
 			exit_with_error_message(INVALID_INFO, id);
 		index++;
 	}
@@ -60,7 +62,6 @@ t_color	create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
-
 
 void	set_color(t_color *color, const char **infos, char *id)
 {
@@ -77,5 +78,9 @@ void	set_color(t_color *color, const char **infos, char *id)
 			exit_with_error_message(INVALID_INFO, id);
 		rgb_index++;
 	}
-	*color = create_trgb(0, rgb_elements[0], rgb_elements[1], rgb_elements[2]);
+	*color = create_trgb(
+		0,
+		rgb_elements[0],
+		rgb_elements[1],
+		rgb_elements[2]);
 }
