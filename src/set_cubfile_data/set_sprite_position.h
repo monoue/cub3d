@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   set_sprite_position.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:12:04 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 07:36:33 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef SET_SPRITE_POSITON_H
+# define SET_SPRITE_POSITION_H
 
-# include "../libft.h"
 # include "src/defs.h"
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+typedef struct	s_sprite {
+	float	x;
+	float	y;
+	float	distance_from_player;
+}				t_sprite;
+
+extern t_sprite g_sprites[MAX_SPRITES_NUM];
+
+void			set_sprite_position(size_t x, size_t y, size_t sprite_i);
 
 #endif

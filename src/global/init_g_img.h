@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   init_g_img.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:10:44 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 10:00:37 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef INIT_G_IMG_H
+# define INIT_G_IMG_H
 
-# include "../libft.h"
-# include "src/defs.h"
+typedef struct	s_img
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+extern	t_img g_img;
 
 #endif

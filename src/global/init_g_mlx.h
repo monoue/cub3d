@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   init_g_mlx.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:10:44 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 10:02:18 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef INIT_G_MLX_H
+# define INIT_G_MLX_H
 
-# include "../libft.h"
-# include "src/defs.h"
+typedef struct	s_mlx
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+}				t_mlx;
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+extern	t_mlx g_mlx;
 
 #endif

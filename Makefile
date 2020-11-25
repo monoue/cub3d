@@ -6,41 +6,56 @@ OBJS =		$(SRCS:%.c=%.o)
 CLIBS =		-L . -lft
 CFLAGS =	-Wall -Wextra -Werror
 
-SRCS += src/cast_all_rays_to_wall.c
-SRCS += src/cast_ray_to_wall_utils.c
-SRCS += src/coord.c
-SRCS += src/create_maps.c
-SRCS += src/draw_shape.c
-SRCS += src/error.c
-SRCS += src/event_hook.c
-SRCS += src/get_line_data_utils.c
-SRCS += src/graphics.c
-SRCS += src/init_mlx.c
-SRCS += src/is_map_line.c
-SRCS += src/is_ray_facing.c
-SRCS += src/main.c
-SRCS += src/map_has_wall_at.c
-SRCS += src/map_error.c
-SRCS += src/normalize_angle.c
-SRCS += src/player.c
-SRCS += src/render/render_background.c
-SRCS += src/render/render_sprites.c
-SRCS += src/render/render_mini_map.c
-SRCS += src/render/render_wall_ray_basis.c
-SRCS += src/save_image.c
-SRCS += src/seek_hit_utils.c
-SRCS += src/seek_horizontal_hit.c
-SRCS += src/seek_vertical_hit.c
-SRCS += src/set_color.c
-SRCS += src/set_cubfile_data.c
-SRCS += src/write_image.c
-SRCS += src/sprite.c
+SRCS += src/error_exit/error_exit.c
 
-SRCS += src/test.c
+SRCS += src/game_loop/event_hook.c
+SRCS += src/game_loop/game_loop.c
+SRCS += src/game_loop/map_has_wall_at.c
+SRCS += src/game_loop/move_player.c
+SRCS += src/game_loop/update_sprites_data.c
+
+SRCS += src/game_loop/ray/cast_all_rays_to_wall.c
+SRCS += src/game_loop/ray/cast_ray_to_wall_utils.c
+SRCS += src/game_loop/ray/coord.c
+SRCS += src/game_loop/ray/is_ray_facing.c
+SRCS += src/game_loop/ray/seek_hit_utils.c
+SRCS += src/game_loop/ray/seek_horizontal_hit.c
+SRCS += src/game_loop/ray/seek_vertical_hit.c
+
+SRCS += src/game_loop/render/draw_pixel.c
+SRCS += src/game_loop/render/draw_shape.c
+SRCS += src/game_loop/render/render_background.c
+SRCS += src/game_loop/render/render_mini_map.c
+SRCS += src/game_loop/render/render_sprites.c
+SRCS += src/game_loop/render/render_wall_ray_basis.c
+
+SRCS += src/global/init_g_color.c
+SRCS += src/global/init_g_cubfile_data.c
+SRCS += src/global/init_g_ids.c
+SRCS += src/global/init_g_img.c
+SRCS += src/global/init_g_mlx.c
+SRCS += src/global/init_g_player.c
+SRCS += src/global/init_g_textures.c
+
+SRCS += src/main.c
+
+SRCS += src/save_image/save_image.c
+SRCS += src/save_image/write_image.c
+
+SRCS += src/set_cubfile_data/create_maps.c
+SRCS += src/set_cubfile_data/exit_if_map_is_not_surrounded_by_walls.c
+SRCS += src/set_cubfile_data/get_line_data_utils.c
+SRCS += src/set_cubfile_data/is_map_line.c
+SRCS += src/set_cubfile_data/set_color.c
+SRCS += src/set_cubfile_data/set_cubfile_data.c
+SRCS += src/set_cubfile_data/player_spawning_data.c
+SRCS += src/set_cubfile_data/sprite_position.c
+
+SRCS += src/utils/create_trgb.c
+SRCS += src/utils/normalize_angle.c
 
 $(NAME): $(OBJS)
 	gcc -g -fsanitize=address $(SRCS) ./libft.a ./libmlx.dylib -o cub3D;
-	# gcc -g -fsanitize=address $(SRCS) ./libft.a -o cub3D;
 	# ar rcs $(NAME) $(OBJS)
 
 all: $(NAME)

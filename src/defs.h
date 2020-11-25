@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:18 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 10:11:40 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 10:38:59 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <math.h>
 # include <stdint.h>
 
-# include "./libft/libft.h"
+# include "libft/libft.h"
 
 # define SUCCESS				0
 # define HALF_PI				1.57079633

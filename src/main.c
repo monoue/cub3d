@@ -6,28 +6,63 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 16:30:39 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 09:26:13 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
-#include <stdio.h>
+// #include <stdio.h>
 
-#include "map_error.h"
-#include "create_maps.h"
-#include "defs.h"
-#include "error.h"
+#include "src/defs.h"
+#include "src/error_exit/error_exit.h"
 #include "init_mlx.h"
-#include "libft/libft.h"
-#include "debug.h"
-#include "../minilibx/mlx.h"
-#include "player.h"
-#include "set_cubfile_data.h"
+#include "src/libft/libft.h"
+#include "src/set_cubfile_data/set_cubfile_data.h"
+#include "src/game_loop/event_hook.h"
 
-void	play_the_game(char *filename)
+static void	set_textures(void)
+{
+	size_t		t_i;
+
+	t_i = 0;
+	while (t_i < TEXTURES_NUM)
+	{
+		g_textures[t_i].img_ptr = mlx_xpm_file_to_image(
+			g_mlx.mlx_ptr,
+			g_textures[t_i].path,
+			&g_textures[t_i].width,
+			&g_textures[t_i].height);
+		if (g_textures[t_i].img_ptr == NULL)
+			exit_with_error_message(ERRNO, NULL);
+		g_textures[t_i].addr = mlx_get_data_addr(
+			g_textures[t_i].img_ptr,
+			&g_textures[t_i].bits_per_pixel,
+			&g_textures[t_i].line_length,
+			&g_textures[t_i].endian);
+		t_i++;
+	}
+}
+
+static void	init_mlx(void)
+{
+	g_mlx.mlx_ptr = mlx_init();
+	g_mlx.win_ptr = mlx_new_window(g_mlx.mlx_ptr, g_cubfile_data.window_width,
+								g_cubfile_data.window_height, "Monoue's cub3D");
+								// TODO: defs にメッセージ入れる
+	g_img.img_ptr = mlx_new_image(g_mlx.mlx_ptr, g_cubfile_data.window_width,
+												g_cubfile_data.window_height);
+	g_img.addr = mlx_get_data_addr(g_img.img_ptr, &g_img.bits_per_pixel,
+											&g_img.line_length, &g_img.endian);
+	set_textures();
+}
+
+static void	play_the_game(char *filename)
 {
 	set_cubfile_data(filename);
-	mlx();
+	init_mlx();
+	event_hook();
+	mlx_loop_hook(g_mlx.mlx_ptr, &game_loop, NULL);
+	mlx_loop(g_mlx.mlx_ptr);
 }
 
 int	main(int argc, char **argv)

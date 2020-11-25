@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   get_line_data_utils.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/24 12:59:29 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 09:51:02 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef GET_LINE_DATA_UTILS_H
+# define GET_LINE_DATA_UTILS_H
 
-# include "../libft.h"
 # include "src/defs.h"
+# include "src/error_exit/error_exit.h"
+# include "src/global/init_g_ids.h"
+# include "src/global/init_g_cubfile_data.h"
+# include "src/libft/libft.h"
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+void			get_resolution(const char **infos);
+void			exit_if_not_all_elements_are_set(void);
+void			set_texture_if_valid(const char **element_items);
+bool			all_elements_are_set(void);
 
 #endif

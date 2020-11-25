@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   render_mini_map.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:11:23 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 10:12:06 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef RENDER_MINI_MAP_H
+# define RENDER_MINI_MAP_H
 
-# include "../libft.h"
 # include "src/defs.h"
+# include "src/global/init_g_player.h"
+# include "draw_shape.h"
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+void	render_mini_map(void);
+void	render_player(void);
+void	render_lines_to_sprites_center(void);
 
 #endif
