@@ -40,6 +40,7 @@ SRCS += src/global/init_g_map.c
 SRCS += src/global/init_g_map_to_check.c
 SRCS += src/global/init_g_player.c
 SRCS += src/global/init_g_rays.c
+SRCS += src/global/init_g_sprites.c
 SRCS += src/global/init_g_textures.c
 
 SRCS += src/main.c
