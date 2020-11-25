@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:15:40 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:09:00 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,10 @@
 # define CAST_RAY_TO_WALL_UTILS_H
 
 # include "coord.h"
-# include "src/defs.h"
+# include "../../defs.h"
+# include "../../global/init_g_rays.h"
 # include "ray_def.h"
 # include "is_ray_facing.h"
-
-typedef struct	s_ray_to_wall {
-	float			ray_angle;
-	t_coord			*wall_hit_coord;
-	float			distance_to_wall;
-	bool			was_hit_vertical;
-	t_textures_num	wall_hit_direction;
-}				t_ray_to_wall;
-
-extern t_ray_to_wall	g_rays[MAX_WINDOW_WIDTH];
 
 t_ray_materials	*malloc_t_ray_materials(void);
 void			free_each_t_ray_materials(t_ray_materials *ray_materials);

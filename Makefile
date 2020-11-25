@@ -28,13 +28,18 @@ SRCS += src/game_loop/render/render_background.c
 SRCS += src/game_loop/render/render_mini_map.c
 SRCS += src/game_loop/render/render_sprites.c
 SRCS += src/game_loop/render/render_wall_ray_basis.c
+SRCS += src/game_loop/render/set_texture_color.c
 
 SRCS += src/global/init_g_color.c
 SRCS += src/global/init_g_cubfile_data.c
+SRCS += src/global/init_g_distance_proj_plane.c
 SRCS += src/global/init_g_ids.c
 SRCS += src/global/init_g_img.c
 SRCS += src/global/init_g_mlx.c
+SRCS += src/global/init_g_map.c
+SRCS += src/global/init_g_map_to_check.c
 SRCS += src/global/init_g_player.c
+SRCS += src/global/init_g_rays.c
 SRCS += src/global/init_g_textures.c
 
 SRCS += src/main.c
@@ -48,8 +53,9 @@ SRCS += src/set_cubfile_data/get_line_data_utils.c
 SRCS += src/set_cubfile_data/is_map_line.c
 SRCS += src/set_cubfile_data/set_color.c
 SRCS += src/set_cubfile_data/set_cubfile_data.c
-SRCS += src/set_cubfile_data/player_spawning_data.c
-SRCS += src/set_cubfile_data/sprite_position.c
+SRCS += src/set_cubfile_data/set_player_spawning_data.c
+SRCS += src/set_cubfile_data/set_texture.c
+SRCS += src/set_cubfile_data/set_sprite_position.c
 
 SRCS += src/utils/create_trgb.c
 SRCS += src/utils/normalize_angle.c

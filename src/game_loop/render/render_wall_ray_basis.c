@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 17:43:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 09:53:08 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:19:20 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,6 @@ static size_t	calc_texture_offset_y(int texture_height,
 									- (g_cubfile_data.window_height / 2);
 	return (distance_from_wall_strip_top
 							* ((float)texture_height / projected_wall_height));
-}
-
-void			set_texture_color(t_texture texture, int x, int y)
-{
-	char	*pixel_color;
-
-	pixel_color = texture.addr
-				+ (y * texture.line_length + x * (texture.bits_per_pixel / 8));
-	g_color = *(unsigned int*)pixel_color;
 }
 
 void			render_wall_ray_basis(int window_x, int *window_y,

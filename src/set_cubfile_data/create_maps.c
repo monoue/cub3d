@@ -6,14 +6,11 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:57:52 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/21 13:09:55 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 11:55:53 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "create_maps.h"
-
-char	g_map[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];
-char	g_map_to_check[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];
 
 static void	exit_if_too_large_map(char *map_line, size_t height)
 {

@@ -6,14 +6,14 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 10:07:20 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 10:07:42 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 11:28:30 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_G_COLOR_H
 # define INIT_G_COLOR_H
 
-# include "src/defs.h"
+# include "../defs.h"
 
 extern	t_color g_color;
 

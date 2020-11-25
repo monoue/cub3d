@@ -6,13 +6,13 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:12:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 08:06:33 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 13:03:06 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set_color.h"
 
-static bool	is_out_of_color_range(int trgb_element)
+static bool		is_out_of_color_range(int trgb_element)
 {
 	return (trgb_element < 0 || trgb_element > 255);
 }
@@ -37,7 +37,7 @@ static size_t	count_specific_c(const char *str, char c)
 ** If a color size is of more than three digits, it is taken to be invalid.
 */
 
-static void	exit_if_color_line_is_invalid(t_color color, const char **infos,
+static void		exit_if_color_line_is_invalid(t_color color, const char **infos,
 												const char **num_strs, char *id)
 {
 	size_t	index;
@@ -58,7 +58,7 @@ static void	exit_if_color_line_is_invalid(t_color color, const char **infos,
 	}
 }
 
-void	set_color(t_color *color, const char **infos, char *id)
+void			set_color(t_color *color, const char **infos, char *id)
 {
 	const char	**num_strs = (const char **)ft_split(infos[0], ',');
 	size_t		rgb_index;

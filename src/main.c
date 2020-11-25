@@ -6,19 +6,22 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 09:26:13 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:32:46 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
 // #include <stdio.h>
 
-#include "src/defs.h"
-#include "src/error_exit/error_exit.h"
-#include "init_mlx.h"
-#include "src/libft/libft.h"
-#include "src/set_cubfile_data/set_cubfile_data.h"
-#include "src/game_loop/event_hook.h"
+#include "defs.h"
+#include "error_exit/error_exit.h"
+// #include "init_mlx.h"
+#include "game_loop/game_loop.h"
+#include "global/init_g_textures.h"
+#include "global/init_g_img.h"
+#include "libft/libft.h"
+#include "set_cubfile_data/set_cubfile_data.h"
+#include "game_loop/event_hook.h"
 
 static void	set_textures(void)
 {

@@ -6,11 +6,11 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 09:22:13 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:54:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "src/set_cubfile_data/set_cubfile_data.h"
+#include "set_cubfile_data.h"
 
 static bool	map_has_double_spawn_points(void)
 {
@@ -96,7 +96,8 @@ void	set_cubfile_data(char *filename)
 	if (fd == ERROR)
 		exit_with_error_message(ERRNO, NULL);
 	init_maps();
-	init_texture_paths();
+	// TODO: これやらないと
+	// init_texture_paths();
 	while (get_next_line(fd, &line) > 0)
 	{
 		get_line_data(line, fd);

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:12:04 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 10:12:44 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 11:59:24 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 # include <unistd.h>
 
-# include "src/defs.h"
-# include "src/global/init_g_player.h"
-# include "graphics.h"
-# include "render_mini_map.h"
+# include "../defs.h"
+# include "../global/init_g_player.h"
+# include "../global/init_g_sprites.h"
+# include "../global/init_g_cubfile_data.h"
 
 void			update_sprites_data(void);
 

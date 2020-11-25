@@ -16,15 +16,17 @@
 # include <fcntl.h>
 
 # include "create_maps.h"
-# include "src/libft/libft.h"
-# include "src/defs.h"
-# include "src/global/init_g_ids.h"
-# include "src/set_cubfile_data/create_maps.h"
-# include "src/set_cubfile_data/get_line_data_utils.h"
-# include "src/set_cubfile_data/is_map_line.h"
-# include "src/set_cubfile_data/set_color.h"
-# include "src/set_cubfile_data/set_player_spawning_data.h"
-# include "src/set_cubfile_data/set_sprite_position.h"
+# include "../libft/libft.h"
+# include "../defs.h"
+# include "exit_if_map_is_not_surrounded_by_walls.h"
+# include "../global/init_g_ids.h"
+# include "../set_cubfile_data/create_maps.h"
+# include "../set_cubfile_data/get_line_data_utils.h"
+# include "../set_cubfile_data/is_map_line.h"
+# include "../set_cubfile_data/set_color.h"
+# include "../set_cubfile_data/set_player_spawning_data.h"
+# include "../set_cubfile_data/set_sprite_position.h"
+# include "../set_cubfile_data/set_texture.h"
 
 void	set_cubfile_data(char *filename);
 

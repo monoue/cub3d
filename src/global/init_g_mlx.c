@@ -6,10 +6,10 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 10:01:25 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:29:42 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "src/global/init_g_mlx.h"
+#include "init_g_mlx.h"
 
 t_mlx		g_mlx;

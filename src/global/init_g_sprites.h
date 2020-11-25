@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_g_textures.h                                  :+:      :+:    :+:   */
+/*   init_g_sprites.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 09:53:36 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 11:28:49 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/25 11:37:34 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 11:38:34 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_G_TEXTURES_H
-# define INIT_G_TEXTURES_H
+#ifndef INIT_G_SPRITES_H
+# define INIT_G_SPRITES_H
 
 # include "../defs.h"
 
-typedef struct	s_texture
-{
-	void	*img_ptr;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-	char	*path;
-}				t_texture;
+typedef struct	s_sprite {
+	float	x;
+	float	y;
+	float	distance_from_player;
+}				t_sprite;
 
-extern	t_texture g_textures[TEXTURES_NUM];
+extern t_sprite g_sprites[MAX_SPRITES_NUM];
 
 #endif

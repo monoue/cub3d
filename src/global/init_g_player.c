@@ -6,11 +6,11 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 10:09:49 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 10:10:04 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:29:58 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "src/global/init_g_player.h"
+#include "init_g_player.h"
 
 t_player		g_player =
 {

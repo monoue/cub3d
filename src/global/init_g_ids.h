@@ -6,14 +6,14 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:42:52 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 09:46:03 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 11:24:26 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_G_IDS_H
 # define INIT_G_IDS_H
 
-# include "src/defs.h"
+# include "../defs.h"
 
 extern char *g_ids[TEXTURES_NUM];
 

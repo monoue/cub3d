@@ -6,16 +6,17 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 09:22:13 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:34:20 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SAVE_IMAGE_H
 # define SAVE_IMAGE_H
 
-# include "src/defs.h"
-# include "init_mlx.h"
-# include "src/set_cubfile_data/set_cubfile_data.h"
+# include "../defs.h"
+// # include "init_mlx.h"
+# include "../global/init_g_img.h"
+# include "../set_cubfile_data/set_cubfile_data.h"
 # include "write_image.h"
 
 # define FILE_HEADER_SIZE 14

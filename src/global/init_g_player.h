@@ -6,12 +6,14 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 10:10:33 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 10:10:55 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:30:24 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_G_PLAYER_H
 # define INIT_G_PLAYER_H
+
+# include "../defs.h"
 
 typedef struct	s_player {
 	int		grid_x;

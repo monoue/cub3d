@@ -6,13 +6,11 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 12:04:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 07:36:44 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 11:37:07 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "set_sprite_position.h"
-
-t_sprite g_sprites[MAX_SPRITES_NUM];
 
 void		set_sprite_position(size_t x, size_t y, size_t sprite_i)
 {

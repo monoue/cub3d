@@ -6,10 +6,10 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 09:58:14 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:29:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "src/global/init_g_img.h"
+#include "init_g_img.h"
 
 t_img		g_img;

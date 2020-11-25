@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_g_textures.h                                  :+:      :+:    :+:   */
+/*   set_texture.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 09:53:36 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 11:28:49 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/25 12:42:52 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 12:43:21 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_G_TEXTURES_H
-# define INIT_G_TEXTURES_H
+#include "set_texture.h"
 
-# include "../defs.h"
-
-typedef struct	s_texture
+void	set_texture(char **texture_path, const char **infos, char *id)
 {
-	void	*img_ptr;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-	char	*path;
-}				t_texture;
-
-extern	t_texture g_textures[TEXTURES_NUM];
-
-#endif
+	if (*texture_path != NULL)
+		exit_with_error_message(ID_OVERLAPPING, id);
+	if (ft_count_strs(infos) != 1)
+		exit_with_error_message(WRONG_INFO_NUM, id);
+	*texture_path = ft_strdup(infos[0]);
+}

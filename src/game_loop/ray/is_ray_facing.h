@@ -6,14 +6,14 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:36:34 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 11:18:53 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef IS_RAY_FACING_H
 # define IS_RAY_FACING_H
 
-# include "src/defs.h"
+# include "../../defs.h"
 # include "stdbool.h"
 
 bool is_ray_facing_down(float angle);

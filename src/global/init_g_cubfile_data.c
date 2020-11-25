@@ -6,11 +6,11 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:49:37 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 09:49:51 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:28:55 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "src/global/init_g_cubfile_data.h"
+#include "init_g_cubfile_data.h"
 
 t_cubfile_data g_cubfile_data =
 {

@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_g_textures.h                                  :+:      :+:    :+:   */
+/*   set_texture_color.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 09:53:36 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 11:28:49 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/25 12:18:41 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 12:20:07 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_G_TEXTURES_H
-# define INIT_G_TEXTURES_H
+#ifndef SET_TEXTURE_COLOR_H
+# define SET_TEXTURE_COLOR_H
 
-# include "../defs.h"
+# include "../../global/init_g_color.h"
+# include "../../global/init_g_textures.h"
 
-typedef struct	s_texture
-{
-	void	*img_ptr;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-	char	*path;
-}				t_texture;
-
-extern	t_texture g_textures[TEXTURES_NUM];
+void	set_texture_color(t_texture texture, int x, int y);
 
 #endif

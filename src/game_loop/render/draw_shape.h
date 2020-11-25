@@ -6,15 +6,16 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:13:19 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:12:18 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:03:33 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DRAW_SHAPE_H
 # define DRAW_SHAPE_H
 
-# include "src/defs.h"
-# include "graphics.h"
+# include "../../defs.h"
+# include "../../global/init_g_color.h"
+# include "draw_pixel.h"
 
 void	draw_rectangle(size_t start_x, size_t start_y, size_t width,
 																size_t height);

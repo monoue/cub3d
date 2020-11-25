@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:54:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 09:49:26 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 13:02:23 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,32 +61,6 @@ void		exit_if_not_all_elements_are_set(void)
 		exit_with_error_message(LACKING_ELEMENT, "F");
 	if ((int)g_cubfile_data.ceiling_color == NOT_SET)
 		exit_with_error_message(LACKING_ELEMENT, "C");
-}
-
-static void	set_texture(char **texture_path, const char **infos, char *id)
-{
-	if (*texture_path != NULL)
-		exit_with_error_message(ID_OVERLAPPING, id);
-	if (ft_count_strs(infos) != 1)
-		exit_with_error_message(WRONG_INFO_NUM, id);
-	*texture_path = ft_strdup(infos[0]);
-}
-
-void		set_texture_if_valid(const char **element_items)
-{
-	size_t		t_i;
-
-	t_i = 0;
-	while (t_i < TEXTURES_NUM)
-	{
-		if (ft_strcmp(element_items[0], g_ids[t_i]) == 0)
-		{
-			set_texture(&g_textures[t_i].path, &element_items[1],
-																g_ids[t_i]);
-			break ;
-		}
-		t_i++;
-	}
 }
 
 bool		all_elements_are_set(void)

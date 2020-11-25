@@ -6,13 +6,11 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:16:08 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 16:24:32 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:06:41 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cast_ray_to_wall_utils.h"
-
-t_ray_to_wall	g_rays[MAX_WINDOW_WIDTH];
 
 t_ray_materials	*malloc_t_ray_materials(void)
 {

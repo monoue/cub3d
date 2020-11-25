@@ -1,7 +1,7 @@
 #ifndef INIT_G_CUBFILE_DATA_H
 # define INIT_G_CUBFILE_DATA_H
 
-# include "src/defs.h"
+# include "../defs.h"
 
 typedef struct	s_cubfile_data
 {

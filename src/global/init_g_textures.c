@@ -6,10 +6,10 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:52:38 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 09:53:13 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:30:39 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "src/global/init_g_textures.h"
+#include "init_g_textures.h"
 
 t_texture	g_textures[TEXTURES_NUM];

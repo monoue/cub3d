@@ -6,13 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 16:47:37 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 12:24:55 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render_background.h"
 
-float	g_distance_proj_plane;
 /*
 ** Projected wall height is calculated based on perpendicular distance from
 ** the player to wall.
