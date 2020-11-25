@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 13:15:08 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 15:09:52 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int		calc_projected_wall_height(t_ray_to_wall ray)
 
 	perp_distance_to_wall = ray.distance_to_wall
 								* cos(ray.ray_angle - g_player.rotation_angle);
-	return ((int)(g_distance_proj_plane * (TILE_SIZE / perp_distance_to_wall)));
+	return ((int)(TILE_SIZE * (g_distance_proj_plane / perp_distance_to_wall)));
 }
 
 static void		render_ceiling_ray_basis(int window_x, int *window_y,

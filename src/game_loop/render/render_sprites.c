@@ -6,13 +6,13 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:21:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 13:33:32 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 15:51:57 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render_sprites.h"
 
-float	calc_angle_difference_between_player_and_sprite(size_t index)
+float	calc_player_and_sprite_angle_diff(size_t index)
 {
 	const float	x_difference = g_sprites[index].x - g_player.x;
 	const float	y_difference = g_sprites[index].y - g_player.y;
@@ -28,34 +28,20 @@ float	calc_angle_difference_between_player_and_sprite(size_t index)
 	return (angle_difference);
 }
 
-void	render_from_top_to_sprite_ray_basis(int window_x, int *window_y,
-											const int projected_sprite_height)
+int		calc_projected_sprite_tile_size(size_t	index)
 {
-	int sprite_top_pixel;
-
-	sprite_top_pixel = MAX((g_cubfile_data.window_height / 2)
-							- (projected_sprite_height / 2), 0);
-	g_color = create_trgb(0, 0, 255, 0);
-	while (*window_y < sprite_top_pixel)
-	{
-		draw_pixel(window_x, *window_y);
-		(*window_y)++;
-	}
-}
-
-int		calc_projected_sprite_height(size_t	index)
-{
-	float	perp_distance_to_project;
+	float	perp_distance_to_sprite;
 	float	normalized_angle_difference;
 
 	normalized_angle_difference
-					= calc_angle_difference_between_player_and_sprite(index);
+					= calc_player_and_sprite_angle_diff(index);
 	normalize_angle(&normalized_angle_difference);
-	perp_distance_to_project = fabs(g_sprites[index].distance_from_player
+	perp_distance_to_sprite = fabs(g_sprites[index].distance_from_player
 										* cos(normalized_angle_difference));
 	return ((int)(TILE_SIZE
-					* (g_distance_proj_plane / perp_distance_to_project)));
+					* (g_distance_proj_plane / perp_distance_to_sprite)));
 }
+
 
 size_t	calc_sprite_texture_offset_x(t_ray_to_wall ray, float texture_width)
 {
@@ -86,45 +72,75 @@ size_t	calc_sprite_texture_offset_y(int texture_height,
 							((float)texture_height / projected_wall_height));
 }
 
+int			calc_sprite_center_x(float player_and_sprite_angle_diff)
+{
+	float	window_center_and_sprite_x_diff;
+
+	window_center_and_sprite_x_diff = (g_cubfile_data.window_width
+									/ FOV_ANGLE) * player_and_sprite_angle_diff;
+	return (g_cubfile_data.window_width / 2 - (window_center_and_sprite_x_diff));
+}
+
+float	calc_perp_distance_to_sprite(size_t index,
+											float player_and_sprite_angle_diff)
+{
+	float	normalized_angle_diff;
+
+	normalized_angle_diff = player_and_sprite_angle_diff;
+	normalize_angle(&normalized_angle_diff);
+	return (fabs(g_sprites[index].distance_from_player
+												* cos(normalized_angle_diff)));
+}
+// norm trying
+
+// TODO: 関数作るまでもないかも？ x に計算して入れてやればいいだけだ。
+// いや、ストップの部分（下端と右端）はちゃんと固定値に決めてやらなきゃいけない。
+int		calc_sprite_left_edge(float player_and_sprite_angle_diff, int projected_sprite_tile_size)
+{
+	int		sprite_center_x;
+
+	sprite_center_x = calc_sprite_center_x(player_and_sprite_angle_diff);
+	return (sprite_center_x - projected_sprite_tile_size / 2);
+}
+
 static void	render_sprite(size_t index)
 {
-	const float	angle_difference_between_player_and_sprite = calc_angle_difference_between_player_and_sprite(index);
-	if (angle_difference_between_player_and_sprite >= FOV_ANGLE || angle_difference_between_player_and_sprite <= -(FOV_ANGLE))
-		return ;
-	float	x_difference_between_window_center_and_sprite = (g_cubfile_data.window_width / FOV_ANGLE)
-		* angle_difference_between_player_and_sprite;
-	int		sprite_center_x = g_cubfile_data.window_width / 2 - (x_difference_between_window_center_and_sprite);
+	float	player_and_sprite_angle_diff;
 
-	float	normalized_angle_difference = calc_angle_difference_between_player_and_sprite(index);
-	normalize_angle(&normalized_angle_difference);
-	const float perp_distance_to_project
-	= fabs(g_sprites[index].distance_from_player * cos(normalized_angle_difference));
-	int		projected_sprite_tile_size = calc_projected_sprite_height(index);
-
-	// 正方形なのだから、以下は高さと幅に分ける必要はない。かなりきれいにまとめられるはず。
-	const int assumed_sprite_top_pixel = (g_cubfile_data.window_height / 2) - (projected_sprite_tile_size / 2);
-	const int sprite_top_pixel = MAX((g_cubfile_data.window_height / 2) - (projected_sprite_tile_size / 2), 0);
-	const int		assumed_sprite_bottom_pixel = (g_cubfile_data.window_height / 2) + (projected_sprite_tile_size / 2);
-	const int		sprite_bottom_pixel = MIN((g_cubfile_data.window_height / 2) + (projected_sprite_tile_size / 2), g_cubfile_data.window_height);
-	const int sprite_height = assumed_sprite_bottom_pixel - assumed_sprite_top_pixel;
-	const int		sprite_left_edge_pixel = sprite_center_x - projected_sprite_tile_size / 2;
-	const int		sprite_right_edge_pixel = MIN(sprite_center_x + projected_sprite_tile_size / 2, g_cubfile_data.window_width);
-	const int sprite_width = sprite_height;
-	int x = sprite_left_edge_pixel;
-	// とりあえずテストのため、二重に書いている。あとでまとめる
-	// ここまで、ダブっている
-	while (x < sprite_right_edge_pixel)
+	player_and_sprite_angle_diff = calc_player_and_sprite_angle_diff(index);
+	if (player_and_sprite_angle_diff >= FOV_ANGLE
+		|| player_and_sprite_angle_diff <= -(FOV_ANGLE))
 	{
-		if (x < 0 || g_rays[x].distance_to_wall <= perp_distance_to_project)
+		return ;
+	}
+	float perp_distance_to_sprite = calc_perp_distance_to_sprite(index, player_and_sprite_angle_diff);
+	int		projected_sprite_tile_size = calc_projected_sprite_tile_size(index);
+
+	// projected_sprite_tile_size の正方形なのだから、以下は高さと幅に分ける必要はない。かなりきれいにまとめられるはず。
+	const int assumed_sprite_top = (g_cubfile_data.window_height / 2) - (projected_sprite_tile_size / 2);
+	const int sprite_top = MAX(assumed_sprite_top, 0);
+	const int	assumed_sprite_bottom_pixel = assumed_sprite_top + projected_sprite_tile_size;
+	const int		sprite_bottom = MIN(assumed_sprite_bottom_pixel, g_cubfile_data.window_height);
+	const int sprite_height = assumed_sprite_bottom_pixel - assumed_sprite_top;
+	// const int		sprite_left_edge_pixel = sprite_center_x - projected_sprite_tile_size / 2;
+	// const int		sprite_right_edge_pixel = MIN(sprite_left_edge_pixel + projected_sprite_tile_size, g_cubfile_data.window_width);
+	// int x = sprite_left_edge_pixel;
+	int sprite_left_edge = calc_sprite_left_edge(player_and_sprite_angle_diff, projected_sprite_tile_size);
+	int x = sprite_left_edge;
+	const int		sprite_right_edge = MIN(x + projected_sprite_tile_size, g_cubfile_data.window_width);
+	while (x < sprite_right_edge)
+	{
+		if (x < 0 || g_rays[x].distance_to_wall <= perp_distance_to_sprite)
 			;
 		else
 		{
-			int sprite_texture_offset_x = (int)((float)(x - sprite_left_edge_pixel) / sprite_width * g_textures[SPRITE].width);
+			// int sprite_texture_offset_x = (int)((float)(x - sprite_left_edge_pixel) / sprite_width * g_textures[SPRITE].width);
+			int sprite_texture_offset_x = (int)((float)(x - sprite_left_edge) / projected_sprite_tile_size * g_textures[SPRITE].width);
 
-			int y = sprite_top_pixel;
-			while (y < sprite_bottom_pixel)
+			int y = sprite_top;
+			while (y < sprite_bottom)
 			{
-				int sprite_texture_offset_y = (int)((float)(y - sprite_top_pixel) / sprite_height * g_textures[SPRITE].height);
+				int sprite_texture_offset_y = (int)((float)(y - sprite_top) / sprite_height * g_textures[SPRITE].height);
 				set_texture_color(g_textures[SPRITE], sprite_texture_offset_x, sprite_texture_offset_y);
 				if (g_color)
 					draw_pixel(x, y);
@@ -134,6 +150,7 @@ static void	render_sprite(size_t index)
 		x++;
 	}
 }
+
 
 void	render_sprites(void)
 {
@@ -146,3 +163,53 @@ void	render_sprites(void)
 		index++;
 	}
 }
+
+// 動くオリジナル
+// static void	render_sprite(size_t index)
+// {
+// 	const float	angle_difference_between_player_and_sprite = calc_angle_difference_between_player_and_sprite(index);
+// 	if (angle_difference_between_player_and_sprite >= FOV_ANGLE || angle_difference_between_player_and_sprite <= -(FOV_ANGLE))
+// 		return ;
+// 	float	x_difference_between_window_center_and_sprite = (g_cubfile_data.window_width / FOV_ANGLE)
+// 		* angle_difference_between_player_and_sprite;
+// 	int		sprite_center_x = g_cubfile_data.window_width / 2 - (x_difference_between_window_center_and_sprite);
+
+// 	float	normalized_angle_difference = calc_angle_difference_between_player_and_sprite(index);
+// 	normalize_angle(&normalized_angle_difference);
+// 	const float perp_distance_to_project
+// 	= fabs(g_sprites[index].distance_from_player * cos(normalized_angle_difference));
+// 	int		projected_sprite_tile_size = calc_projected_sprite_tile_size(index);
+
+// 	// 正方形なのだから、以下は高さと幅に分ける必要はない。かなりきれいにまとめられるはず。
+// 	const int assumed_sprite_top_pixel = (g_cubfile_data.window_height / 2) - (projected_sprite_tile_size / 2);
+// 	const int sprite_top_pixel = MAX((g_cubfile_data.window_height / 2) - (projected_sprite_tile_size / 2), 0);
+// 	const int		assumed_sprite_bottom_pixel = (g_cubfile_data.window_height / 2) + (projected_sprite_tile_size / 2);
+// 	const int		sprite_bottom_pixel = MIN((g_cubfile_data.window_height / 2) + (projected_sprite_tile_size / 2), g_cubfile_data.window_height);
+// 	const int sprite_height = assumed_sprite_bottom_pixel - assumed_sprite_top_pixel;
+// 	const int		sprite_left_edge_pixel = sprite_center_x - projected_sprite_tile_size / 2;
+// 	const int		sprite_right_edge_pixel = MIN(sprite_center_x + projected_sprite_tile_size / 2, g_cubfile_data.window_width);
+// 	const int sprite_width = sprite_height;
+// 	int x = sprite_left_edge_pixel;
+// 	// とりあえずテストのため、二重に書いている。あとでまとめる
+// 	// ここまで、ダブっている
+// 	while (x < sprite_right_edge_pixel)
+// 	{
+// 		if (x < 0 || g_rays[x].distance_to_wall <= perp_distance_to_project)
+// 			;
+// 		else
+// 		{
+// 			int sprite_texture_offset_x = (int)((float)(x - sprite_left_edge_pixel) / sprite_width * g_textures[SPRITE].width);
+
+// 			int y = sprite_top_pixel;
+// 			while (y < sprite_bottom_pixel)
+// 			{
+// 				int sprite_texture_offset_y = (int)((float)(y - sprite_top_pixel) / sprite_height * g_textures[SPRITE].height);
+// 				set_texture_color(g_textures[SPRITE], sprite_texture_offset_x, sprite_texture_offset_y);
+// 				if (g_color)
+// 					draw_pixel(x, y);
+// 				y++;
+// 			}
+// 		}
+// 		x++;
+// 	}
+// }
