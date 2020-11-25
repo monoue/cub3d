@@ -6,11 +6,10 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 11:37:10 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 11:38:15 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 13:08:05 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init_g_sprites.h"
-
 
 t_sprite g_sprites[MAX_SPRITES_NUM];

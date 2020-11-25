@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 08:52:00 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 13:10:14 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int			game_loop(void *null)
 	(void)null;
 	update();
 	render();
+	// TODO
 	// if (flag)
 	// save_image();
 	mlx_put_image_to_window(g_mlx.mlx_ptr, g_mlx.win_ptr, g_img.img_ptr, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:34:20 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 13:06:58 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SAVE_IMAGE_H
 
 # include "../defs.h"
-// # include "init_mlx.h"
 # include "../global/init_g_img.h"
 # include "../set_cubfile_data/set_cubfile_data.h"
 # include "write_image.h"

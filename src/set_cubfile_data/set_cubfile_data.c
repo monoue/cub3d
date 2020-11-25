@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:54:51 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 13:11:26 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	get_line_data(char *cubfile_line, int fd)
 		set_texture_if_valid(element_items);
 }
 
-void	set_cubfile_data(char *filename)
+void		set_cubfile_data(char *filename)
 {
 	char		*line;
 	const int	fd = open(filename, O_RDONLY);

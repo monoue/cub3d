@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:44 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 11:43:14 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 13:08:57 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include "render/render_mini_map.h"
 # include "render/render_wall_ray_basis.h"
 # include "render/render_sprites.h"
-// # include "../set_color.h"
 # include "update_sprites_data.h"
 # include "../../minilibx/mlx.h"
 # include "../utils/create_trgb.h"

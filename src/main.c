@@ -6,16 +6,14 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:32:46 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 13:05:56 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
-// #include <stdio.h>
 
 #include "defs.h"
 #include "error_exit/error_exit.h"
-// #include "init_mlx.h"
 #include "game_loop/game_loop.h"
 #include "global/init_g_textures.h"
 #include "global/init_g_img.h"
@@ -68,7 +66,7 @@ static void	play_the_game(char *filename)
 	mlx_loop(g_mlx.mlx_ptr);
 }
 
-int	main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	const char	*extension = ".cub";
 	const char	*option = "--save";

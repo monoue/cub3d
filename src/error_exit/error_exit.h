@@ -6,14 +6,13 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:26 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 10:38:33 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 13:09:55 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_EXIT_H
 # define ERROR_EXIT_H
 
-// # include "src/libft/libft.h"
 # include "../libft/libft.h"
 # include "../defs.h"
 # include <errno.h>
