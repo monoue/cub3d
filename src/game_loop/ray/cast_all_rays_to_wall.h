@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   cast_all_rays_to_wall.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:11:16 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 10:14:48 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef CAST_ALL_RAYS_TO_WALL_H
+# define CAST_ALL_RAYS_TO_WALL_H
 
-# include "../libft.h"
+# include "cast_ray_to_wall_utils.h"
 # include "src/defs.h"
+# include "src/global/init_g_player.h"
+# include "normalize_angle.h"
+# include "player.h"
+# include "seek_horizontal_hit.h"
+# include "seek_vertical_hit.h"
+# include "src/set_cubfile_data/set_cubfile_data.h"
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+void	cast_all_rays_to_wall(void);
 
 #endif

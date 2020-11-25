@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   render_background.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:12:23 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 10:13:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef RENDER_BACKGROUND_H
+# define RENDER_BACKGROUND_H
 
-# include "../libft.h"
 # include "src/defs.h"
+# include "src/global/init_g_player.h"
+# include "graphics.h"
+# include "render_wall_ray_basis.h"
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+extern float	g_distance_proj_plane;
+
+void	render_background(void);
+int		calc_projected_object_height(float angle_to_object,
+													float distance_to_object);
 
 #endif

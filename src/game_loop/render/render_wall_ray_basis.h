@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   render_wall_ray_basis.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:11:34 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 09:55:01 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef RENDER_WALL_RAY_BASIS_H
+# define RENDER_WALL_RAY_BASIS_H
 
-# include "../libft.h"
 # include "src/defs.h"
+# include "src/global/init_g_cubfile_data.h"
+# include "graphics.h"
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+void			render_wall_ray_basis(int window_x, int *window_y,
+											const int projected_wall_height);
+void			set_texture_color(t_texture texture, int x, int y);
 
 #endif

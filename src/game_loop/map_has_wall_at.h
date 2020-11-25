@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   map_has_wall_at.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:10:50 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 09:18:55 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef MAP_HAS_WALL_AT_H
+# define MAP_HAS_WALL_AT_H
 
-# include "../libft.h"
+# include "create_maps.h"
 # include "src/defs.h"
+# include "init_mlx.h"
+# include "map_error.h"
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+bool	map_has_wall_at(float x, float y);
+bool	is_space_at(const float pixel_x, const float pixel_y);
 
 #endif

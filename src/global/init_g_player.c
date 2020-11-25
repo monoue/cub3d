@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   init_g_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/25 10:09:49 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 10:10:04 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#include "src/global/init_g_player.h"
 
-# include "../libft.h"
-# include "src/defs.h"
-
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
-
-#endif
+t_player		g_player =
+{
+	.x = NOT_SET,
+	.y = NOT_SET,
+	.width = 5,
+	.height = 5,
+	.turn_direction = NEUTRAL,
+	.walk_direction = NEUTRAL,
+	.walk_speed = 80,
+	.turn_speed = 3 * (PI / 180)
+};

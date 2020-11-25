@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   init_g_cubfile_data.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/25 09:49:37 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 09:49:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#include "src/global/init_g_cubfile_data.h"
 
-# include "../libft.h"
-# include "src/defs.h"
-
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
-
-#endif
+t_cubfile_data g_cubfile_data =
+{
+	.window_width = NOT_SET,
+	.window_height = NOT_SET,
+	.floor_color = NOT_SET,
+	.ceiling_color = NOT_SET,
+};

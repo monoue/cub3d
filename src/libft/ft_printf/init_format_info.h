@@ -6,14 +6,14 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 13:55:36 by monoue            #+#    #+#             */
-/*   Updated: 2020/10/27 13:55:37 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_FORMAT_INFO_H
 # define INIT_FORMAT_INFO_H
 
-# include "defs.h"
+# include "src/defs.h"
 # include <stdbool.h>
 # include <stddef.h>
 

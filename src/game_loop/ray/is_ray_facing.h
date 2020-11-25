@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   is_ray_facing.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
+/*   Created: 2020/11/24 16:36:34 by monoue            #+#    #+#             */
 /*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef IS_RAY_FACING_H
+# define IS_RAY_FACING_H
 
-# include "../libft.h"
 # include "src/defs.h"
+# include "stdbool.h"
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+bool is_ray_facing_down(float angle);
+bool is_ray_facing_up(float angle);
+bool is_ray_facing_right(float angle);
+bool is_ray_facing_left(float angle);
 
 #endif

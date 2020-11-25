@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   seek_hit_utils.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/24 14:15:32 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 10:14:25 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef SEEK_HIT_UTILS_H
+# define SEEK_HIT_UTILS_H
 
-# include "../libft.h"
+# include <float.h>
+# include <stdbool.h>
+
+# include "coord.h"
 # include "src/defs.h"
+# include "src/global/init_g_player.h"
+# include "player.h"
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+float	get_hit_distance(t_coord *wall_hit_coord, bool is_hit_found);
+bool	is_inside_map(t_coord *coord);
 
 #endif

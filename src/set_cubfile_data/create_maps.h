@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_with_zero.h                                   :+:      :+:    :+:   */
+/*   create_maps.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/27 13:18:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 05:17:06 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:10:13 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/25 09:26:13 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILL_WITH_ZERO_H
-# define FILL_WITH_ZERO_H
+#ifndef CREATE_MAPS_H
+# define CREATE_MAPS_H
 
-# include "../libft.h"
+# include "src/libft/libft.h"
 # include "src/defs.h"
+# include "src/error_exit/error_exit.h"
 
-void	fill_output_with_zero(char **str, int margin);
-void	fill_empty_with_zero(char **str, int margin, t_format_info *info);
+extern char	g_map[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];
+extern char	g_map_to_check[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];
+
+void	create_map_array(char *map_first_line, int fd);
+void	init_maps(void);
 
 #endif
