@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:21:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 15:51:57 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/25 15:56:06 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,6 @@ static void	render_sprite(size_t index)
 	const int	assumed_sprite_bottom_pixel = assumed_sprite_top + projected_sprite_tile_size;
 	const int		sprite_bottom = MIN(assumed_sprite_bottom_pixel, g_cubfile_data.window_height);
 	const int sprite_height = assumed_sprite_bottom_pixel - assumed_sprite_top;
-	// const int		sprite_left_edge_pixel = sprite_center_x - projected_sprite_tile_size / 2;
-	// const int		sprite_right_edge_pixel = MIN(sprite_left_edge_pixel + projected_sprite_tile_size, g_cubfile_data.window_width);
-	// int x = sprite_left_edge_pixel;
 	int sprite_left_edge = calc_sprite_left_edge(player_and_sprite_angle_diff, projected_sprite_tile_size);
 	int x = sprite_left_edge;
 	const int		sprite_right_edge = MIN(x + projected_sprite_tile_size, g_cubfile_data.window_width);
@@ -140,7 +137,8 @@ static void	render_sprite(size_t index)
 			int y = sprite_top;
 			while (y < sprite_bottom)
 			{
-				int sprite_texture_offset_y = (int)((float)(y - sprite_top) / sprite_height * g_textures[SPRITE].height);
+				// int sprite_texture_offset_y = (int)((float)(y - sprite_top) / sprite_height * g_textures[SPRITE].height);
+				int sprite_texture_offset_y = (int)((float)(y - assumed_sprite_top) / sprite_height * g_textures[SPRITE].height);
 				set_texture_color(g_textures[SPRITE], sprite_texture_offset_x, sprite_texture_offset_y);
 				if (g_color)
 					draw_pixel(x, y);
