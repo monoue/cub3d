@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 13:11:26 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/26 17:05:53 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,7 @@ void		set_cubfile_data(char *filename)
 	if (fd == ERROR)
 		exit_with_error_message(ERRNO, NULL);
 	init_maps();
-	// TODO: これやらないと
-	// init_texture_paths();
+	init_texture_paths();
 	while (get_next_line(fd, &line) > 0)
 	{
 		get_line_data(line, fd);

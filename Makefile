@@ -12,7 +12,9 @@ SRCS += src/game_loop/event_hook.c
 SRCS += src/game_loop/game_loop.c
 SRCS += src/game_loop/map_has_wall_at.c
 SRCS += src/game_loop/move_player.c
-SRCS += src/game_loop/update_sprites_data.c
+SRCS += src/game_loop/update_and_sort_sprites_data.c
+SRCS += src/game_loop/update_sprite_data_utils1.c
+SRCS += src/game_loop/update_sprite_data_utils2.c
 
 SRCS += src/game_loop/ray/cast_all_rays_to_wall.c
 SRCS += src/game_loop/ray/cast_ray_to_wall_utils.c
@@ -40,6 +42,7 @@ SRCS += src/global/init_g_map.c
 SRCS += src/global/init_g_map_to_check.c
 SRCS += src/global/init_g_player.c
 SRCS += src/global/init_g_rays.c
+SRCS += src/global/init_g_save_flag.c
 SRCS += src/global/init_g_sprites.c
 SRCS += src/global/init_g_textures.c
 

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:12:59 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 16:34:26 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/26 17:14:38 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ static void	write_bmp_file(void)
 void		save_image(void)
 {
 	write_bmp_file();
-	write(1, "Screenshot saved!\n", 18);
-	exit(1);
+	ft_putstr(IMAGE_SAVING_MESSAGE);
+	exit(EXIT_SUCCESS);
 }

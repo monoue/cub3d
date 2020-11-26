@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 13:05:56 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/26 16:53:07 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "game_loop/game_loop.h"
 #include "global/init_g_textures.h"
 #include "global/init_g_img.h"
+#include "global/init_g_save_flag.h"
 #include "libft/libft.h"
 #include "set_cubfile_data/set_cubfile_data.h"
 #include "game_loop/event_hook.h"
@@ -48,8 +49,7 @@ static void	init_mlx(void)
 {
 	g_mlx.mlx_ptr = mlx_init();
 	g_mlx.win_ptr = mlx_new_window(g_mlx.mlx_ptr, g_cubfile_data.window_width,
-								g_cubfile_data.window_height, "Monoue's cub3D");
-								// TODO: defs にメッセージ入れる
+								g_cubfile_data.window_height, TITLE);
 	g_img.img_ptr = mlx_new_image(g_mlx.mlx_ptr, g_cubfile_data.window_width,
 												g_cubfile_data.window_height);
 	g_img.addr = mlx_get_data_addr(g_img.img_ptr, &g_img.bits_per_pixel,
@@ -66,24 +66,34 @@ static void	play_the_game(char *filename)
 	mlx_loop(g_mlx.mlx_ptr);
 }
 
+static bool	extension_is_invalid(char *arg1, const size_t extension_len)
+{
+	const size_t	extension_start_index = ft_strlen(arg1) - extension_len;
+	const char		*extension = &arg1[extension_start_index];
+
+	return (!(ft_strcmp(extension, EXTENSION) == 0));
+}
+
 int			main(int argc, char **argv)
 {
-	const char	*extension = ".cub";
-	const char	*option = "--save";
+	const size_t	extension_len = ft_strlen(EXTENSION);
 
 	if (argc < 2)
 		exit_with_error_message(SINGLE, "No arguments");
 	if (argc > 3)
 		exit_with_error_message(SINGLE, strerror(E2BIG));
-	// TODO: 以下の２つはエラーパターンが同じなので、まとめる
-	if (ft_strlen(argv[1]) < 5 || ft_strcmp(&argv[1][ft_strlen(argv[1]) - 4], extension) != 0)
+	if (ft_strlen(argv[1]) < extension_len
+		|| extension_is_invalid(argv[1], extension_len))
+	{
 		exit_with_error_message(SINGLE, strerror(EINVAL));
-	if (argc == 2)
+	}
+	if (argc == NO_OPTION)
 		play_the_game(argv[1]);
 	else
 	{
-		if (ft_strcmp(argv[2], option) != 0)
+		if (ft_strcmp(argv[2], SAVE_OPTION) != 0)
 			exit_with_error_message(SINGLE, strerror(EINVAL));
-		// TODO: save_picture(argv[1]);
+		g_save_flag = true;
+		play_the_game(argv[1]);
 	}
 }

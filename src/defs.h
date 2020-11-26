@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:18 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 10:38:59 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/26 17:14:24 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,20 @@
 # define MINIMAP_SCALE_FACTOR	0.035
 # define IMGDIR					"./images"
 # define FOV_ANGLE				(60 * (PI / 180))
-# define NUM_RAYS				300
 # define MAX_WINDOW_WIDTH		3840
 # define MAX_SPRITES_NUM		2500
 
-# define WALL_C '1'
-# define SPRITE_C '2'
-# define FPS 30
+# define NO_OPTION		2
+# define WALL_C			'1'
+# define SPRITE_C		'2'
+# define EXTENSION		".cub"
+# define SAVE_OPTION	"--save"
+# define TITLE			"Monoue's cub3D"
 
 # define TO_LEFT -1
 # define TO_RIGHT 1
+
+# define IMAGE_SAVING_MESSAGE "Image saved.\n"
 
 typedef uint32_t	t_color;
 
@@ -74,8 +78,5 @@ typedef enum	e_error_types
 
 	ERROR_TYPES_NUM
 }				t_error_types;
-
-# define SUCCESS 0
-# define NEUTRAL 0
 
 #endif

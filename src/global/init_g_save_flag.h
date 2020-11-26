@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_g_textures.c                                  :+:      :+:    :+:   */
+/*   init_g_save_flag.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 09:52:38 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/26 17:06:21 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/26 16:14:39 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/26 16:15:02 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "init_g_textures.h"
+#ifndef INIT_G_SAVE_FLAG_H
+# define INIT_G_SAVE_FLAG_H
 
-t_texture	g_textures[TEXTURES_NUM];
+# include "stdbool.h"
 
-void	init_texture_paths(void)
-{
-	size_t	index;
+extern bool	g_save_flag;
 
-	index = 0;
-	while (index < TEXTURES_NUM)
-	{
-		g_textures[index].path = NULL;
-		index++;
-	}
-}
+#endif
