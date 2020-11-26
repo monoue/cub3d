@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:12:04 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 11:59:24 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/26 13:46:52 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 # include "../defs.h"
 # include "../global/init_g_player.h"
 # include "../global/init_g_sprites.h"
+# include "../global/init_g_distance_proj_plane.h"
 # include "../global/init_g_cubfile_data.h"
+# include "../utils/normalize_angle.h"
 
-void			update_sprites_data(void);
+void			update_and_sort_sprites_data(void);
 
 #endif

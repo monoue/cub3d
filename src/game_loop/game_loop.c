@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 13:10:14 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/26 13:38:06 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	update(void)
 {
 	move_player();
 	cast_all_rays_to_wall();
-	update_sprites_data();
+	update_and_sort_sprites_data();
 }
 
 static void	render(void)
