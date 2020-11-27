@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 13:06:58 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/27 08:28:45 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 # define IMPORTANT_COLORS_OFFSET	50
 
 # define PLANES			1
-# define BITS_PER_PIXEL	24
 
 void	save_image();
 

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:54:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 13:02:23 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/27 09:47:42 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void		get_resolution(const char **infos)
 															ft_atoi(infos[0]));
 	g_cubfile_data.window_height = MIN(g_cubfile_data.window_height,
 															ft_atoi(infos[1]));
-	if (g_cubfile_data.window_width < 200 || g_cubfile_data.window_height < 200)
-		exit_with_error_message(SINGLE, SIZE_NOT_ENOUGH);
 	if (g_cubfile_data.window_width == 0 || g_cubfile_data.window_height == 0)
 		exit_with_error_message(INVALID_INFO, "R");
 }

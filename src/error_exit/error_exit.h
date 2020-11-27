@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:26 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 13:09:55 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/27 09:53:22 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 # define INVALID_FILE_PATH "Texture file's path is invalid.\n"
 # define SEVERAL_SPAWN_POINTS "The map has several spawn points.\n"
-# define SIZE_NOT_ENOUGH "Resolution size must be 200 or more.\n"
 # define MAP_HAS_EMPTY_LINES ".cub file: The map has empty lines.\n"
 # define MAP_NOT_CLOSED "The map is not surrounded by walls.\n"
 # define MAP_WRONG_PLACE "The map is in the wrong place.\n"
