@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/26 17:05:53 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/27 10:15:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,7 @@ void		set_cubfile_data(char *filename)
 	}
 	g_cubfile_data.sprites_num = 0;
 	set_spawn_data_and_sprites_num();
+	if (g_player.x == NOT_SET || g_player.y == NOT_SET)
+		exit_with_error_message(SINGLE, PLAYER_NOT_IN_MAP);
 	exit_if_map_is_not_surrounded_by_walls(g_player.grid_x, g_player.grid_y);
 }

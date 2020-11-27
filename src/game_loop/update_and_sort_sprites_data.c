@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 12:04:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/26 15:35:30 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/27 10:05:16 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void	sort_sprites(void)
 	size_t		inner_i;
 	t_sprite	tmp;
 
+	if (g_cubfile_data.sprites_num < 2)
+		return ;
 	index = 0;
 	while (index < g_cubfile_data.sprites_num - 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 15:32:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/26 15:35:12 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/27 10:45:57 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	set_perp_distance_from_player(size_t index)
 		g_sprites[index].distance_from_player * cos(normalized_angle_diff));
 }
 
+#include "../debug.h"
 void	set_projected_tile_size(size_t	index)
 {
 	g_sprites[index].projected_tile_size = (int)(TILE_SIZE

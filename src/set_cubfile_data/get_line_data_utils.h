@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:59:29 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:39:16 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/27 10:49:34 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../defs.h"
 # include "../error_exit/error_exit.h"
 # include "../global/init_g_cubfile_data.h"
+# include "../global/init_g_distance_proj_plane.h"
 # include "../global/init_g_ids.h"
 # include "../global/init_g_mlx.h"
 # include "../global/init_g_textures.h"

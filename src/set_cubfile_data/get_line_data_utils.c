@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:54:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 09:47:42 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/27 10:48:49 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void		get_resolution(const char **infos)
 															ft_atoi(infos[1]));
 	if (g_cubfile_data.window_width == 0 || g_cubfile_data.window_height == 0)
 		exit_with_error_message(INVALID_INFO, "R");
+	g_distance_proj_plane = (g_cubfile_data.window_width / 2)
+														/ tan(FOV_ANGLE / 2);
 }
 
 void		exit_if_not_all_elements_are_set(void)

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/26 15:21:15 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/27 10:46:31 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ void			render_background(void)
 {
 	int		window_x;
 
-	g_distance_proj_plane = (g_cubfile_data.window_width / 2)
-														/ tan(FOV_ANGLE / 2);
 	window_x = 0;
 	while (window_x < g_cubfile_data.window_width)
 	{
