@@ -96,10 +96,10 @@ OBJS = $(SRCS:%.c=%.o)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_PATH)
-	mv $(LIBFT) .
+	cp -f $(LIBFT) .
 	make -C $(MINILIBX_PATH)
-	mv $(MINILIBX) .
-	$(CC) $(OBJS) -L . -lmlx -lft -o $(NAME)
+	cp -f $(MINILIBX) .
+	$(CC) $(OBJS) -L. -lft -lmlx -o $(NAME)
 	
 all: $(NAME)
 
@@ -109,6 +109,8 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
+	make -C $(LIBFT_PATH)/ fclean
+	make -C $(MINILIBX_PATH)/ fclean
 	rm -f $(NAME) libft.a libmlx.dylib
 
 re: fclean all

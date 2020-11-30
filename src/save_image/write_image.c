@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:16:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 12:45:20 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 20:34:56 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	set_current_pixel(unsigned char *image_buf, const int image_size,
 
 	current_location_in_buf = calc_current_location_in_image_buf(x, y,
 																	image_size);
+											ft_printf("%d: %d\n", pixel_location, current_location_in_buf);
 	color_element_index = 0;
 	while (color_element_index < 4)
 	{
