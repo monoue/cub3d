@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:18 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/26 17:14:24 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/27 13:13:07 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include <math.h>
 # include <stdint.h>
+
+// TODO: 消す
+# include "debug.h"
 
 # include "libft/libft.h"
 
@@ -30,6 +33,7 @@
 # define FOV_ANGLE				(60 * (PI / 180))
 # define MAX_WINDOW_WIDTH		3840
 # define MAX_SPRITES_NUM		2500
+# define ONE_BYTE_IN_DEC		(2 << 8)
 
 # define NO_OPTION		2
 # define WALL_C			'1'

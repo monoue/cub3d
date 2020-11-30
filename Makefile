@@ -10,7 +10,7 @@ SRCS += src/error_exit/error_exit.c
 
 SRCS += src/game_loop/event_hook.c
 SRCS += src/game_loop/game_loop.c
-SRCS += src/game_loop/map_has_wall_at.c
+SRCS += src/game_loop/map_has_target_at.c
 SRCS += src/game_loop/move_player.c
 SRCS += src/game_loop/update_and_sort_sprites_data.c
 SRCS += src/game_loop/update_sprite_data_utils1.c

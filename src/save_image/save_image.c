@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:12:59 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 08:29:11 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/27 15:00:44 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	write_header(int fd, const unsigned int image_size)
 	write(fd, header_buf, HEADER_SIZE);
 }
 
+#include "../global/init_g_img.h"
 static void	write_bmp_file(void)
 {
 	const int			line_size = g_cubfile_data.window_width * 4;
@@ -61,7 +62,27 @@ static void	write_bmp_file(void)
 
 	fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	write_header(fd, image_size);
-	write_image(fd, image_size);
+	// write_image(fd, image_size);
+	int				i;
+	int				j;
+	unsigned char	buffer[4];
+
+	i = g_cubfile_data.window_width * (g_cubfile_data.window_height - 1);
+	while (i >= 0)
+	{
+		j = 0;
+		while (j < g_cubfile_data.window_width)
+		{
+			buffer[0] = (unsigned char)(((int*)g_img.addr)[i] % 256);
+			buffer[1] = (unsigned char)(((int*)g_img.addr)[i] / 256 % 256);
+			buffer[2] = (unsigned char)(((int*)g_img.addr)[i] / 256 / 256 % 256);
+			buffer[3] = (unsigned char)(0);
+			write(fd, buffer, 4);
+			i++;
+			j++;
+		}
+		i -= 2 * g_cubfile_data.window_width;
+	}
 	close(fd);
 }
 

@@ -6,18 +6,20 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:16:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 08:59:04 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:33:30 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "write_image.h"
 
-static int	calc_current_location_in_image_buf(int x, int y,
+lstatic int	calc_current_location_in_image_buf(int x, int y,
 													const int image_buf_size)
 {
 	const int line_size = g_cubfile_data.window_width * 4;
+	// const int line_size = g_cubfile_data.window_width * 3 + (g_cubfile_data.window_width * 3 % 4);
 
 	return (image_buf_size - (line_size * (y + 1)) + x * 4);
+	// return (image_buf_size - (line_size * (y + 1)) + x * 3);
 }
 
 static void	set_color_element(unsigned char *image_buf,
@@ -28,7 +30,7 @@ static void	set_color_element(unsigned char *image_buf,
 	const int	*addr = (const int *)g_img.addr;
 
 	image_buf[current_location_in_buf + color_element_index] =
-			(addr[pixel_location] >> (color_element_index * 8)) % (2 << 8);
+		(addr[pixel_location] >> (color_element_index * 8)) % ONE_BYTE_IN_DEC;
 }
 
 static void	set_current_pixel(unsigned char *image_buf, const int image_size,
