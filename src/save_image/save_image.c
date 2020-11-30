@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:12:59 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 18:09:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	write_bmp_file(void)
 	const unsigned int	image_size = g_config.window_height * line_size;
 	int					fd;
 
-	fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+	fd = open(BMP_FILE_NAME, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	write_header(fd, image_size);
 	// write_image(fd, image_size);
 	int				i;

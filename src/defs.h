@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:18 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 13:13:07 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 18:09:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define EXTENSION		".cub"
 # define SAVE_OPTION	"--save"
 # define TITLE			"Monoue's cub3D"
+# define BMP_FILE_NAME	"cub3D.bmp"
 
 # define TO_LEFT -1
 # define TO_RIGHT 1
