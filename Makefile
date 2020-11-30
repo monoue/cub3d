@@ -6,7 +6,7 @@
 #    By: monoue <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 15:33:41 by monoue            #+#    #+#              #
-#    Updated: 2020/11/30 15:53:15 by monoue           ###   ########.fr        #
+#    Updated: 2020/11/30 16:55:23 by monoue           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ SRCS_PATH =			src/
 OBJS_PATH =			obj/
 LIBFT_PATH =		$(SRCS_PATH)libft/
 GAME_LOOP_PATH =	game_loop/
-RAY_PATH =			$(GAME_LOOP_PATH)/ray
-RENDER_PATH =		$(GAME_LOOP_PATH)/render
+RAY_PATH =			$(GAME_LOOP_PATH)ray/
+RENDER_PATH =		$(GAME_LOOP_PATH)render/
 GLOBAL_PATH =		global/
 SAVE_IMAGE_PATH =	save_image/
 CONFIG_PATH =		config/
@@ -89,24 +89,19 @@ SRCS_NAME += $(UTILS_PATH)create_trgb.c
 SRCS_NAME += $(UTILS_PATH)normalize_angle.c
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
-OBJS = $(addprefix $(OBJS_PATH), $(SRCS_NAME:%.c=%.o))
+OBJS = $(SRCS:%.c=%.o)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_PATH)
 	make -C $(MINILIBX_PATH)
-	gcc -g -fsanitize=address $(OBJS) $(LIBFT_PATH) $(MINILIBX_PATH) -o $(NAME)
-	# gcc -g -fsanitize=address $(SRCS) -o $(NAME);
-
-$(OBJS_PATH)%.o: $(SRCS_PATH)%.c
-	mkdir -p obj
-	gcc -c $< -o $@
+	gcc -g -fsanitize=address $(OBJS) $(MINILIBX_PATH)libmlx.dylib $(LIBFT_PATH)libft.a -o $(NAME)
 	
 all: $(NAME)
 
 clean:
 	make -C $(LIBFT_PATH)/ clean
 	make -C $(MINILIBX_PATH)/ clean
-	rm -rf $(OBJS_PATH)
+	rm -f $(OBJS)
 
 fclean: clean
 	make -C $(LIBFT_PATH)/ fclean

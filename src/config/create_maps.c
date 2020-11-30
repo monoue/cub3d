@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:57:52 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 14:21:32 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 16:30:04 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static bool	is_empty_line(char *line)
 /*
 ** reads config file's map and sets it to g_map and g_map_grid.
 */
+
 void		create_map_array(char *map_first_line, int fd)
 {
 	char	*config_line;
@@ -71,6 +72,7 @@ void		create_map_array(char *map_first_line, int fd)
 /*
 ** initializes g_map and g_map_grid before setting map data.
 */
+
 void		init_maps(void)
 {
 	size_t	y_i;

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 15:32:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 10:45:57 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 16:42:57 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ void	set_angle_diff_from_player(size_t index)
 
 	angle_from_player_to_sprite = atan2f(y_difference, x_difference);
 	angle_difference = g_player.rotation_angle - angle_from_player_to_sprite;
-    if (angle_difference < -(PI))
-        angle_difference += TWO_PI;
-    if (angle_difference > PI)
-        angle_difference -= TWO_PI;
+	if (angle_difference < -(PI))
+		angle_difference += TWO_PI;
+	if (angle_difference > PI)
+		angle_difference -= TWO_PI;
 	g_sprites[index].angle_diff_from_player = angle_difference;
 }
+
 void	set_perp_distance_from_player(size_t index)
 {
 	float	normalized_angle_diff;
@@ -46,9 +47,9 @@ void	set_perp_distance_from_player(size_t index)
 		g_sprites[index].distance_from_player * cos(normalized_angle_diff));
 }
 
-#include "../debug.h"
-void	set_projected_tile_size(size_t	index)
+void	set_projected_tile_size(size_t index)
 {
-	g_sprites[index].projected_tile_size = (int)(TILE_SIZE
-		* (g_distance_proj_plane / g_sprites[index].perp_distance_from_player));
+	g_sprites[index].projected_tile_size = (int)
+	((g_distance_proj_plane / g_sprites[index].perp_distance_from_player)
+	* TILE_SIZE);
 }
