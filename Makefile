@@ -6,7 +6,7 @@
 #    By: monoue <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 15:33:41 by monoue            #+#    #+#              #
-#    Updated: 2020/11/30 17:55:58 by monoue           ###   ########.fr        #
+#    Updated: 2020/11/30 18:03:36 by monoue           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,7 +99,7 @@ $(NAME): $(OBJS)
 	mv $(LIBFT) .
 	make -C $(MINILIBX_PATH)
 	mv $(MINILIBX) .
-	$(CC) $(OBJS) -L. -lmlx -framework OpenGL -framework Appkit -lft -o $(NAME)
+	$(CC) $(OBJS) -L . -lmlx -lft -o $(NAME)
 	
 all: $(NAME)
 
@@ -109,8 +109,6 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
-	make -C $(LIBFT_PATH)/ fclean
-	make -C $(MINILIBX_PATH)/ fclean
 	rm -f $(NAME) libft.a libmlx.dylib
 
 re: fclean all
