@@ -6,7 +6,7 @@
 #    By: monoue <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 15:33:41 by monoue            #+#    #+#              #
-#    Updated: 2020/11/30 16:55:23 by monoue           ###   ########.fr        #
+#    Updated: 2020/11/30 17:50:34 by monoue           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,9 @@ SAVE_IMAGE_PATH =	save_image/
 CONFIG_PATH =		config/
 UTILS_PATH =		utils/
 MINILIBX_PATH = 	minilibx/
+
+LIBFT =				$(LIBFT_PATH)libft.a
+MINILIBX =			$(MINILIBX_PATH)libmlx.dylib
 
 SRCS_NAME =
 CFLAGS = -Wall -Wextra -Werror
@@ -93,8 +96,10 @@ OBJS = $(SRCS:%.c=%.o)
 
 $(NAME): $(OBJS)
 	make -C $(LIBFT_PATH)
+	mv $(LIBFT) .
 	make -C $(MINILIBX_PATH)
-	gcc -g -fsanitize=address $(OBJS) $(MINILIBX_PATH)libmlx.dylib $(LIBFT_PATH)libft.a -o $(NAME)
+	mv $(MINILIBX) .
+	$(CC) $(OBJS) -L. -lmlx -framework OpenGL -framework Appkit -L $(LIBFT_PATH) -lft -o $(NAME)
 	
 all: $(NAME)
 
