@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:41:27 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 16:32:42 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:41:28 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ static bool	is_map_c(char c)
 	return ((c >= '0' && c <= '2') || is_spawn_point_c(c) || c == ' ');
 }
 
-bool		is_map_line(const char *cubfile_line)
+bool		is_map_line(const char *config_line)
 {
 	size_t	index;
 
 	index = 0;
-	while (cubfile_line[index] == ' ')
+	while (config_line[index] == ' ')
 		index++;
-	if (cubfile_line[index] == '\0')
+	if (config_line[index] == '\0')
 		return (false);
-	while (is_map_c(cubfile_line[index]))
+	while (is_map_c(config_line[index]))
 		index++;
-	return (cubfile_line[index] == '\0');
+	return (config_line[index] == '\0');
 }

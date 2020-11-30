@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 16:20:53 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void		cast_all_rays_to_wall(void)
 
 	ray_angle = g_player.rotation_angle - (FOV_ANGLE / 2);
 	strip_id = 0;
-	while (strip_id < (size_t)g_cubfile_data.window_width)
+	while (strip_id < (size_t)g_config.window_width)
 	{
 		normalize_angle(&ray_angle);
 		cast_ray_to_wall(ray_angle, strip_id);
-		ray_angle += FOV_ANGLE / g_cubfile_data.window_width;
+		ray_angle += FOV_ANGLE / g_config.window_width;
 		strip_id++;
 	}
 }

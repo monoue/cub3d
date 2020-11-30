@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_g_cubfile_data.h                              :+:      :+:    :+:   */
+/*   is_map_line.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 13:08:19 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 13:08:20 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/24 16:36:02 by monoue            #+#    #+#             */
+/*   Updated: 2020/11/30 12:41:28 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_G_CUBFILE_DATA_H
-# define INIT_G_CUBFILE_DATA_H
+#ifndef IS_MAP_LINE_H
+# define IS_MAP_LINE_H
 
-# include "../defs.h"
+# include "unistd.h"
+# include "stdbool.h"
 
-typedef struct	s_cubfile_data
-{
-	int			window_width;
-	int			window_height;
-	t_color		floor_color;
-	t_color		ceiling_color;
-	size_t		sprites_num;
-}				t_cubfile_data;
-
-extern t_cubfile_data g_cubfile_data;
+bool	is_spawn_point_c(char c);
+bool	is_map_line(const char *config_line);
 
 #endif

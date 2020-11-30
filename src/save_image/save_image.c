@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:12:59 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 15:00:44 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static void	set_info_header(unsigned char header_buf[HEADER_SIZE],
 												const unsigned int image_size)
 {
 	header_buf[INFO_HEADER_SIZE_OFFSET] = INFO_HEADER_SIZE;
-	ft_memcpy(&header_buf[IMAGE_WIDTH_OFFSET], &g_cubfile_data.window_width,
-										sizeof(g_cubfile_data.window_width));
-	ft_memcpy(&header_buf[IMAGE_HEIGHT_OFFSET], &g_cubfile_data.window_height,
-										sizeof(g_cubfile_data.window_height));
+	ft_memcpy(&header_buf[IMAGE_WIDTH_OFFSET], &g_config.window_width,
+										sizeof(g_config.window_width));
+	ft_memcpy(&header_buf[IMAGE_HEIGHT_OFFSET], &g_config.window_height,
+										sizeof(g_config.window_height));
 	header_buf[PLANES_OFFSET] = PLANES;
 	header_buf[BITS_PER_PIXEL_OFFSET] = g_img.bits_per_pixel;
 	ft_memset(&header_buf[COMPRESSION_METHOD_OFFSET], 0, 4);
@@ -56,8 +56,8 @@ static void	write_header(int fd, const unsigned int image_size)
 #include "../global/init_g_img.h"
 static void	write_bmp_file(void)
 {
-	const int			line_size = g_cubfile_data.window_width * 4;
-	const unsigned int	image_size = g_cubfile_data.window_height * line_size;
+	const int			line_size = g_config.window_width * 4;
+	const unsigned int	image_size = g_config.window_height * line_size;
 	int					fd;
 
 	fd = open("bitmap.bmp", O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
@@ -67,11 +67,11 @@ static void	write_bmp_file(void)
 	int				j;
 	unsigned char	buffer[4];
 
-	i = g_cubfile_data.window_width * (g_cubfile_data.window_height - 1);
+	i = g_config.window_width * (g_config.window_height - 1);
 	while (i >= 0)
 	{
 		j = 0;
-		while (j < g_cubfile_data.window_width)
+		while (j < g_config.window_width)
 		{
 			buffer[0] = (unsigned char)(((int*)g_img.addr)[i] % 256);
 			buffer[1] = (unsigned char)(((int*)g_img.addr)[i] / 256 % 256);
@@ -81,7 +81,7 @@ static void	write_bmp_file(void)
 			i++;
 			j++;
 		}
-		i -= 2 * g_cubfile_data.window_width;
+		i -= 2 * g_config.window_width;
 	}
 	close(fd);
 }

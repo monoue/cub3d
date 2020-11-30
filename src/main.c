@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/26 16:53:07 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:45:01 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "global/init_g_img.h"
 #include "global/init_g_save_flag.h"
 #include "libft/libft.h"
-#include "set_cubfile_data/set_cubfile_data.h"
+#include "config/set_config.h"
 #include "game_loop/event_hook.h"
 
 static void	set_textures(void)
@@ -48,10 +48,10 @@ static void	set_textures(void)
 static void	init_mlx(void)
 {
 	g_mlx.mlx_ptr = mlx_init();
-	g_mlx.win_ptr = mlx_new_window(g_mlx.mlx_ptr, g_cubfile_data.window_width,
-								g_cubfile_data.window_height, TITLE);
-	g_img.img_ptr = mlx_new_image(g_mlx.mlx_ptr, g_cubfile_data.window_width,
-												g_cubfile_data.window_height);
+	g_mlx.win_ptr = mlx_new_window(g_mlx.mlx_ptr, g_config.window_width,
+								g_config.window_height, TITLE);
+	g_img.img_ptr = mlx_new_image(g_mlx.mlx_ptr, g_config.window_width,
+												g_config.window_height);
 	g_img.addr = mlx_get_data_addr(g_img.img_ptr, &g_img.bits_per_pixel,
 											&g_img.line_length, &g_img.endian);
 	set_textures();
@@ -59,7 +59,7 @@ static void	init_mlx(void)
 
 static void	play_the_game(char *filename)
 {
-	set_cubfile_data(filename);
+	set_config(filename);
 	init_mlx();
 	event_hook();
 	mlx_loop_hook(g_mlx.mlx_ptr, &game_loop, NULL);

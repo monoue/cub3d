@@ -6,17 +6,17 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:16:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 12:33:30 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:45:20 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "write_image.h"
 
-lstatic int	calc_current_location_in_image_buf(int x, int y,
+static int	calc_current_location_in_image_buf(int x, int y,
 													const int image_buf_size)
 {
-	const int line_size = g_cubfile_data.window_width * 4;
-	// const int line_size = g_cubfile_data.window_width * 3 + (g_cubfile_data.window_width * 3 % 4);
+	const int line_size = g_config.window_width * 4;
+	// const int line_size = g_config.window_width * 3 + (g_config.window_width * 3 % 4);
 
 	return (image_buf_size - (line_size * (y + 1)) + x * 4);
 	// return (image_buf_size - (line_size * (y + 1)) + x * 3);
@@ -36,7 +36,7 @@ static void	set_color_element(unsigned char *image_buf,
 static void	set_current_pixel(unsigned char *image_buf, const int image_size,
 																int x, int y)
 {
-	const int	pixel_location = g_cubfile_data.window_width * y + x;
+	const int	pixel_location = g_config.window_width * y + x;
 	size_t		color_element_index;
 	int			current_location_in_buf;
 
@@ -59,10 +59,10 @@ void		write_image(int fd, const unsigned int image_size)
 
 	ft_bzero(image_buf, sizeof(image_buf));
 	y = 0;
-	while (y < g_cubfile_data.window_height)
+	while (y < g_config.window_height)
 	{
 		x = 0;
-		while (x < g_cubfile_data.window_width)
+		while (x < g_config.window_width)
 		{
 			set_current_pixel(image_buf, image_size, x, y);
 			x++;

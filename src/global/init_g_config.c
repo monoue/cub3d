@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_g_cubfile_data.c                              :+:      :+:    :+:   */
+/*   init_g_config.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "init_g_cubfile_data.h"
+#include "init_g_config.h"
 
-t_cubfile_data g_cubfile_data =
+t_config g_config =
 {
 	.window_width = NOT_SET,
 	.window_height = NOT_SET,

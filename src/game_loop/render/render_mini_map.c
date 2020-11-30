@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 13:43:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 09:32:04 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	render_rays_to_wall(void)
 	draw_line_minimap(
 		g_player.x,
 		g_player.y,
-		g_rays[g_cubfile_data.window_width - 1].wall_hit_coord->x,
-		g_rays[g_cubfile_data.window_width - 1].wall_hit_coord->y);
+		g_rays[g_config.window_width - 1].wall_hit_coord->x,
+		g_rays[g_config.window_width - 1].wall_hit_coord->y);
 }
 
 void	render_player(void)
@@ -70,11 +70,11 @@ void	render_player(void)
 void	render_lines_to_sprites_center(void)
 {
 	size_t			index;
-	const size_t	s_num = g_cubfile_data.sprites_num;
+	const size_t	s_num = g_config.sprites_num;
 
-	if (g_cubfile_data.sprites_num == 0)
+	if (g_config.sprites_num == 0)
 		;
-	else if (g_cubfile_data.sprites_num == 1)
+	else if (g_config.sprites_num == 1)
 	{
 		g_color = create_trgb(0, 255, 0, 0);
 		draw_line_minimap(g_player.x, g_player.y, g_sprites[0].x,

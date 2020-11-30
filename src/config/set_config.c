@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_cubfile_data.c                                 :+:      :+:    :+:   */
+/*   set_config.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 10:59:04 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 14:53:54 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "set_cubfile_data.h"
+#include "set_config.h"
 
 static bool	map_has_double_spawn_points(void)
 {
@@ -33,8 +33,8 @@ static void	set_spawn_data_and_sprites_num(void)
 		{
 			if (current_c == SPRITE_C)
 			{
-				set_sprite_position(x, y, g_cubfile_data.sprites_num);
-				g_cubfile_data.sprites_num++;
+				set_sprite_position(x, y, g_config.sprites_num);
+				g_config.sprites_num++;
 			}
 			else if (is_spawn_point_c(current_c))
 			{
@@ -65,30 +65,30 @@ static void	set_texture_if_valid(const char **element_items)
 	}
 }
 
-static void	get_line_data(char *cubfile_line, int fd)
+static void	get_line_data(char *config_line, int fd)
 {
-	const char	**element_items = (const char **)ft_split(cubfile_line, ' ');
+	const char	**element_items = (const char **)ft_split(config_line, ' ');
 
 	if (element_items[0] == NULL)
 		return ;
-	if (!all_elements_are_set() && is_map_line(cubfile_line))
-		exit_with_error_message(SINGLE, MAP_WRONG_PLACE);
+	if (!all_elements_are_set() && is_map_line(config_line))
+		exit_closing_fd(SINGLE, MAP_WRONG_PLACE, fd);
 	if (ft_strcmp(element_items[0], "R") == 0)
-		get_resolution(&element_items[1]);
+		get_resolution(&element_items[1], fd);
 	else if (ft_strcmp(element_items[0], "F") == 0)
-		set_color(&g_cubfile_data.floor_color, &element_items[1], "F");
+		set_color(&g_config.floor_color, &element_items[1], "F");
 	else if (ft_strcmp(element_items[0], "C") == 0)
-		set_color(&g_cubfile_data.ceiling_color, &element_items[1], "C");
-	else if (is_map_line(cubfile_line))
+		set_color(&g_config.ceiling_color, &element_items[1], "C");
+	else if (is_map_line(config_line))
 	{
-		exit_if_not_all_elements_are_set();
-		create_map_array(cubfile_line, fd);
+		exit_if_not_all_elements_are_set(fd);
+		create_map_array(config_line, fd);
 	}
 	else
 		set_texture_if_valid(element_items);
 }
 
-void		set_cubfile_data(char *filename)
+void		set_config(char *filename)
 {
 	char		*line;
 	const int	fd = open(filename, O_RDONLY);
@@ -104,7 +104,8 @@ void		set_cubfile_data(char *filename)
 			break ;
 		SAFE_FREE(line);
 	}
-	g_cubfile_data.sprites_num = 0;
+	exit_if_closing_fd_fails(fd);
+	g_config.sprites_num = 0;
 	set_spawn_data_and_sprites_num();
 	if (g_map[0][0] == '\0')
 		exit_with_error_message(SINGLE, NO_MAP);

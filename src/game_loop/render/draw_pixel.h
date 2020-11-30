@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:38 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 09:44:58 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../../defs.h"
 # include "../../global/init_g_img.h"
 # include "../../global/init_g_color.h"
-# include "../../global/init_g_cubfile_data.h"
+# include "../../global/init_g_config.h"
 
 void	draw_pixel(int x, int y);
 

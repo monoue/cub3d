@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 10:47:33 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void	render(void)
 	draw_rectangle(
 		0,
 		0,
-		g_cubfile_data.window_width,
-		g_cubfile_data.window_height);
+		g_config.window_width,
+		g_config.window_height);
 	render_background();
 	render_sprites();
 	render_mini_map();

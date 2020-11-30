@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 15:32:03 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/26 15:40:12 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../global/init_g_distance_proj_plane.h"
 # include "../global/init_g_sprites.h"
 # include "../global/init_g_player.h"
-# include "../global/init_g_cubfile_data.h"
+# include "../global/init_g_config.h"
 # include "../utils/normalize_angle.h"
 
 void	set_distance_from_player(size_t index);

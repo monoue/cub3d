@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 17:43:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:19:20 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static size_t	calc_texture_offset_y(int texture_height,
 
 	distance_from_wall_strip_top = (window_y
 									+ (projected_wall_height / 2))
-									- (g_cubfile_data.window_height / 2);
+									- (g_config.window_height / 2);
 	return (distance_from_wall_strip_top
 							* ((float)texture_height / projected_wall_height));
 }
@@ -59,8 +59,8 @@ void			render_wall_ray_basis(int window_x, int *window_y,
 	int				wall_bottom_pixel;
 	size_t			texture_offset_x;
 
-	wall_bottom_pixel = MIN((g_cubfile_data.window_height / 2)
-				+ (projected_wall_height / 2), g_cubfile_data.window_height);
+	wall_bottom_pixel = MIN((g_config.window_height / 2)
+				+ (projected_wall_height / 2), g_config.window_height);
 	texture_offset_x = calc_texture_offset_x(g_rays[window_x],
 														(float)texture.width);
 	while (*window_y < wall_bottom_pixel)

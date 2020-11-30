@@ -1,79 +1,116 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: monoue <marvin@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/11/30 15:33:41 by monoue            #+#    #+#              #
+#    Updated: 2020/11/30 15:53:15 by monoue           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = cub3D
 CC = gcc
 
-SRCS =
-OBJS =		$(SRCS:%.c=%.o)
-CLIBS =		-L . -lft
-CFLAGS =	-Wall -Wextra -Werror
+# PATH
+ERROR_EXIT_PATH =	error_exit/
+SRCS_PATH =			src/
+OBJS_PATH =			obj/
+LIBFT_PATH =		$(SRCS_PATH)libft/
+GAME_LOOP_PATH =	game_loop/
+RAY_PATH =			$(GAME_LOOP_PATH)/ray
+RENDER_PATH =		$(GAME_LOOP_PATH)/render
+GLOBAL_PATH =		global/
+SAVE_IMAGE_PATH =	save_image/
+CONFIG_PATH =		config/
+UTILS_PATH =		utils/
+MINILIBX_PATH = 	minilibx/
 
-SRCS += src/error_exit/error_exit.c
+SRCS_NAME =
+CFLAGS = -Wall -Wextra -Werror
 
-SRCS += src/game_loop/event_hook.c
-SRCS += src/game_loop/game_loop.c
-SRCS += src/game_loop/map_has_target_at.c
-SRCS += src/game_loop/move_player.c
-SRCS += src/game_loop/update_and_sort_sprites_data.c
-SRCS += src/game_loop/update_sprite_data_utils1.c
-SRCS += src/game_loop/update_sprite_data_utils2.c
+SRCS_NAME += $(ERROR_EXIT_PATH)error_exit.c
 
-SRCS += src/game_loop/ray/cast_all_rays_to_wall.c
-SRCS += src/game_loop/ray/cast_ray_to_wall_utils.c
-SRCS += src/game_loop/ray/coord.c
-SRCS += src/game_loop/ray/is_ray_facing.c
-SRCS += src/game_loop/ray/seek_hit_utils.c
-SRCS += src/game_loop/ray/seek_horizontal_hit.c
-SRCS += src/game_loop/ray/seek_vertical_hit.c
+SRCS_NAME += $(GAME_LOOP_PATH)event_hook.c
+SRCS_NAME += $(GAME_LOOP_PATH)game_loop.c
+SRCS_NAME += $(GAME_LOOP_PATH)map_has_target_at.c
+SRCS_NAME += $(GAME_LOOP_PATH)move_player.c
+SRCS_NAME += $(GAME_LOOP_PATH)update_and_sort_sprites_data.c
+SRCS_NAME += $(GAME_LOOP_PATH)update_sprite_data_utils1.c
+SRCS_NAME += $(GAME_LOOP_PATH)update_sprite_data_utils2.c
 
-SRCS += src/game_loop/render/draw_pixel.c
-SRCS += src/game_loop/render/draw_shape.c
-SRCS += src/game_loop/render/render_background.c
-SRCS += src/game_loop/render/render_mini_map.c
-SRCS += src/game_loop/render/render_sprites.c
-SRCS += src/game_loop/render/render_wall_ray_basis.c
-SRCS += src/game_loop/render/set_texture_color.c
+SRCS_NAME += $(RAY_PATH)cast_all_rays_to_wall.c
+SRCS_NAME += $(RAY_PATH)cast_ray_to_wall_utils.c
+SRCS_NAME += $(RAY_PATH)coord.c
+SRCS_NAME += $(RAY_PATH)is_ray_facing.c
+SRCS_NAME += $(RAY_PATH)seek_hit_utils.c
+SRCS_NAME += $(RAY_PATH)seek_horizontal_hit.c
+SRCS_NAME += $(RAY_PATH)seek_vertical_hit.c
 
-SRCS += src/global/init_g_color.c
-SRCS += src/global/init_g_cubfile_data.c
-SRCS += src/global/init_g_distance_proj_plane.c
-SRCS += src/global/init_g_ids.c
-SRCS += src/global/init_g_img.c
-SRCS += src/global/init_g_mlx.c
-SRCS += src/global/init_g_map.c
-SRCS += src/global/init_g_map_to_check.c
-SRCS += src/global/init_g_player.c
-SRCS += src/global/init_g_rays.c
-SRCS += src/global/init_g_save_flag.c
-SRCS += src/global/init_g_sprites.c
-SRCS += src/global/init_g_textures.c
+SRCS_NAME += $(RENDER_PATH)draw_pixel.c
+SRCS_NAME += $(RENDER_PATH)draw_shape.c
+SRCS_NAME += $(RENDER_PATH)render_background.c
+SRCS_NAME += $(RENDER_PATH)render_mini_map.c
+SRCS_NAME += $(RENDER_PATH)render_sprites.c
+SRCS_NAME += $(RENDER_PATH)render_wall_ray_basis.c
+SRCS_NAME += $(RENDER_PATH)set_texture_color.c
 
-SRCS += src/main.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_color.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_config.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_distance_proj_plane.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_ids.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_img.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_mlx.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_map.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_map_to_check.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_player.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_rays.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_save_flag.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_sprites.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_textures.c
 
-SRCS += src/save_image/save_image.c
-SRCS += src/save_image/write_image.c
+SRCS_NAME += main.c
 
-SRCS += src/set_cubfile_data/create_maps.c
-SRCS += src/set_cubfile_data/exit_if_map_is_not_surrounded_by_walls.c
-SRCS += src/set_cubfile_data/get_line_data_utils.c
-SRCS += src/set_cubfile_data/is_map_line.c
-SRCS += src/set_cubfile_data/set_color.c
-SRCS += src/set_cubfile_data/set_cubfile_data.c
-SRCS += src/set_cubfile_data/set_player_spawning_data.c
-SRCS += src/set_cubfile_data/set_texture.c
-SRCS += src/set_cubfile_data/set_sprite_position.c
+SRCS_NAME += $(SAVE_IMAGE_PATH)save_image.c
+SRCS_NAME += $(SAVE_IMAGE_PATH)write_image.c
 
-SRCS += src/utils/create_trgb.c
-SRCS += src/utils/normalize_angle.c
+SRCS_NAME += $(CONFIG_PATH)create_maps.c
+SRCS_NAME += $(CONFIG_PATH)exit_if_map_is_not_surrounded_by_walls.c
+SRCS_NAME += $(CONFIG_PATH)get_line_data_utils.c
+SRCS_NAME += $(CONFIG_PATH)is_map_line.c
+SRCS_NAME += $(CONFIG_PATH)set_color.c
+SRCS_NAME += $(CONFIG_PATH)set_config.c
+SRCS_NAME += $(CONFIG_PATH)set_player_spawning_data.c
+SRCS_NAME += $(CONFIG_PATH)set_texture.c
+SRCS_NAME += $(CONFIG_PATH)set_sprite_position.c
+
+SRCS_NAME += $(UTILS_PATH)create_trgb.c
+SRCS_NAME += $(UTILS_PATH)normalize_angle.c
+
+SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
+OBJS = $(addprefix $(OBJS_PATH), $(SRCS_NAME:%.c=%.o))
 
 $(NAME): $(OBJS)
-	gcc -g -fsanitize=address $(SRCS) ./libft.a ./libmlx.dylib -o cub3D;
-	# ar rcs $(NAME) $(OBJS)
+	make -C $(LIBFT_PATH)
+	make -C $(MINILIBX_PATH)
+	gcc -g -fsanitize=address $(OBJS) $(LIBFT_PATH) $(MINILIBX_PATH) -o $(NAME)
+	# gcc -g -fsanitize=address $(SRCS) -o $(NAME);
 
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.c
+	mkdir -p obj
+	gcc -c $< -o $@
+	
 all: $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	make -C $(LIBFT_PATH)/ clean
+	make -C $(MINILIBX_PATH)/ clean
+	rm -rf $(OBJS_PATH)
 
 fclean: clean
+	make -C $(LIBFT_PATH)/ fclean
+	make -C $(MINILIBX_PATH)/ fclean
 	rm -f $(NAME)
 
 re: fclean all

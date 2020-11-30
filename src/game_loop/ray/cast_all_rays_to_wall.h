@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 11:22:31 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:43:26 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "../../global/init_g_player.h"
 # include "seek_horizontal_hit.h"
 # include "seek_vertical_hit.h"
-# include "../../set_cubfile_data/set_cubfile_data.h"
+# include "../../config/set_config.h"
 
 void	cast_all_rays_to_wall(void);
 

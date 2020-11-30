@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 10:46:31 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ static void		render_ceiling_ray_basis(int window_x, int *window_y,
 {
 	int wall_top_pixel;
 
-	wall_top_pixel = MAX((g_cubfile_data.window_height / 2)
+	wall_top_pixel = MAX((g_config.window_height / 2)
 											- (projected_wall_height / 2), 0);
-	g_color = g_cubfile_data.ceiling_color;
+	g_color = g_config.ceiling_color;
 	while (*window_y < wall_top_pixel)
 	{
 		draw_pixel(window_x, *window_y);
@@ -61,8 +61,8 @@ static void		render_ceiling_ray_basis(int window_x, int *window_y,
 
 static void		render_floor_ray_basis(int window_x, int window_y)
 {
-	g_color = g_cubfile_data.floor_color;
-	while (window_y < g_cubfile_data.window_height)
+	g_color = g_config.floor_color;
+	while (window_y < g_config.window_height)
 	{
 		draw_pixel(window_x, window_y);
 		window_y++;
@@ -86,7 +86,7 @@ void			render_background(void)
 	int		window_x;
 
 	window_x = 0;
-	while (window_x < g_cubfile_data.window_width)
+	while (window_x < g_config.window_width)
 	{
 		render_background_ray_basis(window_x);
 		window_x++;

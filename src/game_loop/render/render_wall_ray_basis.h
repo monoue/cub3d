@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:34 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:28:14 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RENDER_WALL_RAY_BASIS_H
 
 # include "../../defs.h"
-# include "../../global/init_g_cubfile_data.h"
+# include "../../global/init_g_config.h"
 # include "../../global/init_g_color.h"
 # include "../../global/init_g_rays.h"
 # include "../../global/init_g_textures.h"

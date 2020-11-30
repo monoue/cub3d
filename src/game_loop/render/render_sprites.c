@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:21:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 10:44:02 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	draw_sprite_vertical_line(size_t index, int window_x)
 
 	window_y = MAX(g_sprites[index].projection_top, 0);
 	window_y_end = MIN(g_sprites[index].projection_bottom,
-						g_cubfile_data.window_height);
+						g_config.window_height);
 	while (window_y < window_y_end)
 	{
 		texture_y = calc_texture_y(index, window_y);
@@ -56,7 +56,7 @@ static void	render_sprite(size_t index)
 	}
 	x = MAX(g_sprites[index].projection_left_edge, 0);
 	x_end = MIN(g_sprites[index].projection_right_edge,
-				g_cubfile_data.window_width);
+				g_config.window_width);
 	while (x < x_end)
 	{
 		if (g_rays[x].distance_to_wall
@@ -73,7 +73,7 @@ void		render_sprites(void)
 	size_t	index;
 
 	index = 0;
-	while (index < g_cubfile_data.sprites_num)
+	while (index < g_config.sprites_num)
 	{
 		render_sprite(index);
 		index++;

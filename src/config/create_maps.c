@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:57:52 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 11:55:53 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 14:21:32 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static void	exit_if_too_large_map(char *map_line, size_t height)
 		map_exit_failure(map_line, ".cub file: The map is too wide.\n");
 }
 
-static void	copy_line_to_map(const char *cubfile_line, size_t current_row)
+static void	copy_line_to_map(const char *config_line, size_t current_row)
 {
-	ft_strcpy(g_map[current_row], cubfile_line);
-	ft_strcpy(g_map_to_check[current_row], cubfile_line);
+	ft_strcpy(g_map[current_row], config_line);
+	ft_strcpy(g_map_to_check[current_row], config_line);
 }
 
 static bool	is_empty_line(char *line)
@@ -38,33 +38,39 @@ static bool	is_empty_line(char *line)
 	return (line[index] == '\0');
 }
 
+/*
+** reads config file's map and sets it to g_map and g_map_grid.
+*/
 void		create_map_array(char *map_first_line, int fd)
 {
-	char	*cubfile_line;
+	char	*config_line;
 	size_t	current_height;
 
 	copy_line_to_map(map_first_line, 0);
 	current_height = 1;
-	while (get_next_line(fd, &cubfile_line) > 0)
+	while (get_next_line(fd, &config_line) > 0)
 	{
-		if (is_empty_line(cubfile_line))
+		if (is_empty_line(config_line))
 		{
-			while (get_next_line(fd, &cubfile_line) > 0)
-				if (!is_empty_line(cubfile_line))
-					map_exit_failure(cubfile_line, MAP_HAS_EMPTY_LINES);
+			while (get_next_line(fd, &config_line) > 0)
+				if (!is_empty_line(config_line))
+					map_exit_failure(config_line, MAP_HAS_EMPTY_LINES);
 		}
 		else
 		{
-			exit_if_too_large_map(cubfile_line, current_height);
-			copy_line_to_map(cubfile_line, current_height);
-			SAFE_FREE(cubfile_line);
+			exit_if_too_large_map(config_line, current_height);
+			copy_line_to_map(config_line, current_height);
+			SAFE_FREE(config_line);
 			current_height++;
 		}
 	}
-	exit_if_too_large_map(cubfile_line, current_height);
-	copy_line_to_map(cubfile_line, current_height);
+	exit_if_too_large_map(config_line, current_height);
+	copy_line_to_map(config_line, current_height);
 }
 
+/*
+** initializes g_map and g_map_grid before setting map data.
+*/
 void		init_maps(void)
 {
 	size_t	y_i;

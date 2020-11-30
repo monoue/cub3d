@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/26 15:18:20 by monoue           ###   ########.fr       */
+/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../../defs.h"
 # include "../../global/init_g_color.h"
-# include "../../global/init_g_cubfile_data.h"
+# include "../../global/init_g_config.h"
 # include "../../global/init_g_rays.h"
 # include "../../global/init_g_sprites.h"
 # include "../../global/init_g_textures.h"
