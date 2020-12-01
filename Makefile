@@ -6,7 +6,7 @@
 #    By: monoue <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 15:33:41 by monoue            #+#    #+#              #
-#    Updated: 2020/12/01 08:50:33 by monoue           ###   ########.fr        #
+#    Updated: 2020/12/01 14:27:41 by monoue           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,10 @@ SRCS_NAME += $(GLOBAL_PATH)init_g_config.c
 SRCS_NAME += $(GLOBAL_PATH)init_g_distance_proj_plane.c
 SRCS_NAME += $(GLOBAL_PATH)init_g_ids.c
 SRCS_NAME += $(GLOBAL_PATH)init_g_img.c
-SRCS_NAME += $(GLOBAL_PATH)init_g_mlx.c
 SRCS_NAME += $(GLOBAL_PATH)init_g_map.c
 SRCS_NAME += $(GLOBAL_PATH)init_g_map_to_check.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_minimap_flag.c
+SRCS_NAME += $(GLOBAL_PATH)init_g_mlx.c
 SRCS_NAME += $(GLOBAL_PATH)init_g_player.c
 SRCS_NAME += $(GLOBAL_PATH)init_g_rays.c
 SRCS_NAME += $(GLOBAL_PATH)init_g_save_flag.c
@@ -82,6 +83,7 @@ SRCS_NAME += $(CONFIG_PATH)create_maps.c
 SRCS_NAME += $(CONFIG_PATH)exit_if_map_is_not_surrounded_by_walls.c
 SRCS_NAME += $(CONFIG_PATH)get_line_data_utils.c
 SRCS_NAME += $(CONFIG_PATH)is_map_line.c
+SRCS_NAME += $(CONFIG_PATH)malloc_rays_wall_hit_coord.c
 SRCS_NAME += $(CONFIG_PATH)set_color.c
 SRCS_NAME += $(CONFIG_PATH)set_config.c
 SRCS_NAME += $(CONFIG_PATH)set_player_spawning_data.c
@@ -102,6 +104,8 @@ $(NAME): $(OBJS)
 
 all: $(NAME)
 
+bonus: $(NAME)
+
 clean:
 	$(MAKE) -C $(LIBFT_PATH) clean
 	$(MAKE) -C $(MINILIBX_PATH) clean
@@ -113,8 +117,5 @@ fclean: clean
 	$(RM) $(NAME) libmlx.dylib
 
 re: fclean all
-
-run:
-	./cub3D test_map/1.cub
 
 .PHONY: all clean fclean re run

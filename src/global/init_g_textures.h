@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:53:36 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/26 17:06:07 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 12:20:50 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ typedef struct	s_texture
 	char	*path;
 }				t_texture;
 
-extern	t_texture g_textures[TEXTURES_NUM];
+extern			t_texture g_textures[TEXTURES_NUM];
 
-void	init_texture_paths(void);
+void			init_texture_paths(void);
 
 #endif

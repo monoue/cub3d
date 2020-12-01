@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:16:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 10:13:56 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 12:19:09 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	set_color_element(unsigned char *image_buf,
 static void	set_current_pixel(unsigned char *image_buf, const int image_size,
 																int x, int y)
 {
-	const int	pixel_location = g_config.window_width * y + x;
+	const int	pixel_location = (g_img.line_length / 4) * y + x;
 	size_t		color_element_index;
 	int			current_location_in_buf;
 
@@ -68,16 +68,4 @@ void		write_image(int fd, const unsigned int image_size)
 		y++;
 	}
 	write(fd, image_buf, image_size);
-}
-
-static void	write_bmp_file(void)
-{
-	const int			line_size = g_config.window_width * 4;
-	const unsigned int	image_size = g_config.window_height * line_size;
-	int					fd;
-
-	fd = open(BMP_FILE_NAME, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
-	write_header(fd, image_size);
-	write_image(fd, image_size);
-	close(fd);
 }

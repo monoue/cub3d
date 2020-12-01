@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 12:45:01 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 12:58:56 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 #include "defs.h"
 #include "error_exit/error_exit.h"
 #include "game_loop/game_loop.h"
-#include "global/init_g_textures.h"
 #include "global/init_g_img.h"
 #include "global/init_g_save_flag.h"
+#include "global/init_g_textures.h"
 #include "libft/libft.h"
+#include "config/malloc_rays_wall_hit_coord.h"
 #include "config/set_config.h"
 #include "game_loop/event_hook.h"
 
@@ -60,6 +61,7 @@ static void	init_mlx(void)
 static void	play_the_game(char *filename)
 {
 	set_config(filename);
+	malloc_rays_wall_hit_coord();
 	init_mlx();
 	event_hook();
 	mlx_loop_hook(g_mlx.mlx_ptr, &game_loop, NULL);

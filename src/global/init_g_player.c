@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 10:09:49 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:29:58 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 13:21:55 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ t_player		g_player =
 	.turn_direction = NEUTRAL,
 	.walk_direction = NEUTRAL,
 	.walk_speed = 80,
-	.turn_speed = 3 * (PI / 180)
+	.turn_speed = 2.5 * (PI / 180)
 };

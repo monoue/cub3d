@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:18 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 18:09:11 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 13:53:02 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include <math.h>
 # include <stdint.h>
-
-// TODO: 消す
-# include "debug.h"
 
 # include "libft/libft.h"
 
@@ -43,10 +40,10 @@
 # define TITLE			"Monoue's cub3D"
 # define BMP_FILE_NAME	"cub3D.bmp"
 
-# define TO_LEFT -1
-# define TO_RIGHT 1
+# define TO_LEFT	-1
+# define TO_RIGHT	1
 
-# define IMAGE_SAVING_MESSAGE "Image saved.\n"
+# define IMAGE_SAVING_MESSAGE "Image saved\n"
 
 typedef uint32_t	t_color;
 

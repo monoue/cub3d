@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 16:31:15 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 14:25:24 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	render(void)
 		g_config.window_height);
 	render_background();
 	render_sprites();
-	render_mini_map();
+	if (g_minimap_flag == true)
+		render_mini_map();
 }
 
 int			game_loop(void *null)

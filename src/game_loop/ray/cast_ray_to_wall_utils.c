@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:16:08 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:06:41 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 12:41:32 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void			set_ray_direction(t_textures_num *direction,
 void			set_ray_hit_data(t_ray_materials *horz_hitter,
 				t_ray_materials *vert_hitter, float ray_angle, size_t strip_id)
 {
-	g_rays[strip_id].wall_hit_coord = malloc(sizeof(t_coord));
 	if (vert_hitter->hit_distance < horz_hitter->hit_distance)
 	{
 		g_rays[strip_id].distance_to_wall = vert_hitter->hit_distance;

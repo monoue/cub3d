@@ -1,0 +1,23 @@
+R 1920 1080
+
+NO ./images/north.xpm
+
+SO ./images/south.xpm
+
+EA ./images/east.xpm
+
+WE ./images/west.xpm
+
+S ./images/pillar.xpm
+
+C 0,0,255
+
+F 0,255,0
+
+111111111
+102000201
+120000021
+1000N0001
+120000021
+102000201
+111111111

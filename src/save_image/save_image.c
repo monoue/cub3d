@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:12:59 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 09:50:53 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 12:19:38 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void	write_header(int fd, const unsigned int image_size)
 	write(fd, header_buf, HEADER_SIZE);
 }
 
-#include "../global/init_g_img.h"
 static void	write_bmp_file(void)
 {
 	const int			line_size = g_config.window_width * 4;

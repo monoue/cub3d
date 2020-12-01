@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:31 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 10:43:14 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 14:32:32 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "../defs.h"
 # include "../../minilibx/mlx.h"
 # include "../global/init_g_player.h"
+# include "../global/init_g_config.h"
+# include "../global/init_g_rays.h"
+# include "../global/init_g_minimap_flag.h"
 # include "../global/init_g_mlx.h"
 
 /*
@@ -40,6 +43,7 @@
 # define KEY_A		0
 # define KEY_S		1
 # define KEY_D		2
+# define KEY_M		46
 # define KEY_LEFT	123
 # define KEY_RIGHT	124
 

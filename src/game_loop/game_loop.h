@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:44 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/26 17:17:30 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 14:28:06 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include "../utils/create_trgb.h"
 
 # include "../global/init_g_img.h"
+# include "../global/init_g_minimap_flag.h"
 # include "../global/init_g_save_flag.h"
 
 # include "../save_image/save_image.h"

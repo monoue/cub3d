@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 12:44:44 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 11:52:30 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define VERT_RESOLUTION_OFFSET	42
 # define TOTAL_COLORS_OFFSET		46
 # define IMPORTANT_COLORS_OFFSET	50
-
+# define COLOR_DEPTH_BITS	24
 # define PLANES			1
 
 void	save_image();

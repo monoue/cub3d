@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:43:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 13:09:14 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 14:33:03 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ static int	key_down(int keycode, void *null)
 		g_player.turn_direction = TO_LEFT;
 	if (keycode == KEY_RIGHT)
 		g_player.turn_direction = TO_RIGHT;
+	if (keycode == KEY_M)
+	{
+		if (g_minimap_flag == true)
+			g_minimap_flag = false;
+		else
+			g_minimap_flag = true;
+	}
 	return (0);
 }
 
@@ -50,9 +57,22 @@ static int	key_up(int keycode, void *null)
 	return (0);
 }
 
+static void	free_rays_wall_hit_coord(void)
+{
+	int	index;
+
+	index = 0;
+	while (index < g_config.window_width)
+	{
+		SAFE_FREE(g_rays[index].wall_hit_coord);
+		index++;
+	}
+}
+
 static int	finish_program(void *null)
 {
 	(void)null;
+	free_rays_wall_hit_coord();
 	exit(0);
 	return (0);
 }

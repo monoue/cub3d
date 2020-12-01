@@ -1,0 +1,23 @@
+R 1920 1080
+
+NO ./images/zorn.xpm
+
+SO ./images/wavy.xpm
+
+EA ./images/kohh.xpm
+
+WE ./images/eminem.xpm
+
+S ./images/barrel.xpm
+
+C 164,202,104
+
+F 137,189,222
+
+111111111
+100000001
+100000001
+1000N0001
+100000001
+100000001
+111101111
