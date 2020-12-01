@@ -6,20 +6,18 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:16:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 20:34:56 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 10:13:56 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "write_image.h"
 
 static int	calc_current_location_in_image_buf(int x, int y,
-													const int image_buf_size)
+													const int image_size)
 {
 	const int line_size = g_config.window_width * 4;
-	// const int line_size = g_config.window_width * 3 + (g_config.window_width * 3 % 4);
 
-	return (image_buf_size - (line_size * (y + 1)) + x * 4);
-	// return (image_buf_size - (line_size * (y + 1)) + x * 3);
+	return (image_size - (line_size * (y + 1)) + x * 4);
 }
 
 static void	set_color_element(unsigned char *image_buf,
@@ -42,7 +40,6 @@ static void	set_current_pixel(unsigned char *image_buf, const int image_size,
 
 	current_location_in_buf = calc_current_location_in_image_buf(x, y,
 																	image_size);
-											ft_printf("%d: %d\n", pixel_location, current_location_in_buf);
 	color_element_index = 0;
 	while (color_element_index < 4)
 	{
@@ -71,4 +68,16 @@ void		write_image(int fd, const unsigned int image_size)
 		y++;
 	}
 	write(fd, image_buf, image_size);
+}
+
+static void	write_bmp_file(void)
+{
+	const int			line_size = g_config.window_width * 4;
+	const unsigned int	image_size = g_config.window_height * line_size;
+	int					fd;
+
+	fd = open(BMP_FILE_NAME, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
+	write_header(fd, image_size);
+	write_image(fd, image_size);
+	close(fd);
 }

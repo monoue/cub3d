@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:12:59 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 20:28:44 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/01 09:50:53 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,6 @@ static void	write_bmp_file(void)
 	fd = open(BMP_FILE_NAME, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	write_header(fd, image_size);
 	write_image(fd, image_size);
-	// int				i;
-	// int				j;
-	// unsigned char	buffer[4];
-
-	// i = g_config.window_width * (g_config.window_height - 1);
-	// while (i >= 0)
-	// {
-	// 	j = 0;
-	// 	while (j < g_config.window_width)
-	// 	{
-	// 		buffer[0] = (unsigned char)(((int*)g_img.addr)[i] % 256);
-	// 		buffer[1] = (unsigned char)(((int*)g_img.addr)[i] / 256 % 256);
-	// 		buffer[2] = (unsigned char)(((int*)g_img.addr)[i] / 256 / 256 % 256);
-	// 		buffer[3] = (unsigned char)(0);
-	// 		write(fd, buffer, 4);
-	// 		i++;
-	// 		j++;
-	// 	}
-	// 	i -= 2 * g_config.window_width;
-	// }
 	close(fd);
 }
 

@@ -6,7 +6,7 @@
 #    By: monoue <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 15:33:41 by monoue            #+#    #+#              #
-#    Updated: 2020/11/30 18:03:36 by monoue           ###   ########.fr        #
+#    Updated: 2020/12/01 08:50:33 by monoue           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,23 +95,22 @@ SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJS = $(SRCS:%.c=%.o)
 
 $(NAME): $(OBJS)
-	make -C $(LIBFT_PATH)
-	cp -f $(LIBFT) .
-	make -C $(MINILIBX_PATH)
+	$(MAKE) -C $(LIBFT_PATH)
+	$(MAKE) -C $(MINILIBX_PATH)
 	cp -f $(MINILIBX) .
-	$(CC) $(OBJS) -L. -lft -lmlx -o $(NAME)
-	
+	$(CC) $^ -L$(LIBFT_PATH) -lft -L. -lmlx -o $@
+
 all: $(NAME)
 
 clean:
-	make -C $(LIBFT_PATH)/ clean
-	make -C $(MINILIBX_PATH)/ clean
-	rm -f $(OBJS)
+	$(MAKE) -C $(LIBFT_PATH) clean
+	$(MAKE) -C $(MINILIBX_PATH) clean
+	$(RM) $(OBJS)
 
 fclean: clean
-	make -C $(LIBFT_PATH)/ fclean
-	make -C $(MINILIBX_PATH)/ fclean
-	rm -f $(NAME) libft.a libmlx.dylib
+	$(MAKE) -C $(LIBFT_PATH) fclean
+	$(MAKE) -C $(MINILIBX_PATH) fclean
+	$(RM) $(NAME) libmlx.dylib
 
 re: fclean all
 
