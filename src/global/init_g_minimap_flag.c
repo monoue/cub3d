@@ -6,10 +6,10 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 14:26:06 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 14:26:29 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:20:22 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init_g_minimap_flag.h"
 
-bool	g_minimap_flag = true;
+bool	g_minimap_flag = false;
