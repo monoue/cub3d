@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   write_image.c                                      :+:      :+:    :+:   */
+/*   write_image_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:16:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 12:19:09 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "write_image.h"
+#include "write_image_bonus.h"
 
 static int	calc_current_location_in_image_buf(int x, int y,
 													const int image_size)

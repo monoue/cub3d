@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:59:29 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 08:56:01 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:54:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "../global/init_g_config.h"
 # include "../global/init_g_distance_proj_plane.h"
 # include "../global/init_g_ids.h"
-# include "../global/init_g_mlx.h"
+# include "../global/init_g_mlx_bonus.h"
 # include "../global/init_g_textures.h"
 # include "../../libft/libft.h"
 # include "../../minilibx/mlx.h"

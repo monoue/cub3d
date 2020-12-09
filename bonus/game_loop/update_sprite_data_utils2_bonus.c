@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_sprite_data_utils2.c                        :+:      :+:    :+:   */
+/*   update_sprite_data_utils2_bonus.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 15:34:12 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "update_sprite_data_utils.h"
+#include "update_sprite_data_utils_bonus.h"
 
 static int	calc_sprite_center_x(size_t index)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_and_sort_sprites_data.c                     :+:      :+:    :+:   */
+/*   update_and_sort_sprites_data_bonus.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 12:04:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/08 10:33:18 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "update_and_sort_sprites_data.h"
+#include "update_and_sort_sprites_data_bonus.h"
 
 static void	update_sprite_data(size_t index)
 {

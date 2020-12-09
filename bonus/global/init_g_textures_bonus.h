@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_g_textures.h                                  :+:      :+:    :+:   */
+/*   init_g_textures_bonus.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 09:53:36 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 12:20:50 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:34 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_G_TEXTURES_H
 # define INIT_G_TEXTURES_H
 
-# include "../defs.h"
+# include "../defs_bonus.h"
 
 typedef struct	s_texture
 {

@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_color.h                                        :+:      :+:    :+:   */
+/*   set_color_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:51 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 09:57:19 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SET_COLOR_H
 # define SET_COLOR_H
 
-# include "../defs.h"
-# include "../error_exit/error_exit.h"
-# include "../utils/create_trgb.h"
-# include "free_str_array.h"
+# include "../defs_bonus.h"
+# include "../error_exit/error_exit_bonus.h"
+# include "../utils/create_trgb_bonus.h"
+# include "free_str_array_bonus.h"
 
 void	set_color(t_color *color, char **element_items, char *id);
 

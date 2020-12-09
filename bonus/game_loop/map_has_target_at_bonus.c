@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_has_target_at.c                                :+:      :+:    :+:   */
+/*   map_has_target_at_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 13:56:12 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 15:48:08 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map_has_target_at.h"
+#include "map_has_target_at_bonus.h"
 
 static bool	map_has_target_at(float x, float y, char target)
 {

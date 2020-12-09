@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_rays_wall_hit_coord.c                       :+:      :+:    :+:   */
+/*   malloc_rays_wall_hit_coord_bonus.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 12:55:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 12:55:55 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc_rays_wall_hit_coord.h"
+#include "malloc_rays_wall_hit_coord_bonus.h"
 
 void	malloc_rays_wall_hit_coord(void)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_sprites.c                                   :+:      :+:    :+:   */
+/*   render_sprites_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 23:21:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "render_sprites.h"
+#include "render_sprites_bonus.h"
 
 static int	calc_texture_x(size_t index, int window_x)
 {

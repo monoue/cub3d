@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   seek_hit_utils.c                                   :+:      :+:    :+:   */
+/*   seek_hit_utils_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:15:09 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 16:33:23 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "seek_hit_utils.h"
+#include "seek_hit_utils_bonus.h"
 
 static float	distance_between_points(float x1, float y1, float x2, float y2)
 {

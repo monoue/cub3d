@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_mini_map.h                                  :+:      :+:    :+:   */
+/*   render_mini_map_bonus.h                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:23 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDER_MINI_MAP_H
 # define RENDER_MINI_MAP_H
 
-# include "../../defs.h"
-# include "../../global/init_g_player.h"
-# include "../../global/init_g_rays.h"
-# include "../../global/init_g_map.h"
-# include "../../global/init_g_config.h"
-# include "../../global/init_g_sprites.h"
-# include "../../utils/create_trgb.h"
-# include "draw_shape.h"
+# include "../../defs_bonus.h"
+# include "../../global/init_g_player_bonus.h"
+# include "../../global/init_g_rays_bonus.h"
+# include "../../global/init_g_map_bonus.h"
+# include "../../global/init_g_config_bonus.h"
+# include "../../global/init_g_sprites_bonus.h"
+# include "../../utils/create_trgb_bonus.h"
+# include "draw_shape_bonus.h"
 
 void	render_mini_map(void);
 void	render_player(void);

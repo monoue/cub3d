@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_sprite_data_utils1.c                        :+:      :+:    :+:   */
+/*   update_sprite_data_utils1_bonus.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 15:32:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 16:42:57 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "update_sprite_data_utils.h"
+#include "update_sprite_data_utils_bonus.h"
 
 void	set_distance_from_player(size_t index)
 {

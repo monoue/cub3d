@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_color.c                                        :+:      :+:    :+:   */
+/*   set_color_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:12:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 15:39:39 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "set_color.h"
+#include "set_color_bonus.h"
 
 static bool		is_out_of_color_range(int trgb_element)
 {

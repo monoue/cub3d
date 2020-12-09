@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cast_all_rays_to_wall.c                            :+:      :+:    :+:   */
+/*   cast_all_rays_to_wall_bonus.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 14:12:21 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cast_all_rays_to_wall.h"
+#include "cast_all_rays_to_wall_bonus.h"
 
 static void	cast_ray_to_wall(float ray_angle, size_t strip_id)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_if_map_is_not_surrounded_by_walls.c           :+:      :+:    :+:   */
+/*   exit_if_map_is_not_surrounded_by_walls_bonu        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:18:51 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 09:10:35 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exit_if_map_is_not_surrounded_by_walls.h"
+#include "exit_if_map_is_not_surrounded_by_walls_bonus.h"
 
 const int	g_dx[4] = {1, 0, -1, 0};
 const int	g_dy[4] = {0, 1, 0, -1};

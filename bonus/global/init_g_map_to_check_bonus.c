@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_g_map_to_check.c                              :+:      :+:    :+:   */
+/*   init_g_map_to_check_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 11:55:32 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 11:55:56 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "init_g_map_to_check.h"
+#include "init_g_map_to_check_bonus.h"
 
 char	g_map_to_check[MAX_MAP_LEN + 1][MAX_MAP_LEN + 1];

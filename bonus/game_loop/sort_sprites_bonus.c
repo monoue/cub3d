@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_sprites.c                                     :+:      :+:    :+:   */
+/*   sort_sprites_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 10:33:43 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 07:18:31 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "update_and_sort_sprites_data.h"
+#include "update_and_sort_sprites_data_bonus.h"
 
 static void	swap_sprites(size_t index, size_t inner_i)
 {

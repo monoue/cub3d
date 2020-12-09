@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_g_sprites.c                                   :+:      :+:    :+:   */
+/*   init_g_sprites_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 11:37:10 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 13:08:05 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "init_g_sprites.h"
+#include "init_g_sprites_bonus.h"
 
 t_sprite g_sprites[MAX_SPRITES_NUM];

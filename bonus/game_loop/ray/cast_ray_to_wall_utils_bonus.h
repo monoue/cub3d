@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cast_ray_to_wall_utils.h                           :+:      :+:    :+:   */
+/*   cast_ray_to_wall_utils_bonus.h                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:15:40 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:09:00 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CAST_RAY_TO_WALL_UTILS_H
 # define CAST_RAY_TO_WALL_UTILS_H
 
-# include "coord.h"
-# include "../../defs.h"
-# include "../../global/init_g_rays.h"
-# include "ray_def.h"
-# include "is_ray_facing.h"
+# include "coord_bonus.h"
+# include "../../defs_bonus.h"
+# include "../../global/init_g_rays_bonus.h"
+# include "ray_def_bonus.h"
+# include "is_ray_facing_bonus.h"
 
 t_ray_materials	*malloc_t_ray_materials(void);
 void			free_each_t_ray_materials(t_ray_materials *ray_materials);

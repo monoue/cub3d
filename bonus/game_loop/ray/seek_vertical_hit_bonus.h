@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   seek_vertical_hit.h                                :+:      :+:    :+:   */
+/*   seek_vertical_hit_bonus.h                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:29:17 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 15:48:08 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SEEK_VERTICAL_HIT_H
 # define SEEK_VERTICAL_HIT_H
 
-# include "../../defs.h"
-# include "../../global/init_g_player.h"
-# include "is_ray_facing.h"
-# include "seek_hit_utils.h"
-# include "../map_has_target_at.h"
-# include "ray_def.h"
+# include "../../defs_bonus.h"
+# include "../../global/init_g_player_bonus.h"
+# include "is_ray_facing_bonus.h"
+# include "seek_hit_utils_bonus.h"
+# include "../map_has_target_at_bonus.h"
+# include "ray_def_bonus.h"
 
 void		seek_vertical_hit(t_ray_materials *vert_hitter, float ray_angle);
 

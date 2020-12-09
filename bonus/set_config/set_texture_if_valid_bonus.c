@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_texture_if_valid.c                             :+:      :+:    :+:   */
+/*   set_texture_if_valid_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 12:42:52 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 15:45:57 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "set_texture_if_valid.h"
+#include "set_texture_if_valid_bonus.h"
 
 static void	set_texture(char **texture_path, char **element_items, char *id)
 {

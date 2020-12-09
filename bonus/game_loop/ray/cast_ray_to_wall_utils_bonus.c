@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cast_ray_to_wall_utils.c                           :+:      :+:    :+:   */
+/*   cast_ray_to_wall_utils_bonus.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:16:08 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 12:41:32 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cast_ray_to_wall_utils.h"
+#include "cast_ray_to_wall_utils_bonus.h"
 
 t_ray_materials	*malloc_t_ray_materials(void)
 {

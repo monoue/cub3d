@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_maps.c                                      :+:      :+:    :+:   */
+/*   create_maps_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:57:52 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:03:18 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "create_maps.h"
+#include "create_maps_bonus.h"
 
 static void	copy_line_to_map(const char *config_line, size_t current_row)
 {

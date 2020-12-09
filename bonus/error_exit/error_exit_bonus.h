@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_exit.h                                       :+:      :+:    :+:   */
+/*   error_exit_bonus.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:26 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:04:23 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:46:15 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define ERROR_EXIT_H
 
 # include "../../libft/libft.h"
-# include "../defs.h"
+# include "../defs_bonus.h"
 # include <errno.h>
 
 # define INVALID_FILE_PATH "config file: Texture file's path is invalid\n"

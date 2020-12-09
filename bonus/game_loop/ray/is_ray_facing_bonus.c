@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_ray_facing.c                                    :+:      :+:    :+:   */
+/*   is_ray_facing_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:09:50 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 16:27:52 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "is_ray_facing.h"
+#include "is_ray_facing_bonus.h"
 
 bool	is_ray_facing_down(float angle)
 {

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_g_rays.h                                      :+:      :+:    :+:   */
+/*   init_g_rays_bonus.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 12:06:20 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:09:45 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:37 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_G_RAYS_H
 # define INIT_G_RAYS_H
 
-# include "../defs.h"
-# include "../game_loop/ray/coord.h"
+# include "../defs_bonus.h"
+# include "../game_loop/ray/coord_bonus.h"
 
 typedef struct	s_ray_to_wall {
 	float			ray_angle;

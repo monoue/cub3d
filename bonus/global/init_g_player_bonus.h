@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_g_player.h                                    :+:      :+:    :+:   */
+/*   init_g_player_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 10:10:33 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:30:24 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:37 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_G_PLAYER_H
 # define INIT_G_PLAYER_H
 
-# include "../defs.h"
+# include "../defs_bonus.h"
 
 typedef struct	s_player {
 	int		grid_x;

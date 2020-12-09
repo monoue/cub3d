@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_background.c                                :+:      :+:    :+:   */
+/*   render_background_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:50:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 16:38:23 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "render_background.h"
+#include "render_background_bonus.h"
 
 /*
 ** Projected wall height is calculated based on perpendicular distance from

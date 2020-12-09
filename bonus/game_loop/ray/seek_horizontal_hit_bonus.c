@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   seek_horizontal_hit.c                              :+:      :+:    :+:   */
+/*   seek_horizontal_hit_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:23:47 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 15:32:20 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "seek_horizontal_hit.h"
+#include "seek_horizontal_hit_bonus.h"
 
 static void	init_horz_hitter_step(t_coord *step, float ray_angle)
 {

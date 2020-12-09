@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_player.h                                      :+:      :+:    :+:   */
+/*   move_player_bonus.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:02 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 15:48:08 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MOVE_PLAYER_H
 # define MOVE_PLAYER_H
 
-# include "../defs.h"
-# include "../global/init_g_player.h"
-# include "map_has_target_at.h"
-# include "../utils/normalize_angle.h"
+# include "../defs_bonus.h"
+# include "../global/init_g_player_bonus.h"
+# include "map_has_target_at_bonus.h"
+# include "../utils/normalize_angle_bonus.h"
 
 void			move_player(void);
 

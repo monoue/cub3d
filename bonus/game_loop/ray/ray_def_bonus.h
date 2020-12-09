@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_def.h                                          :+:      :+:    :+:   */
+/*   ray_def_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:27:39 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/24 16:36:46 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAY_DEF_H
 # define RAY_DEF_H
 
-# include "coord.h"
+# include "coord_bonus.h"
 
 typedef struct	s_ray_materials {
 	t_coord	*intercept;

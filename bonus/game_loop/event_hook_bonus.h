@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_hook.h                                       :+:      :+:    :+:   */
+/*   event_hook_bonus.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:31 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/08 08:04:07 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:54:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EVENT_HOOK_H
 # define EVENT_HOOK_H
 
-# include "../defs.h"
+# include "../defs_bonus.h"
 # include "../../minilibx/mlx.h"
-# include "../global/init_g_player.h"
-# include "../global/init_g_config.h"
-# include "../global/init_g_rays.h"
-# include "../global/init_g_minimap_flag.h"
-# include "../global/init_g_mlx.h"
+# include "../global/init_g_player_bonus.h"
+# include "../global/init_g_config_bonus.h"
+# include "../global/init_g_rays_bonus.h"
+# include "../global/init_g_minimap_flag_bonus.h"
+# include "../global/init_g_mlx_bonus.h"
 
 /*
 ** X11 events

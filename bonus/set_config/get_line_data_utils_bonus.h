@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_line_data_utils.h                              :+:      :+:    :+:   */
+/*   get_line_data_utils_bonus.h                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:59:29 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 08:56:01 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:54:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_LINE_DATA_UTILS_H
 # define GET_LINE_DATA_UTILS_H
 
-# include "free_str_array.h"
-# include "../defs.h"
-# include "../error_exit/error_exit.h"
-# include "../global/init_g_config.h"
-# include "../global/init_g_distance_proj_plane.h"
-# include "../global/init_g_ids.h"
-# include "../global/init_g_mlx.h"
-# include "../global/init_g_textures.h"
+# include "free_str_array_bonus.h"
+# include "../defs_bonus.h"
+# include "../error_exit/error_exit_bonus.h"
+# include "../global/init_g_config_bonus.h"
+# include "../global/init_g_distance_proj_plane_bonus.h"
+# include "../global/init_g_ids_bonus.h"
+# include "../global/init_g_mlx_bonus.h"
+# include "../global/init_g_textures_bonus.h"
 # include "../../libft/libft.h"
 # include "../../minilibx/mlx.h"
 

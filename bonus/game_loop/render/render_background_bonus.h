@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_background.h                                :+:      :+:    :+:   */
+/*   render_background_bonus.h                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:12:23 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:26:22 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDER_BACKGROUND_H
 # define RENDER_BACKGROUND_H
 
-# include "../../defs.h"
-# include "../../global/init_g_player.h"
-# include "../../global/init_g_color.h"
-# include "../../global/init_g_distance_proj_plane.h"
-# include "../../global/init_g_rays.h"
-# include "render_wall_ray_basis.h"
-# include "draw_pixel.h"
+# include "../../defs_bonus.h"
+# include "../../global/init_g_player_bonus.h"
+# include "../../global/init_g_color_bonus.h"
+# include "../../global/init_g_distance_proj_plane_bonus.h"
+# include "../../global/init_g_rays_bonus.h"
+# include "render_wall_ray_basis_bonus.h"
+# include "draw_pixel_bonus.h"
 
 void	render_background(void);
 int		calc_projected_object_height(float angle_to_object,

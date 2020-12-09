@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_texture_color.c                                :+:      :+:    :+:   */
+/*   set_texture_color_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 12:18:43 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/27 10:31:45 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "set_texture_color.h"
+#include "set_texture_color_bonus.h"
 
 void			set_texture_color(t_texture texture, int x, int y)
 {

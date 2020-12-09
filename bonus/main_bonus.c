@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 15:51:57 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:46:15 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
 
-#include "defs.h"
-#include "error_exit/error_exit.h"
-#include "game_loop/game_loop.h"
-#include "global/init_g_img.h"
-#include "global/init_g_save_flag.h"
-#include "global/init_g_textures.h"
+#include "defs_bonus.h"
+#include "error_exit/error_exit_bonus.h"
+#include "game_loop/game_loop_bonus.h"
+#include "global/init_g_img_bonus.h"
+#include "global/init_g_save_flag_bonus.h"
+#include "global/init_g_textures_bonus.h"
 #include "../libft/libft.h"
-#include "set_config/malloc_rays_wall_hit_coord.h"
-#include "set_config/set_config.h"
-#include "game_loop/event_hook.h"
+#include "set_config/malloc_rays_wall_hit_coord_bonus.h"
+#include "set_config/set_config_bonus.h"
+#include "game_loop/event_hook_bonus.h"
 
 static void	set_textures(void)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   seek_hit_utils.h                                   :+:      :+:    :+:   */
+/*   seek_hit_utils_bonus.h                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:15:32 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 11:22:05 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <float.h>
 # include <stdbool.h>
 
-# include "coord.h"
-# include "../../defs.h"
-# include "../../global/init_g_player.h"
+# include "coord_bonus.h"
+# include "../../defs_bonus.h"
+# include "../../global/init_g_player_bonus.h"
 
 float	get_hit_distance(t_coord *wall_hit_coord, bool is_hit_found);
 bool	is_inside_map(t_coord *coord);

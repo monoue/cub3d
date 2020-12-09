@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_player_spawning_data.c                         :+:      :+:    :+:   */
+/*   set_player_spawning_data_bonus.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 16:25:25 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 10:09:42 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "set_player_spawning_data.h"
+#include "set_player_spawning_data_bonus.h"
 
 static float	get_spawning_angle(char c)
 {

@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_image.h                                       :+:      :+:    :+:   */
+/*   save_image_bonus.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 07:28:15 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:45:37 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SAVE_IMAGE_H
 # define SAVE_IMAGE_H
 
-# include "../defs.h"
-# include "../global/init_g_img.h"
-# include "../set_config/set_config.h"
-# include "write_image.h"
+# include "../defs_bonus.h"
+# include "../global/init_g_img_bonus.h"
+# include "../set_config/set_config_bonus.h"
+# include "write_image_bonus.h"
 
 # define FILE_HEADER_SIZE 14
 # define INFO_HEADER_SIZE 40
