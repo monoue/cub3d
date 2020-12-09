@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:26 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 08:44:34 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:04:23 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@
 # define MAP_TOO_HIGH ".cub file: The map is too high\n"
 # define MAP_TOO_WIDE ".cub file: The map is too wide\n"
 
-void	map_exit_failure(char *map_line, char *error_message, int fd);
 void	exit_with_error_message(t_error_types message_type,
 														char *error_content);
 void	exit_if_closing_fd_error(int fd);
+void	map_exit_failure(char *map_line, char *error_message, int fd);
+void	exit_if_too_large_map(char *map_line, size_t height, int fd);
 
 #endif

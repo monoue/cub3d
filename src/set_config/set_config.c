@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 12:16:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 15:42:51 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,6 @@ static void	set_spawn_data_and_sprites_num(void)
 		}
 		y++;
 	}
-}
-
-static void	set_texture_if_valid(char **element_items)
-{
-	size_t		t_i;
-
-	t_i = 0;
-	while (t_i < TEXTURES_NUM)
-	{
-		if (ft_strcmp(element_items[0], g_ids[t_i]) == 0)
-		{
-			set_texture(&g_textures[t_i].path, element_items, g_ids[t_i]);
-			break ;
-		}
-		t_i++;
-	}
-	free_str_array(element_items);
 }
 
 static void	get_line_data(char *config_line, int fd)
@@ -108,6 +91,7 @@ void		set_config(char *filename)
 		else
 			get_line_data(line, fd);
 	}
+	SAFE_FREE(line);
 	exit_if_closing_fd_error(fd);
 	g_config.sprites_num = 0;
 	set_spawn_data_and_sprites_num();

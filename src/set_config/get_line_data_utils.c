@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:54:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 12:08:37 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 15:52:31 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,27 +84,3 @@ void		exit_if_not_all_elements_are_set(char *config_line, const int fd)
 	if ((int)g_config.ceiling_color == NOT_SET)
 		exit_closing_fd_freeing_str(LACKING_ELEMENT, "C", fd, config_line);
 }
-
-// bool		all_elements_are_set(void)
-// {
-// 	size_t	t_i;
-
-// 	t_i = 0;
-// 	while (t_i < TEXTURES_NUM)
-// 	{
-// 		if (g_textures[t_i].path == NULL)
-// 			return (false);
-// 		t_i++;
-// 	}
-// 	if (g_config.window_width == NOT_SET
-// 		|| g_config.window_height == NOT_SET)
-// 	{
-// 		return (false);
-// 	}
-// 	if ((int)g_config.floor_color == NOT_SET
-// 		|| (int)g_config.ceiling_color == NOT_SET)
-// 	{
-// 		return (false);
-// 	}
-// 	return (true);
-// }

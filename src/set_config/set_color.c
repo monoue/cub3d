@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:12:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 12:03:53 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 15:39:39 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,59 +37,36 @@ static size_t	count_specific_c(const char *str, char c)
 ** If a color size is of more than three digits, it is taken to be invalid.
 */
 
-// static void		exit_if_color_line_is_invalid(t_color color, const char **infos,
-// 												const char **num_strs, char *id)
-// infos 要らない
-static void		exit_if_color_line_is_invalid(t_color color, char **element_items,
-												char **num_strs, char *id)
+static void		exit_with_error_message_freeing_str_arrays(int message_type,
+char *error_content, char **str1, char **str2)
+{
+	free_str_array(str1);
+	free_str_array(str2);
+	exit_with_error_message(message_type, error_content);
+}
+
+static void		exit_if_color_line_is_invalid(t_color color,
+								char **element_items, char **num_strs, char *id)
 {
 	size_t	index;
 
-	// if (((int)color != NOT_SET) || (ft_count_strs((const char **)element_items) != 2) || (count_specific_c(element_items[1], ',') != 2 || ft_count_strs((const char **)num_strs) != 3))
-	// {
-		// free_str_array(element_items);
-		// free_str_array(num_strs);
-		if ((int)color != NOT_SET)
-		{
-		free_str_array(element_items);
-		free_str_array(num_strs);
-
-			exit_with_error_message(ID_OVERLAPPING, id);
-		}
-		if (ft_count_strs((const char **)element_items) != 2)
-		{
-			ft_printf("element 1:%s", element_items[0]);
-		// free_str_array(element_items);
-		// free_str_array(num_strs);
-			exit_with_error_message(WRONG_INFO_NUM, id);
-
-		}
-		if (count_specific_c(element_items[1], ',') != 2 || ft_count_strs((const char **)num_strs) != 3)
-		{
-		free_str_array(element_items);
-		free_str_array(num_strs);
-
-			exit_with_error_message(INVALID_INFO, id);
-		}
-	// }
-	// {
-	// 	free_str_array(infos);
-	// 	free_str_array(num_strs);
-	// }
-	// {
-	// 	free_str_array(infos);
-	// 	free_str_array(num_strs);
-	// }
+	if ((int)color != NOT_SET)
+		exit_with_error_message_freeing_str_arrays(ID_OVERLAPPING, id,
+													element_items, num_strs);
+	if (ft_count_strs((const char **)element_items) != 2)
+		exit_with_error_message_freeing_str_arrays(WRONG_INFO_NUM, id,
+													element_items, num_strs);
+	if (count_specific_c(element_items[1], ',') != 2
+		|| ft_count_strs((const char **)num_strs) != 3)
+		exit_with_error_message_freeing_str_arrays(INVALID_INFO, id,
+													element_items, num_strs);
 	index = 0;
 	while (index < 3)
 	{
 		if (!ft_str_is_numeric(num_strs[index])
 				|| ft_strlen(num_strs[index]) > 3)
-		{
-			free_str_array(element_items);
-			free_str_array(num_strs);
-			exit_with_error_message(INVALID_INFO, id);
-		}
+			exit_with_error_message_freeing_str_arrays(INVALID_INFO, id,
+													element_items, num_strs);
 		index++;
 	}
 }

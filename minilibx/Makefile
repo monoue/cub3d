@@ -33,4 +33,4 @@ clean:
 	rm -f $(OBJ) $(MODULE_OBJ) $(C_OBJ) *.swiftdoc *~
 
 fclean: clean
-	rm -f $(NAME)
+	find . -name *.dylib -print0 | xargs -0 $(RM)

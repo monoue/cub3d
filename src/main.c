@@ -6,16 +6,9 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 07:28:08 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 15:51:57 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdlib.h>
-__attribute__((destructor))
-void	end()
-{
-	system("leaks cub3D");
-}
 
 #include <errno.h>
 

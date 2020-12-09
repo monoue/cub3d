@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:29:46 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 08:39:50 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 16:03:42 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,4 @@ void		exit_with_error_message(t_error_types message_type,
 		ft_putstr_fd("\" line is not above map\n", STDERR_FILENO);
 	}
 	exit(EXIT_FAILURE);
-}
-
-void		map_exit_failure(char *map_line, char *error_message, int fd)
-{
-	SAFE_FREE(map_line);
-	exit_if_closing_fd_error(fd);
-	exit_with_error_message(SINGLE, error_message);
 }

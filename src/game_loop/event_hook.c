@@ -6,17 +6,32 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 13:43:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 14:33:03 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 15:16:09 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "event_hook.h"
 
+static void	free_rays_wall_hit_coord(void)
+{
+	int	index;
+
+	index = 0;
+	while (index < g_config.window_width)
+	{
+		SAFE_FREE(g_rays[index].wall_hit_coord);
+		index++;
+	}
+}
+
 static int	key_down(int keycode, void *null)
 {
 	(void)null;
 	if (keycode == KEY_ESC)
+	{
+		free_rays_wall_hit_coord();
 		exit(0);
+	}
 	if (keycode == KEY_W)
 		g_player.walk_direction = FRONT;
 	if (keycode == KEY_S)
@@ -30,12 +45,7 @@ static int	key_down(int keycode, void *null)
 	if (keycode == KEY_RIGHT)
 		g_player.turn_direction = TO_RIGHT;
 	if (keycode == KEY_M)
-	{
-		if (g_minimap_flag == true)
-			g_minimap_flag = false;
-		else
-			g_minimap_flag = true;
-	}
+		g_minimap_flag = (g_minimap_flag == true) ? false : true;
 	return (0);
 }
 
@@ -55,18 +65,6 @@ static int	key_up(int keycode, void *null)
 	if (keycode == KEY_RIGHT)
 		g_player.turn_direction = NEUTRAL;
 	return (0);
-}
-
-static void	free_rays_wall_hit_coord(void)
-{
-	int	index;
-
-	index = 0;
-	while (index < g_config.window_width)
-	{
-		SAFE_FREE(g_rays[index].wall_hit_coord);
-		index++;
-	}
 }
 
 static int	finish_program(void *null)

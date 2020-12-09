@@ -6,7 +6,7 @@
 #    By: monoue <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 15:33:41 by monoue            #+#    #+#              #
-#    Updated: 2020/12/09 12:19:07 by monoue           ###   ########.fr        #
+#    Updated: 2020/12/09 16:07:54 by monoue           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS_NAME += $(ERROR_EXIT_PATH)error_exit.c
 SRCS_NAME += $(ERROR_EXIT_PATH)exit_if_closing_fd_error.c
+SRCS_NAME += $(ERROR_EXIT_PATH)map_error.c
 
 SRCS_NAME += $(GAME_LOOP_PATH)event_hook.c
 SRCS_NAME += $(GAME_LOOP_PATH)game_loop.c
@@ -89,7 +90,7 @@ SRCS_NAME += $(CONFIG_PATH)malloc_rays_wall_hit_coord.c
 SRCS_NAME += $(CONFIG_PATH)set_color.c
 SRCS_NAME += $(CONFIG_PATH)set_config.c
 SRCS_NAME += $(CONFIG_PATH)set_player_spawning_data.c
-SRCS_NAME += $(CONFIG_PATH)set_texture.c
+SRCS_NAME += $(CONFIG_PATH)set_texture_if_valid.c
 SRCS_NAME += $(CONFIG_PATH)set_sprite_position.c
 
 SRCS_NAME += $(UTILS_PATH)create_trgb.c
@@ -103,7 +104,6 @@ $(NAME): $(OBJS)
 	$(MAKE) -C $(MINILIBX_PATH)
 	cp -f $(MINILIBX) .
 	$(CC) $^ -L$(LIBFT_PATH) -lft -L. -lmlx -o $@
-	# $(CC) -g -fsanitize=address $^ -L$(LIBFT_PATH) -lft -L. -lmlx -o $@
 
 all: $(NAME)
 
@@ -117,7 +117,8 @@ clean:
 fclean: clean
 	$(MAKE) -C $(LIBFT_PATH) fclean
 	$(MAKE) -C $(MINILIBX_PATH) fclean
-	$(RM) $(NAME) libmlx.dylib
+	$(RM) $(NAME)
+	find . -name *.dylib -print0 | xargs -0 $(RM)
 
 re: fclean all
 
