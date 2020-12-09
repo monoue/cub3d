@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 12:04:28 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 12:37:51 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/08 10:33:18 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,35 +33,11 @@ static void	update_all_sprites_data(void)
 	}
 }
 
-static void	sort_sprites(void)
-{
-	size_t		index;
-	size_t		inner_i;
-	t_sprite	tmp;
-
-	if (g_config.sprites_num < 2)
-		return ;
-	index = 0;
-	while (index < g_config.sprites_num - 1)
-	{
-		inner_i = index + 1;
-		while (inner_i < g_config.sprites_num)
-		{
-			if (g_sprites[index].distance_from_player
-									< g_sprites[inner_i].distance_from_player)
-			{
-				tmp = g_sprites[index];
-				g_sprites[index] = g_sprites[inner_i];
-				g_sprites[inner_i] = tmp;
-			}
-			inner_i++;
-		}
-		index++;
-	}
-}
-
 void		update_and_sort_sprites_data(void)
 {
+	int	sprites_num;
+
+	sprites_num = (int)g_config.sprites_num;
 	update_all_sprites_data();
 	sort_sprites();
 }

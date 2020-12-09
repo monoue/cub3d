@@ -6,7 +6,7 @@
 #    By: monoue <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 15:33:41 by monoue            #+#    #+#              #
-#    Updated: 2020/12/01 14:27:41 by monoue           ###   ########.fr        #
+#    Updated: 2020/12/09 10:30:29 by monoue           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,13 @@ CC = gcc
 # PATH
 ERROR_EXIT_PATH =	error_exit/
 SRCS_PATH =			src/
-OBJS_PATH =			obj/
-LIBFT_PATH =		$(SRCS_PATH)libft/
+LIBFT_PATH =		libft/
 GAME_LOOP_PATH =	game_loop/
 RAY_PATH =			$(GAME_LOOP_PATH)ray/
 RENDER_PATH =		$(GAME_LOOP_PATH)render/
 GLOBAL_PATH =		global/
 SAVE_IMAGE_PATH =	save_image/
-CONFIG_PATH =		config/
+CONFIG_PATH =		set_config/
 UTILS_PATH =		utils/
 MINILIBX_PATH = 	minilibx/
 
@@ -34,6 +33,7 @@ SRCS_NAME =
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS_NAME += $(ERROR_EXIT_PATH)error_exit.c
+SRCS_NAME += $(ERROR_EXIT_PATH)exit_if_closing_fd_error.c
 
 SRCS_NAME += $(GAME_LOOP_PATH)event_hook.c
 SRCS_NAME += $(GAME_LOOP_PATH)game_loop.c
@@ -42,6 +42,7 @@ SRCS_NAME += $(GAME_LOOP_PATH)move_player.c
 SRCS_NAME += $(GAME_LOOP_PATH)update_and_sort_sprites_data.c
 SRCS_NAME += $(GAME_LOOP_PATH)update_sprite_data_utils1.c
 SRCS_NAME += $(GAME_LOOP_PATH)update_sprite_data_utils2.c
+SRCS_NAME += $(GAME_LOOP_PATH)sort_sprites.c
 
 SRCS_NAME += $(RAY_PATH)cast_all_rays_to_wall.c
 SRCS_NAME += $(RAY_PATH)cast_ray_to_wall_utils.c
@@ -81,6 +82,7 @@ SRCS_NAME += $(SAVE_IMAGE_PATH)write_image.c
 
 SRCS_NAME += $(CONFIG_PATH)create_maps.c
 SRCS_NAME += $(CONFIG_PATH)exit_if_map_is_not_surrounded_by_walls.c
+SRCS_NAME += $(CONFIG_PATH)free_str_array.c
 SRCS_NAME += $(CONFIG_PATH)get_line_data_utils.c
 SRCS_NAME += $(CONFIG_PATH)is_map_line.c
 SRCS_NAME += $(CONFIG_PATH)malloc_rays_wall_hit_coord.c
@@ -100,7 +102,8 @@ $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_PATH)
 	$(MAKE) -C $(MINILIBX_PATH)
 	cp -f $(MINILIBX) .
-	$(CC) $^ -L$(LIBFT_PATH) -lft -L. -lmlx -o $@
+	$(CC) -g -fsanitize=address $^ -L$(LIBFT_PATH) -lft -L. -lmlx -o $@
+	# $(CC) $^ -L$(LIBFT_PATH) -lft -L. -lmlx -o $@
 
 all: $(NAME)
 
@@ -109,7 +112,7 @@ bonus: $(NAME)
 clean:
 	$(MAKE) -C $(LIBFT_PATH) clean
 	$(MAKE) -C $(MINILIBX_PATH) clean
-	$(RM) $(OBJS)
+	find . -name *.o -print0 | xargs -0 $(RM)
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_PATH) fclean

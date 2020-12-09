@@ -6,9 +6,16 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:49:30 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 12:58:56 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 07:28:08 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdlib.h>
+__attribute__((destructor))
+void	end()
+{
+	system("leaks cub3D");
+}
 
 #include <errno.h>
 
@@ -18,9 +25,9 @@
 #include "global/init_g_img.h"
 #include "global/init_g_save_flag.h"
 #include "global/init_g_textures.h"
-#include "libft/libft.h"
-#include "config/malloc_rays_wall_hit_coord.h"
-#include "config/set_config.h"
+#include "../libft/libft.h"
+#include "set_config/malloc_rays_wall_hit_coord.h"
+#include "set_config/set_config.h"
 #include "game_loop/event_hook.h"
 
 static void	set_textures(void)
@@ -81,7 +88,7 @@ int			main(int argc, char **argv)
 	const size_t	extension_len = ft_strlen(EXTENSION);
 
 	if (argc < 2)
-		exit_with_error_message(SINGLE, "No arguments");
+		exit_with_error_message(SINGLE, NO_ARG);
 	if (argc > 3)
 		exit_with_error_message(SINGLE, strerror(E2BIG));
 	if (ft_strlen(argv[1]) < extension_len

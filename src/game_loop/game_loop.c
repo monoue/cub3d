@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 10:13:55 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 14:25:24 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/08 08:08:12 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ static void	update(void)
 
 static void	render(void)
 {
-	g_color = create_trgb(0, 0, 0, 0);
-	draw_rectangle(
-		0,
-		0,
-		g_config.window_width,
-		g_config.window_height);
 	render_background();
 	render_sprites();
 	if (g_minimap_flag == true)

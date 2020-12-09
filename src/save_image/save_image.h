@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 11:52:30 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 07:28:15 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../defs.h"
 # include "../global/init_g_img.h"
-# include "../config/set_config.h"
+# include "../set_config/set_config.h"
 # include "write_image.h"
 
 # define FILE_HEADER_SIZE 14

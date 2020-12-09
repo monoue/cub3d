@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/30 14:53:54 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 10:38:55 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	set_spawn_data_and_sprites_num(void)
 	}
 }
 
-static void	set_texture_if_valid(const char **element_items)
+static void	set_texture_if_valid(char **element_items)
 {
 	size_t		t_i;
 
@@ -57,35 +57,41 @@ static void	set_texture_if_valid(const char **element_items)
 	{
 		if (ft_strcmp(element_items[0], g_ids[t_i]) == 0)
 		{
-			set_texture(&g_textures[t_i].path, &element_items[1],
-																g_ids[t_i]);
+			// set_texture(&g_textures[t_i].path, &element_items[1], g_ids[t_i]);
+			set_texture(&g_textures[t_i].path, element_items, g_ids[t_i]);
 			break ;
 		}
 		t_i++;
 	}
+	free_str_array(element_items);
 }
 
 static void	get_line_data(char *config_line, int fd)
 {
-	const char	**element_items = (const char **)ft_split(config_line, ' ');
+	char	**element_items;
 
+	element_items = ft_split(config_line, ' ');
+	// if (element_items == NULL)
+	// 	return ;
+	SAFE_FREE(config_line);
+	// TODO: もしかすると、この return の場合に、element_items の free が必要？
 	if (element_items[0] == NULL)
 		return ;
-	if (!all_elements_are_set() && is_map_line(config_line))
-		exit_closing_fd(SINGLE, MAP_WRONG_PLACE, fd);
 	if (ft_strcmp(element_items[0], "R") == 0)
-		get_resolution(&element_items[1], fd);
+		get_resolution(element_items, fd);
 	else if (ft_strcmp(element_items[0], "F") == 0)
-		set_color(&g_config.floor_color, &element_items[1], "F");
+		// set_color(&g_config.floor_color, &element_items[1], "F");
+		set_color(&g_config.floor_color, element_items, "F");
 	else if (ft_strcmp(element_items[0], "C") == 0)
 		set_color(&g_config.ceiling_color, &element_items[1], "C");
-	else if (is_map_line(config_line))
-	{
-		exit_if_not_all_elements_are_set(fd);
-		create_map_array(config_line, fd);
-	}
 	else
 		set_texture_if_valid(element_items);
+}
+
+static void	get_map_data(char *config_line, const int fd)
+{
+	exit_if_not_all_elements_are_set(config_line, fd);
+	create_map_array(config_line, fd);
 }
 
 void		set_config(char *filename)
@@ -99,12 +105,12 @@ void		set_config(char *filename)
 	init_texture_paths();
 	while (get_next_line(fd, &line) > 0)
 	{
-		get_line_data(line, fd);
-		if (g_map[0][0] != '\0')
-			break ;
-		SAFE_FREE(line);
+		if (is_map_line(line))
+			get_map_data(line, fd);
+		else
+			get_line_data(line, fd);
 	}
-	exit_if_closing_fd_fails(fd);
+	exit_if_closing_fd_error(fd);
 	g_config.sprites_num = 0;
 	set_spawn_data_and_sprites_num();
 	if (g_map[0][0] == '\0')

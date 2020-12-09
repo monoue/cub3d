@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cast_all_rays_to_wall.h                            :+:      :+:    :+:   */
+/*   set_color.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 13:11:16 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 07:27:58 by monoue           ###   ########.fr       */
+/*   Created: 2020/11/21 13:11:51 by monoue            #+#    #+#             */
+/*   Updated: 2020/12/09 09:57:19 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAST_ALL_RAYS_TO_WALL_H
-# define CAST_ALL_RAYS_TO_WALL_H
+#ifndef SET_COLOR_H
+# define SET_COLOR_H
 
-# include "cast_ray_to_wall_utils.h"
-# include "../../defs.h"
-# include "../../global/init_g_player.h"
-# include "../../utils/normalize_angle.h"
-# include "../../global/init_g_player.h"
-# include "seek_horizontal_hit.h"
-# include "seek_vertical_hit.h"
-# include "../../set_config/set_config.h"
+# include "../defs.h"
+# include "../error_exit/error_exit.h"
+# include "../utils/create_trgb.h"
+# include "free_str_array.h"
 
-void	cast_all_rays_to_wall(void);
+void	set_color(t_color *color, char **element_items, char *id);
 
 #endif

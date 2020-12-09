@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_texture.h                                      :+:      :+:    :+:   */
+/*   free_str_array.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 12:42:50 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/25 12:43:49 by monoue           ###   ########.fr       */
+/*   Created: 2020/12/09 07:39:00 by monoue            #+#    #+#             */
+/*   Updated: 2020/12/09 07:39:57 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_TEXTURE_H
-# define SET_TEXTURE_H
+#ifndef FREE_STR_ARRAY_H
+# define FREE_STR_ARRAY_H
 
-# include "../error_exit/error_exit.h"
+# include <unistd.h>
 
-void	set_texture(char **texture_path, const char **infos, char *id);
+# include "../defs.h"
+
+void	free_str_array(char **arr);
 
 #endif

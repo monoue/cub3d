@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:18 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/01 13:53:02 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 07:25:01 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <math.h>
 # include <stdint.h>
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 # define SUCCESS				0
 # define HALF_PI				1.57079633
@@ -26,7 +26,6 @@
 # define TILE_SIZE				512
 # define MAX_MAP_LEN			50
 # define MINIMAP_SCALE_FACTOR	0.035
-# define IMGDIR					"./images"
 # define FOV_ANGLE				(60 * (PI / 180))
 # define MAX_WINDOW_WIDTH		3840
 # define MAX_SPRITES_NUM		2500
