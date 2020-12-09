@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 10:38:55 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 12:16:27 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	set_texture_if_valid(char **element_items)
 	{
 		if (ft_strcmp(element_items[0], g_ids[t_i]) == 0)
 		{
-			// set_texture(&g_textures[t_i].path, &element_items[1], g_ids[t_i]);
 			set_texture(&g_textures[t_i].path, element_items, g_ids[t_i]);
 			break ;
 		}
@@ -71,19 +70,18 @@ static void	get_line_data(char *config_line, int fd)
 	char	**element_items;
 
 	element_items = ft_split(config_line, ' ');
-	// if (element_items == NULL)
-	// 	return ;
 	SAFE_FREE(config_line);
-	// TODO: もしかすると、この return の場合に、element_items の free が必要？
 	if (element_items[0] == NULL)
+	{
+		SAFE_FREE(element_items);
 		return ;
+	}
 	if (ft_strcmp(element_items[0], "R") == 0)
 		get_resolution(element_items, fd);
 	else if (ft_strcmp(element_items[0], "F") == 0)
-		// set_color(&g_config.floor_color, &element_items[1], "F");
 		set_color(&g_config.floor_color, element_items, "F");
 	else if (ft_strcmp(element_items[0], "C") == 0)
-		set_color(&g_config.ceiling_color, &element_items[1], "C");
+		set_color(&g_config.ceiling_color, element_items, "C");
 	else
 		set_texture_if_valid(element_items);
 }

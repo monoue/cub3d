@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:12:14 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 10:17:20 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 12:03:53 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,33 @@ static void		exit_if_color_line_is_invalid(t_color color, char **element_items,
 {
 	size_t	index;
 
-	if (((int)color != NOT_SET) || (ft_count_strs((const char **)element_items) != 2) || (count_specific_c(element_items[1], ',') != 2 || ft_count_strs((const char **)num_strs) != 3))
-	{
+	// if (((int)color != NOT_SET) || (ft_count_strs((const char **)element_items) != 2) || (count_specific_c(element_items[1], ',') != 2 || ft_count_strs((const char **)num_strs) != 3))
+	// {
+		// free_str_array(element_items);
+		// free_str_array(num_strs);
+		if ((int)color != NOT_SET)
+		{
 		free_str_array(element_items);
 		free_str_array(num_strs);
-		if ((int)color != NOT_SET)
+
 			exit_with_error_message(ID_OVERLAPPING, id);
+		}
 		if (ft_count_strs((const char **)element_items) != 2)
+		{
+			ft_printf("element 1:%s", element_items[0]);
+		// free_str_array(element_items);
+		// free_str_array(num_strs);
 			exit_with_error_message(WRONG_INFO_NUM, id);
+
+		}
 		if (count_specific_c(element_items[1], ',') != 2 || ft_count_strs((const char **)num_strs) != 3)
+		{
+		free_str_array(element_items);
+		free_str_array(num_strs);
+
 			exit_with_error_message(INVALID_INFO, id);
-	}
+		}
+	// }
 	// {
 	// 	free_str_array(infos);
 	// 	free_str_array(num_strs);
@@ -84,6 +100,7 @@ void			set_color(t_color *color, char **element_items, char *id)
 	int		rgb_elements[3];
 	char	**num_strs;
 
+	num_strs = NULL;
 	num_strs = ft_split(element_items[1], ',');
 	exit_if_color_line_is_invalid(*color, element_items, num_strs, id);
 	free_str_array(element_items);

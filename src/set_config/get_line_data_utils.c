@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:54:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 09:51:24 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/09 12:08:37 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ void		get_resolution(char **element_items, int fd)
 	g_config.window_height = MIN(g_config.window_height,
 													ft_atoi(element_items[2]));
 	if (g_config.window_width == 0 || g_config.window_height == 0)
-		exit_closing_fd(INVALID_INFO, "R", fd);
+		exit_closing_fd_freeing_str_array(INVALID_INFO, "R", fd, element_items);
 	g_distance_proj_plane = (g_config.window_width / 2)
 														/ tan(FOV_ANGLE / 2);
+	free_str_array(element_items);
 }
 
 void		exit_if_not_all_elements_are_set(char *config_line, const int fd)

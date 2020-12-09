@@ -6,7 +6,7 @@
 #    By: monoue <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 15:33:41 by monoue            #+#    #+#              #
-#    Updated: 2020/12/09 10:30:29 by monoue           ###   ########.fr        #
+#    Updated: 2020/12/09 12:19:07 by monoue           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,8 +102,8 @@ $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_PATH)
 	$(MAKE) -C $(MINILIBX_PATH)
 	cp -f $(MINILIBX) .
-	$(CC) -g -fsanitize=address $^ -L$(LIBFT_PATH) -lft -L. -lmlx -o $@
-	# $(CC) $^ -L$(LIBFT_PATH) -lft -L. -lmlx -o $@
+	$(CC) $^ -L$(LIBFT_PATH) -lft -L. -lmlx -o $@
+	# $(CC) -g -fsanitize=address $^ -L$(LIBFT_PATH) -lft -L. -lmlx -o $@
 
 all: $(NAME)
 
