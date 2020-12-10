@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:59:29 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:54:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_LINE_DATA_UTILS_H
-# define GET_LINE_DATA_UTILS_H
+#ifndef GET_LINE_DATA_UTILS_BONUS_H
+# define GET_LINE_DATA_UTILS_BONUS_H
 
 # include "free_str_array_bonus.h"
 # include "../defs_bonus.h"

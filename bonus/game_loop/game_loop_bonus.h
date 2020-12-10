@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:44 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:53:38 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GAME_LOOP_H
-# define GAME_LOOP_H
+#ifndef GAME_LOOP_BONUS_H
+# define GAME_LOOP_BONUS_H
 
 # include "../../minilibx/mlx.h"
 

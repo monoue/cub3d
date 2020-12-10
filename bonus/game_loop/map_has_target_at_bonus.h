@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:50 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_HAS_TARGET_AT_H
-# define MAP_HAS_TARGET_AT_H
+#ifndef MAP_HAS_TARGET_AT_BONUS_H
+# define MAP_HAS_TARGET_AT_BONUS_H
 
 # include "../defs_bonus.h"
 # include "../global/init_g_map_bonus.h"

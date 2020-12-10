@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:18 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:46:15 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFS_H
-# define DEFS_H
+#ifndef DEFS_BONUS_H
+# define DEFS_BONUS_H
 
 # include <math.h>
 # include <stdint.h>

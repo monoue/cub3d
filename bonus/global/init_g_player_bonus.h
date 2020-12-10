@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 10:10:33 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:37 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_G_PLAYER_H
-# define INIT_G_PLAYER_H
+#ifndef INIT_G_PLAYER_BONUS_H
+# define INIT_G_PLAYER_BONUS_H
 
 # include "../defs_bonus.h"
 

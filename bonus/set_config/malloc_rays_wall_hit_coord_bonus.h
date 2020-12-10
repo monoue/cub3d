@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 12:55:29 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MALLOC_RAYS_WALL_HIT_COORD_H
-# define MALLOC_RAYS_WALL_HIT_COORD_H
+#ifndef MALLOC_RAYS_WALL_HIT_COORD_BONUS_H
+# define MALLOC_RAYS_WALL_HIT_COORD_BONUS_H
 
 # include "../global/init_g_config_bonus.h"
 # include "../global/init_g_rays_bonus.h"

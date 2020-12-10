@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 13:06:31 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:46:15 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_CONFIG_H
-# define SET_CONFIG_H
+#ifndef SET_CONFIG_BONUS_H
+# define SET_CONFIG_BONUS_H
 
 # include <fcntl.h>
 

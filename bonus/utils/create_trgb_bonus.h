@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:51 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CREATE_TRGB_H
-# define CREATE_TRGB_H
+#ifndef CREATE_TRGB_BONUS_H
+# define CREATE_TRGB_BONUS_H
 
 # include "../defs_bonus.h"
 

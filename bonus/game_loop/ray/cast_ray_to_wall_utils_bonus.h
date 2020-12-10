@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 16:15:40 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAST_RAY_TO_WALL_UTILS_H
-# define CAST_RAY_TO_WALL_UTILS_H
+#ifndef CAST_RAY_TO_WALL_UTILS_BONUS_H
+# define CAST_RAY_TO_WALL_UTILS_BONUS_H
 
 # include "coord_bonus.h"
 # include "../../defs_bonus.h"

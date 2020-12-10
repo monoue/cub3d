@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 13:18:48 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:56:13 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WRITE_IMAGE_H
-# define WRITE_IMAGE_H
+#ifndef WRITE_IMAGE_BONUS_H
+# define WRITE_IMAGE_BONUS_H
 
 # include <unistd.h>
 

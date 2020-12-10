@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 15:32:03 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UPDATE_SPRITE_DATA_UTILS_H
-# define UPDATE_SPRITE_DATA_UTILS_H
+#ifndef UPDATE_SPRITE_DATA_UTILS_BONUS_H
+# define UPDATE_SPRITE_DATA_UTILS_BONUS_H
 
 # include "../defs_bonus.h"
 # include "../global/init_g_distance_proj_plane_bonus.h"

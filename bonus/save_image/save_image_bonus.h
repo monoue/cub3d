@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:41 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:37 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SAVE_IMAGE_H
-# define SAVE_IMAGE_H
+#ifndef SAVE_IMAGE_BONUS_H
+# define SAVE_IMAGE_BONUS_H
 
 # include "../defs_bonus.h"
 # include "../global/init_g_img_bonus.h"

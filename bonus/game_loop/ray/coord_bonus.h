@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coord.h                                            :+:      :+:    :+:   */
+/*   coord_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:07:48 by monoue            #+#    #+#             */
-/*   Updated: 2020/11/21 13:08:07 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COORD_H
-# define COORD_H
+#ifndef COORD_BONUS_H
+# define COORD_BONUS_H
 
 typedef struct	s_coord {
 	float	x;

@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:57 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXIT_IF_MAP_IS_NOT_SURROUNDED_BY_WALLS_H
-# define EXIT_IF_MAP_IS_NOT_SURROUNDED_BY_WALLS_H
+#ifndef EXIT_IF_MAP_IS_NOT_SURROUNDED_BY_WALLS_BONUS_H
+# define EXIT_IF_MAP_IS_NOT_SURROUNDED_BY_WALLS_BONUS_H
 
 # include "../defs_bonus.h"
 # include "create_maps_bonus.h"

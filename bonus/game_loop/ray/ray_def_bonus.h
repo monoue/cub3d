@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:27:39 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_DEF_H
-# define RAY_DEF_H
+#ifndef RAY_DEF_BONUS_H
+# define RAY_DEF_BONUS_H
 
 # include "coord_bonus.h"
 

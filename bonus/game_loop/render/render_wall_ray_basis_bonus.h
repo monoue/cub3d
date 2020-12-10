@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:11:34 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_WALL_RAY_BASIS_H
-# define RENDER_WALL_RAY_BASIS_H
+#ifndef RENDER_WALL_RAY_BASIS_BONUS_H
+# define RENDER_WALL_RAY_BASIS_BONUS_H
 
 # include "../../defs_bonus.h"
 # include "../../global/init_g_config_bonus.h"

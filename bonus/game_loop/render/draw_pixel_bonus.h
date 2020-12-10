@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:38 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DRAW_PIXEL_H
-# define DRAW_PIXEL_H
+#ifndef DRAW_PIXEL_BONUS_H
+# define DRAW_PIXEL_BONUS_H
 
 # include "../../defs_bonus.h"
 # include "../../global/init_g_img_bonus.h"

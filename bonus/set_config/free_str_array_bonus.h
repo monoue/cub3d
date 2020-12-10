@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 07:39:00 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FREE_STR_ARRAY_H
-# define FREE_STR_ARRAY_H
+#ifndef FREE_STR_ARRAY_BONUS_H
+# define FREE_STR_ARRAY_BONUS_H
 
 # include <unistd.h>
 

@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:10:13 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:46:15 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CREATE_MAPS_H
-# define CREATE_MAPS_H
+#ifndef CREATE_MAPS_BONUS_H
+# define CREATE_MAPS_BONUS_H
 
 # include "../../libft/libft.h"
 # include "../defs_bonus.h"

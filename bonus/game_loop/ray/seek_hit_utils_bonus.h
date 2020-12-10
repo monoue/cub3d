@@ -6,12 +6,12 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 14:15:32 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/10 07:19:11 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SEEK_HIT_UTILS_H
-# define SEEK_HIT_UTILS_H
+#ifndef SEEK_HIT_UTILS_BONUS_H
+# define SEEK_HIT_UTILS_BONUS_H
 
 # include <float.h>
 # include <stdbool.h>
