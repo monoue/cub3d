@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:18:51 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/11 08:24:42 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ static bool	is_out_of_map(int x, int y)
 
 void		exit_if_map_is_not_surrounded_by_walls(int current_x, int current_y)
 {
-	int		direction;
-	int		new_x;
-	int		new_y;
-	char	new_c;
+	int			direction;
+	int			new_x;
+	int			new_y;
+	char		new_c;
+	const int	checked_c = 'X';
 
-	g_map_to_check[current_y][current_x] = 'X';
+	g_map_to_check[current_y][current_x] = checked_c;
 	direction = 0;
 	while (direction < 4)
 	{
@@ -38,7 +39,7 @@ void		exit_if_map_is_not_surrounded_by_walls(int current_x, int current_y)
 		new_c = g_map_to_check[new_y][new_x];
 		if (new_c == '\0')
 			exit_with_error_message(SINGLE, MAP_NOT_CLOSED);
-		if (new_c == '1' || new_c == 'X')
+		if (new_c == WALL_C || new_c == checked_c)
 			;
 		else
 			exit_if_map_is_not_surrounded_by_walls(new_x, new_y);

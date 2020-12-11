@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 17:43:22 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:36 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/11 08:14:44 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,16 @@ static size_t	calc_texture_offset_x(t_ray_to_wall ray, float texture_width)
 {
 	const t_coord	*wall_hit_coord = ray.wall_hit_coord;
 	float			texture_width_to_tile_size_ratio;
+	size_t			tile_offset_x;
 
 	texture_width_to_tile_size_ratio = texture_width / TILE_SIZE;
 	if (ray.was_hit_vertical)
-	{
-		return (((size_t)wall_hit_coord->y % TILE_SIZE)
-											* texture_width_to_tile_size_ratio);
-	}
+		tile_offset_x = (size_t)wall_hit_coord->y % TILE_SIZE;
 	else
-	{
-		return (((size_t)wall_hit_coord->x % TILE_SIZE)
-											* texture_width_to_tile_size_ratio);
-	}
+		tile_offset_x = (size_t)wall_hit_coord->x % TILE_SIZE;
+	if (ray.wall_hit_direction == WEST || ray.wall_hit_direction == SOUTH)
+		tile_offset_x = (TILE_SIZE - tile_offset_x) - 1;
+	return ((size_t)(tile_offset_x * texture_width_to_tile_size_ratio));
 }
 
 /*

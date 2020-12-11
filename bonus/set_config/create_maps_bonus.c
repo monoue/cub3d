@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:57:52 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/11 09:07:22 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	copy_line_to_map(const char *config_line, size_t current_row)
 	ft_strcpy(g_map_to_check[current_row], config_line);
 }
 
-static bool	is_empty_line(char *line)
+bool		is_empty_line(char *line)
 {
 	size_t	index;
 
@@ -57,6 +57,8 @@ void		create_map_array(char *map_first_line, int fd)
 	{
 		if (is_empty_line(config_line))
 			deal_with_map_empty_line(config_line, fd);
+		else if (!is_map_line(config_line))
+			map_exit_failure(config_line, MAP_INVALID, fd);
 		else
 		{
 			exit_if_too_large_map(config_line, current_height, fd);

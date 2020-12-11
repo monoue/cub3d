@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 12:42:52 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:45:27 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/11 09:18:59 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,6 @@ void		set_texture_if_valid(char **element_items)
 		t_i++;
 	}
 	free_str_array(element_items);
+	if (t_i == TEXTURES_NUM)
+		exit_with_error_message(SINGLE, INVALID_INDICATOR);
 }

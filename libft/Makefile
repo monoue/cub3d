@@ -95,6 +95,7 @@ clean:
 	find . -name *.o -print0 | xargs -0 $(RM)
 
 fclean: clean
+	$(RM) $(NAME)
 	find . -name *.a -print0 | xargs -0 $(RM)
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:54:24 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 15:42:51 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/11 09:09:19 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ static void	get_line_data(char *config_line, int fd)
 {
 	char	**element_items;
 
+	if (is_empty_line(config_line))
+	{
+		SAFE_FREE(config_line);
+		return ;
+	}
 	element_items = ft_split(config_line, ' ');
 	SAFE_FREE(config_line);
 	if (element_items[0] == NULL)

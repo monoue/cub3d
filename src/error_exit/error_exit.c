@@ -6,7 +6,7 @@
 /*   By: monoue <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 15:29:46 by monoue            #+#    #+#             */
-/*   Updated: 2020/12/09 16:03:42 by monoue           ###   ########.fr       */
+/*   Updated: 2020/12/11 08:26:00 by monoue           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	err_msg_invalid_info(char *error_content)
 {
 	ft_putstr_fd("config file: \"", STDERR_FILENO);
 	ft_putstr_fd(error_content, STDERR_FILENO);
-	ft_putstr_fd("\" line's informations is invalid\n", STDERR_FILENO);
+	ft_putstr_fd("\" line's information is invalid\n", STDERR_FILENO);
 }
 
 void		exit_with_error_message(t_error_types message_type,
