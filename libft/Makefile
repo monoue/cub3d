@@ -6,9 +6,8 @@ BONUS =
 ADDED =
 FT_PRINTF =
 SRCS =		$(PART1) $(PART2) $(BONUS) $(ADDED) $(FT_PRINTF)
-OBJS =		$(SRCS:%.c=%.o)
-CLIBS =		-L . -lft
 CFLAGS =	-Wall -Wextra -Werror
+INCLUDE = libft.h
 
 FT_PRINTF_PATH = ft_printf/
 
@@ -86,17 +85,22 @@ FT_PRINTF += $(FT_PRINTF_PATH)is.c
 FT_PRINTF += $(FT_PRINTF_PATH)put_result.c
 FT_PRINTF += $(FT_PRINTF_PATH)set_zero_minwidth_minus_prec.c
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+OBJS =		$(SRCS:%.c=%.o)
 
 all: $(NAME)
 
+%.o:%.c
+	$(CC) $(CFLAGS) -I./$(INCLUDE) -o $@ -c $<
+
+$(NAME): $(OBJS)
+	ar rcs $(NAME) $(OBJS)
+	ranlib $(NAME)
+
 clean:
-	find . -name *.o -print0 | xargs -0 $(RM)
+	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
-	find . -name *.a -print0 | xargs -0 $(RM)
 
 re: fclean all
 

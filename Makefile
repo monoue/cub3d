@@ -6,7 +6,7 @@
 #    By: monoue <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/30 15:33:41 by monoue            #+#    #+#              #
-#    Updated: 2020/12/09 16:59:24 by monoue           ###   ########.fr        #
+#    Updated: 2020/12/11 15:17:06 by monoue           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,7 +100,7 @@ SRCS_NAME += $(UTILS_PATH)create_trgb.c
 SRCS_NAME += $(UTILS_PATH)normalize_angle.c
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
-OBJS = $(SRCS:%.c=%.o)
+OBJS = $(SRCS:.c=.o)
 
 BONUS_NAME += $(ERROR_EXIT_PATH)error_exit_bonus.c
 BONUS_NAME += $(ERROR_EXIT_PATH)exit_if_closing_fd_error_bonus.c
@@ -167,7 +167,12 @@ BONUS_NAME += $(UTILS_PATH)create_trgb_bonus.c
 BONUS_NAME += $(UTILS_PATH)normalize_angle_bonus.c
 
 BSRCS = $(addprefix $(BONUS_PATH), $(BONUS_NAME))
-BOBJS = $(BSRCS:%.c=%.o)
+BOBJS = $(BSRCS:.c=.o)
+
+all: $(NAME)
+
+%.o:%.c
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(NAME): $(OBJS)
 	$(MAKE) -C $(LIBFT_PATH)
@@ -175,7 +180,6 @@ $(NAME): $(OBJS)
 	cp -f $(MINILIBX) .
 	$(CC) $^ -L$(LIBFT_PATH) -lft -L. -lmlx -o $@
 
-all: $(NAME)
 
 bonus: $(BOBJS)
 	$(MAKE) -C $(LIBFT_PATH)
@@ -186,6 +190,7 @@ bonus: $(BOBJS)
 clean:
 	$(MAKE) -C $(LIBFT_PATH) clean
 	$(MAKE) -C $(MINILIBX_PATH) clean
+	$(RM) $(OBJS) $(BOBJS)
 	find . -name *.o -print0 | xargs -0 $(RM)
 
 fclean: clean
